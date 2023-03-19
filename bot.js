@@ -1,17 +1,11 @@
+const config = require("./config.json")
 const irc = require("irc")
-const nickname = "Arc"
-const server = "irc.libera.chat"
-const channels = ["#defmod"]
 const openai = require("openai")
-const model = "text-davinci-003"
-const max_prompt_length = 200
-const max_tokens = 190
-
 let irc_client, chatgpt
 
 function start_irc () {
-  irc_client = new irc.Client(server, nickname, {
-    channels: channels
+  irc_client = new irc.Client(config.server, config.nickname, {
+    channels: config.channels
   })
   
   irc_client.addListener("message", function (from, to, message) {
@@ -24,10 +18,10 @@ function start_irc () {
     let nick = split[0].trim()
     let msg = split.slice(1).join("").trim()
 
-    if (nick.toLowerCase() === nickname.toLowerCase()) {
-      if (channels.includes(to)) {
+    if (nick.toLowerCase() === config.nickname.toLowerCase()) {
+      if (config.channels.includes(to)) {
 
-        if (msg.length <= max_prompt_length) {
+        if (msg.length <= config.max_prompt_length) {
           console.log(from + ' => ' + to + ': ' + msg);
           ask_chatgpt(msg, to)
         }
@@ -47,9 +41,9 @@ async function start_chatgpt () {
 async function ask_chatgpt (prompt, to) {
   try {
     let completion = await chatgpt.createCompletion({
-      model: model,
+      model: config.model,
       prompt: prompt,
-      max_tokens: max_tokens
+      max_tokens: config.max_tokens
     })
   
     let ans = completion.data.choices[0].text

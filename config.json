@@ -1,0 +1,8 @@
+{
+  "nickname": "Arc",
+  "server": "irc.libera.chat",
+  "channels": ["#defmod"],
+  "model": "text-davinci-003",
+  "max_prompt_length": 200,
+  "max_tokens": 190
+}
