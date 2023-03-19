@@ -1,7 +1,7 @@
 const config = require("./config.json")
 const irc = require("irc")
 const openai = require("openai")
-let irc_client, chatgpt
+let irc_client, openai_client
 
 function start_irc () {
   irc_client = new irc.Client(config.server, config.nickname, {
@@ -23,24 +23,24 @@ function start_irc () {
 
         if (msg.length <= config.max_prompt_length) {
           console.log(from + ' => ' + to + ': ' + msg);
-          ask_chatgpt(msg, to)
+          ask_openai(msg, to)
         }
       }
     }
   })
 }
 
-async function start_chatgpt () {
+async function start_openai () {
   let configuration = new openai.Configuration({
     apiKey: process.env.OPENAI_API_KEY
   })
 
-  chatgpt = new openai.OpenAIApi(configuration)
+  openai_client = new openai.OpenAIApi(configuration)
 }
 
-async function ask_chatgpt (prompt, to) {
+async function ask_openai (prompt, to) {
   try {
-    let ans = await chatgpt.createCompletion({
+    let ans = await openai_client.createCompletion({
       model: config.model,
       prompt: prompt,
       max_tokens: config.max_tokens
@@ -61,7 +61,7 @@ async function ask_chatgpt (prompt, to) {
 }
 
 async function main () {
-  await start_chatgpt()
+  await start_openai()
   start_irc()
 }
 
