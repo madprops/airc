@@ -22,7 +22,7 @@ function start_irc () {
     let nick = split[0].trim()
     let msg = split.slice(1).join("").trim()
 
-    if (nick.toLowerCase() === nickname.toLowerCase())) {
+    if (nick.toLowerCase() === nickname.toLowerCase()) {
       if (channels.includes(to)) {
 
         if (msg.length <= max_prompt_length) {
