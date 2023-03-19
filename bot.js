@@ -1,7 +1,8 @@
 const irc = require("irc")
 const openai = require("openai")
-const nickname = "ChatGPT"
+const nickname = "Carlos"
 const channels = ["#defmod"]
+const model = "text-davinci-003"
 const max_prompt_length = 200
 
 let irc_client, chatgpt
@@ -12,9 +13,17 @@ function start_irc () {
   })
   
   irc_client.addListener("message", function (from, to, message) {
-    if (message.startsWith(nickname + ",")) {
+    let split = message.split(",")
+
+    if (split.length < 2) {
+      return
+    }
+    
+    let nick = split[0].trim()
+    let msg = split.slice(1).join("").trim()
+
+    if (message.toLowerCase().startsWith(nick.toLowerCase() + ",")) {
       if (channels.includes(to)) {
-        let msg = message.split(",").slice(1).join("").trim()
 
         if (msg.length <= max_prompt_length) {
           console.log(from + ' => ' + to + ': ' + msg);
@@ -34,14 +43,22 @@ async function start_chatgpt () {
 }
 
 async function ask_chatgpt (prompt, to) {
-  let completion = await chatgpt.createCompletion({
-    model: "text-davinci-003",
-    prompt: prompt,
-    max_tokens: 190
-  })
+  try {
+    let completion = await chatgpt.createCompletion({
+      model: model,
+      prompt: prompt,
+      max_tokens: 190
+    })
+  
+    let ans = completion.data.choices[0].text
 
-  let ans = completion.data.choices[0].text
-  irc_client.say(to, ans)
+    if (ans) {
+      irc_client.say(to, ans)
+    }
+  }
+  catch {
+    console.error("chatgpt completion error")
+  }
 }
 
 async function main () {
