@@ -40,19 +40,22 @@ async function start_chatgpt () {
 
 async function ask_chatgpt (prompt, to) {
   try {
-    let completion = await chatgpt.createCompletion({
+    let ans = await chatgpt.createCompletion({
       model: config.model,
       prompt: prompt,
       max_tokens: config.max_tokens
     })
-  
-    let ans = completion.data.choices[0].text
 
-    if (ans) {
-      irc_client.say(to, ans)
+    if (ans.status === 200) {
+      let text = ans.data.choices[0].text
+  
+      if (text) {
+        irc_client.say(to, text)
+      }
     }
   }
-  catch {
+  catch (err) {
+    console.error(err)
     console.error("ChatGPT completion error")
   }
 }
