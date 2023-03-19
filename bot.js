@@ -13,7 +13,7 @@ function start_irc () {
   })
   
   irc_client.addListener("message", function (from, to, message) {
-    let split = message.split(",")
+    let split = message.split(/[,:]/)
 
     if (split.length < 2) {
       return
