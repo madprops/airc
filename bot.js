@@ -1,8 +1,8 @@
 const irc = require("irc")
-const openai = require("openai")
 const nickname = "Arc"
 const server = "irc.libera.chat"
 const channels = ["#defmod"]
+const openai = require("openai")
 const model = "text-davinci-003"
 const max_prompt_length = 200
 
