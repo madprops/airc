@@ -5,10 +5,10 @@ Simple nodejs irc openai bot.
 ## Installation
 
 1) Clone this repo
-2) Run 'npm install' inside the dir
-3) Configure config.json
-4) Export api key to environment
-5) Run it with 'node bot.js'
+1) Run 'npm install' inside the dir
+1) Configure config.json
+1) Export api key to environment
+1) Run it with 'node bot.js'
 
 ---
 
