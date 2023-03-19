@@ -59,7 +59,7 @@ async function ask_chatgpt (prompt, to) {
     }
   }
   catch {
-    console.error("chatgpt completion error")
+    console.error("ChatGPT completion error")
   }
 }
 
