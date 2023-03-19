@@ -5,6 +5,7 @@ const channels = ["#defmod"]
 const openai = require("openai")
 const model = "text-davinci-003"
 const max_prompt_length = 200
+const max_tokens = 190
 
 let irc_client, chatgpt
 
@@ -48,7 +49,7 @@ async function ask_chatgpt (prompt, to) {
     let completion = await chatgpt.createCompletion({
       model: model,
       prompt: prompt,
-      max_tokens: 190
+      max_tokens: max_tokens
     })
   
     let ans = completion.data.choices[0].text
