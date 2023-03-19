@@ -1,6 +1,7 @@
 const irc = require("irc")
 const openai = require("openai")
 const nickname = "Arc"
+const server = "irc.libera.chat"
 const channels = ["#defmod"]
 const model = "text-davinci-003"
 const max_prompt_length = 200
@@ -8,7 +9,7 @@ const max_prompt_length = 200
 let irc_client, chatgpt
 
 function start_irc () {
-  irc_client = new irc.Client("irc.libera.chat", nickname, {
+  irc_client = new irc.Client(server, nickname, {
     channels: channels
   })
   
