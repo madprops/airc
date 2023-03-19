@@ -1,6 +1,6 @@
 const irc = require("irc")
 const openai = require("openai")
-const nickname = "Carlos"
+const nickname = "Arc"
 const channels = ["#defmod"]
 const model = "text-davinci-003"
 const max_prompt_length = 200
@@ -18,11 +18,11 @@ function start_irc () {
     if (split.length < 2) {
       return
     }
-    
+
     let nick = split[0].trim()
     let msg = split.slice(1).join("").trim()
 
-    if (message.toLowerCase().startsWith(nick.toLowerCase() + ",")) {
+    if (nick.toLowerCase() === nickname.toLowerCase())) {
       if (channels.includes(to)) {
 
         if (msg.length <= max_prompt_length) {
