@@ -10,4 +10,4 @@ Address the bot with:
 
 or 
 
-`mybot: some questio`
+`mybot: some question`
