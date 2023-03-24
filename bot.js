@@ -9,23 +9,53 @@ function start_irc () {
   })
   
   irc_client.addListener("message", function (from, to, message) {
-    let split = message.split(/[,:]/)
-
-    if (split.length < 2) {
+    if (from === config.nickname) {
       return
-    }
-
-    let nick = split[0].trim()
-    let msg = split.slice(1).join("").trim()
-
-    if (nick.toLowerCase() === config.nickname.toLowerCase()) {
+    } 
+    
+    function respond (from, to, msg) {
       if (config.channels.includes(to)) {
-
         if (msg.length <= config.max_prompt_length) {
-          console.log(from + ' => ' + to + ': ' + msg);
+          console.info(from + ' => ' + to + ': ' + msg);
           ask_openai(msg, to)
         }
       }
+    }    
+
+    function try_nick () {
+      let split = message.split(/[,:]/)
+  
+      if (split.length < 2) {
+        return
+      }
+  
+      let nick = split[0].trim()
+      let msg = split.slice(1).join("").trim()
+
+      if (nick.toLowerCase() === config.nickname.toLowerCase()) {
+        respond(from, to, msg)
+        return true
+      }
+
+      return false
+    }
+
+    function try_auto_respond () {
+      let num = get_random_int(1, 100)
+
+      if (num >= 1 && num <= config.auto_respond_probability) {
+        respond(from, to, message)
+        return true
+      }
+
+      return false
+    }
+
+    if (try_nick()) {
+      return
+    }
+    else if (config.auto_respond) {
+      try_auto_respond()
     }
   })
 }
@@ -55,9 +85,12 @@ async function ask_openai (prompt, to) {
     }
   }
   catch (err) {
-    console.error(err)
     console.error("ChatGPT completion error")
   }
+}
+
+function get_random_int (min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 async function main () {

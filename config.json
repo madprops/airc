@@ -1,8 +1,10 @@
 {
-  "nickname": "Arc",
+  "nickname": "Arctest",
   "server": "irc.libera.chat",
-  "channels": ["#defmod"],
+  "channels": ["#arctest"],
   "model": "text-davinci-003",
-  "max_prompt_length": 200,
-  "max_tokens": 190
+  "max_prompt_length": 250,
+  "max_tokens": 200,
+  "auto_respond": true,
+  "auto_respond_probability": 3
 }
