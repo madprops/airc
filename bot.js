@@ -9,55 +9,59 @@ function start_irc () {
   })
   
   irc_client.addListener("message", function (from, to, message) {
-    if (from === config.nickname) {
-      return
-    } 
-    
-    function respond (from, to, msg) {
-      if (config.channels.includes(to)) {
-        if (msg.length <= config.max_prompt_length) {
-          console.info(from + ' => ' + to + ': ' + msg);
-          ask_openai(msg, to)
-        }
-      }
-    }    
-
-    function try_nick () {
-      let split = message.split(/[,:]/)
-  
-      if (split.length < 2) {
-        return
-      }
-  
-      let nick = split[0].trim()
-      let msg = split.slice(1).join("").trim()
-
-      if (nick.toLowerCase() === config.nickname.toLowerCase()) {
-        respond(from, to, msg)
-        return true
-      }
-
-      return false
-    }
-
-    function try_auto_respond () {
-      let num = get_random_int(1, 100)
-
-      if (num >= 1 && num <= config.auto_respond_probability) {
-        respond(from, to, message)
-        return true
-      }
-
-      return false
-    }
-
-    if (try_nick()) {
-      return
-    }
-    else if (config.auto_respond) {
-      try_auto_respond()
-    }
+    on_irc_message(from, to, message)
   })
+}
+
+function on_irc_message (from, to, message) {
+  if (from === config.nickname) {
+    return
+  } 
+  
+  function respond (from, to, msg) {
+    if (config.channels.includes(to)) {
+      if (msg.length <= config.max_prompt_length) {
+        console.info(from + ' => ' + to + ': ' + msg);
+        ask_openai(msg, to)
+      }
+    }
+  }    
+
+  function try_nick_mention () {
+    let split = message.split(/[,:]/)
+
+    if (split.length < 2) {
+      return false
+    }
+
+    let nick = split[0].trim()
+    let msg = split.slice(1).join("").trim()
+
+    if (nick.toLowerCase() === config.nickname.toLowerCase()) {
+      respond(from, to, msg)
+      return true
+    }
+
+    return false
+  }
+
+  function try_auto_respond () {
+    let num = get_random_int(1, 100)
+
+    if (num >= 1 && num <= config.auto_respond_probability) {
+      respond(from, to, message)
+      return true
+    }
+
+    return false
+  }
+
+  if (try_nick_mention()) {
+    return
+  }
+  else if (config.auto_respond_probability > 0) {
+    try_auto_respond()
+  }
 }
 
 async function start_openai () {
