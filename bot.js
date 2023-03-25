@@ -1,8 +1,8 @@
 const config = require("./config.json")
 const irc = require("irc")
 const openai = require("openai")
+const last_messages = {}
 let irc_client, openai_client
-let last_messages = {}
 
 function start_irc () {
   irc_client = new irc.Client(config.server, config.nickname, {
@@ -42,7 +42,7 @@ function on_irc_message (from, to, message) {
     if (!match) {
       return false
     }
-    
+
     let nick = match.groups.nickname.trim()
     let msg = match.groups.message.trim()
 
@@ -111,7 +111,7 @@ async function ask_openai (prompt, to) {
     }
   }
   catch (err) {
-    console.error("ChatGPT completion error")
+    console.error("openai completion error")
   }
 }
 
