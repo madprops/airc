@@ -36,14 +36,19 @@ function on_irc_message (from, to, message) {
   }    
 
   function try_nick_mention () {
-    let split = message.split(/[,:]/)
+    let re = new RegExp(/^(?<nickname>\w+)[,:](?<message>.*)$/, "")
+    let match = message.match(re)
 
-    if (split.length < 2) {
+    if (!match) {
       return false
     }
+    
+    let nick = match.groups.nickname.trim()
+    let msg = match.groups.message.trim()
 
-    let nick = split[0].trim()
-    let msg = split.slice(1).join("").trim()
+    if (!nick || !msg) {
+      return false
+    }
 
     if (nick.toLowerCase() === config.nickname.toLowerCase()) {
       respond(from, to, msg)
