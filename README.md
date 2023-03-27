@@ -86,4 +86,19 @@ if (config.instructions) {
 
 ---
 
+Here's an example of a script to start a bot:
+
+```bash
+#!/usr/bin/env bash
+export OPENAI_API_KEY=123mykey456
+while true; do nohup node /home/botguy/arc/bot.js
+done &
+```
+
+`nohup` backgrounds the process so it doesn't block the session.
+
+If it crashes it will auto-restart because of the while loop.
+
+---
+
 ![](https://i.imgur.com/H9yo8Jt.jpg)
