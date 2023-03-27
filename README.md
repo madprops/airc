@@ -30,16 +30,53 @@ or
 
 ## Config
 
+`nickname`: irc nickname.
+
 ---
 
-`auto_respond_probability` wil attempt to auto respond with this % chance.
+`server`: irc server.
+
+---
+
+`channels`: List of irc channels to join.
+
+---
+
+`model`: openai model to use.
+
+---
+
+`max_prompt_length`: Ignore prompts longer than this. Instructions length is not considered.
+
+---
+
+`auto_respond_probability`: The percentage chance (1 to 100) of whether the bot autoresponds after a message.
+
+This only kicks on normal comments that are sent right after the bot gave a response.
+
+The idea is that these comments are likely reactions to what the bot said.
+
+```
+You: How much is 2 + 2?
+
+Bot: 2 + 2 is 4.
+
+You: That is correct...
+
+* Bot rolls the dice *
+
+Bot: I'm glad that 4 is the correct answer! 
+```
+
 Set it to 0 to disable it.
 
 ---
 
-`instructions` Optional commands for the bot, they're prepended before the prompt.
+`instructions`: Optional commands for the bot, they're prepended before the prompt.
 
 For example: "Please respond in the style of Stewie from Family Guy"
+
+The code used to build the prompt looks like this:
 
 ```js
 if (config.instructions) {
