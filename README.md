@@ -28,6 +28,10 @@ or
 
 ---
 
+## Config
+
+---
+
 `auto_respond_probability` wil attempt to auto respond with this % chance.
 Set it to 0 to disable it.
 
