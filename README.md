@@ -84,6 +84,8 @@ if (config.instructions) {
 }
 ```
 
+## Scripts
+
 ---
 
 Here's an example of a script to start a bot:
@@ -95,7 +97,7 @@ while true; do nohup node /home/botguy/arc/bot.js
 done &
 ```
 
-`nohup` backgrounds the process so it doesn't block the session.
+`nohup` makes the node process persist even after you log out of that session.
 
 If it crashes it will auto-restart because of the while loop.
 
