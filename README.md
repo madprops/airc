@@ -33,4 +33,10 @@ Set it to 0 to disable it.
 
 ---
 
+`instructions` Optional commands for the bot, they're prepended before the prompt.
+
+For example: "Please respond in the style of Stewie from Family Guy"
+
+---
+
 ![](https://i.imgur.com/H9yo8Jt.jpg)
