@@ -37,6 +37,12 @@ Set it to 0 to disable it.
 
 For example: "Please respond in the style of Stewie from Family Guy"
 
+```js
+if (config.instructions) {
+  prompt = config.instructions + ". " + prompt
+}
+```
+
 ---
 
 ![](https://i.imgur.com/H9yo8Jt.jpg)
