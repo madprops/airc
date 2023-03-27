@@ -50,7 +50,7 @@ or
 
 ---
 
-`auto_respond_probability`: The percentage chance (1 to 100) of whether the bot auto responds after a message.
+`auto_respond_probability`: The percentage chance (0 to 100) of whether the bot auto responds after a message.
 
 This only kicks on normal comments that are sent right after the bot gave a response.
 
@@ -68,7 +68,7 @@ You: That is correct...
 Bot: I'm glad that 4 is the correct answer! 
 ```
 
-Set it to 0 to disable it.
+Set it to 0 to disable it completely.
 
 ---
 
