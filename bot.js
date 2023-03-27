@@ -95,6 +95,14 @@ async function start_openai () {
 }
 
 async function ask_openai (prompt, to) {
+  if (prompt.length > config.max_prompt_length) {
+    return
+  }
+
+  if (config.instructions) {
+    prompt = config.instructions + ". " + prompt
+  }
+
   try {
     let ans = await openai_client.createCompletion({
       model: config.model,

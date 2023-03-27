@@ -5,5 +5,6 @@
   "model": "text-davinci-003",
   "max_prompt_length": 300,
   "max_tokens": 200,
-  "auto_respond_probability": 3
+  "auto_respond_probability": 3,
+  "instructions": ""
 }
