@@ -146,6 +146,10 @@ Changes to config properties are saved to config.json
 
 ## Scripts
 
+These are some script ideas you can use to manage the bot(s)
+
+---
+
 Start a bot:
 
 ```bash
