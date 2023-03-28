@@ -122,7 +122,7 @@ Admins of the bot can issue commands to change some of its state.
 
 Commands start with "!" and the bot's nickname must be mentioned.
 
-For example: `mybot, !help`
+For example: `mybot, !help`.
 
 These are the available commands:
 
