@@ -1,6 +1,7 @@
 const App = {}
 
 App.fs = require("fs")
+App.path = require("path")
 App.config = require("./config.json")
 App.irc = require("irc")
 App.openai = require("openai")
