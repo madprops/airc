@@ -53,7 +53,7 @@ module.exports = function (App) {
             let arg = prompt.replace(/^\!instructions /, "").trim()
             
             if (arg) {
-              if (arg.length <= 250) {
+              if (arg.length <= App.max_instructions_length) {
                 if (arg === "empty") {
                   arg = ""
                 }
@@ -98,7 +98,7 @@ module.exports = function (App) {
             if (arg) {
               let ins = `Please respond as if you were ${arg}`
   
-              if (ins && ins.length <= 250) {  
+              if (ins.length <= App.max_instructions_length) {  
                 App.update_config("instructions", ins)              
                 App.irc_client.say(to, "Instructions have been set to: " + ins)
               }
