@@ -7,6 +7,7 @@ module.exports = function (App) {
     try {
       App.config[key] = value
       let p = App.get_config_path()
+      console.info(p)
       let s = JSON.stringify(App.config, null, 2)
       App.fs.writeFileSync(p, s)
     }
