@@ -108,8 +108,6 @@ Nickname detection is case insensitive. `MyBot` and `mybot` work.
 
 ## Scripts
 
----
-
 Here's a script to start a bot:
 
 ```bash
