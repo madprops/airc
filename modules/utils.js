@@ -6,12 +6,16 @@ module.exports = function (App) {
   App.update_config = function (key, value) {
     try {
       App.config[key] = value
-      let filepath = App.path.join(process.cwd(), "config.json")
+      let filepath = App.get_config_path()
       let s = JSON.stringify(App.config, null, 2)
       App.fs.writeFileSync(filepath, s)
     }
     catch (err) {
       console.error("Error updating the config file")
     }
-  }  
+  } 
+  
+  App.get_config_path = function () {
+    return App.path.join(process.cwd(), "config.json")
+  }
 }
