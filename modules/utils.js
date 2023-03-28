@@ -6,8 +6,7 @@ module.exports = function (App) {
   App.update_config = function (key, value) {
     try {
       App.config[key] = value
-      let p = App.get_config_path()
-      console.info(p)
+      let p = "./config.json"
       let s = JSON.stringify(App.config, null, 2)
       App.fs.writeFileSync(p, s)
     }
@@ -15,8 +14,4 @@ module.exports = function (App) {
       console.error("Error updating the config file")
     }
   } 
-  
-  App.get_config_path = function () {
-    return App.path.join(process.cwd(), "config.json")
-  }
 }
