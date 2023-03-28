@@ -42,7 +42,9 @@ Nickname detection is case insensitive. `MyBot` and `mybot` work.
 
 ## Config
 
-`nickname`: irc nickname of the bot.
+`nickname`: irc nickname of the bot. 
+Make sure it's not in use yet: `/whois nickname` 
+and make sure it's not registered: `/msg nickserv info nickname`
 
 ---
 
