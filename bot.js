@@ -95,6 +95,8 @@ async function start_openai () {
 }
 
 async function ask_openai (prompt, to) {
+  prompt = prompt.trim()
+  
   if (prompt.length > config.max_prompt_length) {
     return
   }
