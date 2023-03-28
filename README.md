@@ -78,6 +78,16 @@ if (config.instructions) {
 
 ---
 
+`admins`: An array of irc nicknames that can control the bot through commands.
+
+---
+
+`silent`: If this is true it will ignore all mentions and won't send requests to openai. 
+This is when you want the room to be quiet to avoid spam or to counter a raid. 
+Admin commands are still active.
+
+---
+
 ## Api Key
 
 It reads the openai api key from the shell environment, it's not added to the code or config. You must do this before running the bot:
@@ -103,6 +113,30 @@ or
 `mybot: some question`
 
 Nickname detection is case insensitive. `MyBot` and `mybot` work.
+
+---
+
+### Commands
+
+Admins of the bot can issue commands to change some of its state.
+
+Commands start with "!" and the bot's nickname must be mentioned.
+
+For example: `mybot, !help`
+
+These are the available commands:
+
+`!help`: Show some information about commands.
+
+`!instructions`: Responds with the current instructions string.
+
+`!set instructions to x`: Sets instructions to x.
+
+`!silent`: Responds with the current silent boolean.
+
+`!set silent to [true|false]`: Sets silent to true or false.
+
+Changes to config properties trigger an update to config.json
 
 ---
 

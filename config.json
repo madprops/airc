@@ -1,10 +1,16 @@
 {
   "nickname": "Arctest",
   "server": "irc.libera.chat",
-  "channels": ["#arctest"],
+  "channels": [
+    "#arctest"
+  ],
   "model": "text-davinci-003",
   "max_prompt_length": 300,
   "max_tokens": 200,
   "auto_respond_probability": 10,
-  "instructions": ""
+  "instructions": "",
+  "admins": [
+    "madprops"
+  ],
+  "silent": false
 }
