@@ -150,7 +150,7 @@ If set to "empty" it will set it to an empty string.
 
 `!ur a monkey` would set the instructions to `Please respond as if you were a monkey`.
 
-Changes to config properties trigger an update to config.json
+Changes to config properties are saved to config.json
 
 ---
 
