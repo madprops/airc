@@ -94,7 +94,7 @@ if (config.instructions) {
 
 ---
 
-Here's an example of a script to start a bot:
+Here's a script to start a bot:
 
 ```bash
 #!/usr/bin/env bash
@@ -109,12 +109,14 @@ If it crashes it will auto-restart because of the while loop.
 
 ---
 
-Here's a script to stop a bit:
+Here's a script to stop a bot:
 
 ```bash
 #!/usr/bin/env bash
 ps ax | grep -e "start_airc.sh" -e "airc/bot.js"| grep -v grep | awk '{print $1}' | xargs kill
 ```
+
+This stops the start script and the bot process.
 
 Change paths accordingly.
 
