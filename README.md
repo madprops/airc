@@ -18,6 +18,8 @@ It reads the openai api key from the shell environment, it's not added to the co
 
 `export OPENAI_API_KEY=123mykey456`
 
+Using your secret api key, which is not meant to be shared.
+
 ---
 
 ## Usage
