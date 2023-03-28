@@ -87,7 +87,7 @@ module.exports = function (App) {
 
           else if (prompt.startsWith("!ur ")) {
             let thing = prompt.replace(/^\!ur /, "").trim()
-            let ins = `Please respond as if you are ${thing}`
+            let ins = `Please respond as if you were ${thing}`
 
             if (ins.length <= 250) {
               if (ins === "empty") {
