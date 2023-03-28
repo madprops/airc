@@ -19,128 +19,133 @@ function start_irc () {
   })  
 }
 
-function on_irc_message (from, to, message) {
-  if (from === config.nickname) {
+function try_respond (from, to, prompt) {
+  if (config.silent) {
     return
-  } 
-    
-  let prev_message = last_messages[to]
-  last_messages[to] = {from: from, to: to, message: message}
-  
-  function respond (from, to, prompt) {
-    if (config.silent) {
-      return
+  }
+
+  if (config.channels.includes(to)) {
+    if (prompt.length <= config.max_prompt_length) {
+      console.info(from + ' => ' + to + ': ' + prompt);
+      ask_openai(prompt, to)
     }
+  }
+}
 
-    if (config.channels.includes(to)) {
-      if (prompt.length <= config.max_prompt_length) {
-        console.info(from + ' => ' + to + ': ' + prompt);
-        ask_openai(prompt, to)
-      }
-    }
-  }    
+function try_nick_mention (from, to, message) {
+  let re = new RegExp(/^(?<nickname>\w+)[,:](?<message>.*)$/, "")
+  let match = message.match(re)
 
-  function try_nick_mention () {
-    let re = new RegExp(/^(?<nickname>\w+)[,:](?<message>.*)$/, "")
-    let match = message.match(re)
+  if (!match) {
+    return false
+  }
 
-    if (!match) {
-      return false
-    }
+  let nick = match.groups.nickname.trim()
+  let prompt = match.groups.message.trim()
 
-    let nick = match.groups.nickname.trim()
-    let prompt = match.groups.message.trim()
+  if (!nick || !prompt) {
+    return false
+  }
 
-    if (!nick || !prompt) {
-      return false
-    }
+  if(prompt === "hi" || prompt === "hello") {
+    irc_client.say(to, "hi!")
+    return true
+  }
 
-    if (nick.toLowerCase() === config.nickname.toLowerCase()) {
-      if (prompt.startsWith("!")) {
-        if (config.admins.includes(from)) {
-          if (prompt.startsWith("!help")) {
-            irc_client.say(to, "Commands: !instructions, !set instructions to [x|empty], !silent, !set silent to [true|false], !autorespond, !set autorespond to [0-100]")
-          }
+  if (nick.toLowerCase() === config.nickname.toLowerCase()) {
+    if (prompt.startsWith("!")) {
+      if (config.admins.includes(from)) {
+        if (prompt.startsWith("!help")) {
+          irc_client.say(to, "Commands: !instructions, !set instructions to [x|empty], !silent, !set silent to [true|false], !autorespond, !set autorespond to [0-100]")
+        }
 
-          else if (prompt.startsWith("!instructions")) {
-            irc_client.say(to, "Instructions: " + (config.instructions || "[Empty]"))
-          }
+        else if (prompt.startsWith("!instructions")) {
+          irc_client.say(to, "Instructions: " + (config.instructions || "[Empty]"))
+        }
 
-          else if (prompt.startsWith("!set instructions to ")) {
-            let ins = prompt.replace(/^\!set instructions to /, "").trim()
+        else if (prompt.startsWith("!set instructions to ")) {
+          let ins = prompt.replace(/^\!set instructions to /, "").trim()
 
-            if (ins.length <= 250) {
-              if (ins === "empty") {
-                ins = ""
-              }
-
-              update_config("instructions", ins)
-              irc_client.say(to, "Instructions have been set to: " + (ins || "empty"))
+          if (ins.length <= 250) {
+            if (ins === "empty") {
+              ins = ""
             }
-          }
 
-          else if (prompt.startsWith("!silent")) {
-            irc_client.say(to, "Silent: " + config.silent)
-          }          
-
-          else if (prompt.startsWith("!set silent to ")) {
-            let yesno = prompt.replace(/^\!set silent to /, "").trim()
-            let bool = yesno === "true"
-            update_config("silent", bool)
-            irc_client.say(to, "Silent has been set to: " + bool)
-          }
-
-          else if (prompt.startsWith("!autorespond")) {
-            irc_client.say(to, "Autorespond: " + config.autorespond)
-          }          
-
-          else if (prompt.startsWith("!set autorespond to ")) {
-            let ns = prompt.replace(/^\!set autorespond to /, "").trim()
-            let n = parseInt(ns)
-
-            if (!isNaN(n) && n >= 0 && n <= 100) {
-              update_config("autorespond", n)
-              irc_client.say(to, "Autorespond has been set to: " + n + "%")
-            }
+            update_config("instructions", ins)
+            irc_client.say(to, "Instructions have been set to: " + (ins || "empty"))
           }
         }
 
-        return true
+        else if (prompt.startsWith("!silent")) {
+          irc_client.say(to, "Silent: " + config.silent)
+        }          
+
+        else if (prompt.startsWith("!set silent to ")) {
+          let yesno = prompt.replace(/^\!set silent to /, "").trim()
+          let bool = yesno === "true"
+          update_config("silent", bool)
+          irc_client.say(to, "Silent has been set to: " + bool)
+        }
+
+        else if (prompt.startsWith("!autorespond")) {
+          irc_client.say(to, "Autorespond: " + config.autorespond)
+        }          
+
+        else if (prompt.startsWith("!set autorespond to ")) {
+          let ns = prompt.replace(/^\!set autorespond to /, "").trim()
+          let n = parseInt(ns)
+
+          if (!isNaN(n) && n >= 0 && n <= 100) {
+            update_config("autorespond", n)
+            irc_client.say(to, "Autorespond has been set to: " + n + "%")
+          }
+        }
       }
-      else {
-        respond(from, to, prompt)
-        return true
-      }
-    }
 
-    return false
-  }
-
-  function try_autorespond () {
-    if (config.autorespond <= 0) {
-      return false
-    }
-
-    if (!prev_message || (prev_message.from !== config.nickname) || (from === config.nickname)) {
-      return false
-    }
-
-    let num = get_random_int(1, 100)
-
-    if (num >= 1 && num <= config.autorespond) {
-      let prompt = `You: "${prev_message.message}" Me: "${message}"`
-      respond(from, to, prompt)
       return true
     }
+    else {
+      try_respond(from, to, prompt)
+      return true
+    }
+  }
 
+  return false
+}
+
+function try_autorespond (from, to, message) {
+  let prev_message = last_messages[to]
+  last_messages[to] = {from: from, to: to, message: message}  
+
+  if (config.autorespond <= 0) {
     return false
   }
 
-  if (try_nick_mention()) {
+  if (!prev_message || (prev_message.from !== config.nickname) || (from === config.nickname)) {
+    return false
+  }
+
+  let num = get_random_int(1, 100)
+
+  if (num >= 1 && num <= config.autorespond) {
+    let prompt = `You: "${prev_message.message}" Me: "${message}"`
+    try_respond(from, to, prompt)
+    return true
+  }
+
+  return false
+}
+
+function on_irc_message (from, to, message) {
+  if (from === config.nickname) {
+    return
+  }  
+
+  if (try_nick_mention(from, to, message)) {
     return
   }
   else {
-    try_autorespond()
+    try_autorespond(from, to, message)
   }
 }
 
