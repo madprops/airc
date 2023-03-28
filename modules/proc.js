@@ -31,12 +31,12 @@ module.exports = function (App) {
       return false
     }
   
-    if(prompt === "hi" || prompt === "hello") {
-      App.irc_client.say(to, "hi!")
-      return true
-    }
-  
     if (nick.toLowerCase() === App.config.nickname.toLowerCase()) {
+      if(prompt === "hi" || prompt === "hello") {
+        App.irc_client.say(to, "hi!")
+        return true
+      }
+            
       if (prompt.startsWith("!")) {
         if (App.config.admins.includes(from)) {
           if (prompt.startsWith("!help")) {
