@@ -126,7 +126,7 @@ For example: `mybot, !help`
 
 These are the available commands:
 
-`!help`: Show some information about commands.
+`!help`: Shows some information about commands.
 
 `!instructions`: Responds with the current instructions string.
 
