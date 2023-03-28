@@ -71,8 +71,8 @@ For example: "Please respond in the style of Stewie from Family Guy".
 The code used to build the prompt looks like this:
 
 ```js
-if (config.instructions) {
-  prompt = config.instructions + ". " + prompt
+if (instructions) {
+  prompt = instructions + ". " + prompt
 }
 ```
 
