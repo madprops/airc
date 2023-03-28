@@ -151,7 +151,7 @@ Here's a script to start a bot:
 ```bash
 #!/usr/bin/env bash
 export OPENAI_API_KEY=123mykey456
-while true; do nohup node /home/botguy/arc/bot.js
+while true; do nohup node /home/botguy/mybot/bot.js
 done &
 ```
 
@@ -167,12 +167,36 @@ Here's a script to stop a bot:
 
 ```bash
 #!/usr/bin/env bash
-ps ax | grep -e "start_airc.sh" -e "airc/bot.js"| grep -v grep | awk '{print $1}' | xargs kill
+ps ax | grep -e "start_mybot.sh" -e "mybot/bot.js"| grep -v grep | awk '{print $1}' | xargs kill
 ```
 
 This stops the start script and the bot process.
 
 Change details accordingly.
+
+--- 
+
+Update bots:
+
+```bash
+#!/usr/bin/env bash
+cd bot1 && git pull && cd
+cd bot2 && git pull && cd
+```
+
+This won't work cleanly on config.json updates.
+
+---
+
+Restart bots:
+
+```bash
+#!/usr/bin/env bash
+./stop_bot1.sh
+./stop_bot2.sh
+./start_bot1.sh
+./start_bot2.sh
+```
 
 ---
 
