@@ -26,11 +26,11 @@ function on_irc_message (from, to, message) {
   let prev_message = last_messages[to]
   last_messages[to] = {from: from, to: to, message: message}
   
-  function respond (from, to, msg) {
+  function respond (from, to, prompt) {
     if (config.channels.includes(to)) {
-      if (msg.length <= config.max_prompt_length) {
-        console.info(from + ' => ' + to + ': ' + msg);
-        ask_openai(msg, to)
+      if (prompt.length <= config.max_prompt_length) {
+        console.info(from + ' => ' + to + ': ' + prompt);
+        ask_openai(prompt, to)
       }
     }
   }    
