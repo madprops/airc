@@ -84,6 +84,20 @@ module.exports = function (App) {
               App.irc_client.say(to, "Autorespond has been set to: " + n + "%")
             }
           }
+
+          else if (prompt.startsWith("!ur ")) {
+            let thing = prompt.replace(/^\!ur /, "").trim()
+            let ins = `Please respond as if you are ${thing}`
+
+            if (ins.length <= 250) {
+              if (ins === "empty") {
+                ins = ""
+              }
+  
+              App.update_config("instructions", ins)              
+              App.irc_client.say(to, "Instructions have been set to: " + (ins || "empty"))
+            }
+          }
         }
   
         return true
