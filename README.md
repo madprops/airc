@@ -130,8 +130,9 @@ These are the available commands:
 
 `!instructions`: Responds with the current instructions string.
 
-`!set instructions to x`: Sets instructions to x.
+`!set instructions to [x|empty]`: Sets instructions to x.
 Instructions longer than 250 characters will be ignored.
+If set to "empty" it will set it to an empty string.
 
 `!silent`: Responds with the current silent boolean.
 
