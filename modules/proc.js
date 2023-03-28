@@ -1,5 +1,6 @@
 // These are functions that process a received message
 // For example input from irc is checked and maybe sent to openai
+// In the future this might support more chat platforms and ai services
 
 module.exports = function (App) {
   App.process = function (from, to, message) {
