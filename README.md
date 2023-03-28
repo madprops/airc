@@ -92,7 +92,7 @@ Set it to 0 to disable it completely.
 
 ---
 
-`instructions`: Optional commands for the bot, they're prepended before the prompt.
+`instructions`: Optional commands for the bot, they're prepended before every prompt.
 
 For example: "Please respond in the style of Stewie from Family Guy".
 
