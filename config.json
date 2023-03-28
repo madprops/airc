@@ -8,7 +8,7 @@
   "max_prompt_length": 300,
   "max_tokens": 200,
   "autorespond": 10,
-  "instructions": "Please respond as if you were a gorilla",
+  "instructions": "",
   "admins": [
     "madprops"
   ],
