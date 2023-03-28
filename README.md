@@ -36,7 +36,7 @@ and make sure it's not registered: `/msg nickserv info nickname`.
 
 ---
 
-`auto_respond_probability`: The percentage chance (0 to 100) of whether the bot auto responds after a message.
+`autorespond`: The percentage chance (0 to 100) of whether the bot autoresponds after a message.
 
 This only kicks in on normal comments that are sent right after the bot gave a response.
 
@@ -137,6 +137,14 @@ If set to "empty" it will set it to an empty string.
 `!silent`: Responds with the current silent boolean.
 
 `!set silent to [true|false]`: Sets silent to true or false.
+
+`!silent`: Responds with the current silent boolean.
+
+`!set silent to [true|false]`: Sets silent to true or false.
+
+`!autorespond`: Responds with the current autorespond number.
+
+`!set autorespond to [0-100]`: Sets autorespond to a number from 0 to 100.
 
 Changes to config properties trigger an update to config.json
 

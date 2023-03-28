@@ -59,7 +59,11 @@ function on_irc_message (from, to, message) {
       if (prompt.startsWith("!")) {
         if (config.admins.includes(from)) {
           if (prompt.startsWith("!help")) {
-            irc_client.say(to, "Commands: !instructions, !set instructions to [x|empty], !silent, !set silent to [true|false]")
+            irc_client.say(to, "Commands: !instructions, !set instructions to [x|empty], !silent, !set silent to [true|false], !autorespond, !set autorespond to [0-100]")
+          }
+
+          else if (prompt.startsWith("!instructions")) {
+            irc_client.say(to, "Instructions: " + (config.instructions || "[Empty]"))
           }
 
           else if (prompt.startsWith("!set instructions to ")) {
@@ -75,9 +79,9 @@ function on_irc_message (from, to, message) {
             }
           }
 
-          else if (prompt.startsWith("!instructions")) {
-            irc_client.say(to, "Instructions: " + (config.instructions || "[Empty]"))
-          }
+          else if (prompt.startsWith("!silent")) {
+            irc_client.say(to, "Silent: " + config.silent)
+          }          
 
           else if (prompt.startsWith("!set silent to ")) {
             let yesno = prompt.replace(/^\!set silent to /, "").trim()
@@ -86,12 +90,22 @@ function on_irc_message (from, to, message) {
             irc_client.say(to, "Silent has been set to: " + bool)
           }
 
-          else if (prompt.startsWith("!silent")) {
-            irc_client.say(to, "Silent: " + config.silent)
-          }
+          else if (prompt.startsWith("!autorespond")) {
+            irc_client.say(to, "Autorespond: " + config.autorespond)
+          }          
 
-          return true
+          else if (prompt.startsWith("!set autorespond to ")) {
+            let ns = prompt.replace(/^\!set autorespond to /, "").trim()
+            let n = parseInt(ns)
+
+            if (!isNaN(n) && n >= 0 && n <= 100) {
+              update_config("autorespond", n)
+              irc_client.say(to, "Autorespond has been set to: " + n + "%")
+            }
+          }
         }
+
+        return true
       }
       else {
         respond(from, to, prompt)
@@ -102,8 +116,8 @@ function on_irc_message (from, to, message) {
     return false
   }
 
-  function try_auto_respond () {
-    if (config.auto_respond_probability <= 0) {
+  function try_autorespond () {
+    if (config.autorespond <= 0) {
       return false
     }
 
@@ -113,7 +127,7 @@ function on_irc_message (from, to, message) {
 
     let num = get_random_int(1, 100)
 
-    if (num >= 1 && num <= config.auto_respond_probability) {
+    if (num >= 1 && num <= config.autorespond) {
       let prompt = `You: "${prev_message.message}" Me: "${message}"`
       respond(from, to, prompt)
       return true
@@ -126,7 +140,7 @@ function on_irc_message (from, to, message) {
     return
   }
   else {
-    try_auto_respond()
+    try_autorespond()
   }
 }
 
