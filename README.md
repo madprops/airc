@@ -42,11 +42,11 @@ Nickname detection is case insensitive. `MyBot` and `mybot` work.
 
 ## Config
 
-`nickname`: irc nickname.
+`nickname`: irc nickname of the bot.
 
 ---
 
-`server`: irc server.
+`server`: irc server to connect to.
 
 ---
 
