@@ -44,7 +44,7 @@ Nickname detection is case insensitive. `MyBot` and `mybot` work.
 
 `nickname`: irc nickname of the bot. 
 Make sure it's not in use yet: `/whois nickname`,
-and make sure it's not registered: `/msg nickserv info nickname`
+and make sure it's not registered: `/msg nickserv info nickname`.
 
 ---
 
@@ -94,7 +94,7 @@ Set it to 0 to disable it completely.
 
 `instructions`: Optional commands for the bot, they're prepended before the prompt.
 
-For example: "Please respond in the style of Stewie from Family Guy"
+For example: "Please respond in the style of Stewie from Family Guy".
 
 The code used to build the prompt looks like this:
 
