@@ -12,19 +12,29 @@ Simple nodejs irc openai bot.
 
 ---
 
-It reads the api key from the environment:
+## Api Key
+
+It reads the openai api key from the shell environment, it's not added to the code or config. You must do this before running the bot:
 
 `export OPENAI_API_KEY=123mykey456`
 
 ---
 
-Address the bot with:
+## Usage
+
+The bot should join the irc room(s) some seconds after starting the program.
+
+Address the bot in the room like this:
+
+Format: `nickname[, or :] question`
 
 `mybot, some question`
 
 or 
 
 `mybot: some question`
+
+Nickname detection is case insensitive. `MyBot` and `mybot` work.
 
 ---
 
