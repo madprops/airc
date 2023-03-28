@@ -11,7 +11,6 @@ module.exports = function (App) {
       App.fs.writeFileSync(p, s)
     }
     catch (err) {
-      console.log(err)
       console.error("Error updating the config file")
     }
   } 
