@@ -4,7 +4,6 @@ App.fs = require("fs")
 App.config = require("./config.json")
 App.irc = require("irc")
 App.openai = require("openai")
-
 App.last_messages = {}
 
 require("./modules/irc.js")(App)
