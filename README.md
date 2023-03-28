@@ -107,6 +107,8 @@ done &
 
 If it crashes it will auto-restart because of the while loop.
 
+Change paths accordingly.
+
 ---
 
 Here's a script to stop a bot:
