@@ -7,10 +7,10 @@ App.openai = require("openai")
 
 App.last_messages = {}
 
-require("./irc.js")(App)
-require("./openai.js")(App)
-require("./proc.js")(App)
-require("./utils.js")(App)
+require("./modules/irc.js")(App)
+require("./modules/openai.js")(App)
+require("./modules/proc.js")(App)
+require("./modules/utils.js")(App)
 
 App.main = async function () {
   await App.start_openai()
