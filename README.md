@@ -116,7 +116,7 @@ Nickname detection is case insensitive. `MyBot` and `mybot` work.
 
 ---
 
-### Commands
+## Commands
 
 Admins of the bot can issue commands to change some of its state.
 
