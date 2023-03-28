@@ -99,7 +99,8 @@ async function ask_openai (prompt, to) {
     return
   }
 
-  let ins = config.instructions.trim()
+  // Remove periods at the end and trim
+  let ins = config.instructions.trim().replace(/\.+$/, "").trim()
 
   if (ins) {
     prompt = ins + ". " + prompt
