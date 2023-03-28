@@ -1,3 +1,6 @@
+// These are functions that process a received message
+// For example input from irc is checked and maybe sent to openai
+
 module.exports = function (App) {
   App.process = function (from, to, message) {
     if (from === App.config.nickname) {
