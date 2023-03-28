@@ -12,7 +12,7 @@ Simple nodejs irc openai bot.
 
 ---
 
-## Config
+## Configuration
 
 `nickname`: irc nickname of the bot. 
 Make sure it's not in use yet: `/whois nickname`,
