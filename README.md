@@ -68,6 +68,12 @@ You: That is correct...
 Bot: I'm glad that 4 is the correct answer! 
 ```
 
+The sent prompt looks like:
+
+```js
+let prompt = `You: "${prev_message}" Me: "${message}"`
+```
+
 Set it to 0 to disable it completely.
 
 ---

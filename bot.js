@@ -44,14 +44,14 @@ function on_irc_message (from, to, message) {
     }
 
     let nick = match.groups.nickname.trim()
-    let msg = match.groups.message.trim()
+    let prompt = match.groups.message.trim()
 
-    if (!nick || !msg) {
+    if (!nick || !prompt) {
       return false
     }
 
     if (nick.toLowerCase() === config.nickname.toLowerCase()) {
-      respond(from, to, msg)
+      respond(from, to, prompt)
       return true
     }
 
@@ -70,8 +70,8 @@ function on_irc_message (from, to, message) {
     let num = get_random_int(1, 100)
 
     if (num >= 1 && num <= config.auto_respond_probability) {
-      let msg = `You: "${prev_message.message}" Me: "${message}"`
-      respond(from, to, msg)
+      let prompt = `You: "${prev_message.message}" Me: "${message}"`
+      respond(from, to, prompt)
       return true
     }
 
