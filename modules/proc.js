@@ -4,6 +4,8 @@
 
 module.exports = function (App) {
   App.process = function (from, to, message) {
+    message = message.trim()
+    
     if (from === App.config.nickname) {
       return
     }  
@@ -39,16 +41,16 @@ module.exports = function (App) {
             
       if (prompt.startsWith("!")) {
         if (App.config.admins.includes(from)) {
-          if (prompt.startsWith("!help")) {
-            App.irc_client.say(to, "Commands: !instructions, !set instructions to [x|empty], !silent, !set silent to [true|false], !autorespond, !set autorespond to [0-100]")
+          if (prompt === "!help") {
+            App.irc_client.say(to, "Commands: !instructions [x|empty], !silent [true|false], !autorespond [0-100]")
           }
   
-          else if (prompt.startsWith("!instructions")) {
+          else if (prompt === "!instructions") {
             App.irc_client.say(to, "Instructions: " + (App.config.instructions || "[Empty]"))
           }
   
-          else if (prompt.startsWith("!set instructions to ")) {
-            let ins = prompt.replace(/^\!set instructions to /, "").trim()
+          else if (prompt.startsWith("!instructions ")) {
+            let ins = prompt.replace(/^\!instructions /, "").trim()
   
             if (ins.length <= 250) {
               if (ins === "empty") {
@@ -60,28 +62,28 @@ module.exports = function (App) {
             }
           }
   
-          else if (prompt.startsWith("!silent")) {
+          else if (prompt === "!silent") {
             App.irc_client.say(to, "Silent: " + App.config.silent)
           }          
   
-          else if (prompt.startsWith("!set silent to ")) {
-            let yesno = prompt.replace(/^\!set silent to /, "").trim()
+          else if (prompt.startsWith("!silent ")) {
+            let yesno = prompt.replace(/^\!silent /, "").trim()
             let bool = yesno === "true"
             App.update_config("silent", bool)
             App.irc_client.say(to, "Silent has been set to: " + bool)
           }
   
-          else if (prompt.startsWith("!autorespond")) {
+          else if (prompt === "!autorespond") {
             irc_client.say(to, "Autorespond: " + App.config.autorespond)
           }          
   
-          else if (prompt.startsWith("!set autorespond to ")) {
-            let ns = prompt.replace(/^\!set autorespond to /, "").trim()
+          else if (prompt.startsWith("!autorespond ")) {
+            let ns = prompt.replace(/^\!autorespond /, "").trim()
             let n = parseInt(ns)
   
             if (!isNaN(n) && n >= 0 && n <= 100) {
               App.update_config("autorespond", n)
-              App.irc_client.say(to, "Autorespond has been set to: " + n + "%")
+              App.irc_client.say(to, "Autorespond has been set to: " + n)
             }
           }
 
@@ -112,6 +114,10 @@ module.exports = function (App) {
   }
   
   App.proc_autorespond = function (from, to, message) {
+    if (message.startsWith("!")) {
+      return true
+    }
+
     let prev_message = App.last_messages[to]
     App.last_messages[to] = {from: from, to: to, message: message}  
   

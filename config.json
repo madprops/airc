@@ -7,8 +7,8 @@
   "model": "text-davinci-003",
   "max_prompt_length": 300,
   "max_tokens": 200,
-  "autorespond": 10,
-  "instructions": "",
+  "autorespond": 45,
+  "instructions": "you're a ball",
   "admins": [
     "madprops"
   ],

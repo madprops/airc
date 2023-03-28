@@ -128,23 +128,13 @@ These are the available commands:
 
 `!help`: Shows some information about commands.
 
-`!instructions`: Responds with the current instructions string.
-
-`!set instructions to [x|empty]`: Sets instructions to x.
+`!instructions [x|empty]`: Sets instructions to x.
 Instructions longer than 250 characters will be ignored.
 If set to "empty" it will set it to an empty string.
 
-`!silent`: Responds with the current silent boolean.
+`!silent [true|false]`: Sets silent to true or false.
 
-`!set silent to [true|false]`: Sets silent to true or false.
-
-`!silent`: Responds with the current silent boolean.
-
-`!set silent to [true|false]`: Sets silent to true or false.
-
-`!autorespond`: Responds with the current autorespond number.
-
-`!set autorespond to [0-100]`: Sets autorespond to a number from 0 to 100.
+`!autorespond [0-100]`: Sets autorespond to a number from 0 to 100.
 
 `!ur [thing]`: Shortcut to set a personality.
 
