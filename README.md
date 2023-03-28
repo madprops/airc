@@ -109,4 +109,15 @@ If it crashes it will auto-restart because of the while loop.
 
 ---
 
+Here's a script to stop a bit:
+
+```bash
+#!/usr/bin/env bash
+ps ax | grep -e "start_airc.sh" -e "airc/bot.js"| grep -v grep | awk '{print $1}' | xargs kill
+```
+
+Change paths accordingly.
+
+---
+
 ![](https://i.imgur.com/H9yo8Jt.jpg)
