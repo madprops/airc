@@ -105,7 +105,7 @@ module.exports = function (App) {
       return false
     }
   
-    let num = get_random_int(1, 100)
+    let num = App.get_random_int(1, 100)
   
     if (num >= 1 && num <= App.config.autorespond) {
       let prompt = `You: "${prev_message.message}" Me: "${message}"`
