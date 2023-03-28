@@ -107,7 +107,7 @@ done &
 
 If it crashes it will auto-restart because of the while loop.
 
-Change paths accordingly.
+Change details accordingly.
 
 ---
 
@@ -120,7 +120,7 @@ ps ax | grep -e "start_airc.sh" -e "airc/bot.js"| grep -v grep | awk '{print $1}
 
 This stops the start script and the bot process.
 
-Change paths accordingly.
+Change details accordingly.
 
 ---
 
