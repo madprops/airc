@@ -99,8 +99,10 @@ async function ask_openai (prompt, to) {
     return
   }
 
-  if (config.instructions) {
-    prompt = config.instructions + ". " + prompt
+  let ins = config.instructions.trim()
+
+  if (ins) {
+    prompt = ins + ". " + prompt
   }
 
   try {
