@@ -5,7 +5,7 @@
 module.exports = function (App) {
   App.process = function (from, to, message) {
     message = message.trim()
-    
+
     if (from === App.config.nickname) {
       return
     }  
@@ -50,15 +50,17 @@ module.exports = function (App) {
           }
   
           else if (prompt.startsWith("!instructions ")) {
-            let ins = prompt.replace(/^\!instructions /, "").trim()
-  
-            if (ins.length <= 250) {
-              if (ins === "empty") {
-                ins = ""
+            let arg = prompt.replace(/^\!instructions /, "").trim()
+            
+            if (arg) {
+              if (arg.length <= 250) {
+                if (arg === "empty") {
+                  arg = ""
+                }
+    
+                App.update_config("instructions", arg)
+                App.irc_client.say(to, "Instructions have been set to: " + (arg || "empty"))
               }
-  
-              App.update_config("instructions", ins)
-              App.irc_client.say(to, "Instructions have been set to: " + (ins || "empty"))
             }
           }
   
@@ -67,19 +69,22 @@ module.exports = function (App) {
           }          
   
           else if (prompt.startsWith("!silent ")) {
-            let yesno = prompt.replace(/^\!silent /, "").trim()
-            let bool = yesno === "true"
-            App.update_config("silent", bool)
-            App.irc_client.say(to, "Silent has been set to: " + bool)
+            let arg = prompt.replace(/^\!silent /, "").trim()
+
+            if (arg === "true" || arg === "false") {
+              let bool = arg === "true"
+              App.update_config("silent", bool)
+              App.irc_client.say(to, "Silent has been set to: " + bool)
+            }
           }
   
           else if (prompt === "!autorespond") {
-            irc_client.say(to, "Autorespond: " + App.config.autorespond)
+            App.irc_client.say(to, "Autorespond: " + App.config.autorespond)
           }          
   
           else if (prompt.startsWith("!autorespond ")) {
-            let ns = prompt.replace(/^\!autorespond /, "").trim()
-            let n = parseInt(ns)
+            let arg = prompt.replace(/^\!autorespond /, "").trim()
+            let n = parseInt(arg)
   
             if (!isNaN(n) && n >= 0 && n <= 100) {
               App.update_config("autorespond", n)
@@ -88,16 +93,15 @@ module.exports = function (App) {
           }
 
           else if (prompt.startsWith("!ur ")) {
-            let thing = prompt.replace(/^\!ur /, "").trim()
-            let ins = `Please respond as if you were ${thing}`
+            let arg = prompt.replace(/^\!ur /, "").trim()
 
-            if (ins.length <= 250) {
-              if (ins === "empty") {
-                ins = ""
-              }
+            if (arg) {
+              let ins = `Please respond as if you were ${arg}`
   
-              App.update_config("instructions", ins)              
-              App.irc_client.say(to, "Instructions have been set to: " + (ins || "empty"))
+              if (ins && ins.length <= 250) {  
+                App.update_config("instructions", ins)              
+                App.irc_client.say(to, "Instructions have been set to: " + ins)
+              }
             }
           }
         }
