@@ -131,6 +131,7 @@ These are the available commands:
 `!instructions`: Responds with the current instructions string.
 
 `!set instructions to x`: Sets instructions to x.
+Instructions longer than 250 characters will be ignored.
 
 `!silent`: Responds with the current silent boolean.
 

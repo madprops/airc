@@ -65,7 +65,7 @@ function on_irc_message (from, to, message) {
           else if (prompt.startsWith("!set instructions to ")) {
             let ins = prompt.replace(/^\!set instructions to /, "").trim()
 
-            if (ins.length <= 200) {
+            if (ins.length <= 250) {
               if (ins === "empty") {
                 ins = ""
               }
