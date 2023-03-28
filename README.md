@@ -146,7 +146,7 @@ Changes to config properties are saved to config.json
 
 ## Scripts
 
-Here's a script to start a bot:
+Start a bot:
 
 ```bash
 #!/usr/bin/env bash
@@ -163,7 +163,7 @@ Change details accordingly.
 
 ---
 
-Here's a script to stop a bot:
+Stop a bot:
 
 ```bash
 #!/usr/bin/env bash
