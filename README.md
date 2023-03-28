@@ -84,7 +84,7 @@ if (instructions) {
 
 `silent`: If this is true it will ignore all mentions and won't send requests to openai. 
 This is when you want the room to be quiet to avoid spam or to counter a raid. 
-Admin commands are still active. Mainly meant to be set on or off through a command from a bot admin.
+Admin commands are still active. Mainly meant to be set true or false through a command from a bot admin.
 
 ---
 
