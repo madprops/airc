@@ -1,4 +1,4 @@
-Simple nodejs irc openai bot.
+nodejs irc openai bot
 
 ---
 
