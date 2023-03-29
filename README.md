@@ -138,7 +138,7 @@ Admin commands are still active. Mainly meant to be set true or false through a 
 
 ---
 
-`commands_prefix`: The character used to invoke commands. Like `!help` if "!" or `.help` if ".".
+`commands_prefix`: The character used to invoke commands. Like `!help` if `!` or `.help` if `.`.
 
 ---
 
@@ -196,7 +196,7 @@ The bot might autorespond in some cases if the autorespond config is greater tha
 
 Operators of the bot can issue commands to change some of its state.
 
-Commands start with "!" and the bot's nickname must be mentioned.
+Commands start with `!` and the bot's nickname must be mentioned.
 
 For example: `mybot, !help`.
 
@@ -209,7 +209,7 @@ they must be modified manually in the config file and the bot must be restarted.
 
 ---
 
-The prefix "!" can be changed to another character in the config.
+The prefix `!` can be changed to another character in the config.
 
 ---
 
