@@ -91,7 +91,15 @@ module.exports = function (App) {
     return false
   }
   
-  App.proc_respond = function (from, to, prompt) {  
+  App.proc_respond = function (from, to, prompt) { 
+    // Rate limit to avoid attacks or mistakes
+    if ((Date.now() - App.rate_limit_date) <= App.rate_limit_delay) {
+      return
+    }
+    
+    App.rate_limit_date = Date.now()
+    return
+
     if (App.config.channels.includes(to)) {
       if (prompt.length <= App.config.max_prompt_length) {
         console.info(from + ' => ' + to + ': ' + prompt);

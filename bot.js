@@ -9,6 +9,8 @@ App.last_messages = {}
 App.max_instructions_length = 250
 App.max_user_length = 25
 App.config_file = "config.user.json"
+App.rate_limit_delay = 3000
+App.rate_limit_date = Date.now()
 
 // Get the correct config path
 App.get_config_path = function () {

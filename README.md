@@ -313,3 +313,11 @@ Restart bots:
 ./start_bot1.sh
 ./start_bot2.sh
 ```
+
+---
+
+## Rate Limit
+
+There's a built-in rate limit cooldown of 3 seconds after the last openai request.
+
+This is to avoid attacks or mistakes.
