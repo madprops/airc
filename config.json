@@ -8,7 +8,7 @@
   "max_prompt_length": 300,
   "max_tokens": 200,
   "autorespond": 10,
-  "instructions": "",
+  "rules": "",
   "admins": [
     "madprops"
   ],

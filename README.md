@@ -10,7 +10,7 @@ For example:
 
 **You**: Bot, !ur an angry squirrel
 
-**Bot**: Instructions have been set to: Please respond as if you were an angry squirrel
+**Bot**: Rules have been set to: Please respond as if you were an angry squirrel
 
 **You**: Bot, why are you in a tree?
 
@@ -78,7 +78,7 @@ and make sure it's not registered: `/msg nickserv info nickname`.
 
 ---
 
-`max_prompt_length`: Ignore prompts longer than this. Instructions length is not considered.
+`max_prompt_length`: Ignore prompts longer than this. Rules length is not considered.
 
 ---
 
@@ -110,15 +110,15 @@ Set it to 0 to disable it completely.
 
 ---
 
-`instructions`: Optional commands for the bot, they're prepended before every prompt.
+`rules`: Optional instructions for the bot, they're prepended before every prompt.
 
 For example: "Please respond in the style of Stewie from Family Guy".
 
 The code used to build the prompt looks like this:
 
 ```js
-if (instructions) {
-  prompt = instructions + ". " + prompt
+if (rules) {
+  prompt = rules + ". " + prompt
 }
 ```
 
@@ -146,7 +146,7 @@ What they can do can be determined through permissions.
 
 ---
 
-`allow_modify`: Who is allowed to modify the personality of the ai through instructions.
+`allow_modify`: Who is allowed to modify the personality of the ai through rules.
 
 "all" -> anybody, "users" -> users and up, "admins" -> only admins.
 
@@ -218,15 +218,15 @@ These are the available commands:
 
 ---
 
-`instructions [x|clear]`: Sets instructions to x.
+`rules [x|clear]`: Sets rules to x.
 
-Instructions longer than 250 characters will be ignored.
+Rules longer than 250 characters will be ignored.
 
 If `clear` it will set it to an empty string.
 
 ---
 
-`reset`: This is a shortcut to `instructions clear`.
+`reset`: This is a shortcut to `rules clear`.
 
 ---
 
@@ -236,7 +236,7 @@ If `clear` it will set it to an empty string.
 
 `ur [thing]`: Shortcut to set a personality.
 
-`ur a monkey` would set the instructions to `Please respond as if you were a monkey`.
+`ur a monkey` would set the rules to `Please respond as if you were a monkey`.
 
 ---
 
@@ -248,7 +248,7 @@ If `clear` it will set it to an empty string.
 
 `allow_ask [all|users|admins]`: Change "ask" permission.
 
-`allow_modify [all|users|admins]`: Change "instructions" permission.
+`allow_modify [all|users|admins]`: Change "rules" permission.
 
 These can only be performed by `admins`.
 

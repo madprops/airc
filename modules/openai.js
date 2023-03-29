@@ -16,7 +16,7 @@ module.exports = function (App) {
     }
   
     // Remove periods at the end and trim
-    let ins = App.config.instructions.trim().replace(/\.+$/, "").trim()
+    let ins = App.config.rules.trim().replace(/\.+$/, "").trim()
   
     if (ins) {
       prompt = ins + ". " + prompt

@@ -15,7 +15,7 @@ module.exports = function (App) {
 
       let cmds = [
         `${p}ur [x]`,
-        `${p}instructions [x|clear]`,
+        `${p}rules [x|clear]`,
         `${p}reset`,
         `${p}autorespond [0-100]`,
         `${p}allow_ask [all|users|admins]`,
@@ -29,25 +29,25 @@ module.exports = function (App) {
       return
     }
     
-    if (cmd === "instructions") {
-      App.irc_client.say(to, `${App.bold_text("Instructions")}: ` + (App.config.instructions || "[Empty]"))
+    if (cmd === "rules") {
+      App.irc_client.say(to, `${App.bold_text("Rules")}: ` + (App.config.rules || "[Empty]"))
       return
     } 
 
-    // Commands that modify instructions
+    // Commands that modify rules
 
-    if (cmd.startsWith("instructions ")) {
+    if (cmd.startsWith("rules ")) {
       if (!App.is_allowed("allow_modify", from)) { return }       
-      let arg = cmd.replace(/^\instructions /, "").trim()
+      let arg = cmd.replace(/^rules /, "").trim()
       
       if (arg) {
-        if (arg.length <= App.max_instructions_length) {
+        if (arg.length <= App.max_rules_length) {
           if (arg === "clear") {
             arg = ""
           }
 
-          App.update_config("instructions", arg)
-          App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: ` + (arg || "[Empty]"))
+          App.update_config("rules", arg)
+          App.irc_client.say(to, `${App.bold_text("Rules")} have been set to: ` + (arg || "[Empty]"))
         }
       }
 
@@ -56,14 +56,14 @@ module.exports = function (App) {
     
     if (cmd.startsWith("ur ")) { 
       if (!App.is_allowed("allow_modify", from)) { return }                      
-      let arg = cmd.replace(/^\ur /, "").trim()
+      let arg = cmd.replace(/^ur /, "").trim()
 
       if (arg) {
-        let ins = `Please respond as if you were ${arg}`
+        let ins = `Respond as if you were ${arg}`
 
-        if (ins.length <= App.max_instructions_length) {  
-          App.update_config("instructions", ins)              
-          App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: ` + ins)
+        if (ins.length <= App.max_rules_length) {  
+          App.update_config("rules", ins)              
+          App.irc_client.say(to, `${App.bold_text("Rules")} have been set to: ` + ins)
         }
       }
 
@@ -72,8 +72,8 @@ module.exports = function (App) {
     
     if (cmd === "reset") {
       if (!App.is_allowed("allow_modify", from)) { return }       
-      App.update_config("instructions", "")
-      App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: [Empty]`)
+      App.update_config("rules", "")
+      App.irc_client.say(to, `${App.bold_text("Rules")} have been set to: [Empty]`)
       return
     }      
 
@@ -87,7 +87,7 @@ module.exports = function (App) {
       }            
   
       if (cmd.startsWith("users add ")) {
-        let arg = cmd.replace(/^\users add /, "").trim()
+        let arg = cmd.replace(/^users add /, "").trim()
   
         if (arg) {
           if (arg.length <= App.max_user_length) {
@@ -103,7 +103,7 @@ module.exports = function (App) {
       }
 
       if (cmd.startsWith("users remove ")) {
-        let arg = cmd.replace(/^\users remove /, "").trim()
+        let arg = cmd.replace(/^users remove /, "").trim()
   
         if (arg) {
           if (App.is_user(arg)) {
@@ -135,7 +135,7 @@ module.exports = function (App) {
       }          
 
       if (cmd.startsWith("autorespond ")) {
-        let arg = cmd.replace(/^\autorespond /, "").trim()
+        let arg = cmd.replace(/^autorespond /, "").trim()
         let n = parseInt(arg)
 
         if (!isNaN(n) && n >= 0 && n <= 100) {
@@ -147,7 +147,7 @@ module.exports = function (App) {
       }      
       
       if (cmd.startsWith("allow_ask ")) {
-        let arg = cmd.replace(/^\allow_ask /, "").trim()
+        let arg = cmd.replace(/^allow_ask /, "").trim()
   
         if (arg) {
           let allowed = ["all", "users", "admins"]
@@ -170,7 +170,7 @@ module.exports = function (App) {
       } 
       
       if (cmd.startsWith("allow_modify ")) {
-        let arg = cmd.replace(/^\allow_modify /, "").trim()
+        let arg = cmd.replace(/^allow_modify /, "").trim()
   
         if (arg) {
           let allowed = ["all", "users", "admins"]
