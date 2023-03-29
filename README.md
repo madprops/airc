@@ -143,6 +143,10 @@ This is an alternative way to make the bot respond which might make sense in som
 
 ---
 
+The bot might autorespond in some cases if the autorespond config is greater than 0.
+
+---
+
 ## Commands
 
 Admins of the bot can issue commands to change some of its state.
