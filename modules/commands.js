@@ -4,7 +4,7 @@ module.exports = function (App) {
   App.check_commands = function (from, to, prompt) {
     let cmd = prompt.replace(App.config.commands_prefix, "")
 
-    // Public commands
+    // Commands anybody can use
 
     if (cmd === "help") {
       let p = App.config.commands_prefix
@@ -30,7 +30,7 @@ module.exports = function (App) {
       return
     } 
 
-    // Mod commands
+    // Functions that modify instructions
 
     if (cmd.startsWith("instructions ")) {
       if (!App.is_allowed("allow_mod", from)) { return }       
@@ -73,7 +73,7 @@ module.exports = function (App) {
       return
     }      
 
-    // Operator commands
+    // admins + owners
 
     if (App.is_operator(from)) {  
       if (cmd === "autorespond") {
@@ -94,7 +94,7 @@ module.exports = function (App) {
       }
     }
 
-    // Owner commands
+    // Only owners
 
     if (App.is_owner(from)) {
       if (cmd === "admins") {
