@@ -201,7 +201,7 @@ For example: `mybot, !help`.
 `owners` can use all commands, including adding and removing `admins`.
 
 `owners` can't be added or removed through commands, 
-it must be modified manually in the config file and the bot must be restarted.
+they must be modified manually in the config file and the bot must be restarted.
 
 ---
 
