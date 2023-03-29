@@ -14,5 +14,7 @@
   ],
   "admins": [],
   "silent": false,
-  "commands_prefix": "!"
+  "commands_prefix": "!",
+  "allow_ask": "all",
+  "allow_mod": "all"
 }

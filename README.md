@@ -143,6 +143,18 @@ Admin commands are still active. Mainly meant to be set true or false through a 
 
 ---
 
+`allow_ask`: Who is allowed to ask questions to the ai.
+
+"all" -> anybody, "admins" -> admins and up, "owners" -> only owners.
+
+---
+
+`allow_mod`: Who is allowed to change personality of the ai through instructions.
+
+"all" -> anybody, "admins" -> admins and up, "owners" -> only owners.
+
+---
+
 ## Credentials <a name="credentials"></a>
 
 It reads the openai api key from the shell environment, it's not added to the code or config. You must do this before running the bot:
@@ -195,13 +207,23 @@ The bot might autorespond in some cases if the autorespond config is greater tha
 
 ## Commands <a name="commands"></a>
 
-Operators of the bot can issue commands to change some of its state.
-
 Commands start with `!` and the bot's nickname must be mentioned.
 
 For example: `mybot, !help`.
 
+--
+
+`all`: Normal users might be able to use some commands, depending on how the bot is configured.
+
+If `allow_mod` is set to `all`, anybody is able to change the bot's instructions.
+
+This includes the `instructions`, `ur`, and `reset` commands.
+
+---
+
 `admins` can use most commands.
+
+---
 
 `owners` can use all commands, including adding and removing `admins`.
 

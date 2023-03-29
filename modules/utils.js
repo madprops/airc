@@ -20,4 +20,19 @@ module.exports = function (App) {
   App.bold_text = function (text) {
     return `\x02${text}\x0F`
   }
+
+  App.is_allowed = function (key, nickname) {
+    if (App.config[key] === "admins") {
+      if (!App.is_operator(nickname)) {
+        return false
+      }
+    }
+    else if (App.config[key] === "owners") {
+      if (!App.is_owner(nickname)) {
+        return false
+      }
+    }
+
+    return true
+  }
 }

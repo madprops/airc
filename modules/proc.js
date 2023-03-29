@@ -10,9 +10,14 @@ module.exports = function (App) {
 
     message = message.trim()
 
-    let low_message = message.toLowerCase()
     let prev_message = App.last_messages[to]
     App.last_messages[to] = {from: from, to: to, message: message}
+
+    if (!App.is_allowed("allow_ask", from)) {
+      return
+    }
+    
+    let low_message = message.toLowerCase()
 
     if (low_message.includes("http://") || low_message.includes("https://")) {
       return
@@ -54,49 +59,76 @@ module.exports = function (App) {
       if (prompt.startsWith(App.config.commands_prefix)) {
         let cmd = prompt.replace(App.config.commands_prefix, "")
 
-        if (App.is_operator(from)) {
-          if (cmd === "help") {
-            let p = App.config.commands_prefix
+        if (cmd === "help") {
+          let p = App.config.commands_prefix
 
-            let cmds = [
-              `${p}instructions [x|clear]`,
-              `${p}silent [true|false]`,
-              `${p}autorespond [0-100]`,
-              `${p}ur [x]`,
-              `${p}admins [add|remove] [x]`,
-              `${p}admins clear`,
-              `${p}owners`,
-              `${p}reset`
-            ]
+          let cmds = [
+            `${p}instructions [x|clear]`,
+            `${p}silent [true|false]`,
+            `${p}autorespond [0-100]`,
+            `${p}ur [x]`,
+            `${p}admins [add|remove] [x]`,
+            `${p}admins clear`,
+            `${p}owners`,
+            `${p}reset`
+          ]
 
-            App.irc_client.say(to, `${App.bold_text("Commands")}: ` + cmds.join(" 👾 "))
+          App.irc_client.say(to, `${App.bold_text("Commands")}: ` + cmds.join(" 👾 "))
+        }          
+
+        else if (cmd.startsWith("instructions ")) {
+          if (!App.is_allowed("allow_mod", from)) {
+            return true
           }
-  
-          else if (cmd === "instructions") {
-            App.irc_client.say(to, `${App.bold_text("Instructions")}: ` + (App.config.instructions || "[Empty]"))
-          }
-  
-          else if (cmd.startsWith("instructions ")) {
-            let arg = cmd.replace(/^\instructions /, "").trim()
-            
-            if (arg) {
-              if (arg.length <= App.max_instructions_length) {
-                if (arg === "clear") {
-                  arg = ""
-                }
-    
-                App.update_config("instructions", arg)
-                App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: ` + (arg || "[Empty]"))
+
+          let arg = cmd.replace(/^\instructions /, "").trim()
+          
+          if (arg) {
+            if (arg.length <= App.max_instructions_length) {
+              if (arg === "clear") {
+                arg = ""
               }
+  
+              App.update_config("instructions", arg)
+              App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: ` + (arg || "[Empty]"))
             }
           }
-
-          else if (cmd === "reset") {
-            App.update_config("instructions", "")
-            App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: [Empty]`)
+        } 
+        
+        else if (cmd === "instructions") {
+          App.irc_client.say(to, `${App.bold_text("Instructions")}: ` + (App.config.instructions || "[Empty]"))
+        } 
+        
+        if (cmd === "reset") {
+          if (!App.is_allowed("allow_mod", from)) {
+            return true
           }
-  
-          else if (cmd === "silent") {
+
+          App.update_config("instructions", "")
+          App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: [Empty]`)
+        }  
+        
+        else if (cmd.startsWith("ur ")) {
+          if (!App.is_allowed("allow_mod", from)) {
+            return true
+          }
+                    
+          let arg = cmd.replace(/^\ur /, "").trim()
+
+          if (arg) {
+            let ins = `Please respond as if you were ${arg}`
+
+            if (ins.length <= App.max_instructions_length) {  
+              App.update_config("instructions", ins)              
+              App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: ` + ins)
+            }
+          }
+        }        
+        
+        // Operator only commands
+
+        if (App.is_operator(from)) {  
+          if (cmd === "silent") {
             App.irc_client.say(to, `${App.bold_text("Silent")}: ` + App.config.silent)
           }          
   
@@ -121,19 +153,6 @@ module.exports = function (App) {
             if (!isNaN(n) && n >= 0 && n <= 100) {
               App.update_config("autorespond", n)
               App.irc_client.say(to, `${App.bold_text("Autorespond")} has been set to: ` + n)
-            }
-          }
-
-          else if (cmd.startsWith("ur ")) {
-            let arg = cmd.replace(/^\ur /, "").trim()
-
-            if (arg) {
-              let ins = `Please respond as if you were ${arg}`
-  
-              if (ins.length <= App.max_instructions_length) {  
-                App.update_config("instructions", ins)              
-                App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: ` + ins)
-              }
             }
           }
 
