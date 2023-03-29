@@ -42,7 +42,7 @@ module.exports = function (App) {
       if (prompt.startsWith("!")) {
         if (App.is_operator(from)) {
           if (prompt === "!help") {
-            App.irc_client.say(to, "Commands: !instructions [x|empty], !silent [true|false], !autorespond [0-100]")
+            App.irc_client.say(to, "Commands: !instructions [x|clear], !silent [true|false], !autorespond [0-100], !ur [x], !admins [add|remove] [x], !admins clear")
           }
   
           else if (prompt === "!instructions") {
@@ -54,12 +54,12 @@ module.exports = function (App) {
             
             if (arg) {
               if (arg.length <= App.max_instructions_length) {
-                if (arg === "empty") {
+                if (arg === "clear") {
                   arg = ""
                 }
     
                 App.update_config("instructions", arg)
-                App.irc_client.say(to, "Instructions have been set to: " + (arg || "empty"))
+                App.irc_client.say(to, "Instructions have been set to: " + (arg || "Empty"))
               }
             }
           }

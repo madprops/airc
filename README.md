@@ -137,9 +137,9 @@ These are the available commands:
 
 `!help`: Shows some information about commands.
 
-`!instructions [x|empty]`: Sets instructions to x.
+`!instructions [x|clear]`: Sets instructions to x.
 Instructions longer than 250 characters will be ignored.
-If set to "empty" it will set it to an empty string.
+If `clear` it will set it to an empty string.
 
 `!silent [true|false]`: Sets silent to true or false.
 
