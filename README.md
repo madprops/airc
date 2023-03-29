@@ -139,7 +139,7 @@ Bob: mybot, ^
 mybot: Indeed, it's a nice day.
 ```
 
-This is an alternative form to make the bot respond which might make sense in some cases.
+This is an alternative way to make the bot respond which might make sense in some cases.
 
 ---
 
