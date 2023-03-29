@@ -4,14 +4,14 @@
 
 module.exports = function (App) {
   App.process = function (from, to, message) {
-    message = message.trim()
-
-    let prev_message = App.last_messages[to]
-    App.last_messages[to] = {from: from, to: to, message: message} 
-
     if (from === App.config.nickname) {
       return
     }  
+
+    message = message.trim()
+
+    let prev_message = App.last_messages[to]
+    App.last_messages[to] = {from: from, to: to, message: message}     
   
     if (App.proc_nick_mention(from, to, message, prev_message)) {
       return
