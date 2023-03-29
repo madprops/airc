@@ -144,9 +144,13 @@ If set to "empty" it will set it to an empty string.
 
 `!autorespond [0-100]`: Sets autorespond to a number from 0 to 100.
 
+---
+
 `!ur [thing]`: Shortcut to set a personality.
 
 `!ur a monkey` would set the instructions to `Please respond as if you were a monkey`.
+
+---
 
 `!admins [add|remove] [nickname]`: Add or remove a nickname from the admins array. 
 
