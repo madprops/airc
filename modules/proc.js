@@ -148,6 +148,13 @@ module.exports = function (App) {
               App.update_config("admins", [])
               App.irc_client.say(to, "Done.")
             }
+          }    
+          
+          else if (prompt ===  "!owners") {
+            if (App.is_owner(from)) {
+              let s = App.config.owners.join(", ")
+              App.irc_client.say(to, "Owners: " + (s || "No owners yet"))
+            }
           }           
         }
   
