@@ -227,6 +227,12 @@ module.exports = function (App) {
               }
             }
           }  
+
+          else if (cmd ===  "allow_ask") {
+            if (App.is_owner(from)) {
+              App.irc_client.say(to, `${App.bold_text("allow_ask")}: ` + App.config.allow_ask)
+            }
+          } 
           
           else if (cmd.startsWith("allow_mod ")) {
             if (App.is_owner(from)) {
@@ -244,7 +250,13 @@ module.exports = function (App) {
                 }
               }
             }
-          } 
+          }
+
+          else if (cmd ===  "allow_mod") {
+            if (App.is_owner(from)) {
+              App.irc_client.say(to, `${App.bold_text("allow_mod")}: ` + App.config.allow_mod)
+            }
+          }           
         }
       }
       else {
