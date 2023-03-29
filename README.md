@@ -234,7 +234,7 @@ This can only be performed by `owners`.
 
 ---
 
-Changes to config properties are saved to config.json
+Changes to config properties are saved to config.user.json
 
 ---
 
@@ -281,8 +281,6 @@ Update bots:
 cd bot1 && git pull && cd
 cd bot2 && git pull && cd
 ```
-
-This won't work cleanly on config.json updates.
 
 ---
 
