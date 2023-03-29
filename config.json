@@ -12,10 +12,6 @@
   "owners": [
     "madprops"
   ],
-  "admins": [
-    "pepe",
-    "star",
-    "charon"
-  ],
-  "silent": false
+  "admins": [],
+  "silent": true
 }

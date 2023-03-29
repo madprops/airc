@@ -108,7 +108,7 @@ module.exports = function (App) {
           else if (prompt === "!admins") {
             if (App.is_owner(from)) {
               let s = App.config.admins.join(", ")
-              App.irc_client.say(to, "Admins: " + s)
+              App.irc_client.say(to, "Admins: " + (s || "No admins yet"))
             }
           }            
 
@@ -141,7 +141,14 @@ module.exports = function (App) {
                 }
               }
             }
-          }          
+          }  
+          
+          else if (prompt ===  "!admins clear") {
+            if (App.is_owner(from)) {
+              App.update_config("admins", [])
+              App.irc_client.say(to, "Done.")
+            }
+          }           
         }
   
         return true
