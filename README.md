@@ -111,6 +111,8 @@ Using your secret api key, which is not meant to be shared.
 
 The bot should join the irc room(s) some seconds after starting the program.
 
+---
+
 Address the bot in the room like this:
 
 Format: `nickname[, or :] question`
@@ -121,7 +123,23 @@ or
 
 `mybot: some question`
 
+---
+
 Nickname detection is case insensitive. `MyBot` and `mybot` work.
+
+---
+
+If a user writes `mybot, ^` or `mybot: ^`, the bot will use the previous message as the prompt.
+
+```
+Bob: What a lovely day
+
+Bob: mybot, ^
+
+mybot: Indeed, it's a nice day.
+```
+
+This is an alternative form to make the bot respond which might make sense in some cases.
 
 ---
 
