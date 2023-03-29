@@ -234,7 +234,7 @@ This can only be performed by `owners`.
 
 ---
 
-Changes to config properties are saved to config.user.json
+Changes to config properties are saved in `config.user.json`
 
 ---
 
