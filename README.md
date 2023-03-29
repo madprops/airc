@@ -10,7 +10,7 @@ For example:
 
 **You**: Bot, !ur an angry squirrel
 
-**Bot**: Rules have been set to: Please respond as if you were an angry squirrel
+**Bot**: Rules have been set to: Respond as if you were an angry squirrel
 
 **You**: Bot, why are you in a tree?
 
@@ -121,6 +121,8 @@ if (rules) {
   prompt = rules + ". " + prompt
 }
 ```
+
+If you want to directly tell it to impersonate something or someone use the `ur` command.
 
 ---
 
@@ -236,7 +238,7 @@ If `clear` it will set it to an empty string.
 
 `ur [thing]`: Shortcut to set a personality.
 
-`ur a monkey` would set the rules to `Please respond as if you were a monkey`.
+`ur a monkey` would set the rules to `Respond as if you were a monkey`.
 
 ---
 
