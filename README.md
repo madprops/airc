@@ -82,7 +82,8 @@ if (instructions) {
 
 ---
 
-`owners`: Special admins that can't be removed through commands.
+`owners`: Special admins that can't be removed through commands. 
+They are able to add and remove admins through commands.
 
 ---
 
