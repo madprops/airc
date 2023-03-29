@@ -19,7 +19,7 @@ module.exports = function (App) {
         `${p}reset`,
         `${p}autorespond [0-100]`,
         `${p}allow_ask [all|admins|owners]`,
-        `${p}allow_mod [all|admins|owners]`,
+        `${p}allow_modify [all|admins|owners]`,
         `${p}admins [add|remove][nick]`,
         `${p}admins clear`,
         `${p}owners`,
@@ -37,7 +37,7 @@ module.exports = function (App) {
     // Commands that modify instructions
 
     if (cmd.startsWith("instructions ")) {
-      if (!App.is_allowed("allow_mod", from)) { return }       
+      if (!App.is_allowed("allow_modify", from)) { return }       
       let arg = cmd.replace(/^\instructions /, "").trim()
       
       if (arg) {
@@ -55,7 +55,7 @@ module.exports = function (App) {
     } 
     
     if (cmd.startsWith("ur ")) { 
-      if (!App.is_allowed("allow_mod", from)) { return }                      
+      if (!App.is_allowed("allow_modify", from)) { return }                      
       let arg = cmd.replace(/^\ur /, "").trim()
 
       if (arg) {
@@ -71,7 +71,7 @@ module.exports = function (App) {
     }    
     
     if (cmd === "reset") {
-      if (!App.is_allowed("allow_mod", from)) { return }       
+      if (!App.is_allowed("allow_modify", from)) { return }       
       App.update_config("instructions", "")
       App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: [Empty]`)
       return
@@ -173,14 +173,14 @@ module.exports = function (App) {
         return
       } 
       
-      if (cmd.startsWith("allow_mod ")) {
-        let arg = cmd.replace(/^\allow_mod /, "").trim()
+      if (cmd.startsWith("allow_modify ")) {
+        let arg = cmd.replace(/^\allow_modify /, "").trim()
   
         if (arg) {
           let allowed = ["all", "admins", "owners"]
   
           if (allowed.includes(arg)) {
-            App.update_config("allow_mod", arg)
+            App.update_config("allow_modify", arg)
             App.irc_client.say(to, "Done.")
           }
           else {
@@ -191,8 +191,8 @@ module.exports = function (App) {
         return
       }
 
-      if (cmd ===  "allow_mod") {
-        App.irc_client.say(to, `${App.bold_text("allow_mod")}: ` + App.config.allow_mod)
+      if (cmd ===  "allow_modify") {
+        App.irc_client.say(to, `${App.bold_text("allow_modify")}: ` + App.config.allow_modify)
         return
       }
     }  

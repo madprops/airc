@@ -146,7 +146,7 @@ What they can do can be determined through permissions.
 
 ---
 
-`allow_mod`: Who is allowed to modify the personality of the ai through instructions.
+`allow_modify`: Who is allowed to modify the personality of the ai through instructions.
 
 "all" -> anybody, "admins" -> admins and up, "owners" -> only owners.
 
@@ -248,7 +248,7 @@ If `clear` it will set it to an empty string.
 
 `allow_ask [all|admins|owners]`: Change "ask" permission.
 
-`allow_mod [all|admins|owners]`: Change "instructions" permission.
+`allow_modify [all|admins|owners]`: Change "instructions" permission.
 
 These can only be performed by `owners`.
 
