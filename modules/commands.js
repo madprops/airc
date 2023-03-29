@@ -91,7 +91,7 @@ module.exports = function (App) {
   
         if (arg) {
           if (arg.length <= App.max_user_length) {
-            if (!App.is_user(nickname) && !App.is_admin(nickname)) {
+            if (!App.is_user(arg) && !App.is_admin(arg)) {
               App.config.users.push(arg)
               App.update_config("users", App.config.users)
               App.irc_client.say(to, "Done.")
