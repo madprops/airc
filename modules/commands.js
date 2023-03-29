@@ -16,7 +16,6 @@ module.exports = function (App) {
       let cmds = [
         `${p}ur [x]`,
         `${p}rules [x|clear]`,
-        `${p}reset`,
         `${p}autorespond [0-100]`,
         `${p}allow_ask [all|users|admins]`,
         `${p}allow_modify [all|users|admins]`,
@@ -68,14 +67,7 @@ module.exports = function (App) {
       }
 
       return
-    }    
-    
-    if (cmd === "reset") {
-      if (!App.is_allowed("allow_modify", from)) { return }       
-      App.update_config("rules", "")
-      App.irc_client.say(to, `${App.bold_text("Rules")} have been set to: [Empty]`)
-      return
-    }      
+    }         
 
     // admins only
 

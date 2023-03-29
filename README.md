@@ -232,10 +232,6 @@ If `clear` it will set it to an empty string.
 
 ---
 
-`reset`: This is a shortcut to `rules clear`.
-
----
-
 `autorespond [0-100]`: Sets autorespond to a number from 0 to 100.
 
 ---
