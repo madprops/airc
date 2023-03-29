@@ -213,7 +213,7 @@ For example: `mybot, !help`.
 
 ---
 
-`all`: Normal users might be able to use some commands, depending on how the bot is configured.
+Normal users might be able to use some commands, depending on how the bot is configured.
 
 If `allow_mod` is set to `all`, anybody is able to change the bot's instructions.
 
