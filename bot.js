@@ -32,7 +32,8 @@ if (App.fs.existsSync(uc_path)) {
   Object.assign(App.config, user_config)
   console.info("Using config.user.json")
   App.using_user_config = true 
-} else {
+} 
+else {
   App.using_user_config = false 
 }
 
