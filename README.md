@@ -211,7 +211,7 @@ Commands start with `!` and the bot's nickname must be mentioned.
 
 For example: `mybot, !help`.
 
---
+---
 
 `all`: Normal users might be able to use some commands, depending on how the bot is configured.
 
