@@ -221,6 +221,10 @@ If `clear` it will set it to an empty string.
 
 ---
 
+`!reset`: This is a shortcut to `!instructions clear`.
+
+---
+
 `!silent [true|false]`: Sets silent to true or false.
 
 ---

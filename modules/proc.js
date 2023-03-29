@@ -71,9 +71,14 @@ module.exports = function (App) {
                 }
     
                 App.update_config("instructions", arg)
-                App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: ` + (arg || "Empty"))
+                App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: ` + (arg || "[Empty]"))
               }
             }
+          }
+
+          else if (prompt === "!reset") {
+            App.update_config("instructions", "")
+            App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: [Empty]`)
           }
   
           else if (prompt === "!silent") {
