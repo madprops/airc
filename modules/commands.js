@@ -30,7 +30,7 @@ module.exports = function (App) {
       return
     } 
 
-    // Functions that modify instructions
+    // Commands that modify instructions
 
     if (cmd.startsWith("instructions ")) {
       if (!App.is_allowed("allow_mod", from)) { return }       
@@ -73,7 +73,7 @@ module.exports = function (App) {
       return
     }      
 
-    // admins + owners
+    // admins or owners only
 
     if (App.is_operator(from)) {  
       if (cmd === "autorespond") {
@@ -94,7 +94,7 @@ module.exports = function (App) {
       }
     }
 
-    // Only owners
+    // owners only
 
     if (App.is_owner(from)) {
       if (cmd === "admins") {
