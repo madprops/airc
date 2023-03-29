@@ -12,7 +12,7 @@ App.max_admin_length = 25
 App.get_config_path = function (forced = "") {
   let s = forced
 
-  if (!s === "") {
+  if (s === "") {
     s = App.using_user_config ? "config.user.json" : "config.json"
   }
   
