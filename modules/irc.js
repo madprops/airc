@@ -12,6 +12,7 @@ module.exports = function (App) {
       App.last_messages[to] = {from: App.config.nickname, to: to, message: message}
     })
 
+    // Without this it might crash sometimes
     App.irc_client.addListener("error", function(message) {
       console.error("irc error")
     })
