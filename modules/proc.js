@@ -98,7 +98,6 @@ module.exports = function (App) {
     }
     
     App.rate_limit_date = Date.now()
-    return
 
     if (App.config.channels.includes(to)) {
       if (prompt.length <= App.config.max_prompt_length) {
