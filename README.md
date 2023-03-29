@@ -14,7 +14,7 @@ nodejs irc openai bot
 
 ## Configuration
 
-Before you edit config.json read this:
+Before you edit `config.json` read this:
 
 When `config.json` changes, it makes it hard for the bot users to simply `git pull` all the time.
 
@@ -22,7 +22,7 @@ Since the config in the repo conflicts with their own config.
 
 To solve this, a file called `config.user.json` is created at launch if it does not exist.
 
-Edit what you need in the user config, leave config.json intact, you can still use it as reference.
+Edit what you need in the `config.user.json`, leave `config.json` intact, you can still use it as reference.
 
 ---
 
