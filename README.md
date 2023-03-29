@@ -24,6 +24,8 @@ To solve this, a file called `config.user.json` is created at launch if it does 
 
 Edit what you need in the `config.user.json`, leave `config.json` intact, you can still use it as reference.
 
+Now you can `git pull` for updates any time without worrying about conflicts.
+
 ---
 
 These are the available settings:
