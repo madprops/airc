@@ -96,7 +96,7 @@ Admin commands are still active. Mainly meant to be set true or false through a 
 
 It reads the openai api key from the shell environment, it's not added to the code or config. You must do this before running the bot:
 
-`export OPENAI_API_KEY=123mykey456`
+`export OPENAI_API_KEY=mySecretKey`
 
 Using your secret api key, which is not meant to be shared.
 
@@ -158,7 +158,7 @@ Start a bot:
 
 ```bash
 #!/usr/bin/env bash
-export OPENAI_API_KEY=123mykey456
+export OPENAI_API_KEY=mySecretKey
 while true; do nohup node /home/botguy/mybot/bot.js
 done &
 ```
