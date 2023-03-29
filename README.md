@@ -214,7 +214,7 @@ These are the available commands:
 
 ---
 
-`help`: Shows some information about commands.
+`help`: Lists the available commands.
 
 ---
 
