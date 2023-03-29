@@ -164,16 +164,13 @@ module.exports = function (App) {
             }
           }           
         }
-  
-        return true
       }
       else {
         App.proc_respond(from, to, prompt)
-        return true
       }
     }
   
-    return false
+    return true
   }
   
   App.proc_autorespond = function (from, to, message, prev_message) {
