@@ -14,6 +14,10 @@ nodejs irc openai bot
 
 ## Configuration
 
+The bot is confiuged by editing the config.json file before launching it.
+
+---
+
 `nickname`: irc nickname of the bot. 
 Make sure it's not in use yet: `/whois nickname`,
 and make sure it's not registered: `/msg nickserv info nickname`.
