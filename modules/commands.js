@@ -8,13 +8,15 @@ module.exports = function (App) {
       let p = App.config.commands_prefix
 
       let cmds = [
-        `${p}instructions [x|clear]`,
-        `${p}autorespond [0-100]`,
         `${p}ur [x]`,
-        `${p}admins [add|remove] [x]`,
+        `${p}instructions [x|clear]`,
+        `${p}reset`,
+        `${p}autorespond [0-100]`,
+        `${p}allow_ask [all|admins|owners]`,
+        `${p}allow_mod [all|admins|owners]`,
+        `${p}admins [add|remove][nick]`,
         `${p}admins clear`,
         `${p}owners`,
-        `${p}reset`
       ]
 
       App.irc_client.say(to, `${App.bold_text("Commands")}: ` + cmds.join(" 👾 "))
