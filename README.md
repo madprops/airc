@@ -133,12 +133,6 @@ They are able to add and remove admins through commands.
 
 ---
 
-`silent`: If this is true it will ignore all mentions and won't send requests to openai. 
-This is when you want the room to be quiet to avoid spam or to counter a raid. 
-Admin commands are still active. Mainly meant to be set true or false through a command from a bot admin.
-
----
-
 `commands_prefix`: The character used to invoke commands. Like `!help` if `!` or `.help` if `.`
 
 ---
@@ -259,10 +253,6 @@ If `clear` it will set it to an empty string.
 ---
 
 `!reset`: This is a shortcut to `!instructions clear`.
-
----
-
-`!silent [true|false]`: Sets silent to true or false.
 
 ---
 

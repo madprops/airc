@@ -47,6 +47,7 @@ Object.assign(App.config, user_config)
 require("./modules/irc.js")(App)
 require("./modules/openai.js")(App)
 require("./modules/proc.js")(App)
+require("./modules/commands.js")(App)
 require("./modules/utils.js")(App)
 
 App.main = function () {
