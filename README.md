@@ -6,15 +6,16 @@ It includes commands to alter the way the bot responds.
 
 For example:
 
-```
-You: Bot, !ur an angry squirrel
+---
 
-Bot: Instructions have been set to: Please respond as if you were an angry squirrel
+**You**: Bot, !ur an angry squirrel
 
-You: Bot, why are you in a tree?
+**Bot**: Instructions have been set to: Please respond as if you were an angry squirrel
 
-Bot: Oh, you think it's funny, do you? Well, I'm in a tree because it is my home! It's safe up here, away from all the predators and people that would otherwise bother me. So don't you worry about why I'm in a tree - worry about why you're not!
-```
+**You**: Bot, why are you in a tree?
+
+**Bot**: Oh, you think it's funny, do you? Well, I'm in a tree because it is my home! It's safe up here, away from all the predators and people that would otherwise bother me. So don't you worry about why I'm in a tree - worry about why you're not!
+
 
 ---
 
