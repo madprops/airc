@@ -124,13 +124,15 @@ if (instructions) {
 
 ---
 
-`owners`: They can run all the commands.
+`owners`: Array of nicknames. They can run all the commands.
 
 They are able to add/remove admins, and modify permissions.
 
 ---
 
-`admins`: An array of irc nicknames that can control the bot through commands.
+`admins`: Array of nicknames. They have access to some commands.
+
+What they can do can be determined through permissions.
 
 ---
 
