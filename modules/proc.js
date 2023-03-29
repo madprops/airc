@@ -10,10 +10,11 @@ module.exports = function (App) {
 
     message = message.trim()
 
+    let low_message = message.toLowerCase()
     let prev_message = App.last_messages[to]
     App.last_messages[to] = {from: from, to: to, message: message}
 
-    if (message.includes("http://") || message.includes("https://")) {
+    if (low_message.includes("http://") || low_message.includes("https://")) {
       return
     }
   
