@@ -146,7 +146,7 @@ What they can do can be determined through permissions.
 
 ---
 
-`allow_mod`: Who is allowed to change the personality of the ai through instructions.
+`allow_mod`: Who is allowed to modify the personality of the ai through instructions.
 
 "all" -> anybody, "admins" -> admins and up, "owners" -> only owners.
 
