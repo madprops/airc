@@ -1,3 +1,5 @@
+![](https://i.imgur.com/H9yo8Jt.jpg)
+
 This is nodejs bot that allows users in irc channels to ask questions to openai.
 
 It includes commands to alter the way the bot responds.
@@ -293,7 +295,3 @@ Restart bots:
 ./start_bot1.sh
 ./start_bot2.sh
 ```
-
----
-
-![](https://i.imgur.com/H9yo8Jt.jpg)
