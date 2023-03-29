@@ -14,12 +14,6 @@ module.exports = function (App) {
       console.error("Error updating the config file")
     }
   } 
-  
-  App.get_config_path = function () {
-    let s = App.using_user_config ? "config.user.json" : "config.json"
-    let p = App.path.resolve(App.path.dirname(__filename), "../")
-    return App.path.join(p, s)
-  }
 
   App.is_operator = function (nickname) {
     return App.is_owner(nickname) || App.is_admin(nickname)
