@@ -6,19 +6,22 @@ module.exports = function (App) {
   App.process = function (from, to, message) {
     message = message.trim()
 
+    let prev_message = App.last_messages[to]
+    App.last_messages[to] = {from: from, to: to, message: message} 
+
     if (from === App.config.nickname) {
       return
     }  
   
-    if (App.proc_nick_mention(from, to, message)) {
+    if (App.proc_nick_mention(from, to, message, prev_message)) {
       return
     }
     else {
-      App.proc_autorespond(from, to, message)
+      App.proc_autorespond(from, to, message, prev_message)
     }
   }
   
-  App.proc_nick_mention = function (from, to, message) {
+  App.proc_nick_mention = function (from, to, message, prev_message) {
     let re = new RegExp(/^(?<nickname>\w+)[,:](?<message>.*)$/, "")
     let match = message.match(re)
     
@@ -38,15 +41,19 @@ module.exports = function (App) {
         App.irc_client.say(to, "hi!")
         return true
       }
+      else if (prompt === "^" && prev_message) {
+        App.proc_respond(from, to, prev_message.message)
+        return true
+      }
             
       if (prompt.startsWith("!")) {
         if (App.is_operator(from)) {
           if (prompt === "!help") {
-            App.irc_client.say(to, "Commands: !instructions [x|clear], !silent [true|false], !autorespond [0-100], !ur [x], !admins [add|remove] [x], !admins clear")
+            App.irc_client.say(to, `${App.bold_text("Commands")}: !instructions [x|clear], !silent [true|false], !autorespond [0-100], !ur [x], !admins [add|remove] [x], !admins clear`)
           }
   
           else if (prompt === "!instructions") {
-            App.irc_client.say(to, "Instructions: " + (App.config.instructions || "[Empty]"))
+            App.irc_client.say(to, `${App.bold_text("Instructions")}: ` + (App.config.instructions || "[Empty]"))
           }
   
           else if (prompt.startsWith("!instructions ")) {
@@ -59,13 +66,13 @@ module.exports = function (App) {
                 }
     
                 App.update_config("instructions", arg)
-                App.irc_client.say(to, "Instructions have been set to: " + (arg || "Empty"))
+                App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: ` + (arg || "Empty"))
               }
             }
           }
   
           else if (prompt === "!silent") {
-            App.irc_client.say(to, "Silent: " + App.config.silent)
+            App.irc_client.say(to, `${App.bold_text("Silent")}: ` + App.config.silent)
           }          
   
           else if (prompt.startsWith("!silent ")) {
@@ -74,12 +81,12 @@ module.exports = function (App) {
             if (arg === "true" || arg === "false") {
               let bool = arg === "true"
               App.update_config("silent", bool)
-              App.irc_client.say(to, "Silent has been set to: " + bool)
+              App.irc_client.say(to, `${App.bold_text("Silent")} has been set to: ` + bool)
             }
           }
   
           else if (prompt === "!autorespond") {
-            App.irc_client.say(to, "Autorespond: " + App.config.autorespond)
+            App.irc_client.say(to, `${App.bold_text("Autorespond")}: ` + App.config.autorespond)
           }          
   
           else if (prompt.startsWith("!autorespond ")) {
@@ -88,7 +95,7 @@ module.exports = function (App) {
   
             if (!isNaN(n) && n >= 0 && n <= 100) {
               App.update_config("autorespond", n)
-              App.irc_client.say(to, "Autorespond has been set to: " + n)
+              App.irc_client.say(to, `${App.bold_text("Autorespond")} has been set to: ` + n)
             }
           }
 
@@ -100,7 +107,7 @@ module.exports = function (App) {
   
               if (ins.length <= App.max_instructions_length) {  
                 App.update_config("instructions", ins)              
-                App.irc_client.say(to, "Instructions have been set to: " + ins)
+                App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: ` + ins)
               }
             }
           }
@@ -108,7 +115,7 @@ module.exports = function (App) {
           else if (prompt === "!admins") {
             if (App.is_owner(from)) {
               let s = App.config.admins.join(", ")
-              App.irc_client.say(to, "Admins: " + (s || "No admins yet"))
+              App.irc_client.say(to, `${App.bold_text("Admins")}: ` + (s || "No admins yet"))
             }
           }            
 
@@ -153,7 +160,7 @@ module.exports = function (App) {
           else if (prompt ===  "!owners") {
             if (App.is_owner(from)) {
               let s = App.config.owners.join(", ")
-              App.irc_client.say(to, "Owners: " + (s || "No owners yet"))
+              App.irc_client.say(to, `${App.bold_text("Owners")}: ` + (s || "No owners yet"))
             }
           }           
         }
@@ -169,13 +176,10 @@ module.exports = function (App) {
     return false
   }
   
-  App.proc_autorespond = function (from, to, message) {
+  App.proc_autorespond = function (from, to, message, prev_message) {
     if (message.startsWith("!")) {
       return true
-    }
-
-    let prev_message = App.last_messages[to]
-    App.last_messages[to] = {from: from, to: to, message: message}  
+    } 
   
     if (App.config.autorespond <= 0) {
       return false

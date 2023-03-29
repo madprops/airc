@@ -33,4 +33,8 @@ module.exports = function (App) {
     let nick = nickname.toLowerCase()
     return App.config.admins.map(x => x.toLowerCase()).some(x => x === nick)
   }
+
+  App.bold_text = function (text) {
+    return `\x02${text}\x0F`
+  }
 }
