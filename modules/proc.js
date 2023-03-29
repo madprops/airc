@@ -3,10 +3,6 @@
 
 module.exports = function (App) {
   App.process = function (from, to, message) {
-    if (from === App.config.nickname) {
-      return
-    }  
-
     message = message.trim()
 
     let prev_message = App.last_messages[to]
@@ -99,11 +95,9 @@ module.exports = function (App) {
     
     App.rate_limit_date = Date.now()
 
-    if (App.config.channels.includes(to)) {
-      if (prompt.length <= App.config.max_prompt_length) {
-        console.info(from + ' => ' + to + ': ' + prompt);
-        App.ask_openai(prompt, to)
-      }
+    if (prompt.length <= App.config.max_prompt_length) {
+      console.info(from + ' => ' + to + ': ' + prompt);
+      App.ask_openai(prompt, to)
     }
   }  
 }

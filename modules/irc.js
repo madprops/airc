@@ -5,7 +5,9 @@ module.exports = function (App) {
     })
     
     App.irc_client.addListener("message", function (from, to, message) {
-      App.process(from, to, message)
+      if (App.config.channels.includes(to)) {
+        App.process(from, to, message)
+      }
     })
   
     App.irc_client.addListener("selfMessage", function (to, message) {
