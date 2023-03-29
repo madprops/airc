@@ -4,6 +4,10 @@ module.exports = function (App) {
   App.check_commands = function (from, to, prompt) {
     let cmd = prompt.replace(App.config.commands_prefix, "")
 
+    if (!cmd) {
+      return
+    }
+
     // Commands anybody can use
 
     if (cmd === "help") {
