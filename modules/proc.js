@@ -40,7 +40,7 @@ module.exports = function (App) {
       }
             
       if (prompt.startsWith("!")) {
-        if (App.config.admins.includes(from)) {
+        if (App.is_operator(from)) {
           if (prompt === "!help") {
             App.irc_client.say(to, "Commands: !instructions [x|empty], !silent [true|false], !autorespond [0-100]")
           }
@@ -104,6 +104,44 @@ module.exports = function (App) {
               }
             }
           }
+
+          else if (prompt === "!admins") {
+            if (App.is_owner(from)) {
+              let s = App.config.admins.join(", ")
+              App.irc_client.say(to, "Admins: " + s)
+            }
+          }            
+
+          else if (prompt.startsWith("!admins add ")) {
+            if (App.is_owner(from)) {
+              let arg = prompt.replace(/^\!admins add /, "").trim()
+  
+              if (arg) {
+                if (arg.length <= App.max_admin_length) {
+                  if (!App.is_operator(arg)) {
+                    App.config.admins.push(arg)
+                    App.update_config("admins", App.config.admins)
+                    App.irc_client.say(to, "Done.")
+                  }
+                }
+              }
+            }
+          }
+
+          else if (prompt.startsWith("!admins remove ")) {
+            if (App.is_owner(from)) {
+              let arg = prompt.replace(/^\!admins remove /, "").trim()
+  
+              if (arg) {
+                if (App.is_admin(arg)) {
+                  let nick = arg.toLowerCase()
+                  let admins = App.config.admins.map(x => x.toLowerCase()).filter(x => x !== nick)
+                  App.update_config("admins", admins)
+                  App.irc_client.say(to, "Done.")
+                }
+              }
+            }
+          }          
         }
   
         return true

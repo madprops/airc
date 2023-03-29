@@ -9,8 +9,13 @@
   "max_tokens": 200,
   "autorespond": 10,
   "instructions": "",
-  "admins": [
+  "owners": [
     "madprops"
+  ],
+  "admins": [
+    "pepe",
+    "star",
+    "charon"
   ],
   "silent": false
 }

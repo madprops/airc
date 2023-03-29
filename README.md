@@ -82,6 +82,10 @@ if (instructions) {
 
 ---
 
+`owners`: Special admins that can't be removed through commands.
+
+---
+
 `admins`: An array of irc nicknames that can control the bot through commands.
 
 ---
@@ -143,6 +147,8 @@ If set to "empty" it will set it to an empty string.
 `!ur [thing]`: Shortcut to set a personality.
 
 `!ur a monkey` would set the instructions to `Please respond as if you were a monkey`.
+
+`!admins [add|remove] [nickname]`: Add or remove a nickname from the admins array. 
 
 Changes to config properties are saved to config.json
 

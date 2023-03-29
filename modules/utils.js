@@ -19,4 +19,18 @@ module.exports = function (App) {
     let p = App.path.resolve(App.path.dirname(__filename), "../")
     return App.path.join(p, "config.json")
   }
+
+  App.is_operator = function (nickname) {
+    return App.is_owner(nickname) || App.is_admin(nickname)
+  }
+
+  App.is_owner = function (nickname) {
+    let nick = nickname.toLowerCase()
+    return App.config.owners.map(x => x.toLowerCase()).some(x => x === nick)
+  }
+
+  App.is_admin = function (nickname) {
+    let nick = nickname.toLowerCase()
+    return App.config.admins.map(x => x.toLowerCase()).some(x => x === nick)
+  }
 }
