@@ -204,7 +204,7 @@ The bot might autorespond in some cases if the autorespond config is greater tha
 
 ## Commands <a name="commands"></a>
 
-Commands start with `!` and the bot's nickname must be mentioned.
+Commands start with a prefix and the bot's nickname must be mentioned.
 
 For example: `mybot, !help`.
 
@@ -214,11 +214,11 @@ These are the available commands:
 
 ---
 
-`!help`: Shows some information about commands.
+`help`: Shows some information about commands.
 
 ---
 
-`!instructions [x|clear]`: Sets instructions to x.
+`instructions [x|clear]`: Sets instructions to x.
 
 Instructions longer than 250 characters will be ignored.
 
@@ -226,29 +226,29 @@ If `clear` it will set it to an empty string.
 
 ---
 
-`!reset`: This is a shortcut to `!instructions clear`.
+`reset`: This is a shortcut to `instructions clear`.
 
 ---
 
-`!autorespond [0-100]`: Sets autorespond to a number from 0 to 100.
+`autorespond [0-100]`: Sets autorespond to a number from 0 to 100.
 
 ---
 
-`!ur [thing]`: Shortcut to set a personality.
+`ur [thing]`: Shortcut to set a personality.
 
-`!ur a monkey` would set the instructions to `Please respond as if you were a monkey`.
-
----
-
-`!admins [add|remove] [nickname]`: Add or remove a nickname from the admins array. 
-
-`!admins [clear]`: Empty the admins array.
+`ur a monkey` would set the instructions to `Please respond as if you were a monkey`.
 
 ---
 
-`!allow_ask [all|admins|owners]`: Change "ask" permission.
+`admins [add|remove] [nickname]`: Add or remove a nickname from the admins array. 
 
-`!allow_mod [all|admins|owners]`: Change "instructions" permission.
+`admins [clear]`: Empty the admins array.
+
+---
+
+`allow_ask [all|admins|owners]`: Change "ask" permission.
+
+`allow_mod [all|admins|owners]`: Change "instructions" permission.
 
 These can only be performed by `owners`.
 
