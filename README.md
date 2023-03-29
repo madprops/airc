@@ -190,11 +190,20 @@ The bot might autorespond in some cases if the autorespond config is greater tha
 
 ## Commands <a name="commands"></a>
 
-Admins of the bot can issue commands to change some of its state.
+Operators of the bot can issue commands to change some of its state.
 
 Commands start with "!" and the bot's nickname must be mentioned.
 
 For example: `mybot, !help`.
+
+`admins` can use most commands.
+
+`owners` can use all commands, including adding and removing `admins`.
+
+`owners` can't be added or removed through commands, 
+it must be modified manually in the config file and the bot must be restarted.
+
+---
 
 These are the available commands:
 
