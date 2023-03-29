@@ -122,8 +122,6 @@ if (rules) {
 }
 ```
 
-If you want to directly tell it to impersonate something or someone use the `ur` command.
-
 ---
 
 `admins`: Array of nicknames. They can run all the commands.
@@ -220,6 +218,12 @@ These are the available commands:
 
 ---
 
+`ur [thing]`: Shortcut to set a personality.
+
+`ur a monkey` would set the rules to `Respond as if you were a monkey`.
+
+---
+
 `rules [x|clear]`: Sets rules to x.
 
 Rules longer than 250 characters will be ignored.
@@ -233,12 +237,6 @@ If `clear` it will set it to an empty string.
 ---
 
 `autorespond [0-100]`: Sets autorespond to a number from 0 to 100.
-
----
-
-`ur [thing]`: Shortcut to set a personality.
-
-`ur a monkey` would set the rules to `Respond as if you were a monkey`.
 
 ---
 
