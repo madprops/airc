@@ -11,7 +11,11 @@ module.exports = function (App) {
     message = message.trim()
 
     let prev_message = App.last_messages[to]
-    App.last_messages[to] = {from: from, to: to, message: message}     
+    App.last_messages[to] = {from: from, to: to, message: message}
+
+    if (message.includes("http://") || message.includes("https://")) {
+      return
+    }
   
     if (App.proc_nick_mention(from, to, message, prev_message)) {
       return
