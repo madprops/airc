@@ -205,6 +205,10 @@ The bot might autorespond in some cases if the autorespond config is greater tha
 
 ---
 
+The `allow_ask` config determines who is able to interact with openai through the bot.
+
+---
+
 ## Commands <a name="commands"></a>
 
 Commands start with `!` and the bot's nickname must be mentioned.
