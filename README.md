@@ -14,7 +14,7 @@ nodejs irc openai bot
 
 ## Configuration
 
-The bot is confiuged by editing the config.json file before launching it.
+The bot is configured by editing the config.json file before launching it.
 
 ---
 
