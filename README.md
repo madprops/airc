@@ -1,7 +1,3 @@
-nodejs irc openai bot
-
----
-
 ## Index
 1. [Installation](#installation)
 1. [Configuration](#configuration)
