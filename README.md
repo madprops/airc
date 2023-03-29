@@ -138,7 +138,7 @@ Admin commands are still active. Mainly meant to be set true or false through a 
 
 ---
 
-`commands_prefix`: The character used to invoke commands. Like `!help` if `!` or `.help` if `.`.
+`commands_prefix`: The character used to invoke commands. Like `!help` if `!` or `.help` if `.`
 
 ---
 
