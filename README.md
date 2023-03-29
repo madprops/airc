@@ -155,6 +155,8 @@ If set to "empty" it will set it to an empty string.
 
 `!admins [add|remove] [nickname]`: Add or remove a nickname from the admins array. 
 
+This can only be performed by `owners`.
+
 ---
 
 Changes to config properties are saved to config.json
