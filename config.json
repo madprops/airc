@@ -9,10 +9,10 @@
   "max_tokens": 200,
   "autorespond": 10,
   "instructions": "",
-  "owners": [
+  "admins": [
     "madprops"
   ],
-  "admins": [],
+  "users": [],
   "commands_prefix": "!",
   "allow_ask": "all",
   "allow_modify": "all"

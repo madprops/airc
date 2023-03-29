@@ -7,7 +7,7 @@ App.irc = require("irc")
 App.openai = require("openai")
 App.last_messages = {}
 App.max_instructions_length = 250
-App.max_admin_length = 25
+App.max_user_length = 25
 App.config_file = "config.user.json"
 
 // Get the correct config path

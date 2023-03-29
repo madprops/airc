@@ -18,11 +18,11 @@ module.exports = function (App) {
         `${p}instructions [x|clear]`,
         `${p}reset`,
         `${p}autorespond [0-100]`,
-        `${p}allow_ask [all|admins|owners]`,
-        `${p}allow_modify [all|admins|owners]`,
-        `${p}admins [add|remove][nick]`,
-        `${p}admins clear`,
-        `${p}owners`,
+        `${p}allow_ask [all|users|admins]`,
+        `${p}allow_modify [all|users|admins]`,
+        `${p}users [add|remove][nick]`,
+        `${p}users clear`,
+        `${p}admins`,
       ]
 
       App.irc_client.say(to, `${App.bold_text("Commands")}: ` + cmds.join(" 👾 "))
@@ -77,9 +77,58 @@ module.exports = function (App) {
       return
     }      
 
-    // admins or owners only
+    // admins only
 
-    if (App.is_operator(from)) {  
+    if (App.is_admin(from)) {
+      if (cmd === "users") {
+        let s = App.config.users.join(", ")
+        App.irc_client.say(to, `${App.bold_text("Users")}: ` + (s || "[Empty]"))
+        return
+      }            
+  
+      if (cmd.startsWith("users add ")) {
+        let arg = cmd.replace(/^\users add /, "").trim()
+  
+        if (arg) {
+          if (arg.length <= App.max_user_length) {
+            if (!App.is_op(nickname) && !App.is_admin(nickname)) {
+              App.config.users.push(arg)
+              App.update_config("users", App.config.users)
+              App.irc_client.say(to, "Done.")
+            }
+          }
+        }
+
+        return
+      }
+
+      if (cmd.startsWith("users remove ")) {
+        let arg = cmd.replace(/^\users remove /, "").trim()
+  
+        if (arg) {
+          if (App.is_user(arg)) {
+            let nick = arg.toLowerCase()
+            let users = App.config.users.map(x => x.toLowerCase()).filter(x => x !== nick)
+            App.update_config("users", users)
+            App.irc_client.say(to, "Done.")
+          }
+        }
+
+        return
+      }  
+
+      if (cmd ===  "users clear") {
+        App.update_config("users", [])
+        App.irc_client.say(to, "Done.")
+        return
+      }    
+
+      if (cmd ===  "admins") {
+        let s = App.config.admins.join(", ")
+        App.irc_client.say(to, `${App.bold_text("Admins")}: ` + (s || "[Empty]"))
+        return
+      }   
+
       if (cmd === "autorespond") {
         App.irc_client.say(to, `${App.bold_text("Autorespond")}: ` + App.config.autorespond)
         return
@@ -95,73 +144,20 @@ module.exports = function (App) {
         }
 
         return
-      }
-    }
-
-    // owners only
-
-    if (App.is_owner(from)) {
-      if (cmd === "admins") {
-        let s = App.config.admins.join(", ")
-        App.irc_client.say(to, `${App.bold_text("Admins")}: ` + (s || "No admins yet"))
-        return
-      }            
-  
-      if (cmd.startsWith("admins add ")) {
-        let arg = cmd.replace(/^\admins add /, "").trim()
-  
-        if (arg) {
-          if (arg.length <= App.max_admin_length) {
-            if (!App.is_operator(arg)) {
-              App.config.admins.push(arg)
-              App.update_config("admins", App.config.admins)
-              App.irc_client.say(to, "Done.")
-            }
-          }
-        }
-
-        return
-      }
-
-      if (cmd.startsWith("admins remove ")) {
-        let arg = cmd.replace(/^\admins remove /, "").trim()
-  
-        if (arg) {
-          if (App.is_admin(arg)) {
-            let nick = arg.toLowerCase()
-            let admins = App.config.admins.map(x => x.toLowerCase()).filter(x => x !== nick)
-            App.update_config("admins", admins)
-            App.irc_client.say(to, "Done.")
-          }
-        }
-
-        return
-      }  
-
-      if (cmd ===  "admins clear") {
-        App.update_config("admins", [])
-        App.irc_client.say(to, "Done.")
-        return
-      }    
-
-      if (cmd ===  "owners") {
-        let s = App.config.owners.join(", ")
-        App.irc_client.say(to, `${App.bold_text("Owners")}: ` + (s || "No owners yet"))
-        return
-      }   
+      }      
       
       if (cmd.startsWith("allow_ask ")) {
         let arg = cmd.replace(/^\allow_ask /, "").trim()
   
         if (arg) {
-          let allowed = ["all", "admins", "owners"]
+          let allowed = ["all", "users", "admins"]
   
           if (allowed.includes(arg)) {
             App.update_config("allow_ask", arg)
             App.irc_client.say(to, "Done.")
           }
           else {
-            App.irc_client.say(to, "It must be: all, admins, or owners.")
+            App.irc_client.say(to, "It must be: all, users, or admins.")
           }
         }
 
@@ -177,14 +173,14 @@ module.exports = function (App) {
         let arg = cmd.replace(/^\allow_modify /, "").trim()
   
         if (arg) {
-          let allowed = ["all", "admins", "owners"]
+          let allowed = ["all", "users", "admins"]
   
           if (allowed.includes(arg)) {
             App.update_config("allow_modify", arg)
             App.irc_client.say(to, "Done.")
           }
           else {
-            App.irc_client.say(to, "It must be: all, admins, or owners.")
+            App.irc_client.say(to, "It must be: all, users, or admins.")
           }
         }
 

@@ -44,7 +44,7 @@ For example:
 
 Before you edit `config.json` read this:
 
-When `config.json` changes, it makes it hard for the bot users to simply `git pull` all the time.
+When `config.json` changes, it makes it hard for the bot admin to simply `git pull` all the time.
 
 Since the config in the repo conflicts with their own config.
 
@@ -124,13 +124,13 @@ if (instructions) {
 
 ---
 
-`owners`: Array of nicknames. They can run all the commands.
+`admins`: Array of nicknames. They can run all the commands.
 
-They are able to add/remove admins, and modify permissions.
+They are able to add/remove users, and modify permissions.
 
 ---
 
-`admins`: Array of nicknames. They have access to some commands.
+`users`: Array of nicknames. They might have more permissions than non-users.
 
 What they can do can be determined through permissions.
 
@@ -142,13 +142,13 @@ What they can do can be determined through permissions.
 
 `allow_ask`: Who is allowed to ask questions to the ai.
 
-"all" -> anybody, "admins" -> admins and up, "owners" -> only owners.
+"all" -> anybody, "users" -> users and up, "admins" -> only admins.
 
 ---
 
 `allow_modify`: Who is allowed to modify the personality of the ai through instructions.
 
-"all" -> anybody, "admins" -> admins and up, "owners" -> only owners.
+"all" -> anybody, "users" -> users and up, "admins" -> only admins.
 
 ---
 
@@ -240,17 +240,17 @@ If `clear` it will set it to an empty string.
 
 ---
 
-`admins [add|remove] [nickname]`: Add or remove a nickname from the admins array. 
+`users [add|remove] [nickname]`: Add or remove a nickname from the users array. 
 
-`admins [clear]`: Empty the admins array.
+`users [clear]`: Empty the users array.
 
 ---
 
-`allow_ask [all|admins|owners]`: Change "ask" permission.
+`allow_ask [all|users|admins]`: Change "ask" permission.
 
-`allow_modify [all|admins|owners]`: Change "instructions" permission.
+`allow_modify [all|users|admins]`: Change "instructions" permission.
 
-These can only be performed by `owners`.
+These can only be performed by `admins`.
 
 ---
 
