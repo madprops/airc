@@ -169,6 +169,8 @@ If `clear` it will set it to an empty string.
 
 `!silent [true|false]`: Sets silent to true or false.
 
+---
+
 `!autorespond [0-100]`: Sets autorespond to a number from 0 to 100.
 
 ---
