@@ -20,17 +20,9 @@ When `config.json` changes, it makes it hard for the bot users to simply `git pu
 
 Since the config in the repo conflicts with their own config.
 
-To solve this, the user can create a file called `config.user.json`, in the root as well, next to `config.json`
-
-Simply copy `config.json` into `config.user.json` and modify what you need.
-
-`cp config.json config.user.json`
+To solve this, a file called `config.user.json` is created at launch if it does not exist.
 
 Edit what you need in the user config, leave config.json intact, you can still use it as reference.
-
-Future updates to the config through commands will use the appropriate file.
-
-It's highly recommended you create this file.
 
 ---
 
