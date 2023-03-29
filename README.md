@@ -153,11 +153,19 @@ For example: `mybot, !help`.
 
 These are the available commands:
 
+---
+
 `!help`: Shows some information about commands.
 
+---
+
 `!instructions [x|clear]`: Sets instructions to x.
+
 Instructions longer than 250 characters will be ignored.
+
 If `clear` it will set it to an empty string.
+
+---
 
 `!silent [true|false]`: Sets silent to true or false.
 
