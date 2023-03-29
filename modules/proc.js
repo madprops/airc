@@ -54,7 +54,18 @@ module.exports = function (App) {
       if (prompt.startsWith("!")) {
         if (App.is_operator(from)) {
           if (prompt === "!help") {
-            App.irc_client.say(to, `${App.bold_text("Commands")}: !instructions [x|clear], !silent [true|false], !autorespond [0-100], !ur [x], !admins [add|remove] [x], !admins clear`)
+            let cmds = [
+              "!instructions [x|clear]", 
+              "!silent [true|false]", 
+              "!autorespond [0-100]", 
+              "!ur [x]", 
+              "!admins [add|remove] [x]", 
+              "!admins clear", 
+              "!owners", 
+              "!reset"
+            ]
+
+            App.irc_client.say(to, `${App.bold_text("Commands")}: ` + cmds.join(" 👾 "))
           }
   
           else if (prompt === "!instructions") {
