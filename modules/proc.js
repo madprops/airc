@@ -51,29 +51,33 @@ module.exports = function (App) {
         return true
       }
             
-      if (prompt.startsWith("!")) {
+      if (prompt.startsWith(App.config.commands_prefix)) {
+        let cmd = prompt.replace(App.config.commands_prefix, "")
+
         if (App.is_operator(from)) {
-          if (prompt === "!help") {
+          if (cmd === "help") {
+            let p = App.config.commands_prefix
+
             let cmds = [
-              "!instructions [x|clear]", 
-              "!silent [true|false]", 
-              "!autorespond [0-100]", 
-              "!ur [x]", 
-              "!admins [add|remove] [x]", 
-              "!admins clear", 
-              "!owners", 
-              "!reset"
+              `${p}instructions [x|clear]`,
+              `${p}silent [true|false]`,
+              `${p}autorespond [0-100]`,
+              `${p}ur [x]`,
+              `${p}admins [add|remove] [x]`,
+              `${p}admins clear`,
+              `${p}owners`,
+              `${p}reset`
             ]
 
             App.irc_client.say(to, `${App.bold_text("Commands")}: ` + cmds.join(" 👾 "))
           }
   
-          else if (prompt === "!instructions") {
+          else if (cmd === "instructions") {
             App.irc_client.say(to, `${App.bold_text("Instructions")}: ` + (App.config.instructions || "[Empty]"))
           }
   
-          else if (prompt.startsWith("!instructions ")) {
-            let arg = prompt.replace(/^\!instructions /, "").trim()
+          else if (cmd.startsWith("instructions ")) {
+            let arg = cmd.replace(/^\instructions /, "").trim()
             
             if (arg) {
               if (arg.length <= App.max_instructions_length) {
@@ -87,17 +91,17 @@ module.exports = function (App) {
             }
           }
 
-          else if (prompt === "!reset") {
+          else if (cmd === "reset") {
             App.update_config("instructions", "")
             App.irc_client.say(to, `${App.bold_text("Instructions")} have been set to: [Empty]`)
           }
   
-          else if (prompt === "!silent") {
+          else if (cmd === "silent") {
             App.irc_client.say(to, `${App.bold_text("Silent")}: ` + App.config.silent)
           }          
   
-          else if (prompt.startsWith("!silent ")) {
-            let arg = prompt.replace(/^\!silent /, "").trim()
+          else if (cmd.startsWith("silent ")) {
+            let arg = cmd.replace(/^\silent /, "").trim()
 
             if (arg === "true" || arg === "false") {
               let bool = arg === "true"
@@ -106,12 +110,12 @@ module.exports = function (App) {
             }
           }
   
-          else if (prompt === "!autorespond") {
+          else if (cmd === "autorespond") {
             App.irc_client.say(to, `${App.bold_text("Autorespond")}: ` + App.config.autorespond)
           }          
   
-          else if (prompt.startsWith("!autorespond ")) {
-            let arg = prompt.replace(/^\!autorespond /, "").trim()
+          else if (cmd.startsWith("autorespond ")) {
+            let arg = cmd.replace(/^\autorespond /, "").trim()
             let n = parseInt(arg)
   
             if (!isNaN(n) && n >= 0 && n <= 100) {
@@ -120,8 +124,8 @@ module.exports = function (App) {
             }
           }
 
-          else if (prompt.startsWith("!ur ")) {
-            let arg = prompt.replace(/^\!ur /, "").trim()
+          else if (cmd.startsWith("ur ")) {
+            let arg = cmd.replace(/^\ur /, "").trim()
 
             if (arg) {
               let ins = `Please respond as if you were ${arg}`
@@ -133,16 +137,16 @@ module.exports = function (App) {
             }
           }
 
-          else if (prompt === "!admins") {
+          else if (cmd === "admins") {
             if (App.is_owner(from)) {
               let s = App.config.admins.join(", ")
               App.irc_client.say(to, `${App.bold_text("Admins")}: ` + (s || "No admins yet"))
             }
           }            
 
-          else if (prompt.startsWith("!admins add ")) {
+          else if (cmd.startsWith("admins add ")) {
             if (App.is_owner(from)) {
-              let arg = prompt.replace(/^\!admins add /, "").trim()
+              let arg = cmd.replace(/^\admins add /, "").trim()
   
               if (arg) {
                 if (arg.length <= App.max_admin_length) {
@@ -156,9 +160,9 @@ module.exports = function (App) {
             }
           }
 
-          else if (prompt.startsWith("!admins remove ")) {
+          else if (cmd.startsWith("admins remove ")) {
             if (App.is_owner(from)) {
-              let arg = prompt.replace(/^\!admins remove /, "").trim()
+              let arg = cmd.replace(/^\admins remove /, "").trim()
   
               if (arg) {
                 if (App.is_admin(arg)) {
@@ -171,14 +175,14 @@ module.exports = function (App) {
             }
           }  
           
-          else if (prompt ===  "!admins clear") {
+          else if (cmd ===  "admins clear") {
             if (App.is_owner(from)) {
               App.update_config("admins", [])
               App.irc_client.say(to, "Done.")
             }
           }    
           
-          else if (prompt ===  "!owners") {
+          else if (cmd ===  "owners") {
             if (App.is_owner(from)) {
               let s = App.config.owners.join(", ")
               App.irc_client.say(to, `${App.bold_text("Owners")}: ` + (s || "No owners yet"))
@@ -195,7 +199,7 @@ module.exports = function (App) {
   }
   
   App.proc_autorespond = function (from, to, message, prev_message) {
-    if (message.startsWith("!")) {
+    if (message.startsWith(App.config.commands_prefix)) {
       return true
     } 
   

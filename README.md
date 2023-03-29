@@ -138,6 +138,10 @@ Admin commands are still active. Mainly meant to be set true or false through a 
 
 ---
 
+`commands_prefix`: The character used to invoke commands. Like "!help" if "!" or "~help" if "~".
+
+---
+
 ## Credentials <a name="credentials"></a>
 
 It reads the openai api key from the shell environment, it's not added to the code or config. You must do this before running the bot:
@@ -202,6 +206,10 @@ For example: `mybot, !help`.
 
 `owners` can't be added or removed through commands, 
 they must be modified manually in the config file and the bot must be restarted.
+
+---
+
+The prefix "!" can be changed to another character in the config.
 
 ---
 
