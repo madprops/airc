@@ -156,6 +156,8 @@ module.exports = function (App) {
             }
           }
 
+          // Owner commands
+
           else if (cmd === "admins") {
             if (App.is_owner(from)) {
               let s = App.config.admins.join(", ")
@@ -206,7 +208,43 @@ module.exports = function (App) {
               let s = App.config.owners.join(", ")
               App.irc_client.say(to, `${App.bold_text("Owners")}: ` + (s || "No owners yet"))
             }
-          }           
+          }   
+          
+          else if (cmd.startsWith("allow_ask ")) {
+            if (App.is_owner(from)) {
+              let arg = cmd.replace(/^\allow_ask /, "").trim()
+  
+              if (arg) {
+                let allowed = ["all", "admins", "owners"]
+
+                if (allowed.includes(arg)) {
+                  App.update_config("allow_ask", arg)
+                  App.irc_client.say(to, "Done.")
+                }
+                else {
+                  App.irc_client.say(to, "It must be: all, admins, or owners")
+                }
+              }
+            }
+          }  
+          
+          else if (cmd.startsWith("allow_mod ")) {
+            if (App.is_owner(from)) {
+              let arg = cmd.replace(/^\allow_mod /, "").trim()
+  
+              if (arg) {
+                let allowed = ["all", "admins", "owners"]
+
+                if (allowed.includes(arg)) {
+                  App.update_config("allow_mod", arg)
+                  App.irc_client.say(to, "Done.")
+                }
+                else {
+                  App.irc_client.say(to, "It must be: all, admins, or owners")
+                }
+              }
+            }
+          } 
         }
       }
       else {

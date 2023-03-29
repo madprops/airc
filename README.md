@@ -234,6 +234,8 @@ This includes the `instructions`, `ur`, and `reset` commands.
 `owners` can't be added or removed through commands, 
 they must be modified manually in the config file and the bot must be restarted.
 
+`owners` also get access to `allow_ask` and `allow_mod` commands.
+
 ---
 
 The prefix `!` can be changed to another character in the config.
@@ -277,6 +279,12 @@ If `clear` it will set it to an empty string.
 `!admins [add|remove] [nickname]`: Add or remove a nickname from the admins array. 
 
 `!admins [clear]`: Empty the admins array.
+
+---
+
+`!allow_ask [all|admins|owners]`: Change "ask" permission.
+
+`!allow_mod [all|admins|owners]`: Change "instructions" permission.
 
 These can only be performed by `owners`.
 
