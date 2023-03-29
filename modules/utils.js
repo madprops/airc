@@ -19,7 +19,7 @@ module.exports = function (App) {
 
   App.is_allowed = function (key, nickname) {
     if (App.config[key] === "users") {
-      if (!App.is_op(nickname) && !App.is_admin(nickname)) {
+      if (!App.is_user(nickname) && !App.is_admin(nickname)) {
         return false
       }
     }
