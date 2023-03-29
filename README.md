@@ -210,31 +210,6 @@ For example: `mybot, !help`.
 
 ---
 
-Normal users might be able to use some commands, depending on how the bot is configured.
-
-If `allow_mod` is set to `all`, anybody is able to change the bot's instructions.
-
-This includes the `instructions`, `ur`, and `reset` commands.
-
----
-
-`admins` can use most commands.
-
----
-
-`owners` can use all commands, including adding and removing `admins`.
-
-`owners` can't be added or removed through commands, 
-they must be modified manually in the config file and the bot must be restarted.
-
-`owners` also get access to `allow_ask` and `allow_mod` commands.
-
----
-
-The prefix `!` can be changed to another character in the config.
-
----
-
 These are the available commands:
 
 ---
