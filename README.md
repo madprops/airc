@@ -125,7 +125,10 @@ if (instructions) {
 ---
 
 `owners`: Special admins that can't be removed through commands. 
-They are able to add and remove admins through commands.
+
+They can run all the commands.
+
+They are able to add/remove admins, and modify permissions.
 
 ---
 
