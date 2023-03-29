@@ -243,7 +243,7 @@ If `clear` it will set it to an empty string.
 
 `!admins [clear]`: Empty the admins array.
 
-This can only be performed by `owners`.
+These can only be performed by `owners`.
 
 ---
 
