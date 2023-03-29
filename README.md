@@ -2,7 +2,17 @@ nodejs irc openai bot
 
 ---
 
-## Installation
+## Index
+1. [Installation](#installation)
+1. [Configuration](#configuration)
+1. [Credentials](#credentials)
+1. [Usage](#usage)
+1. [Commands](#commands)
+1. [Scripts](#scripts)
+
+---
+
+## Installation <a name="installation"></a>
 
 1) Clone this repo
 1) Run 'npm install' inside the dir
@@ -13,7 +23,7 @@ nodejs irc openai bot
 
 ---
 
-## Configuration
+## Configuration <a name="configuration"></a>
 
 Before you edit `config.json` read this:
 
@@ -112,7 +122,7 @@ Admin commands are still active. Mainly meant to be set true or false through a 
 
 ---
 
-## Api Key
+## Credentials <a name="credentials"></a>
 
 It reads the openai api key from the shell environment, it's not added to the code or config. You must do this before running the bot:
 
@@ -122,7 +132,7 @@ Using your secret api key, which is not meant to be shared.
 
 ---
 
-## Usage
+## Usage <a name="usage"></a>
 
 The bot should join the irc room(s) some seconds after starting the program.
 
@@ -162,7 +172,7 @@ The bot might autorespond in some cases if the autorespond config is greater tha
 
 ---
 
-## Commands
+## Commands <a name="commands"></a>
 
 Admins of the bot can issue commands to change some of its state.
 
@@ -212,7 +222,7 @@ Changes to config properties are saved to config.json
 
 ---
 
-## Scripts
+## Scripts <a name="scripts"></a>
 
 These are some script ideas you can use to manage the bot(s).
 
