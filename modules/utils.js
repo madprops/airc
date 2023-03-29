@@ -16,8 +16,9 @@ module.exports = function (App) {
   } 
   
   App.get_config_path = function () {
+    let s = App.using_user_config ? "config.user.json" : "config.json"
     let p = App.path.resolve(App.path.dirname(__filename), "../")
-    return App.path.join(p, "config.json")
+    return App.path.join(p, s)
   }
 
   App.is_operator = function (nickname) {

@@ -1,8 +1,8 @@
 {
-  "nickname": "Arctest",
+  "nickname": "airc-bot",
   "server": "irc.libera.chat",
   "channels": [
-    "#arctest"
+    "#airc-test"
   ],
   "model": "text-davinci-003",
   "max_prompt_length": 300,

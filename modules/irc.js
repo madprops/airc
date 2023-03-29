@@ -16,5 +16,9 @@ module.exports = function (App) {
     App.irc_client.addListener("error", function(message) {
       console.error("irc error")
     })
+
+    App.irc_client.addListener("join", function(channel, nick, message) {
+      console.info(`Joined ${channel}`)
+    })
   }  
 }
