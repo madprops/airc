@@ -7,7 +7,6 @@
   "model": "text-davinci-003",
   "max_prompt": 300,
   "max_tokens": 200,
-  "autorespond": 10,
   "rules": "",
   "admins": [
     "madprops"

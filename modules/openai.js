@@ -16,10 +16,10 @@ module.exports = function (App) {
     }
   
     // Remove periods at the end and trim
-    let ins = App.config.rules.trim().replace(/\.+$/, "").trim()
+    let rules = App.remove_dots(App.config.rules)
   
-    if (ins) {
-      prompt = ins + ". " + prompt
+    if (rules) {
+      prompt = rules + ". " + prompt
     }
   
     try {

@@ -30,12 +30,7 @@ module.exports = function (App) {
       App.report(to)
     }
   
-    if (App.proc_nick_mention(from, to, message, prev_message)) {
-      return
-    }
-    else {
-      App.proc_autorespond(from, to, message, prev_message)
-    }
+    App.proc_nick_mention(from, to, message, prev_message)
   }
   
   App.proc_nick_mention = function (from, to, message, prev_message) {
@@ -43,67 +38,41 @@ module.exports = function (App) {
     let match = message.match(re)
     
     if (!match) {
-      return false
+      return
     }
   
     let nick = match.groups.nickname.trim()
     let prompt = match.groups.message.trim()
   
     if (!nick || !prompt) {
-      return false
+      return
     }
   
     if (nick.toLowerCase() === App.config.nickname.toLowerCase()) {
       if(prompt === "hi" || prompt === "hello") {
         App.irc_client.say(to, "hi!")
-        return true
+        return
       }    
       else if (prompt.startsWith("^") && prev_message) {
-        let context = prev_message.message
+        let context = App.remove_dots(prev_message.message)
         let words = prompt.replace("^", "").trim()
 
         if (words) {
-          context = context + ". " + words
+          context += ". " + words
         }
 
         App.proc_respond(from, to, context)
-        return true
+        return
       }
             
       if (prompt.startsWith(App.config.prefix)) {        
         App.check_commands(from, to, prompt)
-        return true
+        return
       }
       else {
         App.proc_respond(from, to, prompt)
       }
     }
-  
-    return true
-  }
-  
-  App.proc_autorespond = function (from, to, message, prev_message) {
-    if (message.startsWith(App.config.prefix)) {
-      return true
-    } 
-  
-    if (App.config.autorespond <= 0) {
-      return false
-    }
-  
-    if (!prev_message || (prev_message.from !== App.config.nickname) || (from === App.config.nickname)) {
-      return false
-    }
-  
-    let num = App.get_random_int(1, 100)
-  
-    if (num >= 1 && num <= App.config.autorespond) {
-      let prompt = prev_message.message + ". " + message
-      App.proc_respond(from, to, prompt)
-      return true
-    }
-  
-    return false
   }
   
   App.proc_respond = function (from, to, prompt) { 

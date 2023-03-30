@@ -16,13 +16,13 @@ module.exports = function (App) {
       let cmds = [
         `${p}ur [x]`,
         `${p}rules [x|clear]`,
-        `${p}autorespond [0-100]`,
         `${p}allow_ask [all|users|admins]`,
         `${p}allow_modify [all|users|admins]`,
         `${p}users [add|remove][nick]`,
         `${p}users clear`,
         `${p}admins`,
         `${p}who`,
+        "Use ^ to reference message above",
       ]
 
       App.irc_client.say(to, `${App.bold_text("Commands")}: ` + cmds.join(" 👾 "))
@@ -69,11 +69,11 @@ module.exports = function (App) {
       let arg = cmd.replace("ur ", "").trim()
 
       if (arg) {
-        let ins = `Respond as if you were ${arg}`
+        let rules = `Respond as if you were ${arg}`
 
-        if (ins.length <= App.max_rules_length) {  
-          App.update_config("rules", ins)              
-          App.irc_client.say(to, `${App.bold_text("Rules")} have been set to: ` + ins)
+        if (rules.length <= App.max_rules_length) {  
+          App.update_config("rules", rules)              
+          App.irc_client.say(to, `${App.bold_text("Rules")} have been set to: ` + rules)
         }
       }
 
@@ -130,27 +130,7 @@ module.exports = function (App) {
         let s = App.config.admins.join(", ")
         App.irc_client.say(to, `${App.bold_text("Admins")}: ` + (s || "[Empty]"))
         return
-      }   
-
-      if (cmd === "autorespond") {
-        App.irc_client.say(to, `${App.bold_text("Autorespond")}: ` + App.config.autorespond)
-        return
-      }          
-
-      if (cmd.startsWith("autorespond ")) {
-        let arg = cmd.replace("autorespond ", "").trim()
-        let n = parseInt(arg)
-
-        if (!isNaN(n) && n >= 0 && n <= 100) {
-          App.update_config("autorespond", n)
-          App.irc_client.say(to, `${App.bold_text("Autorespond")} has been set to: ` + n)
-        }
-        else {
-          App.irc_client.say(to, "It must be a number between 0 and 100.")
-        }
-
-        return
-      }      
+      }    
       
       if (cmd.startsWith("allow_ask ")) {
         let arg = cmd.replace("allow_ask ", "").trim()

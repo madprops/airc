@@ -80,4 +80,8 @@ module.exports = function (App) {
 
 		return s
 	}  
+
+  App.remove_dots = function (s) {
+    return s.trim().replace(/\.+$/, "").trim()    
+  }
 }

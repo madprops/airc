@@ -92,34 +92,6 @@ The bigger this is the bigger responses can be, but it gets more expensive.
 
 ---
 
-`autorespond`: The percentage chance (0 to 100) of whether the bot autoresponds after a message.
-
-This only kicks in on normal comments that are sent right after the bot gave a response.
-
-The idea is that these comments are likely reactions to what the bot said.
-
-```
-You: How much is 2 + 2?
-
-Bot: 2 + 2 is 4.
-
-You: That is correct...
-
-* Bot rolls the dice *
-
-Bot: I'm glad that 4 is the correct answer! 
-```
-
-The sent prompt looks like:
-
-```js
-prompt = prev_message + ". " + message
-```
-
-Set it to 0 to disable it completely.
-
----
-
 `rules`: Optional instructions for the bot, they're prepended before every prompt.
 
 For example: "Please respond in the style of Stewie from Family Guy".
@@ -219,14 +191,12 @@ This is an alternative way to make the bot respond which might make sense in som
 The sent prompt looks like:
 
 ```js
+context = prev_message
+
 if (words) {
-  context = prev_message + ". " + words
+  context += ". " + words
 }
 ```
-
----
-
-The bot might autorespond in some cases if the autorespond config is greater than 0.
 
 ---
 
@@ -265,10 +235,6 @@ These are the available commands:
 Rules longer than 250 characters will be ignored.
 
 If `clear` it will set it to an empty string.
-
----
-
-`autorespond [0-100]`: Sets autorespond to a number from 0 to 100.
 
 ---
 
