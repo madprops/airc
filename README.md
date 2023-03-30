@@ -216,6 +216,8 @@ There's a built-in rate limit cooldown of some seconds after the last message.
 
 This is to avoid attacks or mistakes.
 
+Only admins bypass this check.
+
 ---
 
 ## Commands <a name="commands"></a>
