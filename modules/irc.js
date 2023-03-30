@@ -6,7 +6,12 @@ module.exports = function (App) {
     
     App.irc_client.addListener("message", function (from, to, message) {
       if (App.config.channels.includes(to)) {
-        App.process(from, to, message)
+        try {
+          App.process(from, to, message)
+        }
+        catch (err) {
+          console.error(err)
+        }
       }
     })
   
@@ -22,5 +27,7 @@ module.exports = function (App) {
     App.irc_client.addListener("join", function(channel, nick, message) {
       console.info(`Joined ${channel}`)
     })
+
+    console.info("Joining irc...")
   }  
 }
