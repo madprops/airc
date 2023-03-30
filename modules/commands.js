@@ -16,12 +16,12 @@ module.exports = function (App) {
       let cmds = [
         `${p}ur [x]`,
         `${p}rules [x|clear]`,
-        `${p}allow_ask [all|users|admins]`,
-        `${p}allow_modify [all|users|admins]`,
         `${p}users [add|remove][nick]`,
         `${p}users clear`,
         `${p}admins`,
         `${p}who`,
+        `${p}allow_ask [all|users|admins]`,
+        `${p}allow_modify [all|users|admins]`,
         "Use ^ to reference the message above",
       ]
 
