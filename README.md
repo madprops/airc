@@ -78,7 +78,11 @@ and make sure it's not registered: `/msg nickserv info nickname`.
 
 ---
 
-`max_prompt`: Ignore prompts longer than this. Rules length is not considered.
+`max_prompt`: Ignore prompts longer than this.
+
+Prompt is the text sent to openai to ask a question.
+
+Rules length is not considered.
 
 ---
 
