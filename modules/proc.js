@@ -91,7 +91,7 @@ module.exports = function (App) {
       prompt = rules + ". " + prompt
     }
 
-    App.ask_openai(prompt, to)
+    App.ask_openai(prompt, from, to)
   }  
 
   App.report = function (to) {
