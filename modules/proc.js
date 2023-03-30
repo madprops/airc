@@ -51,7 +51,7 @@ module.exports = function (App) {
         return true
       }
             
-      if (prompt.startsWith(App.config.commands_prefix)) {
+      if (prompt.startsWith(App.config.prefix)) {
         App.check_commands(from, to, prompt)
         return true
       }
@@ -64,7 +64,7 @@ module.exports = function (App) {
   }
   
   App.proc_autorespond = function (from, to, message, prev_message) {
-    if (message.startsWith(App.config.commands_prefix)) {
+    if (message.startsWith(App.config.prefix)) {
       return true
     } 
   

@@ -136,7 +136,7 @@ What they can do can be determined through permissions.
 
 ---
 
-`commands_prefix`: The character used to invoke commands. Like `!help` if `!` or `.help` if `.`
+`prefix`: The character used to invoke commands. Like `!help` if `!` or `.help` if `.`
 
 ---
 

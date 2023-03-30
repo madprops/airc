@@ -2,7 +2,7 @@
 
 module.exports = function (App) {
   App.check_commands = function (from, to, prompt) {
-    let cmd = prompt.replace(App.config.commands_prefix, "")
+    let cmd = prompt.replace(App.config.prefix, "")
 
     if (!cmd) {
       return
@@ -11,7 +11,7 @@ module.exports = function (App) {
     // Commands anybody can use
 
     if (cmd === "help") {
-      let p = App.config.commands_prefix
+      let p = App.config.prefix
 
       let cmds = [
         `${p}ur [x]`,

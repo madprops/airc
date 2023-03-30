@@ -13,7 +13,7 @@
     "madprops"
   ],
   "users": [],
-  "commands_prefix": "!",
+  "prefix": "!",
   "allow_ask": "all",
   "allow_modify": "all"
 }
