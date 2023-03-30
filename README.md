@@ -113,7 +113,7 @@ Bot: I'm glad that 4 is the correct answer!
 The sent prompt looks like:
 
 ```js
-prompt = prev_message + "; " + message
+prompt = prev_message + ". " + message
 ```
 
 Set it to 0 to disable it completely.
@@ -219,7 +219,9 @@ This is an alternative way to make the bot respond which might make sense in som
 The sent prompt looks like:
 
 ```js
-prompt = prev_message + "; " + message
+if (words) {
+  context = prev_message + ". " + words
+}
 ```
 
 ---

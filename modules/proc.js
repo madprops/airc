@@ -59,8 +59,13 @@ module.exports = function (App) {
         return true
       }    
       else if (prompt.startsWith("^") && prev_message) {
-        let s = prompt.replace("^", "").trim() 
-        let context = prev_message.message + "; " + s 
+        let context = prev_message.message
+        let words = prompt.replace("^", "").trim()
+
+        if (words) {
+          context = context + ". " + words
+        }
+
         App.proc_respond(from, to, context)
         return true
       }
@@ -93,7 +98,7 @@ module.exports = function (App) {
     let num = App.get_random_int(1, 100)
   
     if (num >= 1 && num <= App.config.autorespond) {
-      let prompt = prev_message.message + "; " + message
+      let prompt = prev_message.message + ". " + message
       App.proc_respond(from, to, prompt)
       return true
     }
@@ -103,7 +108,7 @@ module.exports = function (App) {
   
   App.proc_respond = function (from, to, prompt) { 
     if (prompt.length <= App.config.max_prompt) {
-      console.info(from + ' => ' + to + ': ' + prompt);
+      console.info(from + ' => ' + to + ': ' + prompt)
       App.ask_openai(prompt, to)
     }
   }  
