@@ -145,6 +145,9 @@ module.exports = function (App) {
           App.update_config("autorespond", n)
           App.irc_client.say(to, `${App.bold_text("Autorespond")} has been set to: ` + n)
         }
+        else {
+          App.irc_client.say(to, "It must be a number between 0 and 100.")
+        }
 
         return
       }      
