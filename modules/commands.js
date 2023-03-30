@@ -48,7 +48,7 @@ module.exports = function (App) {
 
     if (cmd.startsWith("rules ")) {
       if (!App.is_allowed("allow_modify", from)) { return }       
-      let arg = cmd.replace(/^rules /, "").trim()
+      let arg = cmd.replace("rules ", "").trim()
       
       if (arg) {
         if (arg.length <= App.max_rules_length) {
@@ -66,7 +66,7 @@ module.exports = function (App) {
     
     if (cmd.startsWith("ur ")) { 
       if (!App.is_allowed("allow_modify", from)) { return }                      
-      let arg = cmd.replace(/^ur /, "").trim()
+      let arg = cmd.replace("ur ", "").trim()
 
       if (arg) {
         let ins = `Respond as if you were ${arg}`
@@ -90,7 +90,7 @@ module.exports = function (App) {
       }            
   
       if (cmd.startsWith("users add ")) {
-        let arg = cmd.replace(/^users add /, "").trim()
+        let arg = cmd.replace("users add ", "").trim()
   
         if (arg) {
           if (arg.length <= App.max_user_length) {
@@ -106,7 +106,7 @@ module.exports = function (App) {
       }
 
       if (cmd.startsWith("users remove ")) {
-        let arg = cmd.replace(/^users remove /, "").trim()
+        let arg = cmd.replace("users remove ", "").trim()
   
         if (arg) {
           if (App.is_user(arg)) {
@@ -138,7 +138,7 @@ module.exports = function (App) {
       }          
 
       if (cmd.startsWith("autorespond ")) {
-        let arg = cmd.replace(/^autorespond /, "").trim()
+        let arg = cmd.replace("autorespond ", "").trim()
         let n = parseInt(arg)
 
         if (!isNaN(n) && n >= 0 && n <= 100) {
@@ -150,7 +150,7 @@ module.exports = function (App) {
       }      
       
       if (cmd.startsWith("allow_ask ")) {
-        let arg = cmd.replace(/^allow_ask /, "").trim()
+        let arg = cmd.replace("allow_ask ", "").trim()
   
         if (arg) {
           let allowed = ["all", "users", "admins"]
@@ -173,7 +173,7 @@ module.exports = function (App) {
       } 
       
       if (cmd.startsWith("allow_modify ")) {
-        let arg = cmd.replace(/^allow_modify /, "").trim()
+        let arg = cmd.replace("allow_modify ", "").trim()
   
         if (arg) {
           let allowed = ["all", "users", "admins"]
