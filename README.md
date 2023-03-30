@@ -212,7 +212,7 @@ The bot might autorespond in some cases if the autorespond config is greater tha
 
 ---
 
-There's a built-in rate limit cooldown of 3 seconds after the last message.
+There's a built-in rate limit cooldown of some seconds after the last message.
 
 This is to avoid attacks or mistakes.
 
