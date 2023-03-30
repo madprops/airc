@@ -212,6 +212,12 @@ The bot might autorespond in some cases if the autorespond config is greater tha
 
 ---
 
+There's a built-in rate limit cooldown of 3 seconds after the last openai request.
+
+This is to avoid attacks or mistakes.
+
+---
+
 ## Commands <a name="commands"></a>
 
 Commands start with a prefix and the bot's nickname must be mentioned.
@@ -257,6 +263,12 @@ If `clear` it will set it to an empty string.
 `allow_modify [all|users|admins]`: Change "rules" permission.
 
 These can only be performed by `admins`.
+
+---
+
+There's a global !who command that causes all instances to report.
+
+Each bot also has an individual mentioned `who` command to report alone.
 
 ---
 
@@ -319,19 +331,3 @@ Restart bots:
 ./start_bot1.sh
 ./start_bot2.sh
 ```
-
----
-
-## Rate Limit
-
-There's a built-in rate limit cooldown of 3 seconds after the last openai request.
-
-This is to avoid attacks or mistakes.
-
----
-
-## Who
-
-There's a global !who command that causes all instances to report.
-
-Each bot also has an individual mentioned `who` command to report alone.
