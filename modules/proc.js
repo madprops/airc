@@ -95,7 +95,7 @@ module.exports = function (App) {
     
     App.rate_limit_date = Date.now()
 
-    if (prompt.length <= App.config.max_prompt_length) {
+    if (prompt.length <= App.config.max_prompt) {
       console.info(from + ' => ' + to + ': ' + prompt);
       App.ask_openai(prompt, to)
     }

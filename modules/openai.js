@@ -11,7 +11,7 @@ module.exports = function (App) {
   App.ask_openai = async function (prompt, to) {
     prompt = prompt.trim()
   
-    if (prompt.length > App.config.max_prompt_length) {
+    if (prompt.length > App.config.max_prompt) {
       return
     }
   
