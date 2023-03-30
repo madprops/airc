@@ -55,6 +55,7 @@ require("./modules/utils.js")(App)
 App.main = function () {
   App.start_openai()
   App.start_irc()
+  App.date_started = Date.now()
 }
 
 App.main()

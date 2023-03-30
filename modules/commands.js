@@ -33,6 +33,16 @@ module.exports = function (App) {
       return
     } 
 
+    if (cmd === "ping") {
+      App.irc_client.say(to, "Pong!")
+      return
+    }
+
+    if (cmd === "who") {
+      App.report(to)
+      return
+    }      
+
     // Commands that modify rules
 
     if (cmd.startsWith("rules ")) {

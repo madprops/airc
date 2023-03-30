@@ -17,6 +17,11 @@ module.exports = function (App) {
     if (low_message.includes("http://") || low_message.includes("https://")) {
       return
     }
+
+    // This causes all airc instances to respond
+    if (message === "!who") {
+      App.report(to)
+    }
   
     if (App.proc_nick_mention(from, to, message, prev_message)) {
       return
@@ -45,13 +50,13 @@ module.exports = function (App) {
       if(prompt === "hi" || prompt === "hello") {
         App.irc_client.say(to, "hi!")
         return true
-      }
+      }    
       else if (prompt === "^" && prev_message) {
         App.proc_respond(from, to, prev_message.message)
         return true
       }
             
-      if (prompt.startsWith(App.config.prefix)) {
+      if (prompt.startsWith(App.config.prefix)) {        
         App.check_commands(from, to, prompt)
         return true
       }
@@ -100,4 +105,10 @@ module.exports = function (App) {
       App.ask_openai(prompt, to)
     }
   }  
+
+  App.report = function (to) {
+    let ts = App.timeago(App.date_started)
+    App.irc_client.say(to, `I'm here! I was launched ${ts}.`)
+    return
+  }
 }
