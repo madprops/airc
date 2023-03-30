@@ -3,10 +3,16 @@
 
 module.exports = function (App) {
   App.process = function (from, to, message) {
+    // Rate limit to avoid attacks or mistakes
+    if ((Date.now() - App.rate_limit_date) <= App.rate_limit_delay) {
+      console.log(1)
+      return
+    }
+    
+    App.rate_limit_date = Date.now()
     message = message.trim()
-
     let prev_message = App.last_messages[to]
-    App.last_messages[to] = {from: from, to: to, message: message}
+    App.last_messages[to] = {from: from, to: to, message: message} 
 
     if (!App.is_allowed("allow_ask", from)) {
       return
@@ -93,13 +99,6 @@ module.exports = function (App) {
   }
   
   App.proc_respond = function (from, to, prompt) { 
-    // Rate limit to avoid attacks or mistakes
-    if ((Date.now() - App.rate_limit_date) <= App.rate_limit_delay) {
-      return
-    }
-    
-    App.rate_limit_date = Date.now()
-
     if (prompt.length <= App.config.max_prompt) {
       console.info(from + ' => ' + to + ': ' + prompt);
       App.ask_openai(prompt, to)
