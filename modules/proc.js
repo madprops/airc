@@ -89,7 +89,7 @@ module.exports = function (App) {
 
     let rules = App.remove_dots(App.config.rules)
   
-    if (rules && rules.length <= App.max_rules_length) {
+    if (rules && (rules.length <= App.max_rules_length)) {
       prompt = rules + ". " + prompt
     }
 
