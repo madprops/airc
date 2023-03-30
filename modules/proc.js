@@ -2,7 +2,7 @@
 // Input from irc is checked and maybe sent to openai
 
 module.exports = function (App) {
-  App.process = function (from, to, message) {
+  App.process_message = function (from, to, message) {
     // Rate limit to avoid attacks or mistakes
     if (!App.is_admin(from)) {
       if ((Date.now() - App.rate_limit_date) <= App.rate_limit_delay) {
@@ -27,13 +27,13 @@ module.exports = function (App) {
 
     // This causes all airc instances to respond
     if (message === "!who") {
-      App.report(to)
+      App.report_self(to)
     }
   
-    App.proc_nick_mention(from, to, message, prev_message)
+    App.check_nick_mention(from, to, message, prev_message)
   }
   
-  App.proc_nick_mention = function (from, to, message, prev_message) {
+  App.check_nick_mention = function (from, to, message, prev_message) {
     let re = new RegExp(/^(?<nickname>\w+)[,:](?<message>.*)$/, "")
     let match = message.match(re)
     
@@ -61,7 +61,7 @@ module.exports = function (App) {
           context += "\n" + words
         }
 
-        App.proc_respond(from, to, context)
+        App.ask_ai(from, to, context)
         return
       }
             
@@ -69,13 +69,13 @@ module.exports = function (App) {
         App.check_commands(from, to, prompt)
       }
       else {
-        App.proc_respond(from, to, prompt)
+        App.ask_ai(from, to, prompt)
       }
     }
   }
   
   // Prepare prompt and ask openai
-  App.proc_respond = async function (from, to, prompt) {
+  App.ask_ai = async function (from, to, prompt) {
     prompt = prompt.trim()
 
     // This is to avoid autocompletions from the ai
@@ -115,7 +115,7 @@ module.exports = function (App) {
     }
   }  
 
-  App.report = function (to) {
+  App.report_self = function (to) {
     let ts = App.timeago(App.date_started)
     App.irc_client.say(to, `I'm here! I was launched ${ts}.`)
     return

@@ -7,7 +7,7 @@ module.exports = function (App) {
     App.irc_client.addListener("message", function (from, to, message) {
       if (App.config.channels.includes(to)) {
         try {
-          App.process(from, to, message)
+          App.process_message(from, to, message)
         }
         catch (err) {
           console.error(err)
