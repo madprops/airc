@@ -216,6 +216,12 @@ mybot: 2 + 2 is 4 plus 1 it's 5.
 
 This is an alternative way to make the bot respond which might make sense in some cases.
 
+The sent prompt looks like:
+
+```js
+prompt = prev_message + "; " + message
+```
+
 ---
 
 The bot might autorespond in some cases if the autorespond config is greater than 0.
