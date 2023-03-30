@@ -327,3 +327,11 @@ Restart bots:
 There's a built-in rate limit cooldown of 3 seconds after the last openai request.
 
 This is to avoid attacks or mistakes.
+
+---
+
+## Who
+
+There's a global !who command that causes all instances to report.
+
+Each bot also has an individual mentioned `who` command to report alone.

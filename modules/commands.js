@@ -22,6 +22,7 @@ module.exports = function (App) {
         `${p}users [add|remove][nick]`,
         `${p}users clear`,
         `${p}admins`,
+        `${p}who`,
       ]
 
       App.irc_client.say(to, `${App.bold_text("Commands")}: ` + cmds.join(" 👾 "))
