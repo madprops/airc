@@ -81,6 +81,7 @@ module.exports = function (App) {
       return
     }
 
+    // This is to avoid autocompletions from the ai
     if (/\w$/.test(prompt)) {
       prompt += "."
     }
