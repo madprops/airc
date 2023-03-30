@@ -4,7 +4,7 @@
 module.exports = function (App) {
   App.process = function (from, to, message) {
     // Rate limit to avoid attacks or mistakes
-    if (!App.is_admin(to)) {
+    if (!App.is_admin(from)) {
       if ((Date.now() - App.rate_limit_date) <= App.rate_limit_delay) {
         return
       }
@@ -58,7 +58,7 @@ module.exports = function (App) {
         let words = prompt.replace("^", "").trim()
 
         if (words) {
-          context += ". " + words
+          context += "\n" + words
         }
 
         App.proc_respond(from, to, context)
@@ -67,7 +67,6 @@ module.exports = function (App) {
             
       if (prompt.startsWith(App.config.prefix)) {        
         App.check_commands(from, to, prompt)
-        return
       }
       else {
         App.proc_respond(from, to, prompt)
@@ -75,7 +74,11 @@ module.exports = function (App) {
     }
   }
   
-  App.proc_respond = function (from, to, prompt) { 
+  App.proc_respond = function (from, to, prompt) {
+    if (/\w$/.test(prompt)) {
+      prompt += "."
+    }
+
     if (prompt.length <= App.config.max_prompt) {
       console.info(from + ' => ' + to + ': ' + prompt)
       App.ask_openai(prompt, to)
