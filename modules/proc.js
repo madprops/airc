@@ -75,24 +75,12 @@ module.exports = function (App) {
   }
   
   App.proc_respond = function (from, to, prompt) {
-    prompt = prompt.trim()
-
-    if (prompt.length > App.config.max_prompt) {
-      return
-    }
-
     // This is to avoid autocompletions from the ai
     if (/\w$/.test(prompt)) {
       prompt += "."
     }
-  
-    let rules = App.remove_dots(App.config.rules)
-  
-    if (rules) {
-      prompt = rules + ". " + prompt
-    }
 
-    App.ask_openai(prompt, from, to)
+    App.ask_openai(prompt.trim(), from, to)
   }  
 
   App.report = function (to) {
