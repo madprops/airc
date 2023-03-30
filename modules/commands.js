@@ -22,7 +22,7 @@ module.exports = function (App) {
         `${p}users clear`,
         `${p}admins`,
         `${p}who`,
-        "Use ^ to reference message above",
+        "Use ^ to reference the message above",
       ]
 
       App.irc_client.say(to, `${App.bold_text("Commands")}: ` + cmds.join(" 👾 "))
