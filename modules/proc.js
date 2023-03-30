@@ -75,12 +75,14 @@ module.exports = function (App) {
   }
   
   App.proc_respond = function (from, to, prompt) {
+    prompt = prompt.trim()
+
     // This is to avoid autocompletions from the ai
     if (/\w$/.test(prompt)) {
       prompt += "."
     }
 
-    App.ask_openai(prompt.trim(), from, to)
+    App.ask_openai(from, to, prompt)
   }  
 
   App.report = function (to) {

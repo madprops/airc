@@ -8,7 +8,7 @@ module.exports = function (App) {
     console.info("Started openai")
   }
   
-  App.ask_openai = async function (prompt, from, to) {
+  App.ask_openai = async function (from, to, prompt) {
     if (prompt.length > App.config.max_prompt) {
       return
     }
