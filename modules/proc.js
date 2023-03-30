@@ -5,7 +5,6 @@ module.exports = function (App) {
   App.process = function (from, to, message) {
     // Rate limit to avoid attacks or mistakes
     if ((Date.now() - App.rate_limit_date) <= App.rate_limit_delay) {
-      console.log(1)
       return
     }
     
