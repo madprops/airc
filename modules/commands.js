@@ -40,7 +40,7 @@ module.exports = function (App) {
     }
 
     if (cmd === "who") {
-      App.report(to)
+      App.report_self(to)
       return
     }      
 
