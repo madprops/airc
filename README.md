@@ -100,7 +100,7 @@ The code used to build the prompt looks like this:
 
 ```js
 if (rules) {
-  prompt = rules + "\n" + prompt
+  prompt = rules + ". " + prompt
 }
 ```
 
@@ -194,7 +194,7 @@ The sent prompt looks like:
 context = prev_message
 
 if (words) {
-  context += ". " + words
+  context += "\n" + words
 }
 ```
 
