@@ -15,7 +15,7 @@ module.exports = function (App) {
     let prev_message = App.last_messages[to]
     App.last_messages[to] = {from: from, to: to, message: message} 
 
-    if (!App.is_allowed("allow_ask", from)) {
+    if (!App.is_allowed("allow_ask", from)) {requestAnimationFrame
       return
     }
     
@@ -58,8 +58,10 @@ module.exports = function (App) {
         App.irc_client.say(to, "hi!")
         return true
       }    
-      else if (prompt === "^" && prev_message) {
-        App.proc_respond(from, to, prev_message.message)
+      else if (prompt.startsWith("^") && prev_message) {
+        let s = prompt.replace("^", "").trim() 
+        let context = prev_message.message + "; " + s 
+        App.proc_respond(from, to, context)
         return true
       }
             
