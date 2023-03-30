@@ -75,14 +75,23 @@ module.exports = function (App) {
   }
   
   App.proc_respond = function (from, to, prompt) {
+    prompt = prompt.trim()
+
+    if (prompt.length > App.config.max_prompt) {
+      return
+    }
+
     if (/\w$/.test(prompt)) {
       prompt += "."
     }
-
-    if (prompt.length <= App.config.max_prompt) {
-      console.info(from + ' => ' + to + ': ' + prompt)
-      App.ask_openai(prompt, to)
+  
+    let rules = App.remove_dots(App.config.rules)
+  
+    if (rules) {
+      prompt = rules + ". " + prompt
     }
+
+    App.ask_openai(prompt, to)
   }  
 
   App.report = function (to) {

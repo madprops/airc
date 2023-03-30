@@ -9,18 +9,11 @@ module.exports = function (App) {
   }
   
   App.ask_openai = async function (prompt, to) {
-    prompt = prompt.trim()
-  
     if (prompt.length > App.config.max_prompt) {
       return
     }
-  
-    // Remove periods at the end and trim
-    let rules = App.remove_dots(App.config.rules)
-  
-    if (rules) {
-      prompt = rules + ". " + prompt
-    }
+
+    console.info(from + ' => ' + to + ': ' + prompt)
   
     try {
       let ans = await App.openai_client.createCompletion({
