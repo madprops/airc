@@ -78,6 +78,12 @@ and make sure it's not registered: `/msg nickserv info nickname`.
 
 ---
 
+`max_tokens`: Maximum amount of tokens openai can play with. 
+
+The bigger this is the bigger responses can be, but it gets more expensive.
+
+---
+
 `max_prompt_length`: Ignore prompts longer than this. Rules length is not considered.
 
 ---
