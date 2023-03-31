@@ -9,7 +9,7 @@ module.exports = function (App) {
     }
     
     let colon = ": "
-    
+
     // Commands anybody can use
 
     if (cmd === "help") {
@@ -27,12 +27,12 @@ module.exports = function (App) {
         "Use ^ to reference the message above",
       ]
 
-      App.irc_client.say(to, App.bold_text("Commands") + colon + cmds.join(" 👾 "))
+      App.irc_client.say(to, App.bold("Commands") + colon + cmds.join(" 👾 "))
       return
     }
     
     if (cmd === "rules") {
-      App.irc_client.say(to, App.bold_text("Rules") + colon + (App.config.rules || "[Empty]"))
+      App.irc_client.say(to, App.bold("Rules") + colon + (App.config.rules || "[Empty]"))
       return
     } 
 
@@ -59,7 +59,7 @@ module.exports = function (App) {
           }
 
           App.update_config("rules", arg)
-          App.irc_client.say(to, App.bold_text("Rules") + colon + (arg || "[Empty]"))
+          App.irc_client.say(to, App.bold("Rules") + colon + (arg || "[Empty]"))
         }
       }
 
@@ -75,7 +75,7 @@ module.exports = function (App) {
 
         if (rules.length <= App.max_rules_length) {  
           App.update_config("rules", rules)              
-          App.irc_client.say(to, App.bold_text("Rules") + colon + rules)
+          App.irc_client.say(to, App.bold("Rules") + colon + rules)
         }
       }
 
@@ -87,7 +87,7 @@ module.exports = function (App) {
     if (App.is_admin(from)) {
       if (cmd === "users") {
         let s = App.config.users.join(", ")
-        App.irc_client.say(to, App.bold_text("Users") + colon + (s || "[Empty]"))
+        App.irc_client.say(to, App.bold("Users") + colon + (s || "[Empty]"))
         return
       }            
   
@@ -130,7 +130,7 @@ module.exports = function (App) {
 
       if (cmd ===  "admins") {
         let s = App.config.admins.join(", ")
-        App.irc_client.say(to, App.bold_text("Admins") + colon + (s || "[Empty]"))
+        App.irc_client.say(to, App.bold("Admins") + colon + (s || "[Empty]"))
         return
       }    
       
@@ -153,7 +153,7 @@ module.exports = function (App) {
       }  
       
       if (cmd ===  "allow_ask") {
-        App.irc_client.say(to, App.bold_text("allow_ask") + colon + App.config.allow_ask)
+        App.irc_client.say(to, App.bold("allow_ask") + colon + App.config.allow_ask)
         return
       } 
       
@@ -176,7 +176,7 @@ module.exports = function (App) {
       }
 
       if (cmd ===  "allow_modify") {
-        App.irc_client.say(to, App.bold_text("allow_modify") + colon + App.config.allow_modify)
+        App.irc_client.say(to, App.bold("allow_modify") + colon + App.config.allow_modify)
         return
       }
     }  
