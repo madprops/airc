@@ -62,9 +62,9 @@ These are the available settings:
 
 `nickname`: irc nickname of the bot. 
 
-Make sure it's not in use yet: `/whois nickname`,
+Make sure it's not in use yet: `/whois nickname`.
 
-and make sure it's not registered: `/msg nickserv info nickname`.
+And make sure it's not registered: `/msg nickserv info nickname`.
 
 ---
 
