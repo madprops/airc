@@ -17,7 +17,7 @@ module.exports = function (App) {
       })
   
       if (ans.status === 200) {
-        let text = ans.data.choices[0].text
+        let text = ans.data.choices[0].text.trim()
     
         if (text) {
           callback(text)
