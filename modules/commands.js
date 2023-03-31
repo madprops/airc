@@ -83,8 +83,10 @@ module.exports = function (App) {
 
     // Commands that modify rules
 
+    let can_change_rules = App.is_allowed("allow_rules", from)
+
     if (App.cmd_match("rules", cmd, true)) {
-      if (!App.is_allowed("allow_rules", from)) { return }
+      if (!can_change_rules) { return }
       let arg = App.cmd_arg("rules", cmd)
 
       if (arg) {
@@ -95,7 +97,7 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("you're", cmd, true)) {
-      if (!App.is_allowed("allow_rules", from)) { return }
+      if (!can_change_rules) { return }
       let arg = App.cmd_arg("you're", cmd)
 
       if (arg) {
@@ -107,7 +109,7 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("you are", cmd, true)) {
-      if (!App.is_allowed("allow_rules", from)) { return }
+      if (!can_change_rules) { return }
       let arg = App.cmd_arg("you are", cmd)
 
       if (arg) {
@@ -117,6 +119,18 @@ module.exports = function (App) {
 
       return true
     }
+
+    if (App.cmd_match("ur", cmd, true)) {
+      if (!can_change_rules) { return }
+      let arg = App.cmd_arg("ur", cmd)
+
+      if (arg) {
+        let rules = "Respond as if you were " + arg
+        App.change_rules(to, rules)
+      }
+
+      return true
+    }    
 
     // Commands only admins can use
 

@@ -78,7 +78,13 @@ module.exports = function (App) {
 
     // Add some context to the prompt
     if (App.context[to] && App.context[to].length > 0) {
-      prompt = [...App.context[to], prompt].join("\n")
+      let s = ""
+
+      for (let res of App.context[to]) {
+        s += "You said: " + res + "\n"
+      }
+
+      prompt = s + "I say: " + prompt
     }
 
     // Add some personality
