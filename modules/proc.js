@@ -75,7 +75,7 @@ module.exports = function (App) {
   }
   
   // Prepare prompt and ask openai
-  App.ask_ai = async function (from, to, prompt) {
+  App.ask_ai = function (from, to, prompt) {
     prompt = prompt.trim()
 
     // This is to avoid autocompletions from the ai
@@ -93,26 +93,11 @@ module.exports = function (App) {
       prompt = rules + ". " + prompt
     }
 
-    try {
-      console.info(from + ' => ' + to + ': ' + prompt)
-
-      let ans = await App.openai_client.createCompletion({
-        model: App.config.model,
-        prompt: prompt,
-        max_tokens: App.config.max_tokens
-      })
-  
-      if (ans.status === 200) {
-        let text = ans.data.choices[0].text
+    console.info(from + ' => ' + to + ': ' + prompt)
     
-        if (text) {
-          App.irc_respond(to, text)
-        }
-      }
-    }
-    catch (err) {
-      console.error("openai completion error")
-    }
+    App.ask_openai(prompt, function (text) {
+      App.irc_respond(to, text)
+    })
   }  
 
   App.report_self = function (to) {
