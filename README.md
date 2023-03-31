@@ -101,7 +101,7 @@ The code used to build the prompt looks like this:
 
 ```js
 if (rules) {
-  prompt = rules + ". " + prompt
+  prompt = prompt + "\n" + rules
 }
 ```
 
@@ -170,6 +170,14 @@ There's a rate limit cooldown of some seconds after the last message.
 This is to avoid attacks or mistakes.
 
 Only admins bypass this check.
+
+---
+
+The most recent responses are saved into a context array.
+
+These are prepended to the prompt separated by "\n".
+
+When the rules change the array is emptied.
 
 ---
 
