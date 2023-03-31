@@ -8,7 +8,7 @@ For example:
 
 ---
 
-**You**: Bot, !ur an angry squirrel
+**You**: Bot, you're an angry squirrel
 
 **Bot**: Rules: Respond as if you were an angry squirrel
 
@@ -120,10 +120,6 @@ What they can do can be determined through permissions.
 
 ---
 
-`prefix`: The character used to invoke commands. Like `!help` if `!` or `.help` if `.`
-
----
-
 `allow_ask`: Who is allowed to ask questions to the ai.
 
 "all" -> anybody, "users" -> users and up, "admins" -> only admins.
@@ -214,9 +210,9 @@ Only admins bypass this check.
 
 ## Commands <a name="commands"></a>
 
-Commands start with a prefix and the bot's nickname must be mentioned.
+The bot listens to commands when mentioned.
 
-For example: `mybot, !help`.
+For example: `mybot, help`.
 
 ---
 

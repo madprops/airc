@@ -14,54 +14,66 @@ module.exports = function (App) {
     App.irc_respond(to, "It must be: all, users, or admins.")
   }
 
-  App.check_commands = function (from, to, prompt) {
-    let cmd = prompt.replace(App.config.prefix, "")
-    
-    if (!cmd) {
-      return
+  App.cmd_match = function (s, cmd, args = false) {
+    let re
+    s = App.escape_regex(s)
+
+    if (args) {
+      re = new RegExp("^" + s + " ", "i")
+    } else {
+      re = new RegExp("^" + s + "$", "i")
     }
     
-    // Commands anybody can use
+    return re.test(cmd)
+  }
 
-    if (cmd === "help") {
-      let p = App.config.prefix
+  App.cmd_arg = function (s, cmd) {
+    s = App.escape_regex(s)
+    let re = new RegExp("^" + s + " ", "i")
+    return cmd.replace(re, "").trim()
+  }
 
+  App.check_commands = function (from, to, cmd) {
+    // Commands that anybody can use
+
+    if (App.cmd_match("help", cmd, false)) {
       let cmds = [
-        p + "ur [x]",
-        p + "rules [x|clear]",
-        p + "users [add|remove][nick]",
-        p + "users clear",
-        p + "admins",
-        p + "who",
-        p + "allow_ask [all|users|admins]",
-        p + "allow_modify [all|users|admins]",
+        "you're [x]",
+        "rules [x|clear]",
+        "who are you?",
+        "users [add|remove][nick]",
+        "users clear",
+        "admins",
+        "report",
+        "allow ask [all|users|admins]",
+        "allow modify [all|users|admins]",
         "Use ^ to reference the message above",
       ]
 
       App.cmd_show(to, "Commands", cmds.join(" 👾 "))
-      return
+      return true
     }
     
-    if (cmd === "rules") {
+    if (App.cmd_match("rules", cmd, false) || App.cmd_match("who are you?", cmd, false)) {
       App.cmd_show(to, "Rules", App.config.rules)
-      return
+      return true
     } 
 
-    if (cmd === "ping") {
+    if (App.cmd_match("ping", cmd, false)) {
       App.irc_respond(to, "Pong!")
-      return
+      return true
     }
 
-    if (cmd === "who") {
+    if (App.cmd_match("report", cmd, false)) {
       App.report_self(to)
-      return
-    }      
+      return true
+    }     
 
     // Commands that modify rules
 
-    if (cmd.startsWith("rules ")) {
+    if (App.cmd_match("rules", cmd, true)) {
       if (!App.is_allowed("allow_modify", from)) { return }       
-      let arg = cmd.replace("rules ", "").trim()
+      let arg = App.cmd_arg("rules", cmd)
       
       if (arg) {
         if (arg.length <= App.max_rules_length) {
@@ -74,12 +86,12 @@ module.exports = function (App) {
         }
       }
 
-      return
+      return true
     } 
     
-    if (cmd.startsWith("ur ")) { 
+    if (App.cmd_match("you're", cmd, true)) { 
       if (!App.is_allowed("allow_modify", from)) { return }                      
-      let arg = cmd.replace("ur ", "").trim()
+      let arg = App.cmd_arg("you're", cmd)
 
       if (arg) {
         let rules = "Respond as if you were " + arg
@@ -90,20 +102,20 @@ module.exports = function (App) {
         }
       }
 
-      return
+      return true
     }         
 
-    // admins only
+    // Commands only admins can use
 
     if (App.is_admin(from)) {
-      if (cmd === "users") {
+      if (App.cmd_match("users", cmd, false)) {
         let s = App.config.users.join(", ")
         App.cmd_show(to, "Users", s)
-        return
+        return true
       }            
   
-      if (cmd.startsWith("users add ")) {
-        let arg = cmd.replace("users add ", "").trim()
+      if (App.cmd_match("users add", cmd, true)) {
+        let arg = App.cmd_arg("users add", cmd)
   
         if (arg) {
           if (arg.length <= App.max_user_length) {
@@ -115,11 +127,11 @@ module.exports = function (App) {
           }
         }
 
-        return
+        return true
       }
 
-      if (cmd.startsWith("users remove ")) {
-        let arg = cmd.replace("users remove ", "").trim()
+      if (App.cmd_match("users remove", cmd, true)) {
+        let arg = App.cmd_arg("users remove", cmd)
   
         if (arg) {
           if (App.is_user(arg)) {
@@ -130,23 +142,23 @@ module.exports = function (App) {
           }
         }
 
-        return
+        return true
       }  
 
-      if (cmd ===  "users clear") {
+      if (App.cmd_match("users clear", cmd, false)) {
         App.update_config("users", [])
         App.cmd_done(to)
-        return
+        return true
       }    
 
-      if (cmd ===  "admins") {
+      if (App.cmd_match("admins", cmd, false)) {
         let s = App.config.admins.join(", ")
         App.cmd_show(to, "Admins", s)
-        return
+        return true
       }    
       
-      if (cmd.startsWith("allow_ask ")) {
-        let arg = cmd.replace("allow_ask ", "").trim()
+      if (App.cmd_match("allow ask", cmd, true)) {
+        let arg = App.cmd_arg("allow ask", cmd)
   
         if (arg) {
           let allowed = ["all", "users", "admins"]
@@ -160,16 +172,16 @@ module.exports = function (App) {
           }
         }
 
-        return
+        return true
       }  
       
-      if (cmd ===  "allow_ask") {
-        App.cmd_show(to, "allow_ask", App.config.allow_ask)
-        return
+      if (App.cmd_match("allow ask", cmd, false)) {
+        App.cmd_show(to, "allow ask", App.config.allow_ask)
+        return true
       } 
       
-      if (cmd.startsWith("allow_modify ")) {
-        let arg = cmd.replace("allow_modify ", "").trim()
+      if (App.cmd_match("allow modify", cmd, true)) {
+        let arg = App.cmd_arg("allow modify", cmd)
   
         if (arg) {
           let allowed = ["all", "users", "admins"]
@@ -183,13 +195,15 @@ module.exports = function (App) {
           }
         }
 
-        return
+        return true
       }
 
-      if (cmd ===  "allow_modify") {
-        App.cmd_show(to, "allow_modify", App.config.allow_modify)
-        return
+      if (App.cmd_match("allow modify", cmd, false)) {
+        App.cmd_show(to, "allow modify", App.config.allow_modify)
+        return true
       }
     }  
   }
+
+  return false
 }

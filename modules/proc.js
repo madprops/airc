@@ -11,7 +11,10 @@ module.exports = function (App) {
     }
     
     App.rate_limit_date = Date.now()
-    message = message.trim()
+
+    // Trim and remove multiple spaces
+    message = message.trim().replace(/ +/g, " ")
+
     let prev_message = App.last_messages[to]
     App.last_messages[to] = {from: from, to: to, message: message} 
 
@@ -26,8 +29,9 @@ module.exports = function (App) {
     }
 
     // This causes all airc instances to respond
-    if (message === "!who") {
+    if (message === "!report") {
       App.report_self(to)
+      return
     }
   
     App.check_nick_mention(from, to, message, prev_message)
@@ -65,12 +69,11 @@ module.exports = function (App) {
         return
       }
             
-      if (prompt.startsWith(App.config.prefix)) {        
-        App.check_commands(from, to, prompt)
+      if (App.check_commands(from, to, prompt)) {
+        return
       }
-      else {
-        App.ask_ai(from, to, prompt)
-      }
+
+      App.ask_ai(from, to, prompt)
     }
   }
   
