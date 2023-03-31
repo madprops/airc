@@ -1,7 +1,7 @@
 // Commands from irc to the bot are checked and processed here
 
 module.exports = function (App) {
-  App.cmd_respond = function (to, title, content) {
+  App.cmd_show = function (to, title, content) {
     let res = App.irc_bold(title) + ": " + (content || "[Empty]")
     App.irc_respond(to, res)
   }
@@ -38,12 +38,12 @@ module.exports = function (App) {
         "Use ^ to reference the message above",
       ]
 
-      App.cmd_respond(to, "Commands", cmds.join(" 👾 "))
+      App.cmd_show(to, "Commands", cmds.join(" 👾 "))
       return
     }
     
     if (cmd === "rules") {
-      App.cmd_respond(to, "Rules", App.config.rules)
+      App.cmd_show(to, "Rules", App.config.rules)
       return
     } 
 
@@ -70,7 +70,7 @@ module.exports = function (App) {
           }
 
           App.update_config("rules", arg)
-          App.cmd_respond(to, "Rules", arg)
+          App.cmd_show(to, "Rules", arg)
         }
       }
 
@@ -86,7 +86,7 @@ module.exports = function (App) {
 
         if (rules.length <= App.max_rules_length) {  
           App.update_config("rules", rules)              
-          App.cmd_respond(to, "Rules", rules)
+          App.cmd_show(to, "Rules", rules)
         }
       }
 
@@ -98,7 +98,7 @@ module.exports = function (App) {
     if (App.is_admin(from)) {
       if (cmd === "users") {
         let s = App.config.users.join(", ")
-        App.cmd_respond(to, "Users", s)
+        App.cmd_show(to, "Users", s)
         return
       }            
   
@@ -141,7 +141,7 @@ module.exports = function (App) {
 
       if (cmd ===  "admins") {
         let s = App.config.admins.join(", ")
-        App.cmd_respond(to, "Admins", s)
+        App.cmd_show(to, "Admins", s)
         return
       }    
       
@@ -164,7 +164,7 @@ module.exports = function (App) {
       }  
       
       if (cmd ===  "allow_ask") {
-        App.cmd_respond(to, "allow_ask", App.config.allow_ask)
+        App.cmd_show(to, "allow_ask", App.config.allow_ask)
         return
       } 
       
@@ -187,7 +187,7 @@ module.exports = function (App) {
       }
 
       if (cmd ===  "allow_modify") {
-        App.cmd_respond(to, "allow_modify", App.config.allow_modify)
+        App.cmd_show(to, "allow_modify", App.config.allow_modify)
         return
       }
     }  
