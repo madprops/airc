@@ -3,12 +3,13 @@
 module.exports = function (App) {
   App.check_commands = function (from, to, prompt) {
     let cmd = prompt.replace(App.config.prefix, "")
-    let colon = ": "
-
+    
     if (!cmd) {
       return
     }
-
+    
+    let colon = ": "
+    
     // Commands anybody can use
 
     if (cmd === "help") {
