@@ -33,6 +33,18 @@ module.exports = function (App) {
     return cmd.replace(re, "").trim()
   }
 
+  App.change_rules = function (to, rules) {
+    if (rules.length <= App.max_rules_length) {
+      if (rules === "clear") {
+        rules = ""
+      }
+
+      App.update_config("rules", rules)
+      App.reset_context(to)
+      App.cmd_show(to, "Rules", rules)
+    }
+  }
+
   App.check_commands = function (from, to, cmd) {
     // Commands that anybody can use
 
@@ -76,15 +88,7 @@ module.exports = function (App) {
       let arg = App.cmd_arg("rules", cmd)
 
       if (arg) {
-        if (arg.length <= App.max_rules_length) {
-          if (arg === "clear") {
-            arg = ""
-          }
-
-          App.update_config("rules", arg)
-          App.reset_context(to)
-          App.cmd_show(to, "Rules", arg)
-        }
+        App.change_rules(to, arg)
       }
 
       return true
@@ -95,13 +99,7 @@ module.exports = function (App) {
       let arg = App.cmd_arg("you're", cmd)
 
       if (arg) {
-        let rules = "Respond as if you were " + arg
-
-        if (rules.length <= App.max_rules_length) {
-          App.update_config("rules", rules)
-          App.reset_context(to)
-          App.cmd_show(to, "Rules", rules)
-        }
+        App.change_rules(to, arg)
       }
 
       return true
