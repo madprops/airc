@@ -107,8 +107,11 @@ module.exports = function (App) {
       App.context[to] = []
     }
 
-    App.context[to].unshift(text)
-    App.context[to] = App.context[to].slice(0, App.max_context)
+    App.context[to].push(text)
+
+    if (App.context[to].length > App.max_context) {
+      App.context[to].shift()
+    }
   }
 
   App.reset_context = function (to) {
