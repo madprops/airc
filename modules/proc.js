@@ -83,7 +83,7 @@ module.exports = function (App) {
 
     // Add some personality
     if (App.config.rules) {
-      prompt = prompt + "\n" + App.config.rules
+      prompt = App.config.rules + "\n" + prompt
     }    
 
     console.info(from + ' => ' + to + ': ' + prompt)

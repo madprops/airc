@@ -101,7 +101,7 @@ The code used to build the prompt looks like this:
 
 ```js
 if (rules) {
-  prompt = prompt + "\n" + rules
+  prompt = rules + "\n" + prompt
 }
 ```
 
