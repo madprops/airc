@@ -23,7 +23,7 @@ module.exports = function (App) {
     } else {
       re = new RegExp("^" + s + "$", "i")
     }
-    
+
     return re.test(cmd)
   }
 
@@ -53,11 +53,11 @@ module.exports = function (App) {
       App.cmd_show(to, "Commands", cmds.join(" 👾 "))
       return true
     }
-    
+
     if (App.cmd_match("rules", cmd, false) || App.cmd_match("who are you?", cmd, false)) {
       App.cmd_show(to, "Rules", App.config.rules)
       return true
-    } 
+    }
 
     if (App.cmd_match("ping", cmd, false)) {
       App.irc_respond(to, "Pong!")
@@ -67,14 +67,14 @@ module.exports = function (App) {
     if (App.cmd_match("report", cmd, false)) {
       App.report_self(to)
       return true
-    }     
+    }
 
     // Commands that modify rules
 
     if (App.cmd_match("rules", cmd, true)) {
-      if (!App.is_allowed("allow_rules", from)) { return }       
+      if (!App.is_allowed("allow_rules", from)) { return }
       let arg = App.cmd_arg("rules", cmd)
-      
+
       if (arg) {
         if (arg.length <= App.max_rules_length) {
           if (arg === "clear") {
@@ -87,23 +87,23 @@ module.exports = function (App) {
       }
 
       return true
-    } 
-    
-    if (App.cmd_match("you're", cmd, true)) { 
-      if (!App.is_allowed("allow_rules", from)) { return }                      
+    }
+
+    if (App.cmd_match("you're", cmd, true)) {
+      if (!App.is_allowed("allow_rules", from)) { return }
       let arg = App.cmd_arg("you're", cmd)
 
       if (arg) {
         let rules = "Respond as if you were " + arg
 
-        if (rules.length <= App.max_rules_length) {  
-          App.update_config("rules", rules)              
+        if (rules.length <= App.max_rules_length) {
+          App.update_config("rules", rules)
           App.cmd_show(to, "Rules", rules)
         }
       }
 
       return true
-    }         
+    }
 
     // Commands only admins can use
 
@@ -112,11 +112,11 @@ module.exports = function (App) {
         let s = App.config.users.join(", ")
         App.cmd_show(to, "Users", s)
         return true
-      }            
-  
+      }
+
       if (App.cmd_match("users add", cmd, true)) {
         let arg = App.cmd_arg("users add", cmd)
-  
+
         if (arg) {
           if (arg.length <= App.max_user_length) {
             if (!App.is_user(arg) && !App.is_admin(arg)) {
@@ -132,7 +132,7 @@ module.exports = function (App) {
 
       if (App.cmd_match("users remove", cmd, true)) {
         let arg = App.cmd_arg("users remove", cmd)
-  
+
         if (arg) {
           if (App.is_user(arg)) {
             let nick = arg.toLowerCase()
@@ -143,26 +143,26 @@ module.exports = function (App) {
         }
 
         return true
-      }  
+      }
 
       if (App.cmd_match("users clear", cmd, false)) {
         App.update_config("users", [])
         App.cmd_done(to)
         return true
-      }    
+      }
 
       if (App.cmd_match("admins", cmd, false)) {
         let s = App.config.admins.join(", ")
         App.cmd_show(to, "Admins", s)
         return true
-      }    
-      
+      }
+
       if (App.cmd_match("allow ask", cmd, true)) {
         let arg = App.cmd_arg("allow ask", cmd)
-  
+
         if (arg) {
           let allowed = ["all", "users", "admins"]
-  
+
           if (allowed.includes(arg)) {
             App.update_config("allow_ask", arg)
             App.cmd_done(to)
@@ -173,19 +173,19 @@ module.exports = function (App) {
         }
 
         return true
-      }  
-      
+      }
+
       if (App.cmd_match("allow ask", cmd, false)) {
         App.cmd_show(to, "allow ask", App.config.allow_ask)
         return true
-      } 
-      
+      }
+
       if (App.cmd_match("allow rules", cmd, true)) {
         let arg = App.cmd_arg("allow rules", cmd)
-  
+
         if (arg) {
           let allowed = ["all", "users", "admins"]
-  
+
           if (allowed.includes(arg)) {
             App.update_config("allow_rules", arg)
             App.cmd_done(to)
@@ -202,7 +202,7 @@ module.exports = function (App) {
         App.cmd_show(to, "allow rules", App.config.allow_rules)
         return true
       }
-    }  
+    }
   }
 
   return false

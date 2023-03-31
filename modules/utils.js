@@ -6,7 +6,7 @@ module.exports = function (App) {
   App.is_user = function (nickname) {
     let nick = nickname.toLowerCase()
     return App.config.users.map(x => x.toLowerCase()).some(x => x === nick)
-  }  
+  }
 
   App.is_admin = function (nickname) {
     let nick = nickname.toLowerCase()
@@ -75,13 +75,13 @@ module.exports = function (App) {
 		}
 
 		return s
-	}  
+	}
 
   App.remove_dots = function (s) {
-    return s.trim().replace(/\.+$/, "").trim()    
+    return s.trim().replace(/\.+$/, "").trim()
   }
 
   App.escape_regex = function (s) {
 		return s.replace(/[^A-Za-z0-9]/g, "\\$&")
-	}  
+	}
 }

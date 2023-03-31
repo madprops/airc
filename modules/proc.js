@@ -9,19 +9,19 @@ module.exports = function (App) {
         return
       }
     }
-    
+
     App.rate_limit_date = Date.now()
 
     // Trim and remove multiple spaces
     message = message.trim().replace(/ +/g, " ")
 
     let prev_message = App.last_messages[to]
-    App.last_messages[to] = {from: from, to: to, message: message} 
+    App.last_messages[to] = {from: from, to: to, message: message}
 
     if (!App.is_allowed("allow_ask", from)) {requestAnimationFrame
       return
     }
-    
+
     let low_message = message.toLowerCase()
 
     if (low_message.includes("http://") || low_message.includes("https://")) {
@@ -33,30 +33,30 @@ module.exports = function (App) {
       App.report_self(to)
       return
     }
-  
+
     App.check_nick_mention(from, to, message, prev_message)
   }
-  
+
   App.check_nick_mention = function (from, to, message, prev_message) {
     let re = new RegExp(/^(?<nickname>\w+)[,:](?<message>.*)$/, "")
     let match = message.match(re)
-    
+
     if (!match) {
       return
     }
-  
+
     let nick = match.groups.nickname.trim()
     let prompt = match.groups.message.trim()
-  
+
     if (!nick || !prompt) {
       return
     }
-  
+
     if (nick.toLowerCase() === App.config.nickname.toLowerCase()) {
       if(prompt === "hi" || prompt === "hello") {
         App.irc_respond(to, "hi!")
         return
-      }    
+      }
       else if (prompt.startsWith("^") && prev_message) {
         let context = App.remove_dots(prev_message.message)
         let words = prompt.replace("^", "").trim()
@@ -68,7 +68,7 @@ module.exports = function (App) {
         App.ask_ai(from, to, context)
         return
       }
-            
+
       if (App.check_commands(from, to, prompt)) {
         return
       }
@@ -76,7 +76,7 @@ module.exports = function (App) {
       App.ask_ai(from, to, prompt)
     }
   }
-  
+
   // Prepare prompt and ask openai
   App.ask_ai = function (from, to, prompt) {
     prompt = prompt.trim()
@@ -91,17 +91,17 @@ module.exports = function (App) {
     }
 
     let rules = App.remove_dots(App.config.rules)
-  
+
     if (rules && (rules.length <= App.max_rules_length)) {
       prompt = rules + ". " + prompt
     }
 
     console.info(from + ' => ' + to + ': ' + prompt)
-    
+
     App.ask_openai(prompt, function (text) {
       App.irc_respond(to, text)
     })
-  }  
+  }
 
   App.report_self = function (to) {
     let ts = App.timeago(App.date_started)

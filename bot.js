@@ -23,7 +23,7 @@ App.update_config = function (key, value) {
     if (key) {
       App.config[key] = value
     }
-    
+
     let p = App.get_config_path()
     let s = JSON.stringify(App.config, null, 2)
     App.fs.writeFileSync(p, s)
