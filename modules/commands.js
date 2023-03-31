@@ -3,6 +3,7 @@
 module.exports = function (App) {
   App.check_commands = function (from, to, prompt) {
     let cmd = prompt.replace(App.config.prefix, "")
+    let colon = ": "
 
     if (!cmd) {
       return
@@ -14,23 +15,23 @@ module.exports = function (App) {
       let p = App.config.prefix
 
       let cmds = [
-        `${p}ur [x]`,
-        `${p}rules [x|clear]`,
-        `${p}users [add|remove][nick]`,
-        `${p}users clear`,
-        `${p}admins`,
-        `${p}who`,
-        `${p}allow_ask [all|users|admins]`,
-        `${p}allow_modify [all|users|admins]`,
+        p + "ur [x]",
+        p + "rules [x|clear]",
+        p + "users [add|remove][nick]",
+        p + "users clear",
+        p + "admins",
+        p + "who",
+        p + "allow_ask [all|users|admins]",
+        p + "allow_modify [all|users|admins]",
         "Use ^ to reference the message above",
       ]
 
-      App.irc_client.say(to, `${App.bold_text("Commands")}: ` + cmds.join(" 👾 "))
+      App.irc_client.say(to, App.bold_text("Commands") + colon + cmds.join(" 👾 "))
       return
     }
     
     if (cmd === "rules") {
-      App.irc_client.say(to, `${App.bold_text("Rules")}: ` + (App.config.rules || "[Empty]"))
+      App.irc_client.say(to, App.bold_text("Rules") + colon + (App.config.rules || "[Empty]"))
       return
     } 
 
@@ -57,7 +58,7 @@ module.exports = function (App) {
           }
 
           App.update_config("rules", arg)
-          App.irc_client.say(to, App.bold_text("Rules") + ": " + (arg || "[Empty]"))
+          App.irc_client.say(to, App.bold_text("Rules") + colon + (arg || "[Empty]"))
         }
       }
 
@@ -69,11 +70,11 @@ module.exports = function (App) {
       let arg = cmd.replace("ur ", "").trim()
 
       if (arg) {
-        let rules = `Respond as if you were ${arg}`
+        let rules = "Respond as if you were " + arg
 
         if (rules.length <= App.max_rules_length) {  
           App.update_config("rules", rules)              
-          App.irc_client.say(to, App.bold_text("Rules") +  ": " + rules)
+          App.irc_client.say(to, App.bold_text("Rules") + colon + rules)
         }
       }
 
@@ -85,7 +86,7 @@ module.exports = function (App) {
     if (App.is_admin(from)) {
       if (cmd === "users") {
         let s = App.config.users.join(", ")
-        App.irc_client.say(to, `${App.bold_text("Users")}: ` + (s || "[Empty]"))
+        App.irc_client.say(to, App.bold_text("Users") + colon + (s || "[Empty]"))
         return
       }            
   
@@ -128,7 +129,7 @@ module.exports = function (App) {
 
       if (cmd ===  "admins") {
         let s = App.config.admins.join(", ")
-        App.irc_client.say(to, `${App.bold_text("Admins")}: ` + (s || "[Empty]"))
+        App.irc_client.say(to, App.bold_text("Admins") + colon + (s || "[Empty]"))
         return
       }    
       
@@ -151,7 +152,7 @@ module.exports = function (App) {
       }  
       
       if (cmd ===  "allow_ask") {
-        App.irc_client.say(to, `${App.bold_text("allow_ask")}: ` + App.config.allow_ask)
+        App.irc_client.say(to, App.bold_text("allow_ask") + colon + App.config.allow_ask)
         return
       } 
       
@@ -174,7 +175,7 @@ module.exports = function (App) {
       }
 
       if (cmd ===  "allow_modify") {
-        App.irc_client.say(to, `${App.bold_text("allow_modify")}: ` + App.config.allow_modify)
+        App.irc_client.say(to, App.bold_text("allow_modify") + colon + App.config.allow_modify)
         return
       }
     }  
