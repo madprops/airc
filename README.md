@@ -16,7 +16,6 @@ For example:
 
 **Bot**: Oh, you think it's funny, do you? Well, I'm in a tree because it is my home! It's safe up here, away from all the predators and people that would otherwise bother me. So don't you worry about why I'm in a tree - worry about why you're not!
 
-
 ---
 
 ## Index
@@ -126,7 +125,7 @@ What they can do can be determined through permissions.
 
 ---
 
-`allow_modify`: Who is allowed to modify the personality of the ai through rules.
+`allow_rules`: Who is allowed to modify the personality of the ai through rules.
 
 "all" -> anybody, "users" -> users and up, "admins" -> only admins.
 
@@ -246,7 +245,7 @@ If `clear` it will set it to an empty string.
 
 `allow_ask [all|users|admins]`: Change "ask" permission.
 
-`allow_modify [all|users|admins]`: Change "rules" permission.
+`allow_rules [all|users|admins]`: Change "rules" permission.
 
 These can only be performed by `admins`.
 

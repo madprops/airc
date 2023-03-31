@@ -46,7 +46,7 @@ module.exports = function (App) {
         "admins",
         "report",
         "allow ask [all|users|admins]",
-        "allow modify [all|users|admins]",
+        "allow rules [all|users|admins]",
         "Use ^ to reference the message above",
       ]
 
@@ -72,7 +72,7 @@ module.exports = function (App) {
     // Commands that modify rules
 
     if (App.cmd_match("rules", cmd, true)) {
-      if (!App.is_allowed("allow_modify", from)) { return }       
+      if (!App.is_allowed("allow_rules", from)) { return }       
       let arg = App.cmd_arg("rules", cmd)
       
       if (arg) {
@@ -90,7 +90,7 @@ module.exports = function (App) {
     } 
     
     if (App.cmd_match("you're", cmd, true)) { 
-      if (!App.is_allowed("allow_modify", from)) { return }                      
+      if (!App.is_allowed("allow_rules", from)) { return }                      
       let arg = App.cmd_arg("you're", cmd)
 
       if (arg) {
@@ -180,14 +180,14 @@ module.exports = function (App) {
         return true
       } 
       
-      if (App.cmd_match("allow modify", cmd, true)) {
-        let arg = App.cmd_arg("allow modify", cmd)
+      if (App.cmd_match("allow rules", cmd, true)) {
+        let arg = App.cmd_arg("allow rules", cmd)
   
         if (arg) {
           let allowed = ["all", "users", "admins"]
   
           if (allowed.includes(arg)) {
-            App.update_config("allow_modify", arg)
+            App.update_config("allow_rules", arg)
             App.cmd_done(to)
           }
           else {
@@ -198,8 +198,8 @@ module.exports = function (App) {
         return true
       }
 
-      if (App.cmd_match("allow modify", cmd, false)) {
-        App.cmd_show(to, "allow modify", App.config.allow_modify)
+      if (App.cmd_match("allow rules", cmd, false)) {
+        App.cmd_show(to, "allow rules", App.config.allow_rules)
         return true
       }
     }  

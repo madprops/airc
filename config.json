@@ -13,5 +13,5 @@
   ],
   "users": [],
   "allow_ask": "all",
-  "allow_modify": "all"
+  "allow_rules": "all"
 }
