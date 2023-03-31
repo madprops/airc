@@ -2,7 +2,7 @@
 
 module.exports = function (App) {
   App.cmd_respond = function (to, title, content) {
-    let res = App.bold(title) + ": " + (content || "[Empty]")
+    let res = App.irc_bold(title) + ": " + (content || "[Empty]")
     App.irc_respond(to, res)
   }
 

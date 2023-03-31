@@ -32,6 +32,10 @@ module.exports = function (App) {
       App.irc_client.say(to, s)
     }
 
+    App.irc_bold = function (s) {
+      return `\x02${s}\x0F`
+    }
+
     console.info("Joining irc...")
   }
 }

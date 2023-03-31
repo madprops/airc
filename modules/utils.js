@@ -13,10 +13,6 @@ module.exports = function (App) {
     return App.config.admins.map(x => x.toLowerCase()).some(x => x === nick)
   }
 
-  App.bold = function (text) {
-    return `\x02${text}\x0F`
-  }
-
   App.is_allowed = function (key, nickname) {
     if (App.config[key] === "users") {
       if (!App.is_user(nickname) && !App.is_admin(nickname)) {
