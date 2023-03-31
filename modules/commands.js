@@ -82,6 +82,7 @@ module.exports = function (App) {
           }
 
           App.update_config("rules", arg)
+          App.reset_context(to)
           App.cmd_show(to, "Rules", arg)
         }
       }
@@ -98,6 +99,7 @@ module.exports = function (App) {
 
         if (rules.length <= App.max_rules_length) {
           App.update_config("rules", rules)
+          App.reset_context(to)
           App.cmd_show(to, "Rules", rules)
         }
       }
