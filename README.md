@@ -209,9 +209,9 @@ If `clear` it will set it to an empty string.
 
 ---
 
-`allow_ask [all|users|admins]`: Change "ask" permission.
+`allow ask [all|users|admins]`: Change "ask" permission.
 
-`allow_rules [all|users|admins]`: Change "rules" permission.
+`allow rules [all|users|admins]`: Change "rules" permission.
 
 These can only be performed by `admins`.
 
