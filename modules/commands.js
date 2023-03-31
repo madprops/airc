@@ -2,7 +2,8 @@
 
 module.exports = function (App) {
   App.command_response = function (to, title, content) {
-    App.irc_respond(to, App.bold(title) + ": " + content)
+    let res = App.bold(title) + ": " + (content || "[Empty]")
+    App.irc_respond(to, res)
   }
 
   App.command_done = function (to) {
@@ -42,7 +43,7 @@ module.exports = function (App) {
     }
     
     if (cmd === "rules") {
-      App.command_response(to, "Rules", App.config.rules || "[Empty]")
+      App.command_response(to, "Rules", App.config.rules)
       return
     } 
 
@@ -69,7 +70,7 @@ module.exports = function (App) {
           }
 
           App.update_config("rules", arg)
-          App.command_response(to, "Rules", arg || "[Empty]")
+          App.command_response(to, "Rules", arg)
         }
       }
 
@@ -97,7 +98,7 @@ module.exports = function (App) {
     if (App.is_admin(from)) {
       if (cmd === "users") {
         let s = App.config.users.join(", ")
-        App.command_response(to, "Users", s || "[Empty]")
+        App.command_response(to, "Users", s)
         return
       }            
   
@@ -140,7 +141,7 @@ module.exports = function (App) {
 
       if (cmd ===  "admins") {
         let s = App.config.admins.join(", ")
-        App.command_response(to, "Admins", s || "[Empty]")
+        App.command_response(to, "Admins", s)
         return
       }    
       
