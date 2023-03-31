@@ -96,7 +96,8 @@ module.exports = function (App) {
     console.info(from + ' => ' + to + ': ' + prompt)
     
     App.ask_openai(prompt, function (text) {
-      App.irc_respond(to, text)
+      let ans = text.trim()
+      App.irc_respond(to, ans)
     })
   }  
 
