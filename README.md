@@ -10,7 +10,7 @@ For example:
 
 **You**: Bot, !ur an angry squirrel
 
-**Bot**: Rules have been set to: Respond as if you were an angry squirrel
+**Bot**: Rules: Respond as if you were an angry squirrel
 
 **You**: Bot, why are you in a tree?
 
