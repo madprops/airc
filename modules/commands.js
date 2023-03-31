@@ -40,21 +40,21 @@ module.exports = function (App) {
       let cmds = [
         "you're [x]",
         "rules [x|clear]",
-        "who are you?",
-        "users [add|remove][nick]",
+        "users [add|remove] + [nick]",
         "users clear",
         "admins",
         "report",
         "allow ask [all|users|admins]",
         "allow rules [all|users|admins]",
-        "Use ^ to reference the message above",
       ]
 
       App.cmd_show(to, "Commands", cmds.join(" 👾 "))
       return true
     }
 
-    if (App.cmd_match("rules", cmd, false) || App.cmd_match("who are you?", cmd, false)) {
+    if (App.cmd_match("rules", cmd, false) || 
+    App.cmd_match("who are you?", cmd, false) || 
+    App.cmd_match("what are you?", cmd, false)) {
       App.cmd_show(to, "Rules", App.config.rules)
       return true
     }
