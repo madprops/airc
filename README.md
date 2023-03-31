@@ -136,7 +136,9 @@ What they can do can be determined through permissions.
 
 ## Credentials <a name="credentials"></a>
 
-It reads the openai api key from the shell environment, it's not added to the code or config. You must do this before running the bot:
+It reads the openai api key from the shell environment, it's not added to the code or config. 
+
+You must do this before running the bot:
 
 `export OPENAI_API_KEY=mySecretKey`
 
