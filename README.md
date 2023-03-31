@@ -224,9 +224,9 @@ These are the available commands:
 
 ---
 
-`ur [thing]`: Shortcut to set a personality.
+`you're [thing]`: Shortcut to set a personality.
 
-`ur a monkey` would set the rules to `Respond as if you were a monkey`.
+`you're a monkey` would set the rules to `Respond as if you were a monkey`.
 
 ---
 
