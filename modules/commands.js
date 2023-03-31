@@ -57,7 +57,7 @@ module.exports = function (App) {
           }
 
           App.update_config("rules", arg)
-          App.irc_client.say(to, `${App.bold_text("Rules")} have been set to: ` + (arg || "[Empty]"))
+          App.irc_client.say(to, App.bold_text("Rules") + ": " + (arg || "[Empty]"))
         }
       }
 
@@ -73,7 +73,7 @@ module.exports = function (App) {
 
         if (rules.length <= App.max_rules_length) {  
           App.update_config("rules", rules)              
-          App.irc_client.say(to, `${App.bold_text("Rules")} have been set to: ` + rules)
+          App.irc_client.say(to, App.bold_text("Rules") +  ": " + rules)
         }
       }
 
