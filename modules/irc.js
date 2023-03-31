@@ -33,7 +33,7 @@ module.exports = function (App) {
     }
 
     App.irc_bold = function (s) {
-      return `\x02${s}\x0F`
+      return "\x02" + s + "\x0F"
     }
 
     console.info("Joining irc...")
