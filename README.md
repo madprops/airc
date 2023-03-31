@@ -251,9 +251,9 @@ These can only be performed by `admins`.
 
 ---
 
-There's a global !who command that causes all instances to report.
+There's a global !report command that causes all instances to report.
 
-Each bot also has an individual mentioned `who` command to report alone.
+Each bot also has an individual mentioned `report` command.
 
 ---
 
