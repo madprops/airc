@@ -1,6 +1,18 @@
 // Commands from irc to the bot are checked and processed here
 
 module.exports = function (App) {
+  App.command_response = function (to, title, content) {
+    App.irc_respond(to, App.bold(title) + ": " + content)
+  }
+
+  App.command_done = function (to) {
+    App.irc_respond(to, "Done.")
+  }
+
+  App.allow_info = function (to) {
+    App.irc_respond(to, "It must be: all, users, or admins.")
+  }
+
   App.check_commands = function (from, to, prompt) {
     let cmd = prompt.replace(App.config.prefix, "")
     
@@ -8,8 +20,6 @@ module.exports = function (App) {
       return
     }
     
-    let colon = ": "
-
     // Commands anybody can use
 
     if (cmd === "help") {
@@ -27,17 +37,17 @@ module.exports = function (App) {
         "Use ^ to reference the message above",
       ]
 
-      App.irc_client.say(to, App.bold("Commands") + colon + cmds.join(" 👾 "))
+      App.command_response(to, "Commands", cmds.join(" 👾 "))
       return
     }
     
     if (cmd === "rules") {
-      App.irc_client.say(to, App.bold("Rules") + colon + (App.config.rules || "[Empty]"))
+      App.command_response(to, "Rules", App.config.rules || "[Empty]")
       return
     } 
 
     if (cmd === "ping") {
-      App.irc_client.say(to, "Pong!")
+      App.irc_respond(to, "Pong!")
       return
     }
 
@@ -59,7 +69,7 @@ module.exports = function (App) {
           }
 
           App.update_config("rules", arg)
-          App.irc_client.say(to, App.bold("Rules") + colon + (arg || "[Empty]"))
+          App.command_response(to, "Rules", arg || "[Empty]")
         }
       }
 
@@ -75,7 +85,7 @@ module.exports = function (App) {
 
         if (rules.length <= App.max_rules_length) {  
           App.update_config("rules", rules)              
-          App.irc_client.say(to, App.bold("Rules") + colon + rules)
+          App.command_response(to, "Rules", rules)
         }
       }
 
@@ -87,7 +97,7 @@ module.exports = function (App) {
     if (App.is_admin(from)) {
       if (cmd === "users") {
         let s = App.config.users.join(", ")
-        App.irc_client.say(to, App.bold("Users") + colon + (s || "[Empty]"))
+        App.command_response(to, "Users", s || "[Empty]")
         return
       }            
   
@@ -99,7 +109,7 @@ module.exports = function (App) {
             if (!App.is_user(arg) && !App.is_admin(arg)) {
               App.config.users.push(arg)
               App.update_config("users", App.config.users)
-              App.irc_client.say(to, "Done.")
+              App.command_done(to)
             }
           }
         }
@@ -115,7 +125,7 @@ module.exports = function (App) {
             let nick = arg.toLowerCase()
             let users = App.config.users.map(x => x.toLowerCase()).filter(x => x !== nick)
             App.update_config("users", users)
-            App.irc_client.say(to, "Done.")
+            App.command_done(to)
           }
         }
 
@@ -124,13 +134,13 @@ module.exports = function (App) {
 
       if (cmd ===  "users clear") {
         App.update_config("users", [])
-        App.irc_client.say(to, "Done.")
+        App.command_done(to)
         return
       }    
 
       if (cmd ===  "admins") {
         let s = App.config.admins.join(", ")
-        App.irc_client.say(to, App.bold("Admins") + colon + (s || "[Empty]"))
+        App.command_response(to, "Admins", s || "[Empty]")
         return
       }    
       
@@ -142,10 +152,10 @@ module.exports = function (App) {
   
           if (allowed.includes(arg)) {
             App.update_config("allow_ask", arg)
-            App.irc_client.say(to, "Done.")
+            App.command_done(to)
           }
           else {
-            App.irc_client.say(to, "It must be: all, users, or admins.")
+            App.allow_info(to)
           }
         }
 
@@ -153,7 +163,7 @@ module.exports = function (App) {
       }  
       
       if (cmd ===  "allow_ask") {
-        App.irc_client.say(to, App.bold("allow_ask") + colon + App.config.allow_ask)
+        App.command_response(to, "allow_ask", App.config.allow_ask)
         return
       } 
       
@@ -165,10 +175,10 @@ module.exports = function (App) {
   
           if (allowed.includes(arg)) {
             App.update_config("allow_modify", arg)
-            App.irc_client.say(to, "Done.")
+            App.command_done(to)
           }
           else {
-            App.irc_client.say(to, "It must be: all, users, or admins.")
+            App.allow_info(to)
           }
         }
 
@@ -176,7 +186,7 @@ module.exports = function (App) {
       }
 
       if (cmd ===  "allow_modify") {
-        App.irc_client.say(to, App.bold("allow_modify") + colon + App.config.allow_modify)
+        App.command_response(to, "allow_modify", App.config.allow_modify)
         return
       }
     }  

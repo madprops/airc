@@ -50,7 +50,7 @@ module.exports = function (App) {
   
     if (nick.toLowerCase() === App.config.nickname.toLowerCase()) {
       if(prompt === "hi" || prompt === "hello") {
-        App.irc_client.say(to, "hi!")
+        App.irc_respond(to, "hi!")
         return
       }    
       else if (prompt.startsWith("^") && prev_message) {
@@ -106,7 +106,7 @@ module.exports = function (App) {
         let text = ans.data.choices[0].text
     
         if (text) {
-          App.irc_client.say(to, text)
+          App.irc_respond(to, text)
         }
       }
     }
@@ -117,7 +117,7 @@ module.exports = function (App) {
 
   App.report_self = function (to) {
     let ts = App.timeago(App.date_started)
-    App.irc_client.say(to, `I'm here! I was launched ${ts}.`)
+    App.irc_respond(to, `I'm here! I was launched ${ts}.`)
     return
   }
 }

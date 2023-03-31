@@ -28,6 +28,10 @@ module.exports = function (App) {
       console.info(`Joined ${channel}`)
     })
 
+    App.irc_respond = function (to, s) {
+      App.irc_client.say(to, s)
+    }
+
     console.info("Joining irc...")
-  }  
+  }
 }
