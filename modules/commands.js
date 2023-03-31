@@ -99,7 +99,20 @@ module.exports = function (App) {
       let arg = App.cmd_arg("you're", cmd)
 
       if (arg) {
-        App.change_rules(to, arg)
+        let rules = "Respond as if you were " + arg        
+        App.change_rules(to, rules)
+      }
+
+      return true
+    }
+
+    if (App.cmd_match("you are", cmd, true)) {
+      if (!App.is_allowed("allow_rules", from)) { return }
+      let arg = App.cmd_arg("you are", cmd)
+
+      if (arg) {
+        let rules = "Respond as if you were " + arg
+        App.change_rules(to, rules)
       }
 
       return true
