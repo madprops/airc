@@ -42,7 +42,7 @@ For example:
 
 Before you edit `config.json` read this:
 
-When `config.json` changes, it makes it hard for the bot admin to simply `git pull` all the time.
+When `config.json` changes, it makes it hard for the bot admin to simply `git pull` for updates.
 
 Since the config in the repo conflicts with their own config.
 
