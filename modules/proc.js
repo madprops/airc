@@ -67,6 +67,10 @@ module.exports = function (App) {
   App.ask_ai = function (from, to, prompt) {
     prompt = prompt.trim()
 
+    if (!prompt) {
+      return
+    }
+
     // This is to avoid autocompletions from the ai
     if (/\w$/.test(prompt)) {
       prompt += "."
@@ -84,7 +88,7 @@ module.exports = function (App) {
         s += "You said: " + res + "\n"
       }
 
-      prompt = s + "I say: " + prompt + "\n" + "You say:"
+      prompt = s + "I say: " + prompt + "\nYou say:"
     }
 
     // Add some personality
