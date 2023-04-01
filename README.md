@@ -231,7 +231,7 @@ These can only be performed by `admins`.
 
 There's a global !report command that causes all instances to report.
 
-Each bot also has an individual mentioned `report` command.
+Each bot also has an individual `report` command.
 
 ---
 
