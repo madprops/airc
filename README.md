@@ -164,7 +164,7 @@ Nickname detection is case insensitive. `MyBot` and `mybot` work.
 ---
 
 If a user writes `mybot, ^` or `mybot: ^`, the bot will use the previous message as the prompt.
-`
+
 ```
 Bob: What a lovely day
 
