@@ -129,7 +129,7 @@ These can be set to:
 
 `users` -> Users and up.
 
-`admins` -> Only admins.
+`admins` -> Admins only.
 
 ---
 
