@@ -84,7 +84,7 @@ module.exports = function (App) {
         s += "You said: " + res + "\n"
       }
 
-      prompt = s + "I say: " + prompt
+      prompt = s + "I say: " + prompt + "\n" + "You say: "
     }
 
     // Add some personality
