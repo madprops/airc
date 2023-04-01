@@ -25,7 +25,6 @@ module.exports = function (App) {
       }
     }
     catch (err) {
-      console.log(err)
       console.error("openai completion error")
     }
   }
