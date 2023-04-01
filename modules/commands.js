@@ -40,7 +40,6 @@ module.exports = function (App) {
       }
 
       App.update_config("rules", rules)
-      App.reset_context(to)
       App.cmd_show(to, "Rules", rules)
     }
   }
@@ -144,7 +143,7 @@ module.exports = function (App) {
     if (App.cmd_match("reset", cmd, false)) {
       if (is_question) { return false }
       if (!can_change_rules) { return true }
-      
+
       App.change_rules(to, "clear")
       return true
     }    

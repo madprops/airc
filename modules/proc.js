@@ -15,6 +15,9 @@ module.exports = function (App) {
     // Trim and remove multiple spaces
     message = message.trim().replace(/ +/g, " ")
 
+    let prev_message = App.last_messages[to]
+    App.last_messages[to] = {from: from, to: to, message: message}
+
     if (!App.is_allowed("allow_ask", from)) {requestAnimationFrame
       return
     }
@@ -31,10 +34,10 @@ module.exports = function (App) {
       return
     }
 
-    App.check_nick_mention(from, to, message)
+    App.check_nick_mention(from, to, message, prev_message)
   }
 
-  App.check_nick_mention = function (from, to, message) {
+  App.check_nick_mention = function (from, to, message, prev_message) {
     let re = new RegExp(/^(?<nickname>\w+)[,:](?<message>.*)$/, "")
     let match = message.match(re)
 
@@ -52,6 +55,18 @@ module.exports = function (App) {
     if (nick.toLowerCase() === App.config.nickname.toLowerCase()) {
       if(prompt === "hi" || prompt === "hello") {
         App.irc_respond(to, "hi!")
+        return
+      }
+
+      if (prompt.startsWith("^") && prev_message) {
+        let context = App.remove_dots(prev_message.message)
+        let words = prompt.replace("^", "").trim()
+
+        if (words) {
+          context += "\n" + words
+        }
+
+        App.ask_ai(from, to, context)
         return
       }
 
@@ -80,17 +95,6 @@ module.exports = function (App) {
       return
     }
 
-    // Add some context to the prompt
-    if (App.context[to] && App.context[to].length > 0) {
-      let s = ""
-
-      for (let res of App.context[to]) {
-        s += "You said: " + res + "\n"
-      }
-
-      prompt = s + "I say: " + prompt + "\nPlease respond to what I say using the context above."
-    }
-
     // Add some personality
     if (App.config.rules) {
       prompt = App.config.rules + "\n" + prompt
@@ -100,7 +104,6 @@ module.exports = function (App) {
 
     App.ask_openai(prompt, function (text) {
       App.irc_respond(to, text)
-      App.add_context(to, text)
     })
   }
 
@@ -108,21 +111,5 @@ module.exports = function (App) {
     let ts = App.timeago(App.date_started)
     App.irc_respond(to, `I'm here! I was launched ${ts}.`)
     return
-  }
-
-  App.add_context = function (to, text) {
-    if (App.context[to] === undefined) {
-      App.context[to] = []
-    }
-
-    App.context[to].push(text)
-
-    if (App.context[to].length > App.max_context) {
-      App.context[to].shift()
-    }
-  }
-
-  App.reset_context = function (to) {
-    App.context[to] = []
   }
 }
