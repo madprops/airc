@@ -80,13 +80,16 @@ module.exports = function (App) {
       App.report_self(to)
       return true
     }
-
+    
     // Commands that modify rules
 
     let can_change_rules = App.is_allowed("allow_rules", from)
+    let is_question = cmd.endsWith("?")
 
     if (App.cmd_match("rules", cmd, true)) {
-      if (!can_change_rules) { return }
+      if (is_question) { return false }
+      if (!can_change_rules) { return true }
+      
       let arg = App.cmd_arg("rules", cmd)
 
       if (arg) {
@@ -97,7 +100,9 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("you're", cmd, true)) {
-      if (!can_change_rules) { return }
+      if (is_question) { return false }
+      if (!can_change_rules) { return true }
+
       let arg = App.cmd_arg("you're", cmd)
 
       if (arg) {
@@ -109,7 +114,9 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("you are", cmd, true)) {
-      if (!can_change_rules) { return }
+      if (is_question) { return false }
+      if (!can_change_rules) { return true }
+
       let arg = App.cmd_arg("you are", cmd)
 
       if (arg) {
@@ -121,7 +128,9 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("ur", cmd, true)) {
-      if (!can_change_rules) { return }
+      if (is_question) { return false }
+      if (!can_change_rules) { return true }
+
       let arg = App.cmd_arg("ur", cmd)
 
       if (arg) {

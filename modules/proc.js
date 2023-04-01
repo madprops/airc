@@ -55,11 +55,6 @@ module.exports = function (App) {
         return
       }
 
-      if (prompt.endsWith("?")) {
-        App.ask_ai(from, to, prompt)
-        return
-      }
-
       if (App.check_commands(from, to, prompt)) {
         return
       }
