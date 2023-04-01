@@ -30,6 +30,7 @@ module.exports = function (App) {
       let ans = await App.openai_client.createChatCompletion({
         model: App.model,
         messages: messages,
+        max_tokens: App.config.max_tokens
       })
 
       if (ans.status === 200) {
