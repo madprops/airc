@@ -48,30 +48,30 @@ module.exports = function (App) {
 
   App.show_admins = function (to) {
     let s = App.config.admins.join(", ")
-    App.cmd_show(to, "Admins", s)    
+    App.cmd_show(to, "Admins", s)
   }
 
   App.show_users = function (to) {
     let s = App.config.users.join(", ")
-    App.cmd_show(to, "Users", s)    
+    App.cmd_show(to, "Users", s)
   }
 
   App.show_allow_ask = function (to) {
-    App.cmd_show(to, "allow ask", App.config.allow_ask)    
+    App.cmd_show(to, "allow ask", App.config.allow_ask)
   }
 
   App.show_allow_rules = function (to) {
-    App.cmd_show(to, "allow rules", App.config.allow_rules)    
+    App.cmd_show(to, "allow rules", App.config.allow_rules)
   }
 
   App.show_rules = function (to) {
-    App.cmd_show(to, "Rules", App.config.rules)    
+    App.cmd_show(to, "Rules", App.config.rules)
   }
 
   App.check_commands = function (from, to, cmd) {
 
     // Commands that anybody can use
-    
+
     if (App.cmd_match("help", cmd, false)) {
       let cmds = [
         "you're [x]",
@@ -91,21 +91,21 @@ module.exports = function (App) {
     if (App.cmd_match("ping", cmd, false)) {
       App.irc_respond(to, "Pong!")
       return true
-    }  
+    }
 
-    if (App.cmd_match("rules", cmd, false) || 
-    App.cmd_match("who are you?", cmd, false) || 
+    if (App.cmd_match("rules", cmd, false) ||
+    App.cmd_match("who are you?", cmd, false) ||
     App.cmd_match("what are you?", cmd, false)) {
       App.show_rules(to)
       return true
-    }    
+    }
 
     // Ignore questions from now on
 
     if (cmd.endsWith("?")) {
       return false
     }
-    
+
     // Commands that modify rules
 
     let can_change_rules = App.is_allowed("allow_rules", from)
@@ -126,7 +126,7 @@ module.exports = function (App) {
       let arg = App.cmd_arg("you're", cmd)
 
       if (arg) {
-        let rules = "Respond as if you were " + arg        
+        let rules = "Respond as if you were " + arg
         App.change_rules(to, rules)
       }
 
@@ -161,7 +161,7 @@ module.exports = function (App) {
       if (!can_change_rules) { return true }
       App.change_rules(to, "clear")
       return true
-    }  
+    }
 
     // Commands only admins can use
 
@@ -191,7 +191,7 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("users remove", cmd, true)) {
-      if (!is_admin) { return false }      
+      if (!is_admin) { return false }
       let arg = App.cmd_arg("users remove", cmd)
 
       if (arg) {
@@ -207,20 +207,20 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("users clear", cmd, false)) {
-      if (!is_admin) { return false }      
+      if (!is_admin) { return false }
       App.update_config("users", [])
       App.cmd_done(to)
       return true
     }
 
     if (App.cmd_match("admins", cmd, false)) {
-      if (!is_admin) { return false }      
+      if (!is_admin) { return false }
       App.show_admins(to)
       return true
     }
 
     if (App.cmd_match("allow ask", cmd, true)) {
-      if (!is_admin) { return false }      
+      if (!is_admin) { return false }
       let arg = App.cmd_arg("allow ask", cmd)
 
       if (arg) {
@@ -239,13 +239,13 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("allow ask", cmd, false)) {
-      if (!is_admin) { return false }      
+      if (!is_admin) { return false }
       App.show_allow_ask(to)
       return true
     }
 
     if (App.cmd_match("allow rules", cmd, true)) {
-      if (!is_admin) { return false }      
+      if (!is_admin) { return false }
       let arg = App.cmd_arg("allow rules", cmd)
 
       if (arg) {
@@ -264,19 +264,19 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("allow rules", cmd, false)) {
-      if (!is_admin) { return false }      
+      if (!is_admin) { return false }
       App.show_allow_rules(to)
       return true
     }
 
     if (App.cmd_match("report", cmd, false)) {
-      if (!is_admin) { return false }      
+      if (!is_admin) { return false }
       App.report_self(to)
       return true
     }
 
     if (App.cmd_match("config", cmd, false)) {
-      if (!is_admin) { return false }  
+      if (!is_admin) { return false }
       App.report_self(to)
       App.show_rules(to)
       App.show_allow_ask(to)
@@ -284,7 +284,7 @@ module.exports = function (App) {
       App.show_users(to)
       App.show_admins(to)
       return true
-    }    
+    }
   }
 
   return false

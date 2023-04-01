@@ -63,11 +63,11 @@ module.exports = function (App) {
 
         if (context.length <= App.max_context) {
           let words = prompt.replace("^", "").trim()
-  
+
           if (words) {
             context += "\n" + words
           }
-  
+
           App.ask_ai(from, to, context)
           return
         }
@@ -101,7 +101,7 @@ module.exports = function (App) {
     // Add some personality
     if (App.config.rules) {
       prompt = App.config.rules + "\n" + prompt
-    }    
+    }
 
     console.info(from + ' => ' + to + ': ' + prompt)
 
