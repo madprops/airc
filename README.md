@@ -32,8 +32,7 @@ For example:
 
 1) Clone this repo
 1) Run 'npm install' inside the dir
-1) Copy `config.json` to `config.user.json`
-1) Edit `config.user.json`
+1) Create and edit `config.user.json`
 1) Export api key to environment
 1) Run it with 'node bot.js'
 
@@ -49,9 +48,14 @@ Since the config in the repo conflicts with their own config.
 
 To solve this, a file called `config.user.json` is created at launch if it does not exist.
 
-Edit what you need in the `config.user.json`, leave `config.json` intact, you can still use it as reference.
+The format of both config files is the same, they're json objects.
+
+The settings in `config.user.json` override whatever is set in `config.json`.
+
+Leave `config.json` intact, you can still use it as reference.
 
 Now you can `git pull` for updates any time without worrying about conflicts.
+
 
 ---
 

@@ -60,14 +60,17 @@ module.exports = function (App) {
 
       if (prompt.startsWith("^") && prev_message) {
         let context = App.remove_dots(prev_message.message)
-        let words = prompt.replace("^", "").trim()
 
-        if (words) {
-          context += "\n" + words
+        if (context.length <= App.max_context) {
+          let words = prompt.replace("^", "").trim()
+  
+          if (words) {
+            context += "\n" + words
+          }
+  
+          App.ask_ai(from, to, context)
+          return
         }
-
-        App.ask_ai(from, to, context)
-        return
       }
 
       if (App.check_commands(from, to, prompt)) {

@@ -13,6 +13,12 @@ App.config_file = "config.user.json"
 App.rate_limit_delay = 2000
 App.rate_limit_date = Date.now()
 
+App.get_user_config = function () {
+  let s = App.fs.readFileSync(App.get_config_path(), "utf8")
+  let obj = JSON.parse(s)
+  return obj
+}
+
 // Get the correct config path
 App.get_config_path = function () {
   let p = App.path.dirname(__filename)
@@ -21,13 +27,13 @@ App.get_config_path = function () {
 
 App.update_config = function (key, value) {
   try {
-    if (key) {
-      App.config[key] = value
-    }
+    let user_config = App.get_user_config()
 
-    let p = App.get_config_path()
-    let s = JSON.stringify(App.config, null, 2)
-    App.fs.writeFileSync(p, s)
+    user_config[key] = value
+    App.config[key] = value
+
+    let s = JSON.stringify(user_config, null, 2)
+    App.fs.writeFileSync(App.get_config_path(), s)
   }
   catch (err) {
     console.error("Error updating the config file")
@@ -37,14 +43,12 @@ App.update_config = function (key, value) {
 // Create config.user.json
 // If it does not exist
 if (!App.fs.existsSync(App.get_config_path())) {
-  App.update_config()
+  App.fs.writeFileSync(App.get_config_path(), "{}")
   console.info("Created user config file")
 }
 
 // Assign user config to default config
-let s = App.fs.readFileSync(App.get_config_path(), "utf8")
-let user_config = JSON.parse(s)
-Object.assign(App.config, user_config)
+Object.assign(App.config, App.get_user_config())
 
 // Load js modules
 require("./modules/irc.js")(App)
