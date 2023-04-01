@@ -251,6 +251,10 @@ Each bot also has an individual `report` command.
 
 ---
 
+There's a `config` command that prints a summary of various settings.
+
+---
+
 Changes to config properties are saved in `config.user.json`
 
 ---
