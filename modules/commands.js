@@ -139,6 +139,14 @@ module.exports = function (App) {
       }
 
       return true
+    }
+
+    if (App.cmd_match("reset", cmd, false)) {
+      if (is_question) { return false }
+      if (!can_change_rules) { return true }
+      
+      App.change_rules(to, "clear")
+      return true
     }    
 
     // Commands only admins can use
