@@ -169,8 +169,6 @@ Nickname detection is case insensitive. `MyBot` and `mybot` work.
 
 The most recent responses are saved into a context array.
 
-These are prepended to the prompt separated by "\n".
-
 When the rules change the array is emptied.
 
 ---
