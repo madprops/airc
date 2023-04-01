@@ -4,7 +4,7 @@
   "channels": [
     "#airc-test"
   ],
-  "model": "text-davinci-003",
+  "model": "gpt-3.5-turbo",
   "max_prompt": 300,
   "max_tokens": 200,
   "rules": "",

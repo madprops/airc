@@ -8,16 +8,32 @@ module.exports = function (App) {
     console.info("Started openai")
   }
 
-  App.ask_openai = async function (prompt, callback) {
+  App.ask_openai = async function (rules, context, prompt, callback) {
+    let messages = []
+
+    if (rules) {
+      messages.push({"role": "system", "content": rules})
+    }
+
+    if (context && context.length > 0) {
+      for (let c of context) {
+        messages.push({"role": "assistant", "content": c})
+      }
+    }
+
+    messages.push({"role": "user", "content": prompt})
+    
+    console.info("---")
+    console.info(messages)
+
     try {
-      let ans = await App.openai_client.createCompletion({
+      let ans = await App.openai_client.createChatCompletion({
         model: App.config.model,
-        prompt: prompt,
-        max_tokens: App.config.max_tokens
+        messages: messages,
       })
 
       if (ans.status === 200) {
-        let text = ans.data.choices[0].text.trim()
+        let text = ans.data.choices[0].message.content.trim()
 
         if (text) {
           callback(text)
@@ -25,7 +41,7 @@ module.exports = function (App) {
       }
     }
     catch (err) {
-      console.error("openai completion error")
+      console.error("openai error")
     }
   }
 }
