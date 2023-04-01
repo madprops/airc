@@ -45,8 +45,9 @@ module.exports = function (App) {
   }
 
   App.check_commands = function (from, to, cmd) {
-    // Commands that anybody can use
 
+    // Commands that anybody can use
+    
     if (App.cmd_match("help", cmd, false)) {
       let cmds = [
         "you're [x]",
@@ -81,6 +82,7 @@ module.exports = function (App) {
     }
 
     // Ignore questions from now on
+
     if (cmd.endsWith("?")) {
       return false
     }
