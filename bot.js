@@ -5,6 +5,7 @@ App.path = require("path")
 App.config = require("./config.json")
 App.irc = require("irc")
 App.openai = require("openai")
+App.model = "gpt-3.5-turbo"
 App.context = {}
 App.max_context = 5
 App.max_rules_length = 250

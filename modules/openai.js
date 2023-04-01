@@ -28,7 +28,7 @@ module.exports = function (App) {
 
     try {
       let ans = await App.openai_client.createChatCompletion({
-        model: App.config.model,
+        model: App.model,
         messages: messages,
       })
 
