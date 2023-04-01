@@ -121,13 +121,15 @@ What they can do can be determined through permissions.
 
 `allow_ask`: Who is allowed to ask questions to the ai.
 
-"all" -> anybody, "users" -> users and up, "admins" -> only admins.
-
----
-
 `allow_rules`: Who is allowed to modify the personality of the ai through rules.
 
-"all" -> anybody, "users" -> users and up, "admins" -> only admins.
+These can be set to:
+
+`all` -> Anybody.
+
+`users` -> Users and up.
+
+`admins` -> Only admins.
 
 ---
 
