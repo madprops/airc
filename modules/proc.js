@@ -80,7 +80,25 @@ module.exports = function (App) {
       return
     }
 
-    App.ask_openai(App.config.rules, App.context[to], prompt, function (text) {
+    // Add some context to the prompt
+    if (App.context[to] && App.context[to].length > 0) {
+      let s = ""
+
+      for (let res of App.context[to]) {
+        s += "You said: " + res + "\n"
+      }
+
+      prompt = s + "I say: " + prompt + "\nPlease respond to what I say using the context above."
+    }
+
+    // Add some personality
+    if (App.config.rules) {
+      prompt = App.config.rules + "\n" + prompt
+    }    
+
+    console.info(from + ' => ' + to + ': ' + prompt)
+
+    App.ask_openai(prompt, function (text) {
       App.irc_respond(to, text)
       App.add_context(to, text)
     })
