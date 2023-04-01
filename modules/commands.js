@@ -277,7 +277,6 @@ module.exports = function (App) {
 
     if (App.cmd_match("config", cmd, false)) {
       if (!is_admin) { return false }
-      App.report_self(to)
       App.show_rules(to)
       App.show_allow_ask(to)
       App.show_allow_rules(to)
