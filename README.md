@@ -281,8 +281,8 @@ Update bots:
 
 ```bash
 #!/usr/bin/env bash
-cd bot1 && git pull && cd
-cd bot2 && git pull && cd
+cd && cd bot1 && git pull
+cd && cd bot2 && git pull
 ```
 
 ---
