@@ -79,14 +79,17 @@ module.exports = function (App) {
       App.report_self(to)
       return true
     }
+
+    // Ignore questions from now on
+    if (cmd.endsWith("?")) {
+      return false
+    }
     
     // Commands that modify rules
 
     let can_change_rules = App.is_allowed("allow_rules", from)
-    let is_question = cmd.endsWith("?")
 
     if (App.cmd_match("rules", cmd, true)) {
-      if (is_question) { return false }
       if (!can_change_rules) { return true }
       
       let arg = App.cmd_arg("rules", cmd)
@@ -99,7 +102,6 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("you're", cmd, true)) {
-      if (is_question) { return false }
       if (!can_change_rules) { return true }
 
       let arg = App.cmd_arg("you're", cmd)
@@ -113,7 +115,6 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("you are", cmd, true)) {
-      if (is_question) { return false }
       if (!can_change_rules) { return true }
 
       let arg = App.cmd_arg("you are", cmd)
@@ -127,7 +128,6 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("ur", cmd, true)) {
-      if (is_question) { return false }
       if (!can_change_rules) { return true }
 
       let arg = App.cmd_arg("ur", cmd)
@@ -141,7 +141,6 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("reset", cmd, false)) {
-      if (is_question) { return false }
       if (!can_change_rules) { return true }
 
       App.change_rules(to, "clear")
