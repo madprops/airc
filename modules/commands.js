@@ -1,4 +1,6 @@
 // Commands from irc to the bot are checked and processed here
+// If it returns true it stops the prompt to trigger a question
+// Checks return true to avoid asking when cmds were meant
 
 module.exports = function (App) {
   App.cmd_show = function (to, title, content) {
@@ -44,6 +46,28 @@ module.exports = function (App) {
     }
   }
 
+  App.show_admins = function (to) {
+    let s = App.config.admins.join(", ")
+    App.cmd_show(to, "Admins", s)    
+  }
+
+  App.show_users = function (to) {
+    let s = App.config.users.join(", ")
+    App.cmd_show(to, "Users", s)    
+  }
+
+  App.show_allow_ask = function (to) {
+    App.cmd_show(to, "allow ask", App.config.allow_ask)    
+  }
+
+  App.show_allow_rules = function (to) {
+    App.cmd_show(to, "allow rules", App.config.allow_rules)    
+  }
+
+  App.show_rules = function (to) {
+    App.cmd_show(to, "Rules", App.config.rules)    
+  }
+
   App.check_commands = function (from, to, cmd) {
 
     // Commands that anybody can use
@@ -64,22 +88,17 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("rules", cmd, false) || 
-    App.cmd_match("who are you?", cmd, false) || 
-    App.cmd_match("what are you?", cmd, false)) {
-      App.cmd_show(to, "Rules", App.config.rules)
-      return true
-    }
-
     if (App.cmd_match("ping", cmd, false)) {
       App.irc_respond(to, "Pong!")
       return true
-    }
+    }  
 
-    if (App.cmd_match("report", cmd, false)) {
-      App.report_self(to)
+    if (App.cmd_match("rules", cmd, false) || 
+    App.cmd_match("who are you?", cmd, false) || 
+    App.cmd_match("what are you?", cmd, false)) {
+      App.show_rules(to)
       return true
-    }
+    }    
 
     // Ignore questions from now on
 
@@ -93,7 +112,6 @@ module.exports = function (App) {
 
     if (App.cmd_match("rules", cmd, true)) {
       if (!can_change_rules) { return true }
-      
       let arg = App.cmd_arg("rules", cmd)
 
       if (arg) {
@@ -105,7 +123,6 @@ module.exports = function (App) {
 
     if (App.cmd_match("you're", cmd, true)) {
       if (!can_change_rules) { return true }
-
       let arg = App.cmd_arg("you're", cmd)
 
       if (arg) {
@@ -118,7 +135,6 @@ module.exports = function (App) {
 
     if (App.cmd_match("you are", cmd, true)) {
       if (!can_change_rules) { return true }
-
       let arg = App.cmd_arg("you are", cmd)
 
       if (arg) {
@@ -131,7 +147,6 @@ module.exports = function (App) {
 
     if (App.cmd_match("ur", cmd, true)) {
       if (!can_change_rules) { return true }
-
       let arg = App.cmd_arg("ur", cmd)
 
       if (arg) {
@@ -144,109 +159,132 @@ module.exports = function (App) {
 
     if (App.cmd_match("reset", cmd, false)) {
       if (!can_change_rules) { return true }
-
       App.change_rules(to, "clear")
       return true
-    }    
+    }  
 
     // Commands only admins can use
 
-    if (App.is_admin(from)) {
-      if (App.cmd_match("users", cmd, false)) {
-        let s = App.config.users.join(", ")
-        App.cmd_show(to, "Users", s)
-        return true
-      }
+    let is_admin = App.is_admin(from)
 
-      if (App.cmd_match("users add", cmd, true)) {
-        let arg = App.cmd_arg("users add", cmd)
-
-        if (arg) {
-          if (arg.length <= App.max_user_length) {
-            if (!App.is_user(arg) && !App.is_admin(arg)) {
-              App.config.users.push(arg)
-              App.update_config("users", App.config.users)
-              App.cmd_done(to)
-            }
-          }
-        }
-
-        return true
-      }
-
-      if (App.cmd_match("users remove", cmd, true)) {
-        let arg = App.cmd_arg("users remove", cmd)
-
-        if (arg) {
-          if (App.is_user(arg)) {
-            let nick = arg.toLowerCase()
-            let users = App.config.users.map(x => x.toLowerCase()).filter(x => x !== nick)
-            App.update_config("users", users)
-            App.cmd_done(to)
-          }
-        }
-
-        return true
-      }
-
-      if (App.cmd_match("users clear", cmd, false)) {
-        App.update_config("users", [])
-        App.cmd_done(to)
-        return true
-      }
-
-      if (App.cmd_match("admins", cmd, false)) {
-        let s = App.config.admins.join(", ")
-        App.cmd_show(to, "Admins", s)
-        return true
-      }
-
-      if (App.cmd_match("allow ask", cmd, true)) {
-        let arg = App.cmd_arg("allow ask", cmd)
-
-        if (arg) {
-          let allowed = ["all", "users", "admins"]
-
-          if (allowed.includes(arg)) {
-            App.update_config("allow_ask", arg)
-            App.cmd_done(to)
-          }
-          else {
-            App.allow_info(to)
-          }
-        }
-
-        return true
-      }
-
-      if (App.cmd_match("allow ask", cmd, false)) {
-        App.cmd_show(to, "allow ask", App.config.allow_ask)
-        return true
-      }
-
-      if (App.cmd_match("allow rules", cmd, true)) {
-        let arg = App.cmd_arg("allow rules", cmd)
-
-        if (arg) {
-          let allowed = ["all", "users", "admins"]
-
-          if (allowed.includes(arg)) {
-            App.update_config("allow_rules", arg)
-            App.cmd_done(to)
-          }
-          else {
-            App.allow_info(to)
-          }
-        }
-
-        return true
-      }
-
-      if (App.cmd_match("allow rules", cmd, false)) {
-        App.cmd_show(to, "allow rules", App.config.allow_rules)
-        return true
-      }
+    if (App.cmd_match("users", cmd, false)) {
+      if (!is_admin) { return false }
+      App.show_users(to)
+      return true
     }
+
+    if (App.cmd_match("users add", cmd, true)) {
+      if (!is_admin) { return false }
+      let arg = App.cmd_arg("users add", cmd)
+
+      if (arg) {
+        if (arg.length <= App.max_user_length) {
+          if (!App.is_user(arg) && !App.is_admin(arg)) {
+            App.config.users.push(arg)
+            App.update_config("users", App.config.users)
+            App.cmd_done(to)
+          }
+        }
+      }
+
+      return true
+    }
+
+    if (App.cmd_match("users remove", cmd, true)) {
+      if (!is_admin) { return false }      
+      let arg = App.cmd_arg("users remove", cmd)
+
+      if (arg) {
+        if (App.is_user(arg)) {
+          let nick = arg.toLowerCase()
+          let users = App.config.users.map(x => x.toLowerCase()).filter(x => x !== nick)
+          App.update_config("users", users)
+          App.cmd_done(to)
+        }
+      }
+
+      return true
+    }
+
+    if (App.cmd_match("users clear", cmd, false)) {
+      if (!is_admin) { return false }      
+      App.update_config("users", [])
+      App.cmd_done(to)
+      return true
+    }
+
+    if (App.cmd_match("admins", cmd, false)) {
+      if (!is_admin) { return false }      
+      App.show_admins(to)
+      return true
+    }
+
+    if (App.cmd_match("allow ask", cmd, true)) {
+      if (!is_admin) { return false }      
+      let arg = App.cmd_arg("allow ask", cmd)
+
+      if (arg) {
+        let allowed = ["all", "users", "admins"]
+
+        if (allowed.includes(arg)) {
+          App.update_config("allow_ask", arg)
+          App.cmd_done(to)
+        }
+        else {
+          App.allow_info(to)
+        }
+      }
+
+      return true
+    }
+
+    if (App.cmd_match("allow ask", cmd, false)) {
+      if (!is_admin) { return false }      
+      App.show_allow_ask(to)
+      return true
+    }
+
+    if (App.cmd_match("allow rules", cmd, true)) {
+      if (!is_admin) { return false }      
+      let arg = App.cmd_arg("allow rules", cmd)
+
+      if (arg) {
+        let allowed = ["all", "users", "admins"]
+
+        if (allowed.includes(arg)) {
+          App.update_config("allow_rules", arg)
+          App.cmd_done(to)
+        }
+        else {
+          App.allow_info(to)
+        }
+      }
+
+      return true
+    }
+
+    if (App.cmd_match("allow rules", cmd, false)) {
+      if (!is_admin) { return false }      
+      App.show_allow_rules(to)
+      return true
+    }
+
+    if (App.cmd_match("report", cmd, false)) {
+      if (!is_admin) { return false }      
+      App.report_self(to)
+      return true
+    }
+
+    if (App.cmd_match("config", cmd, false)) {
+      if (!is_admin) { return false }  
+      App.report_self(to)
+      App.show_rules(to)
+      App.show_allow_ask(to)
+      App.show_allow_rules(to)
+      App.show_users(to)
+      App.show_admins(to)
+      return true
+    }    
   }
 
   return false
