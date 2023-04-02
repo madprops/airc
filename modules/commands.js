@@ -273,6 +273,12 @@ module.exports = function (App) {
       return true
     }
 
+    if (App.cmd_match("model", cmd, false)) {
+      if (!is_admin) { return false }
+      App.show_model(to)
+      return true
+    }
+
     if (App.cmd_match("report", cmd, false)) {
       if (!is_admin) { return false }
       App.report_self(to)
