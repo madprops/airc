@@ -68,6 +68,10 @@ module.exports = function (App) {
     App.cmd_show(to, "Rules", App.config.rules)
   }
 
+  App.show_model = function (to) {
+    App.cmd_show(to, "Model", App.config.model)
+  }  
+
   App.check_commands = function (from, to, cmd) {
 
     // Commands that anybody can use
@@ -277,6 +281,7 @@ module.exports = function (App) {
 
     if (App.cmd_match("config", cmd, false)) {
       if (!is_admin) { return false }
+      App.show_model(to)
       App.show_rules(to)
       App.show_allow_ask(to)
       App.show_allow_rules(to)
