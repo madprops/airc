@@ -75,11 +75,11 @@ module.exports = function (App) {
         "users [add|remove] + [nick]",
         "allow ask [all|users|admins]",
         "allow rules [all|users|admins]",
+        "model [davinci|turbo]",
         "users clear",
         "reset",
         "admins",
         "report",
-        "model",
         "config",
         "ping",
       ]
@@ -247,7 +247,7 @@ module.exports = function (App) {
         App.update_config("allow_rules", arg)
         App.show_allow_rules(to)
       }
-      
+
       return true
     }
 
