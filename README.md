@@ -225,6 +225,8 @@ These are the available commands:
 
 `you're a monkey` would set the rules to `Respond as if you were a monkey`.
 
+Aliases to this include: `ur`, `you are`.
+
 ---
 
 `rules [x|clear]`: Sets rules to x.
@@ -232,6 +234,8 @@ These are the available commands:
 Rules longer than 250 characters will be ignored.
 
 If `clear` it will set it to an empty string.
+
+Shortcut to `rules clear` is `reset`.
 
 ---
 
