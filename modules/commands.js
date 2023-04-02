@@ -81,11 +81,15 @@ module.exports = function (App) {
         "you're [x]",
         "rules [x|clear]",
         "users [add|remove] + [nick]",
-        "users clear",
-        "admins",
-        "report",
         "allow ask [all|users|admins]",
         "allow rules [all|users|admins]",
+        "users clear",
+        "reset",
+        "admins",
+        "report",
+        "model",
+        "config",
+        "ping",
       ]
 
       App.cmd_show(to, "Commands", cmds.join(" 👾 "))
