@@ -251,7 +251,9 @@ If `clear` it will set it to an empty string.
 
 `allow rules [all|users|admins]`: Change "rules" permission.
 
-These can only be performed by `admins`.
+---
+
+`model [davinci|turbo]`: Change the openai model.
 
 ---
 
