@@ -8,10 +8,6 @@ module.exports = function (App) {
     App.irc_respond(to, res)
   }
 
-  App.cmd_done = function (to) {
-    App.irc_respond(to, "Done.")
-  }
-
   App.cmd_match = function (s, cmd, args = false) {
     let re
     s = App.escape_regex(s)
@@ -186,7 +182,7 @@ module.exports = function (App) {
           if (!App.is_user(arg) && !App.is_admin(arg)) {
             App.config.users.push(arg)
             App.update_config("users", App.config.users)
-            App.cmd_done(to)
+            App.show_users(to)
           }
         }
       }
@@ -203,7 +199,7 @@ module.exports = function (App) {
           let nick = arg.toLowerCase()
           let users = App.config.users.map(x => x.toLowerCase()).filter(x => x !== nick)
           App.update_config("users", users)
-          App.cmd_done(to)
+          App.show_users(to)
         }
       }
 
@@ -213,7 +209,7 @@ module.exports = function (App) {
     if (App.cmd_match("users clear", cmd, false)) {
       if (!is_admin) { return false }
       App.update_config("users", [])
-      App.cmd_done(to)
+      App.show_users(to)
       return true
     }
 
@@ -230,7 +226,7 @@ module.exports = function (App) {
 
       if (arg && allowed.includes(arg)) {
         App.update_config("allow_ask", arg)
-        App.cmd_done(to)
+        App.show_allow_ask(to)
         return true
       }
     }
@@ -248,7 +244,7 @@ module.exports = function (App) {
 
       if (arg && allowed.includes(arg)) {
         App.update_config("allow_rules", arg)
-        App.cmd_done(to)
+        App.show_allow_rules(to)
         return true
       }
     }
@@ -273,11 +269,11 @@ module.exports = function (App) {
       if (arg && allowed.includes(arg)) {
         if (arg === "davinci") {
           App.update_config("model", "text-davinci-003")
-          App.cmd_done(to)
+          App.show_model(to)
         }
         else if (arg === "turbo") {
           App.update_config("model", "gpt-3.5-turbo")
-          App.cmd_done(to)
+          App.show_model(to)
         }
 
         return true
