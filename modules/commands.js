@@ -66,7 +66,7 @@ module.exports = function (App) {
 
   App.show_model = function (to) {
     App.cmd_show(to, "Model", App.config.model)
-  }  
+  }
 
   App.check_commands = function (from, to, cmd) {
 

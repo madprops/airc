@@ -19,27 +19,27 @@ module.exports = function (App) {
 
         if (ans.status === 200) {
           let text = ans.data.choices[0].text.trim()
-  
+
           if (text) {
             callback(text)
           }
-        }       
+        }
       }
-  
+
       else if (App.config.model === "gpt-3.5-turbo") {
         let ans = await App.openai_client.createChatCompletion({
           model: App.config.model,
           messages: [{role: "user", content: prompt}],
           max_tokens: App.config.max_tokens
         })
-  
+
         if (ans.status === 200) {
           let text = ans.data.choices[0].message.content.trim()
-  
+
           if (text) {
             callback(text)
           }
-        } 
+        }
       }
     }
     catch (err) {
