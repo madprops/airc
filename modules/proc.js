@@ -94,7 +94,7 @@ module.exports = function (App) {
       // Add either a ? or a .
       // ? if it's a question
       let low_prompt = prompt.toLowerCase()
-      let questions = ["where", "which", "what", "where", "when"]
+      let questions = ["where", "which", "what", "where", "when", "what if"]
 
       if (questions.some(x => low_prompt.startsWith(x + " "))) {
         prompt += "?"
