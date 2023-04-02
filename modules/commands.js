@@ -227,8 +227,9 @@ module.exports = function (App) {
       if (arg && allowed.includes(arg)) {
         App.update_config("allow_ask", arg)
         App.show_allow_ask(to)
-        return true
       }
+
+      return true
     }
 
     if (App.cmd_match("allow ask", cmd, false)) {
@@ -245,8 +246,9 @@ module.exports = function (App) {
       if (arg && allowed.includes(arg)) {
         App.update_config("allow_rules", arg)
         App.show_allow_rules(to)
-        return true
       }
+      
+      return true
     }
 
     if (App.cmd_match("allow rules", cmd, false)) {
