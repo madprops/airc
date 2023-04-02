@@ -79,6 +79,12 @@ And make sure it's not registered: `/msg nickserv info nickname`.
 
 ---
 
+`model`: Which openai model to use.
+
+Either "text-davinci-003" or "gpt-3.5-turbo".
+
+---
+
 `max_prompt`: Ignore prompts longer than this.
 
 Prompt is the text sent to openai to ask a question.

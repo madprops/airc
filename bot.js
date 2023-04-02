@@ -5,7 +5,6 @@ App.path = require("path")
 App.config = require("./config.json")
 App.irc = require("irc")
 App.openai = require("openai")
-App.model = "text-davinci-003"
 App.last_messages = {}
 App.max_rules_length = 250
 App.max_user_length = 25

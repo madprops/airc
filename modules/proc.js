@@ -91,7 +91,17 @@ module.exports = function (App) {
 
     // This is to avoid autocompletions from the ai
     if (/\w$/.test(prompt)) {
-      prompt += "."
+      // Add either a ? or a .
+      // ? if it's a question
+      let low_prompt = prompt.toLowerCase()
+      let questions = ["where", "which", "what", "where", "when"]
+    
+      if (questions.some(x => low_prompt.startsWith(x + " "))) {
+        prompt += "?"
+      }
+      else {
+        prompt += "."
+      }
     }
 
     if (prompt.length > App.config.max_prompt) {
