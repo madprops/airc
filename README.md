@@ -83,6 +83,10 @@ And make sure it's not registered: `/msg nickserv info nickname`.
 
 Either "text-davinci-003" or "gpt-3.5-turbo".
 
+davinci is more fun, can impersonate anything.
+
+3.5 turbo is cheaper but a lot more filtered.
+
 ---
 
 `max_prompt`: Ignore prompts longer than this.
