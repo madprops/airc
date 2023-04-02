@@ -272,7 +272,7 @@ module.exports = function (App) {
 
       if (arg && allowed.includes(arg)) {
         if (arg === "davinci") {
-          App.update_config("mode", "text-davinci-003")
+          App.update_config("model", "text-davinci-003")
           App.cmd_done(to)
         }
         else if (arg === "turbo") {
