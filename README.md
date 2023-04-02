@@ -225,7 +225,7 @@ These are the available commands:
 
 `you're a monkey` would set the rules to `Respond as if you were a monkey`.
 
-Aliases to this include: `ur`, `you are`.
+Aliases to this are: `ur`, `you are`.
 
 ---
 
