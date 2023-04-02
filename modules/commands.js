@@ -12,10 +12,6 @@ module.exports = function (App) {
     App.irc_respond(to, "Done.")
   }
 
-  App.allow_info = function (to) {
-    App.irc_respond(to, "It must be: all, users, or admins.")
-  }
-
   App.cmd_match = function (s, cmd, args = false) {
     let re
     s = App.escape_regex(s)
@@ -230,20 +226,13 @@ module.exports = function (App) {
     if (App.cmd_match("allow ask", cmd, true)) {
       if (!is_admin) { return false }
       let arg = App.cmd_arg("allow ask", cmd)
+      let allowed = ["all", "users", "admins"]
 
-      if (arg) {
-        let allowed = ["all", "users", "admins"]
-
-        if (allowed.includes(arg)) {
-          App.update_config("allow_ask", arg)
-          App.cmd_done(to)
-        }
-        else {
-          App.allow_info(to)
-        }
+      if (arg && allowed.includes(arg)) {
+        App.update_config("allow_ask", arg)
+        App.cmd_done(to)
+        return true
       }
-
-      return true
     }
 
     if (App.cmd_match("allow ask", cmd, false)) {
@@ -255,20 +244,13 @@ module.exports = function (App) {
     if (App.cmd_match("allow rules", cmd, true)) {
       if (!is_admin) { return false }
       let arg = App.cmd_arg("allow rules", cmd)
+      let allowed = ["all", "users", "admins"]
 
-      if (arg) {
-        let allowed = ["all", "users", "admins"]
-
-        if (allowed.includes(arg)) {
-          App.update_config("allow_rules", arg)
-          App.cmd_done(to)
-        }
-        else {
-          App.allow_info(to)
-        }
+      if (arg && allowed.includes(arg)) {
+        App.update_config("allow_rules", arg)
+        App.cmd_done(to)
+        return true
       }
-
-      return true
     }
 
     if (App.cmd_match("allow rules", cmd, false)) {
@@ -281,6 +263,25 @@ module.exports = function (App) {
       if (!is_admin) { return false }
       App.show_model(to)
       return true
+    }
+
+    if (App.cmd_match("model", cmd, true)) {
+      if (!is_admin) { return false }
+      let arg = App.cmd_arg("model", cmd)
+      let allowed = ["davinci", "turbo"]
+
+      if (arg && allowed.includes(arg)) {
+        if (arg === "davinci") {
+          App.update_config("mode", "text-davinci-003")
+          App.cmd_done(to)
+        }
+        else if (arg === "turbo") {
+          App.update_config("model", "gpt-3.5-turbo")
+          App.cmd_done(to)
+        }
+
+        return true
+      }
     }
 
     if (App.cmd_match("report", cmd, false)) {
