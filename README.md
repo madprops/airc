@@ -103,8 +103,6 @@ The bigger this is the bigger responses can be, but it gets more expensive.
 
 ---
 
-`max_rules`: Maximum length allowed for rules.
-
 ```
 
 `rules`: Optional instructions for the bot, they're prepended before every prompt.
@@ -118,6 +116,10 @@ if (rules) {
   prompt = rules + "\n" + prompt
 }
 ```
+
+---
+
+`max_rules`: Maximum length allowed for rules.
 
 ---
 
