@@ -28,7 +28,7 @@ module.exports = function (App) {
   }
 
   App.change_rules = function (to, rules) {
-    if (rules.length <= App.max_rules_length) {
+    if (rules.length <= App.config.max_rules) {
       if (rules === "clear") {
         rules = ""
       }

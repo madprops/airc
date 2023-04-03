@@ -59,18 +59,9 @@ module.exports = function (App) {
       }
 
       if (prompt.startsWith("^") && prev_message) {
-        let context = App.remove_dots(prev_message.message)
-
-        if (context.length <= App.max_context) {
-          let words = prompt.replace("^", "").trim()
-
-          if (words) {
-            context += "\n" + words
-          }
-
-          App.ask_ai(from, to, context)
-          return
-        }
+        let words = prompt.replace("^", "").slice(0, App.max_prompt).trim()
+        App.ask_ai(from, to, words, prev_message.message)
+        return
       }
 
       if (App.check_commands(from, to, prompt)) {
@@ -82,15 +73,11 @@ module.exports = function (App) {
   }
 
   // Prepare prompt and ask openai
-  App.ask_ai = function (from, to, prompt) {
+  App.ask_ai = function (from, to, prompt = "", context = "") {
     prompt = prompt.trim()
 
-    if (!prompt) {
-      return
-    }
-
     // This is to avoid autocompletions from the ai
-    if (/\w$/.test(prompt)) {
+    if (prompt && /\w$/.test(prompt)) {
       // Add either a ? or a .
       // ? if it's a question
       let low_prompt = prompt.toLowerCase()
@@ -105,6 +92,21 @@ module.exports = function (App) {
     }
 
     if (prompt.length > App.config.max_prompt) {
+      return
+    }
+
+    if (context) {
+      context = context.substring(0, App.max_context).trim()
+
+      if (prompt) {
+        prompt = context + "\n" + prompt
+      }
+      else {
+        prompt = context
+      }
+    }
+
+    if (!prompt) {
       return
     }
 
