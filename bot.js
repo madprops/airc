@@ -1,8 +1,9 @@
 const App = {}
+App.config = {}
 
 App.fs = require("fs")
 App.path = require("path")
-App.config = require("./config.json")
+App.original_config = require("./config.json")
 App.irc = require("irc")
 App.openai = require("openai")
 App.last_messages = {}
@@ -27,8 +28,14 @@ App.update_config = function (key, value) {
   try {
     let user_config = App.get_user_config()
 
-    user_config[key] = value
-    App.config[key] = value
+    if (value === "default") {
+      delete user_config[key]
+      App.config[key] = App.original_config[key]
+    }
+    else {
+      user_config[key] = value
+      App.config[key] = value
+    }
 
     let s = JSON.stringify(user_config, null, 2)
     App.fs.writeFileSync(App.get_config_path(), s)
@@ -46,7 +53,7 @@ if (!App.fs.existsSync(App.get_config_path())) {
 }
 
 // Assign user config to default config
-Object.assign(App.config, App.get_user_config())
+Object.assign(App.config, App.original_config, App.get_user_config())
 
 // Load js modules
 require("./modules/irc.js")(App)

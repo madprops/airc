@@ -3,8 +3,9 @@
 // Checks return true to avoid asking when cmds were meant
 
 module.exports = function (App) {
-  App.cmd_show = function (to, title, content) {
-    let res = App.irc_bold(title) + ": " + (content || "[Empty]")
+  App.cmd_show = function (to, title, key) {
+    let value = (App.config[key] || "[Empty]")
+    let res = App.irc_bold(title) + ": " + value
     App.irc_respond(to, res)
   }
 
@@ -34,34 +35,34 @@ module.exports = function (App) {
       }
 
       App.update_config("rules", rules)
-      App.cmd_show(to, "Rules", rules)
+      App.show_rules(to)
     }
   }
 
   App.show_admins = function (to) {
     let s = App.config.admins.join(", ")
-    App.cmd_show(to, "Admins", s)
+    App.cmd_show(to, "Admins", "admins")
   }
 
   App.show_users = function (to) {
     let s = App.config.users.join(", ")
-    App.cmd_show(to, "Users", s)
+    App.cmd_show(to, "Users", "users")
   }
 
   App.show_allow_ask = function (to) {
-    App.cmd_show(to, "allow ask", App.config.allow_ask)
+    App.cmd_show(to, "allow ask", "allow_ask")
   }
 
   App.show_allow_rules = function (to) {
-    App.cmd_show(to, "allow rules", App.config.allow_rules)
+    App.cmd_show(to, "allow rules", "allow_rules")
   }
 
   App.show_rules = function (to) {
-    App.cmd_show(to, "Rules", App.config.rules)
+    App.cmd_show(to, "Rules", "rules")
   }
 
   App.show_model = function (to) {
-    App.cmd_show(to, "Model", App.config.model)
+    App.cmd_show(to, "Model", "model")
   }
 
   App.check_commands = function (from, to, cmd) {
@@ -84,7 +85,7 @@ module.exports = function (App) {
         "ping",
       ]
 
-      App.cmd_show(to, "Commands", cmds.join(" 👾 "))
+      App.irc_respond(to, cmds.join(" 👾 "))
       return true
     }
 
@@ -222,7 +223,7 @@ module.exports = function (App) {
     if (App.cmd_match("allow ask", cmd, true)) {
       if (!is_admin) { return false }
       let arg = App.cmd_arg("allow ask", cmd)
-      let allowed = ["all", "users", "admins"]
+      let allowed = ["all", "users", "admins", "default"]
 
       if (arg && allowed.includes(arg)) {
         App.update_config("allow_ask", arg)
@@ -241,7 +242,7 @@ module.exports = function (App) {
     if (App.cmd_match("allow rules", cmd, true)) {
       if (!is_admin) { return false }
       let arg = App.cmd_arg("allow rules", cmd)
-      let allowed = ["all", "users", "admins"]
+      let allowed = ["all", "users", "admins", "default"]
 
       if (arg && allowed.includes(arg)) {
         App.update_config("allow_rules", arg)
@@ -277,9 +278,9 @@ module.exports = function (App) {
           App.update_config("model", "gpt-3.5-turbo")
           App.show_model(to)
         }
-
-        return true
       }
+
+      return true
     }
 
     if (App.cmd_match("report", cmd, false)) {

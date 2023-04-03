@@ -82,6 +82,6 @@ module.exports = function (App) {
 	}
 
   App.remove_multiple_spaces = function (s) {
-    return s.trim().replace(/ +/g, " ")    
+    return s.trim().replace(/ +/g, " ")
   }
 }
