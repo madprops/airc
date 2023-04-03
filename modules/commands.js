@@ -267,17 +267,20 @@ module.exports = function (App) {
     if (App.cmd_match("model", cmd, true)) {
       if (!is_admin) { return true }
       let arg = App.cmd_arg("model", cmd)
-      let allowed = ["davinci", "turbo"]
+      let allowed = ["davinci", "turbo", "default"]
 
       if (arg && allowed.includes(arg)) {
+        let model = arg
+        
         if (arg === "davinci") {
-          App.update_config("model", "text-davinci-003")
-          App.show_model(to)
+          model = "text-davinci-003"
         }
         else if (arg === "turbo") {
-          App.update_config("model", "gpt-3.5-turbo")
-          App.show_model(to)
+          model = "gpt-3.5-turbo"
         }
+
+        App.update_config("model", model)
+        App.show_model(to)
       }
 
       return true
