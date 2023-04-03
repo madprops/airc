@@ -103,8 +103,6 @@ The bigger this is the bigger responses can be, but it gets more expensive.
 
 ---
 
-```
-
 `rules`: Optional instructions for the bot, they're prepended before every prompt.
 
 For example: "Please respond in the style of Stewie from Family Guy".
