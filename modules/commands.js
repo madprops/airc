@@ -169,13 +169,13 @@ module.exports = function (App) {
     let is_admin = App.is_admin(from)
 
     if (App.cmd_match("users", cmd, false)) {
-      if (!is_admin) { return false }
+      if (!is_admin) { return true }
       App.show_users(to)
       return true
     }
 
     if (App.cmd_match("users add", cmd, true)) {
-      if (!is_admin) { return false }
+      if (!is_admin) { return true }
       let arg = App.cmd_arg("users add", cmd)
 
       if (arg) {
@@ -192,7 +192,7 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("users remove", cmd, true)) {
-      if (!is_admin) { return false }
+      if (!is_admin) { return true }
       let arg = App.cmd_arg("users remove", cmd)
 
       if (arg) {
@@ -208,20 +208,20 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("users clear", cmd, false)) {
-      if (!is_admin) { return false }
+      if (!is_admin) { return true }
       App.update_config("users", [])
       App.show_users(to)
       return true
     }
 
     if (App.cmd_match("admins", cmd, false)) {
-      if (!is_admin) { return false }
+      if (!is_admin) { return true }
       App.show_admins(to)
       return true
     }
 
     if (App.cmd_match("allow ask", cmd, true)) {
-      if (!is_admin) { return false }
+      if (!is_admin) { return true }
       let arg = App.cmd_arg("allow ask", cmd)
       let allowed = ["all", "users", "admins", "default"]
 
@@ -234,13 +234,13 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("allow ask", cmd, false)) {
-      if (!is_admin) { return false }
+      if (!is_admin) { return true }
       App.show_allow_ask(to)
       return true
     }
 
     if (App.cmd_match("allow rules", cmd, true)) {
-      if (!is_admin) { return false }
+      if (!is_admin) { return true }
       let arg = App.cmd_arg("allow rules", cmd)
       let allowed = ["all", "users", "admins", "default"]
 
@@ -253,19 +253,19 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("allow rules", cmd, false)) {
-      if (!is_admin) { return false }
+      if (!is_admin) { return true }
       App.show_allow_rules(to)
       return true
     }
 
     if (App.cmd_match("model", cmd, false)) {
-      if (!is_admin) { return false }
+      if (!is_admin) { return true }
       App.show_model(to)
       return true
     }
 
     if (App.cmd_match("model", cmd, true)) {
-      if (!is_admin) { return false }
+      if (!is_admin) { return true }
       let arg = App.cmd_arg("model", cmd)
       let allowed = ["davinci", "turbo"]
 
@@ -284,13 +284,13 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("report", cmd, false)) {
-      if (!is_admin) { return false }
+      if (!is_admin) { return true }
       App.report_self(to)
       return true
     }
 
     if (App.cmd_match("config", cmd, false)) {
-      if (!is_admin) { return false }
+      if (!is_admin) { return true }
       App.show_model(to)
       App.show_rules(to)
       App.show_allow_ask(to)
