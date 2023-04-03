@@ -58,8 +58,9 @@ module.exports = function (App) {
         return
       }
 
-      if (prompt.startsWith("^") && prev_message) {
-        let words = prompt.replace("^", "").slice(0, App.max_prompt).trim()
+      // Check if context is used
+      if (prompt.startsWith("^") && prev_message && prev_message.message) {
+        let words = prompt.replace("^", "").slice(0, App.max_prompt)
         App.ask_ai(from, to, words, prev_message.message)
         return
       }
