@@ -11,10 +11,7 @@ module.exports = function (App) {
     }
 
     App.rate_limit_date = Date.now()
-
-    // Trim and remove multiple spaces
-    message = message.trim().replace(/ +/g, " ")
-
+    message = App.remove_multiple_spaces(message)
     let prev_message = App.last_messages[to]
     App.last_messages[to] = {from: from, to: to, message: message}
 

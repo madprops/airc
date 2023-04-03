@@ -80,4 +80,8 @@ module.exports = function (App) {
   App.escape_regex = function (s) {
 		return s.replace(/[^A-Za-z0-9]/g, "\\$&")
 	}
+
+  App.remove_multiple_spaces = function (s) {
+    return s.trim().replace(/ +/g, " ")    
+  }
 }
