@@ -3,9 +3,10 @@
 // Checks return true to avoid asking when cmds were meant
 
 module.exports = function (App) {
-  App.cmd_show = function (to, title, key) {
+  App.cmd_show = function (to, key) {
+    let label = App.capitalize(key.replace(/_/g, " "))
     let value = (App.config[key] || "[Empty]")
-    let res = App.irc_bold(title) + ": " + value
+    let res = App.irc_bold(label) + ": " + value
     App.irc_respond(to, res)
   }
 
@@ -41,28 +42,28 @@ module.exports = function (App) {
 
   App.show_admins = function (to) {
     let s = App.config.admins.join(", ")
-    App.cmd_show(to, "Admins", "admins")
+    App.cmd_show(to, "admins")
   }
 
   App.show_users = function (to) {
     let s = App.config.users.join(", ")
-    App.cmd_show(to, "Users", "users")
+    App.cmd_show(to, "users")
   }
 
   App.show_allow_ask = function (to) {
-    App.cmd_show(to, "allow ask", "allow_ask")
+    App.cmd_show(to, "allow_ask")
   }
 
   App.show_allow_rules = function (to) {
-    App.cmd_show(to, "allow rules", "allow_rules")
+    App.cmd_show(to, "allow_rules")
   }
 
   App.show_rules = function (to) {
-    App.cmd_show(to, "Rules", "rules")
+    App.cmd_show(to, "rules")
   }
 
   App.show_model = function (to) {
-    App.cmd_show(to, "Model", "model")
+    App.cmd_show(to, "model")
   }
 
   App.check_commands = function (from, to, cmd) {

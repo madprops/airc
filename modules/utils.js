@@ -84,4 +84,13 @@ module.exports = function (App) {
   App.remove_multiple_spaces = function (s) {
     return s.trim().replace(/ +/g, " ")
   }
+
+	App.capitalize = function (s) {
+		let ns = s.toLowerCase()
+			.split(" ")
+			.map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+			.join(" ")
+
+		return ns
+	}  
 }
