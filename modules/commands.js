@@ -40,7 +40,7 @@ module.exports = function (App) {
   }
 
   App.change_rules = function (to, rules) {
-    rules = rules.substring(0, App.config.max_rules)
+    rules = rules.substring(0, App.config.max_rules).trim()
     App.update_config("rules", rules)
     App.cmd_show(to, "rules")
   }
