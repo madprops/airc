@@ -26,6 +26,7 @@ App.get_config_path = function () {
 
 App.update_config = function (key, value) {
   try {
+    key = key.toLowerCase()
     let user_config = App.get_user_config()
 
     if (value === "default") {
