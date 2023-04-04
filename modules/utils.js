@@ -92,5 +92,9 @@ module.exports = function (App) {
 			.join(" ")
 
 		return ns
-	}  
+	}
+
+  App.limit = function (s, limit) {
+    return s.substring(0, limit).trim()
+  }
 }

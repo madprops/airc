@@ -72,7 +72,7 @@ module.exports = function (App) {
 
   // Prepare prompt and ask openai
   App.ask_ai = function (from, to, prompt = "", context = "") {
-    prompt = prompt.substring(0, App.max_prompt).trim()
+    prompt = App.limit(prompt, App.config.max_prompt)
 
     // This is to avoid autocompletions from the ai
     if (prompt && /\w$/.test(prompt)) {
@@ -90,7 +90,7 @@ module.exports = function (App) {
     }
 
     if (context) {
-      context = context.substring(0, App.max_context).trim()
+      context = App.limit(context, App.config.max_context)
 
       if (prompt) {
         prompt = context + "\n" + prompt
