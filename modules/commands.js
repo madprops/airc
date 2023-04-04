@@ -40,10 +40,6 @@ module.exports = function (App) {
 
   App.change_rules = function (to, rules) {
     if (rules.length <= App.config.max_rules) {
-      if (rules === "clear") {
-        rules = ""
-      }
-
       App.update_config("rules", rules)
       App.cmd_show(to, "rules")
     }
@@ -56,12 +52,11 @@ module.exports = function (App) {
     if (App.cmd_match("help", cmd, false)) {
       let cmds = [
         "you're [x]",
-        "rules [x|clear]",
+        "rules [x]",
         "users [add|remove] + [nick]",
         "allow ask [all|users|admins]",
         "allow rules [all|users|admins]",
         "model [davinci|turbo]",
-        "users clear",
         "reset",
         "admins",
         "report",
@@ -144,7 +139,7 @@ module.exports = function (App) {
 
     if (App.cmd_match("reset", cmd, false)) {
       if (!can_change_rules) { return true }
-      App.change_rules(to, "clear")
+      App.change_rules(to, "default")
       return true
     }
 
@@ -194,9 +189,9 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("users clear", cmd, false)) {
+    if (App.cmd_match("users default", cmd, false)) {
       if (!is_admin) { return true }
-      App.update_config("users", [])
+      App.update_config("users", "default")
       App.cmd_show(to, "users")
       return true
     }

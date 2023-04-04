@@ -233,13 +233,11 @@ Aliases to this are: `ur`, `you are`.
 
 ---
 
-`rules [x|clear]`: Sets rules to x.
+`rules [x]`: Sets rules to x.
 
 Rules longer than 250 characters will be ignored.
 
-If `clear` it will set it to an empty string.
-
-Shortcut to `rules clear` is `reset`.
+Shortcut to `rules default` is `reset`.
 
 ---
 
@@ -250,8 +248,6 @@ Shortcut to `rules clear` is `reset`.
 ---
 
 `users [add|remove] [nickname]`: Add or remove a nickname from the users array. 
-
-`users [clear]`: Empty the users array.
 
 ---
 
