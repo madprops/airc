@@ -151,13 +151,13 @@ module.exports = function (App) {
     // Commands only admins can use:
 
     let is_admin = App.is_admin(from)
+    let cmd_key = cmd.split(" ").join("_")
 
     // Check if it matches a config
     // Print the config value
-    let k = cmd.split(" ").join("_")
-    if (Object.keys(App.config).includes(k)) {
+    if (Object.keys(App.config).includes(cmd_key)) {
       if (!is_admin) { return true }
-      App.cmd_show(to, k)
+      App.cmd_show(to, cmd_key)
       return true
     }
 
@@ -248,6 +248,31 @@ module.exports = function (App) {
 
       return true
     }
+
+    if (App.cmd_match("max tokens", cmd, true) ||
+    App.cmd_match("max prompt", cmd, true) ||
+    App.cmd_match("max context", cmd, true) ||
+    App.cmd_match("max rules", cmd, true)) {
+      if (!is_admin) { return true }
+      let two = cmd.split(" ").slice(0, 2).join(" ")
+      let key = two.split(" ").join("_")
+      let arg = App.cmd_arg(two, cmd)
+
+      if (arg === "default") {
+        App.update_config(key, arg)
+        App.cmd_show(to, key)
+      }
+      else {
+        let n = parseInt(arg)
+  
+        if (!isNaN(n)) {
+          App.update_config(key, n)
+          App.cmd_show(to, key)
+        }
+      }
+
+      return true
+    }    
 
     if (App.cmd_match("report", cmd, false)) {
       if (!is_admin) { return true }
