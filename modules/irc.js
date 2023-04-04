@@ -20,7 +20,7 @@ module.exports = function (App) {
     })
 
     // Without this it might crash sometimes
-    App.irc_client.addListener("error", function(message) {
+    App.irc_client.addListener("error", function(e) {
       console.error("irc error")
     })
 
@@ -32,8 +32,16 @@ module.exports = function (App) {
       App.irc_client.say(to, s)
     }
 
+    App.irc_join = function (s) {
+      App.irc_client.join(s)
+    }
+
     App.irc_bold = function (s) {
       return "\x02" + s + "\x0F"
+    }  
+    
+    App.irc_leave = function (s) {
+      App.irc_client.part(s)
     }
 
     console.info("Joining irc...")

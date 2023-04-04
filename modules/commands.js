@@ -146,7 +146,9 @@ module.exports = function (App) {
     // Commands only admins can use:
 
     let is_admin = App.is_admin(from)
-    let cmd_key = cmd.split(" ").join("_")
+    let split = cmd.split(" ")
+    let cmd_key = split.join("_")
+    let num_words = split.length
 
     // Check if it matches a config
     // Print the config value
@@ -158,6 +160,7 @@ module.exports = function (App) {
 
     if (App.cmd_match("users add", cmd, true)) {
       if (!is_admin) { return true }
+      if (num_words > 3) { return true }
       let arg = App.cmd_arg("users add", cmd)
 
       if (arg) {
@@ -175,6 +178,7 @@ module.exports = function (App) {
 
     if (App.cmd_match("users remove", cmd, true)) {
       if (!is_admin) { return true }
+      if (num_words > 3) { return true }
       let arg = App.cmd_arg("users remove", cmd)
 
       if (arg) {
@@ -198,6 +202,7 @@ module.exports = function (App) {
 
     if (App.cmd_match("allow ask", cmd, true)) {
       if (!is_admin) { return true }
+      if (num_words > 3) { return true }
       let arg = App.cmd_arg("allow ask", cmd)
       let allowed = ["all", "users", "admins", "default"]
 
@@ -211,6 +216,7 @@ module.exports = function (App) {
 
     if (App.cmd_match("allow rules", cmd, true)) {
       if (!is_admin) { return true }
+      if (num_words > 3) { return true }
       let arg = App.cmd_arg("allow rules", cmd)
       let allowed = ["all", "users", "admins", "default"]
 
@@ -224,6 +230,7 @@ module.exports = function (App) {
 
     if (App.cmd_match("model", cmd, true)) {
       if (!is_admin) { return true }
+      if (num_words > 2) { return true }
       let arg = App.cmd_arg("model", cmd)
       let allowed = ["davinci", "turbo", "default"]
 
@@ -249,7 +256,8 @@ module.exports = function (App) {
     App.cmd_match("max context", cmd, true) ||
     App.cmd_match("max rules", cmd, true)) {
       if (!is_admin) { return true }
-      let two = cmd.split(" ").slice(0, 2).join(" ")
+      if (num_words > 3) { return true }       
+      let two = split.slice(0, 2).join(" ")
       let key = two.split(" ").join("_")
       let arg = App.cmd_arg(two, cmd)
 
@@ -284,6 +292,32 @@ module.exports = function (App) {
       App.cmd_show(to, "users")
       App.cmd_show(to, "admins")
       return true
+    }
+
+    if (App.cmd_match("join", cmd, true)) {
+      if (!is_admin) { return true }
+      if (num_words > 3) { return true }
+      let arg = App.cmd_arg("join", cmd)
+
+      if (arg) {
+        App.irc_respond(to, "Attempting to join channel...")
+        App.irc_join(arg)
+      }
+
+      return true      
+    }
+
+    if (App.cmd_match("leave", cmd, true)) {
+      if (!is_admin) { return true }   
+      if (num_words > 2) { return true }         
+      let arg = App.cmd_arg("leave", cmd)
+      
+      if (arg) {
+        App.irc_respond(to, "Attempting to leave channel...")
+        App.irc_leave(arg)
+      }
+
+      return true      
     }
   }
 
