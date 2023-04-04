@@ -40,10 +40,9 @@ module.exports = function (App) {
   }
 
   App.change_rules = function (to, rules) {
-    if (rules.length <= App.config.max_rules) {
-      App.update_config("rules", rules)
-      App.cmd_show(to, "rules")
-    }
+    rules = rules.substring(0, App.config.max_rules)
+    App.update_config("rules", rules)
+    App.cmd_show(to, "rules")
   }
 
   App.check_commands = function (from, to, cmd) {
