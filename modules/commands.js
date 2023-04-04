@@ -147,7 +147,7 @@ module.exports = function (App) {
 
     let is_admin = App.is_admin(from)
     let split = cmd.split(" ")
-    let cmd_key = split.join("_")
+    let cmd_key = split.join("_").toLowerCase()
     let num_words = split.length
 
     // Check if it matches a config
@@ -314,7 +314,7 @@ module.exports = function (App) {
     }    
 
     if (App.cmd_match("leave", cmd, true)) {
-      if (!is_admin) { return true }   
+      if (!is_admin) { return true }
       if (num_words > 2) { return true }         
       let arg = App.cmd_arg("leave", cmd)
       
