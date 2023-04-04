@@ -81,7 +81,7 @@ And make sure it's not registered: `/msg nickserv info nickname`.
 
 `model`: Which openai model to use.
 
-Either "text-davinci-003" or "gpt-3.5-turbo".
+Either `text-davinci-003` or `gpt-3.5-turbo`.
 
 davinci is more fun, can impersonate anything.
 
@@ -105,7 +105,7 @@ The bigger this is the bigger responses can be, but it gets more expensive.
 
 `rules`: Optional instructions for the bot, they're prepended before every prompt.
 
-For example: "Please respond in the style of Stewie from Family Guy".
+For example: `Please respond in the style of Stewie from Family Guy`.
 
 The code used to build the prompt looks like this:
 
@@ -255,9 +255,9 @@ Shortcut to `rules clear` is `reset`.
 
 ---
 
-`allow ask [all|users|admins]`: Change "ask" permission.
+`allow ask [all|users|admins]`: Change `ask` permission.
 
-`allow rules [all|users|admins]`: Change "rules" permission.
+`allow rules [all|users|admins]`: Change `rules` permission.
 
 ---
 
@@ -276,6 +276,12 @@ There's a `config` command that prints a summary of various settings.
 ---
 
 Changes to config properties are saved in `config.user.json`
+
+---
+
+If `default` is sent to a command as a value, it will remove the overriden value from `config.user.json`.
+
+So the default in `config.json` is used.
 
 ---
 
