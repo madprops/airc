@@ -4,6 +4,7 @@
 
 module.exports = function (App) {
   App.cmd_show = function (to, key) {
+    key = key.toLowerCase()
     let value
     
     if (typeof App.config[key] === "object") {
