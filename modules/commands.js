@@ -4,8 +4,17 @@
 
 module.exports = function (App) {
   App.cmd_show = function (to, key) {
+    let value
+    
+    if (typeof App.config[key] === "object") {
+      value = App.config[key].join(", ")
+    }
+    else {
+      value = String(App.config[key])
+    }
+    
+    value = value || "(Empty)"
     let label = App.capitalize(key.replace(/_/g, " "))
-    let value = (String(App.config[key]) || "(Empty)")
     let res = App.irc_bold(label) + ": " + value
     App.irc_respond(to, res)
   }
