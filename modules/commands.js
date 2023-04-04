@@ -51,7 +51,7 @@ module.exports = function (App) {
 
   App.check_commands = function (from, to, cmd) {
 
-    // Commands that anybody can use
+    // Commands that anybody can use:
 
     if (App.cmd_match("help", cmd, false)) {
       let cmds = [
@@ -91,7 +91,7 @@ module.exports = function (App) {
       return false
     }
 
-    // Commands that modify rules
+    // Commands that modify rules:
 
     let can_change_rules = App.is_allowed("allow_rules", from)
 
@@ -148,13 +148,16 @@ module.exports = function (App) {
       return true
     }
 
-    // Commands only admins can use
+    // Commands only admins can use:
 
     let is_admin = App.is_admin(from)
 
-    if (App.cmd_match("users", cmd, false)) {
+    // Check if it matches a config
+    // Print the config value
+    let k = cmd.split(" ").join("_")
+    if (Object.keys(App.config).includes(k)) {
       if (!is_admin) { return true }
-      App.cmd_show(to, "users")
+      App.cmd_show(to, k)
       return true
     }
 
@@ -198,12 +201,6 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("admins", cmd, false)) {
-      if (!is_admin) { return true }
-      App.cmd_show(to, "admins")
-      return true
-    }
-
     if (App.cmd_match("allow ask", cmd, true)) {
       if (!is_admin) { return true }
       let arg = App.cmd_arg("allow ask", cmd)
@@ -214,12 +211,6 @@ module.exports = function (App) {
         App.cmd_show(to, "allow_ask")
       }
 
-      return true
-    }
-
-    if (App.cmd_match("allow ask", cmd, false)) {
-      if (!is_admin) { return true }
-      App.cmd_show(to, "allow_ask")
       return true
     }
 
@@ -234,19 +225,7 @@ module.exports = function (App) {
       }
 
       return true
-    }
-
-    if (App.cmd_match("allow rules", cmd, false)) {
-      if (!is_admin) { return true }
-      App.cmd_show(to, "allow_rules")
-      return true
-    }
-
-    if (App.cmd_match("model", cmd, false)) {
-      if (!is_admin) { return true }
-      App.cmd_show(to, "model")
-      return true
-    }
+    }   
 
     if (App.cmd_match("model", cmd, true)) {
       if (!is_admin) { return true }
