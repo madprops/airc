@@ -307,13 +307,19 @@ module.exports = function (App) {
       return true      
     }
 
+    if (App.cmd_match("leave", cmd, false)) {
+      if (!is_admin) { return true }   
+      App.irc_leave(to)
+      return true      
+    }    
+
     if (App.cmd_match("leave", cmd, true)) {
       if (!is_admin) { return true }   
       if (num_words > 2) { return true }         
       let arg = App.cmd_arg("leave", cmd)
       
       if (arg) {
-        App.irc_respond(to, "Attempting to leave channel...")
+        App.irc_respond(to, "Leaving channel...")
         App.irc_leave(arg)
       }
 
