@@ -109,7 +109,7 @@ module.exports = function (App) {
 
   App.report_self = function (to) {
     let ts = App.timeago(App.date_started)
-    App.irc_respond(to, `I'm here! I was launched ${ts}.`)
+    App.irc_respond(to, `🚀 I was launched ${ts}.`)
     return
   }
 }
