@@ -261,6 +261,26 @@ Shortcut to `rules default` is `reset`.
 
 ---
 
+Number based configs like these:
+
+`max_tokens` | `max_prompt` | `max_rules` | `max_context`
+
+Can be changed by providing a number as an argument:
+
+`max prompt 200`
+
+---
+
+The value of any config can be read by simply writing its name with no arguments.
+
+---
+
+Commands of multi-word configs like `allow_ask` expect spaces instead of underscores:
+
+`allow ask all`
+
+---
+
 There's a global !report command that causes all owned bots in the room to report.
 
 Each bot also has an individual `report` command.
