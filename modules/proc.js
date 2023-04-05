@@ -23,10 +23,11 @@ module.exports = function (App) {
       return
     }
 
-    // This causes all airc instances to respond
-    if (message === "!report") {
-      App.report_self(to)
-      return
+    if (App.is_admin(from)) {
+      if (message === "!report") {
+        App.report_self(to)
+        return
+      }
     }
 
     App.check_nick_mention(from, to, message)
