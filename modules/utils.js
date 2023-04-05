@@ -98,12 +98,15 @@ module.exports = function (App) {
     return s.substring(0, limit).trim()
   }
 
+  // Add proper punctuation at the end
+  // To avoid autocompletions from the ai
   App.terminate = function (s) {
     if (s && /\w$/.test(s)) {
       let low = s.toLowerCase()
       
       let questions = [
-        "where", "which", "what", "when", "would", "will"
+        "where", "which", "what", "when", 
+        "would", "will", "whose", "why", "can",
       ]
 
       if (questions.some(x => low.startsWith(x + " "))) {
