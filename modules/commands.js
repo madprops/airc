@@ -20,11 +20,11 @@ module.exports = function (App) {
     App.irc_respond(to, res)
   }
 
-  App.cmd_match = function (s, cmd, args = false) {
+  App.cmd_match = function (s, cmd, mode) {
     let re
     s = App.escape_regex(s)
 
-    if (args) {
+    if (mode === "arg") {
       re = new RegExp("^" + s + " ", "i")
     } else {
       re = new RegExp("^" + s + "$", "i")
@@ -49,7 +49,7 @@ module.exports = function (App) {
 
     // Commands that anybody can use:
 
-    if (App.cmd_match("help", cmd, false)) {
+    if (App.cmd_match("help", cmd, "exact")) {
       let cmds = [
         "you're [x]",
         "rules [x]",
@@ -68,14 +68,14 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("ping", cmd, false)) {
+    if (App.cmd_match("ping", cmd, "exact")) {
       App.irc_respond(to, "Pong!")
       return true
     }
 
-    if (App.cmd_match("rules", cmd, false) ||
-    App.cmd_match("who are you?", cmd, false) ||
-    App.cmd_match("what are you?", cmd, false)) {
+    if (App.cmd_match("rules", cmd, "exact") ||
+    App.cmd_match("who are you?", cmd, "exact") ||
+    App.cmd_match("what are you?", cmd, "exact")) {
       App.cmd_show(to, "rules")
       return true
     }
@@ -90,7 +90,7 @@ module.exports = function (App) {
 
     let can_change_rules = App.is_allowed("allow_rules", from)
 
-    if (App.cmd_match("rules", cmd, true)) {
+    if (App.cmd_match("rules", cmd, "arg")) {
       if (!can_change_rules) { return true }
       let arg = App.cmd_arg("rules", cmd)
 
@@ -101,7 +101,7 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("you're", cmd, true)) {
+    if (App.cmd_match("you're", cmd, "arg")) {
       if (!can_change_rules) { return true }
       let arg = App.cmd_arg("you're", cmd)
 
@@ -113,7 +113,7 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("you are", cmd, true)) {
+    if (App.cmd_match("you are", cmd, "arg")) {
       if (!can_change_rules) { return true }
       let arg = App.cmd_arg("you are", cmd)
 
@@ -125,7 +125,7 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("ur", cmd, true)) {
+    if (App.cmd_match("ur", cmd, "arg")) {
       if (!can_change_rules) { return true }
       let arg = App.cmd_arg("ur", cmd)
 
@@ -137,7 +137,7 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("reset", cmd, false)) {
+    if (App.cmd_match("reset", cmd, "exact")) {
       if (!can_change_rules) { return true }
       App.change_rules(to, "default")
       return true
@@ -158,7 +158,7 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("users add", cmd, true)) {
+    if (App.cmd_match("users add", cmd, "arg")) {
       if (num_words > 3) { return false }
       if (!is_admin) { return true }
       let arg = App.cmd_arg("users add", cmd)
@@ -176,7 +176,7 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("users remove", cmd, true)) {
+    if (App.cmd_match("users remove", cmd, "arg")) {
       if (num_words > 3) { return false }
       if (!is_admin) { return true }
       let arg = App.cmd_arg("users remove", cmd)
@@ -193,14 +193,14 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("users default", cmd, false)) {
+    if (App.cmd_match("users default", cmd, "exact")) {
       if (!is_admin) { return true }
       App.update_config("users", "default")
       App.cmd_show(to, "users")
       return true
     }
 
-    if (App.cmd_match("allow ask", cmd, true)) {
+    if (App.cmd_match("allow ask", cmd, "arg")) {
       if (num_words > 3) { return false }
       if (!is_admin) { return true }
       let arg = App.cmd_arg("allow ask", cmd)
@@ -214,7 +214,7 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("allow rules", cmd, true)) {
+    if (App.cmd_match("allow rules", cmd, "arg")) {
       if (num_words > 3) { return false }
       if (!is_admin) { return true }
       let arg = App.cmd_arg("allow rules", cmd)
@@ -228,7 +228,7 @@ module.exports = function (App) {
       return true
     }   
 
-    if (App.cmd_match("model", cmd, true)) {
+    if (App.cmd_match("model", cmd, "arg")) {
       if (num_words > 2) { return false }
       if (!is_admin) { return true }
       let arg = App.cmd_arg("model", cmd)
@@ -251,10 +251,10 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("max tokens", cmd, true) ||
-    App.cmd_match("max prompt", cmd, true) ||
-    App.cmd_match("max context", cmd, true) ||
-    App.cmd_match("max rules", cmd, true)) {
+    if (App.cmd_match("max tokens", cmd, "arg") ||
+    App.cmd_match("max prompt", cmd, "arg") ||
+    App.cmd_match("max context", cmd, "arg") ||
+    App.cmd_match("max rules", cmd, "arg")) {
       if (num_words > 3) { return false }       
       if (!is_admin) { return true }
       let two = split.slice(0, 2).join(" ")
@@ -277,13 +277,13 @@ module.exports = function (App) {
       return true
     }    
 
-    if (App.cmd_match("report", cmd, false)) {
+    if (App.cmd_match("report", cmd, "exact")) {
       if (!is_admin) { return true }
       App.report_self(to)
       return true
     }
 
-    if (App.cmd_match("config", cmd, false)) {
+    if (App.cmd_match("config", cmd, "exact")) {
       if (!is_admin) { return true }
       App.cmd_show(to, "model")
       App.cmd_show(to, "rules")
@@ -294,7 +294,7 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("join", cmd, true)) {
+    if (App.cmd_match("join", cmd, "arg")) {
       if (num_words > 3) { return false }
       if (!is_admin) { return true }
       let arg = App.cmd_arg("join", cmd)
@@ -307,13 +307,13 @@ module.exports = function (App) {
       return true      
     }
 
-    if (App.cmd_match("leave", cmd, false)) {
+    if (App.cmd_match("leave", cmd, "exact")) {
       if (!is_admin) { return true }   
       App.irc_leave(to)
       return true      
     }    
 
-    if (App.cmd_match("leave", cmd, true)) {
+    if (App.cmd_match("leave", cmd, "arg")) {
       if (num_words > 2) { return false } 
       if (!is_admin) { return true }   
       let arg = App.cmd_arg("leave", cmd)
