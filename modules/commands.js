@@ -159,8 +159,8 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("users add", cmd, true)) {
+      if (num_words > 3) { return false }
       if (!is_admin) { return true }
-      if (num_words > 3) { return true }
       let arg = App.cmd_arg("users add", cmd)
 
       if (arg) {
@@ -177,8 +177,8 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("users remove", cmd, true)) {
+      if (num_words > 3) { return false }
       if (!is_admin) { return true }
-      if (num_words > 3) { return true }
       let arg = App.cmd_arg("users remove", cmd)
 
       if (arg) {
@@ -201,8 +201,8 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("allow ask", cmd, true)) {
+      if (num_words > 3) { return false }
       if (!is_admin) { return true }
-      if (num_words > 3) { return true }
       let arg = App.cmd_arg("allow ask", cmd)
       let allowed = ["all", "users", "admins", "default"]
 
@@ -215,8 +215,8 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("allow rules", cmd, true)) {
+      if (num_words > 3) { return false }
       if (!is_admin) { return true }
-      if (num_words > 3) { return true }
       let arg = App.cmd_arg("allow rules", cmd)
       let allowed = ["all", "users", "admins", "default"]
 
@@ -229,8 +229,8 @@ module.exports = function (App) {
     }   
 
     if (App.cmd_match("model", cmd, true)) {
+      if (num_words > 2) { return false }
       if (!is_admin) { return true }
-      if (num_words > 2) { return true }
       let arg = App.cmd_arg("model", cmd)
       let allowed = ["davinci", "turbo", "default"]
 
@@ -255,8 +255,8 @@ module.exports = function (App) {
     App.cmd_match("max prompt", cmd, true) ||
     App.cmd_match("max context", cmd, true) ||
     App.cmd_match("max rules", cmd, true)) {
+      if (num_words > 3) { return false }       
       if (!is_admin) { return true }
-      if (num_words > 3) { return true }       
       let two = split.slice(0, 2).join(" ")
       let key = two.split(" ").join("_")
       let arg = App.cmd_arg(two, cmd)
@@ -295,8 +295,8 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("join", cmd, true)) {
+      if (num_words > 3) { return false }
       if (!is_admin) { return true }
-      if (num_words > 3) { return true }
       let arg = App.cmd_arg("join", cmd)
 
       if (arg) {
@@ -314,8 +314,8 @@ module.exports = function (App) {
     }    
 
     if (App.cmd_match("leave", cmd, true)) {
-      if (!is_admin) { return true }
-      if (num_words > 2) { return true }         
+      if (num_words > 2) { return false } 
+      if (!is_admin) { return true }   
       let arg = App.cmd_arg("leave", cmd)
       
       if (arg) {
