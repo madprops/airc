@@ -269,8 +269,10 @@ module.exports = function (App) {
         let n = parseInt(arg)
   
         if (!isNaN(n)) {
-          App.update_config(key, n)
-          App.cmd_show(to, key)
+          if (n > 0 && n <= (10 * 1000)) {
+            App.update_config(key, n)
+            App.cmd_show(to, key)
+          }
         }
       }
 
