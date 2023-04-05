@@ -21,9 +21,10 @@ module.exports = function (App) {
   }
 
   App.cmd_match = function (s, cmd, mode) {
-    let re
     s = App.escape_regex(s)
-
+    
+    let re
+    
     if (mode === "arg") {
       re = new RegExp("^" + s + " ", "i")
     } else {
