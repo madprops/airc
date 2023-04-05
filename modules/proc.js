@@ -57,7 +57,7 @@ module.exports = function (App) {
       let last_response = App.last_responses[to]
 
       if (last_response && prompt.startsWith("^")) {
-        let words = prompt.replace("^", "").slice(0, App.max_prompt)
+        let words = prompt.replace("^", "")
         App.ask_ai(from, to, words, last_response)
         return
       }
