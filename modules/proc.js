@@ -73,24 +73,11 @@ module.exports = function (App) {
   // Prepare prompt and ask openai
   App.ask_ai = function (from, to, prompt = "", context = "") {
     prompt = App.limit(prompt, App.config.max_prompt)
-
-    // This is to avoid autocompletions from the ai
-    if (prompt && /\w$/.test(prompt)) {
-      // Add either a ? or a .
-      // ? if it's a question
-      let low_prompt = prompt.toLowerCase()
-      let questions = ["where", "which", "what", "where", "when", "what if"]
-
-      if (questions.some(x => low_prompt.startsWith(x + " "))) {
-        prompt += "?"
-      }
-      else {
-        prompt += "."
-      }
-    }
+    prompt = App.terminate(prompt)
 
     if (context) {
       context = App.limit(context, App.config.max_context)
+      context = App.terminate(context)
 
       if (prompt) {
         prompt = context + "\n" + prompt
@@ -105,8 +92,12 @@ module.exports = function (App) {
     }
 
     // Add some personality
-    if (App.config.rules) {
-      prompt = App.config.rules + "\n" + prompt
+    let rules = App.config.rules
+
+    if (rules) {
+      rules = App.limit(rules, App.config.max_rules)
+      rules = App.terminate(rules)
+      prompt = rules + "\n" + prompt
     }
 
     console.info(from + ' => ' + to + ': ' + prompt)

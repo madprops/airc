@@ -97,4 +97,23 @@ module.exports = function (App) {
   App.limit = function (s, limit) {
     return s.substring(0, limit).trim()
   }
+
+  App.terminate = function (s) {
+    if (s && /\w$/.test(s)) {
+      let low = s.toLowerCase()
+      
+      let questions = [
+        "where", "which", "what", "when", "would", "will"
+      ]
+
+      if (questions.some(x => low.startsWith(x + " "))) {
+        s += "?"
+      }
+      else {
+        s += "."
+      }
+    }
+
+    return s
+  }
 }
