@@ -261,7 +261,7 @@ Shortcut to `rules default` is `reset`.
 
 ---
 
-There's a global !report command that causes all instances to report.
+There's a global !report command that causes all owned bots in the room to report.
 
 Each bot also has an individual `report` command.
 
