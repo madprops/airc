@@ -12,8 +12,7 @@ module.exports = function (App) {
 
     App.rate_limit_date = Date.now()
     message = App.remove_multiple_spaces(message)
-    let prev_message = App.last_messages[to]
-    App.last_messages[to] = {from: from, to: to, message: message}
+    let last_response = App.last_responses[to]
 
     if (!App.is_allowed("allow_ask", from)) {requestAnimationFrame
       return
@@ -31,10 +30,10 @@ module.exports = function (App) {
       return
     }
 
-    App.check_nick_mention(from, to, message, prev_message)
+    App.check_nick_mention(from, to, message, last_response)
   }
 
-  App.check_nick_mention = function (from, to, message, prev_message) {
+  App.check_nick_mention = function (from, to, message, last_response) {
     let re = new RegExp(/^(?<nickname>\w+)[,:](?<message>.*)$/, "")
     let match = message.match(re)
 
@@ -56,9 +55,9 @@ module.exports = function (App) {
       }
 
       // Check if context is used
-      if (prompt.startsWith("^") && prev_message && prev_message.message) {
+      if (prompt.startsWith("^") && last_response) {
         let words = prompt.replace("^", "").slice(0, App.max_prompt)
-        App.ask_ai(from, to, words, prev_message.message)
+        App.ask_ai(from, to, words, last_response)
         return
       }
 
