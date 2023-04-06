@@ -106,7 +106,7 @@ module.exports = function (App) {
       
       let questions = [
         "where", "which", "what", "when", 
-        "would", "will", "whose", "why", "can",
+        "would", "will", "whose", "why", "can", "could"
       ]
 
       if (questions.some(x => low.startsWith(x + " "))) {
