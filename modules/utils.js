@@ -119,13 +119,7 @@ module.exports = function (App) {
   // Return in MB
   App.get_memory_used = function () {
     let mem = App.process.memoryUsage()
-    let used = 0
-
-    for (let key in mem) {
-      used += mem[key]
-    }
-
-    used = parseInt(used / 1000000)
+    let used = parseInt(mem.rss / 1000000)
     return used
   }
 }
