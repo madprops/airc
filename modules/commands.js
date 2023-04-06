@@ -51,6 +51,10 @@ module.exports = function (App) {
   }
 
   App.check_commands = function (from, to, cmd) {
+    // Ignore questions
+    if (cmd.endsWith("?")) {
+      return false
+    }
 
     // Commands that anybody can use:
 
@@ -78,17 +82,9 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("rules", cmd, "exact") ||
-    App.cmd_match("who are you?", cmd, "exact") ||
-    App.cmd_match("what are you?", cmd, "exact")) {
+    if (App.cmd_match("rules", cmd, "exact")) {
       App.cmd_show(to, "rules")
       return true
-    }
-
-    // Ignore questions from now on
-
-    if (cmd.endsWith("?")) {
-      return false
     }
 
     // Commands that modify rules:

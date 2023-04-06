@@ -235,12 +235,6 @@ Shortcut to `rules default` is `reset`.
 
 ---
 
-`who are you?`: Alternative to read the `rules`.
-
-`what are you?`: Alternative to read the `rules`.
-
----
-
 `users [add|remove] [nickname]`: Add or remove a nickname from the users array. 
 
 ---
