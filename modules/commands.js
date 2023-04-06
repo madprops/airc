@@ -46,6 +46,10 @@ module.exports = function (App) {
     App.cmd_show(to, "rules")
   }
 
+  App.respond_as = function (arg) {
+    return "Respond as if you were " + arg
+  }
+
   App.check_commands = function (from, to, cmd) {
 
     // Commands that anybody can use:
@@ -107,7 +111,7 @@ module.exports = function (App) {
       let arg = App.cmd_arg("you're", cmd)
 
       if (arg) {
-        let rules = "Respond as if you were " + arg
+        let rules = App.respond_as(arg)
         App.change_rules(to, rules)
       }
 
@@ -119,7 +123,7 @@ module.exports = function (App) {
       let arg = App.cmd_arg("you are", cmd)
 
       if (arg) {
-        let rules = "Respond as if you were " + arg
+        let rules = App.respond_as(arg)
         App.change_rules(to, rules)
       }
 
@@ -131,7 +135,7 @@ module.exports = function (App) {
       let arg = App.cmd_arg("ur", cmd)
 
       if (arg) {
-        let rules = "Respond as if you were " + arg
+        let rules = App.respond_as(arg)
         App.change_rules(to, rules)
       }
 
