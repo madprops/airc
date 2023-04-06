@@ -28,13 +28,13 @@ module.exports = function (App) {
     return true
   }
 
-	App.MINUTE = 60000
-	App.HOUR = 3600000
-	App.DAY = 86400000
-	App.YEAR = 31536000000
+  App.MINUTE = 60000
+  App.HOUR = 3600000
+  App.DAY = 86400000
+  App.YEAR = 31536000000
 
-	// Return a timeago string
-	App.timeago = function (date) {
+  // Return a timeago string
+  App.timeago = function (date) {
     let diff = Date.now() - date
     let s
 
@@ -83,11 +83,11 @@ module.exports = function (App) {
     }
 
     return s
-	}
+  }
 
   App.escape_regex = function (s) {
-		return s.replace(/[^A-Za-z0-9]/g, "\\$&")
-	}
+    return s.replace(/[^A-Za-z0-9]/g, "\\$&")
+  }
 
   App.remove_multiple_spaces = function (s) {
     return s.trim().replace(/ +/g, " ")
