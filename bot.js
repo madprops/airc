@@ -1,27 +1,29 @@
 const App = {}
 
-App.fs = require("fs")
-App.path = require("path")
-App.process = require("process")
-App.config = require("./config.json")
-App.irc = require("irc")
-App.openai = require("openai")
+// Imports go here
+App.i = {}
+
+App.i.fs = require("fs")
+App.i.path = require("path")
+App.i.process = require("process")
+App.i.irc = require("irc")
+App.i.openai = require("openai")
+
 App.last_responses = {}
 App.max_user_length = 25
-App.config_file = "config.user.json"
 App.rate_limit_delay = 2000
 App.rate_limit_date = Date.now()
 
 App.get_user_config = function () {
-  let s = App.fs.readFileSync(App.get_config_path(), "utf8")
+  let s = App.i.fs.readFileSync(App.get_config_path(), "utf8")
   let obj = JSON.parse(s)
   return obj
 }
 
 // Get the correct config path
 App.get_config_path = function () {
-  let p = App.path.dirname(__filename)
-  return App.path.join(p, App.config_file)
+  let p = App.i.path.dirname(__filename)
+  return App.i.path.join(p, "config.user.json")
 }
 
 App.update_config = function (key, value) {
@@ -31,7 +33,7 @@ App.update_config = function (key, value) {
 
     if (value === "default") {
       delete user_config[key]
-      App.config[key] = App.original_config[key]
+      App.config[key] = structuredClone(App.original_config[key])
     }
     else {
       user_config[key] = value
@@ -39,7 +41,7 @@ App.update_config = function (key, value) {
     }
 
     let s = JSON.stringify(user_config, null, 2)
-    App.fs.writeFileSync(App.get_config_path(), s)
+    App.i.fs.writeFileSync(App.get_config_path(), s)
   }
   catch (err) {
     console.error("Error updating the config file")
@@ -48,10 +50,14 @@ App.update_config = function (key, value) {
 
 // Create config.user.json
 // If it does not exist
-if (!App.fs.existsSync(App.get_config_path())) {
-  App.fs.writeFileSync(App.get_config_path(), "{}")
+if (!App.i.fs.existsSync(App.get_config_path())) {
+  App.i.fs.writeFileSync(App.get_config_path(), "{}")
   console.info("Created user config file")
 }
+
+// Main config object
+// It can change through commands
+App.config = require("./config.json")
 
 // Save a fixed copy of the config for defaults
 App.original_config = structuredClone(App.config)

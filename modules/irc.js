@@ -1,6 +1,6 @@
 module.exports = function (App) {
   App.start_irc = function () {
-    App.irc_client = new App.irc.Client(App.config.server, App.config.nickname, {
+    App.irc_client = new App.i.irc.Client(App.config.server, App.config.nickname, {
       channels: App.config.channels
     })
 
