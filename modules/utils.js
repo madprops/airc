@@ -102,19 +102,7 @@ module.exports = function (App) {
   // To avoid autocompletions from the ai
   App.terminate = function (s) {
     if (s && /\w$/.test(s)) {
-      let low = s.toLowerCase()
-      
-      let questions = [
-        "where", "which", "what", "when", 
-        "would", "will", "whose", "why", "can", "could"
-      ]
-
-      if (questions.some(x => low.startsWith(x + " "))) {
-        s += "?"
-      }
-      else {
-        s += "."
-      }
+      s += "."
     }
 
     return s
