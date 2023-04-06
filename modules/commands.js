@@ -51,11 +51,7 @@ module.exports = function (App) {
   }
 
   App.check_commands = function (from, to, cmd) {
-    // Ignore questions
-    if (cmd.endsWith("?")) {
-      return false
-    }
-
+    
     // Commands that anybody can use:
 
     if (App.cmd_match("help", cmd, "exact")) {
