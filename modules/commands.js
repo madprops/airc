@@ -51,18 +51,20 @@ module.exports = function (App) {
   }
 
   App.check_commands = function (from, to, cmd) {
-    
+
     // Commands that anybody can use:
 
     if (App.cmd_match("help", cmd, "exact")) {
       let cmds = [
         "you're [x]",
         "rules [x]",
-        "users [add|remove] + [nick]",
+        "add user [nick]",
+        "remove user [nick]",
         "allow ask [all|users|admins]",
         "allow rules [all|users|admins]",
         "model [davinci|turbo]",
         "reset",
+        "users",
         "admins",
         "report",
         "config",
@@ -155,10 +157,10 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("users add", cmd, "arg")) {
+    if (App.cmd_match("add user", cmd, "arg")) {
       if (num_words > 3) { return false }
       if (!is_admin) { return true }
-      let arg = App.cmd_arg("users add", cmd)
+      let arg = App.cmd_arg("add user", cmd)
 
       if (arg) {
         if (arg.length <= App.max_user_length) {
@@ -173,10 +175,10 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("users remove", cmd, "arg")) {
+    if (App.cmd_match("remove user", cmd, "arg")) {
       if (num_words > 3) { return false }
       if (!is_admin) { return true }
-      let arg = App.cmd_arg("users remove", cmd)
+      let arg = App.cmd_arg("remove user", cmd)
 
       if (arg) {
         if (App.is_user(arg)) {

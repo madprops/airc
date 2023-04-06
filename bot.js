@@ -1,10 +1,9 @@
 const App = {}
-App.config = {}
 
 App.fs = require("fs")
 App.path = require("path")
 App.process = require("process")
-App.original_config = require("./config.json")
+App.config = require("./config.json")
 App.irc = require("irc")
 App.openai = require("openai")
 App.last_responses = {}
@@ -54,8 +53,11 @@ if (!App.fs.existsSync(App.get_config_path())) {
   console.info("Created user config file")
 }
 
+// Save a fixed copy of the config for defaults
+App.original_config = structuredClone(App.config)
+
 // Assign user config to default config
-Object.assign(App.config, App.original_config, App.get_user_config())
+Object.assign(App.config, App.get_user_config())
 
 // Load js modules
 require("./modules/irc.js")(App)
