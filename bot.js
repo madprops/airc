@@ -3,6 +3,7 @@ App.config = {}
 
 App.fs = require("fs")
 App.path = require("path")
+App.process = require("process")
 App.original_config = require("./config.json")
 App.irc = require("irc")
 App.openai = require("openai")

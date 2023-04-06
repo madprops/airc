@@ -110,7 +110,8 @@ module.exports = function (App) {
 
   App.report_self = function (to) {
     let ts = App.timeago(App.date_started)
-    App.irc_respond(to, `🚀 Launched ${ts}.`)
+    let ms = App.get_memory_used()
+    App.irc_respond(to, `🚀 Launched ${ts} | Memory: ${ms} MB`)
     return
   }
 }
