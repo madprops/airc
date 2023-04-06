@@ -285,6 +285,8 @@ There's a global !report command that causes all owned bots in the room to repor
 
 Each bot also has an individual `report` command.
 
+It shows how long ago the bot was launched, and how much memory it is using.
+
 ---
 
 There's a `config` command that prints a summary of various settings.
