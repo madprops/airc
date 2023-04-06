@@ -103,6 +103,10 @@ The bigger this is the bigger responses can be, but it gets more expensive.
 
 ---
 
+`max_context`: How long the context used with ^ can be.
+
+---
+
 `rules`: Optional instructions for the bot, they're prepended before every prompt.
 
 For example: `Please respond in the style of Stewie from Family Guy`.
@@ -181,24 +185,14 @@ Nickname detection is case insensitive. `MyBot` and `mybot` work.
 
 ---
 
-If a user writes `mybot, ^` or `mybot: ^`, the bot will use the previous message as the prompt.
+If a user writes `mybot, ^` or `mybot: ^`, the bot will use the previous message as the context.
 
 ```
-Bob: What a lovely day
-
-Bob: mybot, ^
-
-mybot: Indeed, it's a nice day.
-```
-
-Or with some words:
-
-```
-Bob: I wonder what 2 + 2 is
+mybot: 2 + 2 = 4
 
 Bob: mybot, ^ that plus 1
 
-mybot: 2 + 2 is 4 plus 1 it's 5.
+mybot: 5
 ```
 
 This is an alternative way to make the bot respond which might make sense in some cases.
