@@ -109,6 +109,7 @@ module.exports = function (App) {
     console.info(from + ' => ' + to + ': ' + prompt)
 
     App.ask_openai(prompt, function (text) {
+      App.last_responses[to] = text
       App.irc_respond(to, text)
     })
   }
