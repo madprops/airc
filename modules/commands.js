@@ -6,14 +6,14 @@ module.exports = function (App) {
   App.cmd_show = function (to, key) {
     key = key.toLowerCase()
     let value
-    
+
     if (typeof App.config[key] === "object") {
       value = App.config[key].join(", ")
     }
     else {
       value = String(App.config[key])
     }
-    
+
     value = value || "(Empty)"
     let label = App.capitalize(key.replace(/_/g, " "))
     let res = App.irc_bold(label) + ": " + value
@@ -22,9 +22,9 @@ module.exports = function (App) {
 
   App.cmd_match = function (s, cmd, mode) {
     s = App.escape_regex(s)
-    
+
     let re
-    
+
     if (mode === "arg") {
       re = new RegExp("^" + s + " ", "i")
     } else {
@@ -231,7 +231,7 @@ module.exports = function (App) {
       }
 
       return true
-    }   
+    }
 
     if (App.cmd_match("model", cmd, "arg")) {
       if (num_words > 2) { return false }
@@ -241,7 +241,7 @@ module.exports = function (App) {
 
       if (arg && allowed.includes(arg)) {
         let model = arg
-        
+
         if (arg === "davinci") {
           model = "text-davinci-003"
         }
@@ -260,7 +260,7 @@ module.exports = function (App) {
     App.cmd_match("max prompt", cmd, "arg") ||
     App.cmd_match("max context", cmd, "arg") ||
     App.cmd_match("max rules", cmd, "arg")) {
-      if (num_words > 3) { return false }       
+      if (num_words > 3) { return false }
       if (!is_admin) { return true }
       let two = split.slice(0, 2).join(" ")
       let key = two.split(" ").join("_")
@@ -272,7 +272,7 @@ module.exports = function (App) {
       }
       else {
         let n = parseInt(arg)
-  
+
         if (!isNaN(n)) {
           if (n > 0 && n <= (10 * 1000)) {
             App.update_config(key, n)
@@ -282,7 +282,7 @@ module.exports = function (App) {
       }
 
       return true
-    }    
+    }
 
     if (App.cmd_match("report", cmd, "exact")) {
       if (!is_admin) { return true }
@@ -311,26 +311,26 @@ module.exports = function (App) {
         App.irc_join(arg)
       }
 
-      return true      
+      return true
     }
 
     if (App.cmd_match("leave", cmd, "exact")) {
-      if (!is_admin) { return true }   
+      if (!is_admin) { return true }
       App.irc_leave(to)
-      return true      
-    }    
+      return true
+    }
 
     if (App.cmd_match("leave", cmd, "arg")) {
-      if (num_words > 2) { return false } 
-      if (!is_admin) { return true }   
+      if (num_words > 2) { return false }
+      if (!is_admin) { return true }
       let arg = App.cmd_arg("leave", cmd)
-      
+
       if (arg) {
         App.irc_respond(to, "Leaving channel...")
         App.irc_leave(arg)
       }
 
-      return true      
+      return true
     }
   }
 

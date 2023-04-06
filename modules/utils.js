@@ -40,43 +40,43 @@ module.exports = function (App) {
 
     if (diff < App.MINUTE) {
       s = "just now"
-    } 
+    }
     else if (diff < App.HOUR) {
       let n = Math.floor(diff / 60 / 1000)
 
       if (n === 1) {
         s = `${n} minute ago`
-      } 
+      }
       else {
         s = `${n} minutes ago`
       }
-    } 
+    }
     else if (diff >= App.HOUR && diff < App.DAY) {
       let n = Math.floor(diff / 60 / 60 / 1000)
 
       if (n === 1) {
         s = `${n} hour ago`
-      } 
+      }
       else {
         s = `${n} hours ago`
       }
-    } 
+    }
     else if (diff >= App.DAY && diff < App.YEAR) {
       let n = Math.floor(diff / 24 / 60 / 60 / 1000)
 
       if (n === 1) {
         s = `${n} day ago`
-      } 
+      }
       else {
         s = `${n} days ago`
       }
-    } 
+    }
     else if (diff >= App.YEAR) {
       let n = Math.floor(diff / 365 / 24 / 60 / 60 / 1000)
 
       if (n === 1) {
         s = `${n} year ago`
-      } 
+      }
       else {
         s = `${n} years ago`
       }

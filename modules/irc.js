@@ -38,8 +38,8 @@ module.exports = function (App) {
 
     App.irc_bold = function (s) {
       return "\x02" + s + "\x0F"
-    }  
-    
+    }
+
     App.irc_leave = function (s) {
       App.irc_client.part(s)
     }
