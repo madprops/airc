@@ -99,13 +99,17 @@ Rules length or context length are not considered.
 
 ---
 
-`max_tokens`: Maximum amount of tokens openai can play with. 
-
-The bigger this is the bigger responses can be, but it gets more expensive.
+`max_rules`: Maximum length allowed for rules.
 
 ---
 
 `max_context`: How long the context used with ^ can be.
+
+---
+
+`max_tokens`: Maximum amount of tokens openai can play with. 
+
+The bigger this is the bigger responses can be, but it gets more expensive.
 
 ---
 
@@ -120,10 +124,6 @@ if (rules) {
   prompt = rules + "\n" + prompt
 }
 ```
-
----
-
-`max_rules`: Maximum length allowed for rules.
 
 ---
 
