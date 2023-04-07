@@ -127,15 +127,15 @@ if (rules) {
 
 ---
 
-`admins`: Array of nicknames. They can run all the commands.
-
-They are able to add/remove users, and modify permissions.
-
----
-
 `users`: Array of nicknames. They might have more permissions than non-users.
 
 What they can do can be determined through permissions.
+
+---
+
+`admins`: Array of nicknames. They can run all the commands.
+
+They are able to add/remove users, and modify permissions.
 
 ---
 
