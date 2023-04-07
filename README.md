@@ -117,7 +117,7 @@ Rules length or context length are not considered.
 
 ---
 
-`max_context`: How long the context used with ^ can be.
+`max_context`: How long the context used with `^` can be.
 
 ---
 
