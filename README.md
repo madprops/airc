@@ -321,7 +321,7 @@ These are some script ideas you can use to manage the bot(s).
 
 ---
 
-Start a bot:
+`start_mybot.sh`
 
 ```bash
 #!/usr/bin/env bash
@@ -338,7 +338,7 @@ Change details accordingly.
 
 ---
 
-Stop a bot:
+`stop_mybot.sh`
 
 ```bash
 #!/usr/bin/env bash
@@ -351,7 +351,7 @@ Change details accordingly.
 
 --- 
 
-Update bots:
+`update_airc.sh`
 
 ```bash
 #!/usr/bin/env bash
@@ -361,7 +361,7 @@ cd && cd bot2 && git pull
 
 ---
 
-Restart bots:
+`restart_airc.sh`
 
 ```bash
 #!/usr/bin/env bash
