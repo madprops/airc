@@ -56,19 +56,16 @@ module.exports = function (App) {
 
     if (App.cmd_match("help", cmd, "exact")) {
       let cmds = [
-        "you're [x]",
-        "rules [x]",
+        "you're [rule]",
+        "respond [rule]",
         "add user [nick]",
         "remove user [nick]",
         "allow ask [all|users|admins]",
         "allow rules [all|users|admins]",
         "model [davinci|turbo]",
         "reset",
-        "users",
-        "admins",
         "report",
         "config",
-        "ping",
       ]
 
       App.irc_respond(to, cmds.join(" 👾 "))
@@ -135,6 +132,12 @@ module.exports = function (App) {
 
       return true
     }
+
+    if (App.cmd_match("respond", cmd, "arg")) {
+      if (!can_change_rules) { return true }
+      App.change_rules(to, cmd)
+      return true
+    }    
 
     if (App.cmd_match("reset", cmd, "exact")) {
       if (!can_change_rules) { return true }
