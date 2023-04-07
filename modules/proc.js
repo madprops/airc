@@ -2,7 +2,7 @@
 // Input from irc is checked and maybe sent to openai
 
 module.exports = function (App) {
-  App.process_message = function (from, to, message) {
+  App.process_message = function (from, channel, message) {
     // Rate limit to avoid attacks or mistakes
     if (!App.is_admin(from)) {
       if ((Date.now() - App.rate_limit_date) <= App.rate_limit_delay) {
@@ -25,15 +25,15 @@ module.exports = function (App) {
 
     if (App.is_admin(from)) {
       if (message === "!report") {
-        App.report_self(to)
+        App.report_self(channel)
         return
       }
     }
 
-    App.check_nick_mention(from, to, message)
+    App.check_nick_mention(from, channel, message)
   }
 
-  App.check_nick_mention = function (from, to, message) {
+  App.check_nick_mention = function (from, channel, message) {
     let re = new RegExp(/^(?<nickname>\w+)[,:](?<message>.*)$/, "")
     let match = message.match(re)
 
@@ -50,34 +50,34 @@ module.exports = function (App) {
 
     if (nick.toLowerCase() === App.config.nickname.toLowerCase()) {
       if(prompt === "hi" || prompt === "hello") {
-        App.irc_respond(to, "hi!")
+        App.irc_respond(channel, "hi!")
         return
       }
 
       // Check if context is used
-      let last_response = App.last_responses[to]
+      let last_response = App.last_responses[channel]
 
       if (last_response && prompt.startsWith("^")) {
         let words = prompt.replace("^", "")
-        App.ask_ai(from, to, words, last_response)
+        App.ask_ai(from, channel, words, last_response)
         return
       }
 
       if (prompt.endsWith("?")) {
-        App.ask_ai(from, to, prompt)
+        App.ask_ai(from, channel, prompt)
         return
       }
 
-      if (App.check_commands(from, to, prompt)) {
+      if (App.check_commands(from, channel, prompt)) {
         return
       }
 
-      App.ask_ai(from, to, prompt)
+      App.ask_ai(from, channel, prompt)
     }
   }
 
   // Prepare prompt and ask openai
-  App.ask_ai = function (from, to, prompt = "", context = "") {
+  App.ask_ai = function (from, channel, prompt = "", context = "") {
     prompt = App.limit(prompt, App.config.max_prompt)
     prompt = App.terminate(prompt)
 
@@ -106,18 +106,18 @@ module.exports = function (App) {
       prompt = rules + "\n" + prompt
     }
 
-    console.info(from + ' => ' + to + ': ' + prompt)
+    console.info(from + ' => ' + channel + ': ' + prompt)
 
     App.ask_openai(prompt, function (text) {
-      App.irc_respond(to, text)
-      App.last_responses[to] = text
+      App.irc_respond(channel, text)
+      App.last_responses[channel] = text
     })
   }
 
-  App.report_self = function (to) {
+  App.report_self = function (channel) {
     let ts = App.timeago(App.date_started)
     let ms = App.get_memory_used()
-    App.irc_respond(to, `🚀 Launched ${ts} | Memory: ${ms} MB`)
+    App.irc_respond(channel, `🚀 Launched ${ts} | Memory: ${ms} MB`)
     return
   }
 }
