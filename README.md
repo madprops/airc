@@ -293,7 +293,7 @@ So the default in `config.json` is used.
 
 ---
 
-All commands are ignored if the message ends with a "?".
+All commands are ignored if the message ends with `?`.
 
 ---
 
