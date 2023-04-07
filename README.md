@@ -287,7 +287,7 @@ The value of any config can be read by simply writing its name with no arguments
 
 `join [channel]`: Joins an irc channel.
 
-A password can be supplied: `join #somechannel somepassword`
+A password can be supplied: `join #somechannel somepassword`.
 
 If the channel is not in the `channels` config it will be added.
 
