@@ -204,6 +204,8 @@ Nickname detection is case insensitive. `MyBot` and `mybot` work.
 If a message has `^` at the start, the bot will use the previous message (from the bot) as context:
 
 ```cs
+Bob: What is 2 + 2 ?
+
 mybot: 2 + 2 = 4
 
 Bob: mybot, ^ that plus 1
