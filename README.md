@@ -52,6 +52,8 @@ The format of both config files is the same, they're json objects.
 
 The settings in `config.user.json` override whatever is set in `config.json`.
 
+Override the required configs like the nickname and channels in `config.user.json`.
+
 Leave `config.json` intact, you can still use it as reference.
 
 Now you can `git pull` for updates any time without worrying about conflicts.
