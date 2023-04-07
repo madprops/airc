@@ -66,7 +66,7 @@ module.exports = function (App) {
     App.filter_channels(ch)
     App.config.channels.push(new_channel)
     App.update_config("channels", App.config.channels)   
-    App.irc_respond(channel, "Attempting to join channel...")
+    App.irc_respond(channel, "Joining channel...")
     App.irc_join(new_channel)
   }
 
