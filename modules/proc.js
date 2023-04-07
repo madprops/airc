@@ -147,7 +147,7 @@ module.exports = function (App) {
     App.filter_channels(ch)
     App.config.channels.push(new_channel)
     App.update_config("channels", App.config.channels)   
-    App.irc_respond(channel, "Joining channel...")
+    App.irc_respond(channel, `Joining ${ch}...`)
     App.irc_join(new_channel)
   }
 
@@ -160,7 +160,7 @@ module.exports = function (App) {
 
     App.filter_channels(ch)
     App.update_config("channels", App.config.channels)
-    App.irc_respond(channel, "Leaving channel...")
+    App.irc_respond(channel, `Leaving ${ch}...`)
     App.irc_leave(old_channel)
   }  
 }
