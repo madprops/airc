@@ -227,9 +227,11 @@ Aliases to this are: `ur`, `you are`.
 
 ---
 
-`rules [x]`: Sets rules to x.
+`respond`: Shortcut to set the rules.
 
-Rules longer than 250 characters will be ignored.
+`respond like a lawyer` will set the rules to exactly that.
+
+---
 
 Shortcut to `rules default` is `reset`.
 
