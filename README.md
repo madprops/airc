@@ -211,8 +211,6 @@ Bob: mybot, ^ that plus 1
 mybot: 5
 ```
 
-This is an alternative way to make the bot respond which might make sense in some cases.
-
 ---
 
 There is a rate limit cooldown of some seconds after the last message.
