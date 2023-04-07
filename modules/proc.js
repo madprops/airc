@@ -155,7 +155,7 @@ module.exports = function (App) {
     let ch = old_channel.toLowerCase()
 
     if (!ch.startsWith("#")) {
-      returnar
+      return
     }
 
     App.filter_channels(ch)
