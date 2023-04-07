@@ -127,8 +127,8 @@ module.exports = function (App) {
     App.cmd_show(channel, "rules")
   }
 
-  App.respond_as = function (arg) {
-    return "Respond as if you were " + arg
+  App.respond_as = function (thing) {
+    return "Respond as if you were " + thing
   }
 
   App.filter_channels = function (ch) {
