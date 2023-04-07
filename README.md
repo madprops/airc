@@ -31,10 +31,10 @@ For example:
 ## Installation <a name="installation"></a>
 
 1) Clone this repo
-1) Run 'npm install' inside the dir
+1) Run `npm install` inside the dir
 1) Create and edit `config.user.json`
 1) Export api key to environment
-1) Run it with 'node bot.js'
+1) Run it with `node bot.js`
 
 ---
 
