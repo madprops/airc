@@ -56,8 +56,8 @@ module.exports = function (App) {
 
     if (App.cmd_match("help", cmd, "exact")) {
       let cmds = [
-        "you're [rule]",
-        "respond [rule]",
+        "you're [rules]",
+        "respond [rules]",
         "add user [nick]",
         "remove user [nick]",
         "allow ask [all|users|admins]",
