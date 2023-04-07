@@ -36,84 +36,84 @@ module.exports = function (App) {
   // Return a timeago string
   App.timeago = function (date) {
     let diff = Date.now() - date
-    let s
+    let result
 
     if (diff < App.MINUTE) {
-      s = "just now"
+      result = "just now"
     }
     else if (diff < App.HOUR) {
       let n = Math.floor(diff / 60 / 1000)
 
       if (n === 1) {
-        s = `${n} minute ago`
+        result = `${n} minute ago`
       }
       else {
-        s = `${n} minutes ago`
+        result = `${n} minutes ago`
       }
     }
     else if (diff >= App.HOUR && diff < App.DAY) {
       let n = Math.floor(diff / 60 / 60 / 1000)
 
       if (n === 1) {
-        s = `${n} hour ago`
+        result = `${n} hour ago`
       }
       else {
-        s = `${n} hours ago`
+        result = `${n} hours ago`
       }
     }
     else if (diff >= App.DAY && diff < App.YEAR) {
       let n = Math.floor(diff / 24 / 60 / 60 / 1000)
 
       if (n === 1) {
-        s = `${n} day ago`
+        result = `${n} day ago`
       }
       else {
-        s = `${n} days ago`
+        result = `${n} days ago`
       }
     }
     else if (diff >= App.YEAR) {
       let n = Math.floor(diff / 365 / 24 / 60 / 60 / 1000)
 
       if (n === 1) {
-        s = `${n} year ago`
+        result = `${n} year ago`
       }
       else {
-        s = `${n} years ago`
+        result = `${n} years ago`
       }
     }
 
-    return s
+    return result
   }
 
-  App.escape_regex = function (s) {
-    return s.replace(/[^A-Za-z0-9]/g, "\\$&")
+  App.escape_regex = function (text) {
+    return text.replace(/[^A-Za-z0-9]/g, "\\$&")
   }
 
-  App.remove_multiple_spaces = function (s) {
-    return s.trim().replace(/ +/g, " ")
+  App.remove_multiple_spaces = function (text) {
+    return text.trim().replace(/ +/g, " ")
   }
 
-  App.capitalize = function (s) {
-    let ns = s.toLowerCase()
+  App.capitalize = function (text) {
+    let result = text.toLowerCase()
       .split(" ")
-      .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+      .map(word => word.charAt(0).toUpperCase() + word.substring(1))
       .join(" ")
 
-    return ns
+    return result
   }
 
-  App.limit = function (s, limit) {
-    return s.substring(0, limit).trim()
+  App.limit = function (text, limit) {
+    return text.substring(0, limit).trim()
   }
 
   // Add proper punctuation at the end
   // To avoid autocompletions from the ai
-  App.terminate = function (s) {
-    if (s && /\w$/.test(s)) {
-      s += "."
+  App.terminate = function (text) {
+    if (text && /\w$/.test(text)) {
+      text += "."
     }
 
-    return s
+    return text
   }
 
   // Return in MB

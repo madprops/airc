@@ -20,24 +20,24 @@ module.exports = function (App) {
     App.irc_respond(channel, res)
   }
 
-  App.cmd_match = function (s, cmd, mode) {
-    s = App.escape_regex(s)
+  App.cmd_match = function (cmd_name, full_cmd, mode) {
+    cmd_name = App.escape_regex(cmd_name)
 
     let re
 
     if (mode === "arg") {
-      re = new RegExp("^" + s + " ", "i")
+      re = new RegExp("^" + cmd_name + " ", "i")
     } else {
-      re = new RegExp("^" + s + "$", "i")
+      re = new RegExp("^" + cmd_name + "$", "i")
     }
 
-    return re.test(cmd)
+    return re.test(full_cmd)
   }
 
-  App.cmd_arg = function (s, cmd) {
-    s = App.escape_regex(s)
-    let re = new RegExp("^" + s + " ", "i")
-    return cmd.replace(re, "").trim()
+  App.cmd_arg = function (cmd_name, full_cmd) {
+    cmd_name = App.escape_regex(cmd_name)
+    let re = new RegExp("^" + cmd_name + " ", "i")
+    return full_cmd.replace(re, "").trim()
   }
 
   App.check_commands = function (from, channel, cmd) {

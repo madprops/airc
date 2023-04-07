@@ -115,9 +115,9 @@ module.exports = function (App) {
   }
 
   App.report_self = function (channel) {
-    let ts = App.timeago(App.date_started)
-    let ms = App.get_memory_used()
-    App.irc_respond(channel, `🚀 Launched ${ts} | Memory: ${ms} MB`)
+    let timeago = App.timeago(App.date_started)
+    let memory = App.get_memory_used()
+    App.irc_respond(channel, `🚀 Launched ${timeago} | Memory: ${memory} MB`)
     return
   }
 

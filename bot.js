@@ -15,8 +15,8 @@ App.rate_limit_delay = 2000
 App.rate_limit_date = Date.now()
 
 App.get_user_config = function () {
-  let s = App.i.fs.readFileSync(App.get_config_path(), "utf8")
-  let obj = JSON.parse(s)
+  let json_text = App.i.fs.readFileSync(App.get_config_path(), "utf8")
+  let obj = JSON.parse(json_text)
   return obj
 }
 
@@ -40,8 +40,8 @@ App.update_config = function (key, value) {
       App.config[key] = value
     }
 
-    let s = JSON.stringify(user_config, null, 2)
-    App.i.fs.writeFileSync(App.get_config_path(), s)
+    let json_text = JSON.stringify(user_config, null, 2)
+    App.i.fs.writeFileSync(App.get_config_path(), json_text)
   }
   catch (err) {
     console.error("Error updating the config file")

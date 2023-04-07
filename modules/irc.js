@@ -47,8 +47,8 @@ module.exports = function (App) {
       App.irc_client.part(channel)
     }
 
-    App.irc_bold = function (s) {
-      return "\x02" + s + "\x0F"
+    App.irc_bold = function (text) {
+      return "\x02" + text + "\x0F"
     }    
 
     console.info("Joining irc...")
