@@ -40,44 +40,6 @@ module.exports = function (App) {
     return cmd.replace(re, "").trim()
   }
 
-  App.change_rules = function (channel, rules) {
-    rules = App.limit(rules, App.config.max_rules)
-    App.update_config("rules", rules)
-    App.cmd_show(channel, "rules")
-  }
-
-  App.respond_as = function (arg) {
-    return "Respond as if you were " + arg
-  }
-
-  App.filter_channels = function (ch) {
-    App.config.channels = App.config.channels.filter(x => x.split(" ")[0].toLowerCase() !== ch)
-  }
-
-  App.join_channel = function (channel, new_channel) {
-    // The argument might contain the password
-    let split = new_channel.split(" ")
-    let ch = split[0].toLowerCase()
-
-    if (!ch.startsWith("#")) {
-      return
-    }
-    
-    App.filter_channels(ch)
-    App.config.channels.push(new_channel)
-    App.update_config("channels", App.config.channels)   
-    App.irc_respond(channel, "Joining channel...")
-    App.irc_join(new_channel)
-  }
-
-  App.leave_channel = function (channel, old_channel) {
-    let ch = old_channel.toLowerCase()
-    App.filter_channels(ch)
-    App.update_config("channels", App.config.channels)
-    App.irc_respond(channel, "Leaving channel...")
-    App.irc_leave(old_channel)
-  }
-
   App.check_commands = function (from, channel, cmd) {
 
     // Commands that anybody can use:
