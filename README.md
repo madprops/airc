@@ -45,8 +45,8 @@ When you have that ready you can then do this:
 1) Rename the dir (optional)
 1) Get inside the new bot dir
 1) Run `npm install` to install dependencies
-1) Create and edit `config.user.json` (read `Configuration`)
-1) Export api key to the environment (read `Credentials`)
+1) Create and edit `config.user.json` (read [Configuration](#configuration))
+1) Export api key to the environment (read [Credentials](#credentials))
 1) Run it with: `node bot.js` to test it
 1) Create scripts to help you start, stop, and update the bot
 
