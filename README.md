@@ -271,6 +271,20 @@ Commands of multi-word configs like `allow_ask` expect spaces instead of undersc
 
 ---
 
+`join [channel]`: Joins an irc channel.
+
+When the bot joins a channel, if the channel is not in the `channels` config it will be added.
+
+A password can be supplied with `join #somechannel somepassword`
+
+---
+
+`leave [channel]` or just `leave`: Leave an irc channel.
+
+If the channel is in the `channels` config it will be removed.
+
+---
+
 There's a global !report command that causes all owned bots in the room to report.
 
 Each bot also has an individual `report` command.

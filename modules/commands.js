@@ -3,7 +3,7 @@
 // Checks return true to avoid asking when cmds were meant
 
 module.exports = function (App) {
-  App.cmd_show = function (to, key) {
+  App.cmd_show = function (channel, key) {
     key = key.toLowerCase()
     let value
 
@@ -17,7 +17,7 @@ module.exports = function (App) {
     value = value || "(Empty)"
     let label = App.capitalize(key.replace(/_/g, " "))
     let res = App.irc_bold(label) + ": " + value
-    App.irc_respond(to, res)
+    App.irc_respond(channel, res)
   }
 
   App.cmd_match = function (s, cmd, mode) {
@@ -40,17 +40,41 @@ module.exports = function (App) {
     return cmd.replace(re, "").trim()
   }
 
-  App.change_rules = function (to, rules) {
+  App.change_rules = function (channel, rules) {
     rules = App.limit(rules, App.config.max_rules)
     App.update_config("rules", rules)
-    App.cmd_show(to, "rules")
+    App.cmd_show(channel, "rules")
   }
 
   App.respond_as = function (arg) {
     return "Respond as if you were " + arg
   }
 
-  App.check_commands = function (from, to, cmd) {
+  App.join_channel = function (channel, new_channel) {
+    // The argument might contain the password
+    let split = new_channel.split(" ")
+    let ch = split[0].toLowerCase()
+
+    if (!ch.startsWith("#")) {
+      return
+    }
+    
+    App.config.channels = App.config.channels.filter(x => x.split(" ")[0].toLowerCase() !== ch)
+    App.config.channels.push(new_channel)
+    App.update_config("channels", App.config.channels)   
+    App.irc_respond(channel, "Attempting to join channel...")
+    App.irc_join(new_channel)
+  }
+
+  App.leave_channel = function (channel, old_channel) {
+    let low = channel.toLowerCase()
+    App.config.channels = App.config.channels.filter(x => x.split(" ")[0].toLowerCase() !== low)
+    App.update_config("channels", App.config.channels)
+    App.irc_respond(channel, "Leaving channel...")
+    App.irc_leave(old_channel)
+  }
+
+  App.check_commands = function (from, channel, cmd) {
 
     // Commands that anybody can use:
 
@@ -68,17 +92,17 @@ module.exports = function (App) {
         "config",
       ]
 
-      App.irc_respond(to, cmds.join(" 👾 "))
+      App.irc_respond(channel, cmds.join(" 👾 "))
       return true
     }
 
     if (App.cmd_match("ping", cmd, "exact")) {
-      App.irc_respond(to, "Pong!")
+      App.irc_respond(channel, "Pong!")
       return true
     }
 
     if (App.cmd_match("rules", cmd, "exact")) {
-      App.cmd_show(to, "rules")
+      App.cmd_show(channel, "rules")
       return true
     }
 
@@ -91,7 +115,7 @@ module.exports = function (App) {
       let arg = App.cmd_arg("rules", cmd)
 
       if (arg) {
-        App.change_rules(to, arg)
+        App.change_rules(channel, arg)
       }
 
       return true
@@ -103,7 +127,7 @@ module.exports = function (App) {
 
       if (arg) {
         let rules = App.respond_as(arg)
-        App.change_rules(to, rules)
+        App.change_rules(channel, rules)
       }
 
       return true
@@ -115,7 +139,7 @@ module.exports = function (App) {
 
       if (arg) {
         let rules = App.respond_as(arg)
-        App.change_rules(to, rules)
+        App.change_rules(channel, rules)
       }
 
       return true
@@ -127,7 +151,7 @@ module.exports = function (App) {
 
       if (arg) {
         let rules = App.respond_as(arg)
-        App.change_rules(to, rules)
+        App.change_rules(channel, rules)
       }
 
       return true
@@ -135,13 +159,13 @@ module.exports = function (App) {
 
     if (App.cmd_match("respond", cmd, "arg")) {
       if (!can_change_rules) { return true }
-      App.change_rules(to, cmd)
+      App.change_rules(channel, cmd)
       return true
     }    
 
     if (App.cmd_match("reset", cmd, "exact")) {
       if (!can_change_rules) { return true }
-      App.change_rules(to, "default")
+      App.change_rules(channel, "default")
       return true
     }
 
@@ -156,7 +180,7 @@ module.exports = function (App) {
     // Print the config value
     if (Object.keys(App.config).includes(cmd_key)) {
       if (!is_admin) { return true }
-      App.cmd_show(to, cmd_key)
+      App.cmd_show(channel, cmd_key)
       return true
     }
 
@@ -170,7 +194,7 @@ module.exports = function (App) {
           if (!App.is_user(arg) && !App.is_admin(arg)) {
             App.config.users.push(arg)
             App.update_config("users", App.config.users)
-            App.cmd_show(to, "users")
+            App.cmd_show(channel, "users")
           }
         }
       }
@@ -188,7 +212,7 @@ module.exports = function (App) {
           let nick = arg.toLowerCase()
           let users = App.config.users.map(x => x.toLowerCase()).filter(x => x !== nick)
           App.update_config("users", users)
-          App.cmd_show(to, "users")
+          App.cmd_show(channel, "users")
         }
       }
 
@@ -198,7 +222,7 @@ module.exports = function (App) {
     if (App.cmd_match("users default", cmd, "exact")) {
       if (!is_admin) { return true }
       App.update_config("users", "default")
-      App.cmd_show(to, "users")
+      App.cmd_show(channel, "users")
       return true
     }
 
@@ -210,7 +234,7 @@ module.exports = function (App) {
 
       if (arg && allowed.includes(arg)) {
         App.update_config("allow_ask", arg)
-        App.cmd_show(to, "allow_ask")
+        App.cmd_show(channel, "allow_ask")
       }
 
       return true
@@ -224,7 +248,7 @@ module.exports = function (App) {
 
       if (arg && allowed.includes(arg)) {
         App.update_config("allow_rules", arg)
-        App.cmd_show(to, "allow_rules")
+        App.cmd_show(channel, "allow_rules")
       }
 
       return true
@@ -247,7 +271,7 @@ module.exports = function (App) {
         }
 
         App.update_config("model", model)
-        App.cmd_show(to, "model")
+        App.cmd_show(channel, "model")
       }
 
       return true
@@ -265,7 +289,7 @@ module.exports = function (App) {
 
       if (arg === "default") {
         App.update_config(key, arg)
-        App.cmd_show(to, key)
+        App.cmd_show(channel, key)
       }
       else {
         let n = parseInt(arg)
@@ -273,7 +297,7 @@ module.exports = function (App) {
         if (!isNaN(n)) {
           if (n > 0 && n <= (10 * 1000)) {
             App.update_config(key, n)
-            App.cmd_show(to, key)
+            App.cmd_show(channel, key)
           }
         }
       }
@@ -283,18 +307,18 @@ module.exports = function (App) {
 
     if (App.cmd_match("report", cmd, "exact")) {
       if (!is_admin) { return true }
-      App.report_self(to)
+      App.report_self(channel)
       return true
     }
 
     if (App.cmd_match("config", cmd, "exact")) {
       if (!is_admin) { return true }
-      App.cmd_show(to, "model")
-      App.cmd_show(to, "rules")
-      App.cmd_show(to, "allow_ask")
-      App.cmd_show(to, "allow_rules")
-      App.cmd_show(to, "users")
-      App.cmd_show(to, "admins")
+      App.cmd_show(channel, "model")
+      App.cmd_show(channel, "rules")
+      App.cmd_show(channel, "allow_ask")
+      App.cmd_show(channel, "allow_rules")
+      App.cmd_show(channel, "users")
+      App.cmd_show(channel, "admins")
       return true
     }
 
@@ -304,8 +328,7 @@ module.exports = function (App) {
       let arg = App.cmd_arg("join", cmd)
 
       if (arg) {
-        App.irc_respond(to, "Attempting to join channel...")
-        App.irc_join(arg)
+        App.join_channel(channel, arg)
       }
 
       return true
@@ -313,7 +336,7 @@ module.exports = function (App) {
 
     if (App.cmd_match("leave", cmd, "exact")) {
       if (!is_admin) { return true }
-      App.irc_leave(to)
+      App.leave_channel(channel, channel)
       return true
     }
 
@@ -323,8 +346,7 @@ module.exports = function (App) {
       let arg = App.cmd_arg("leave", cmd)
 
       if (arg) {
-        App.irc_respond(to, "Leaving channel...")
-        App.irc_leave(arg)
+        App.leave_channel(channel, arg)
       }
 
       return true

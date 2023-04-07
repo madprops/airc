@@ -4,19 +4,22 @@ module.exports = function (App) {
       channels: App.config.channels
     })
 
-    App.irc_client.addListener("message", function (from, to, message) {
-      if (App.config.channels.includes(to)) {
-        try {
-          App.process_message(from, to, message)
-        }
-        catch (err) {
-          console.error(err)
-        }
+    App.irc_client.addListener("message", function (from, channel, message) {
+      // Ignore private messages
+      if (!channel.startsWith("#")) {
+        return
+      }
+
+      try {
+        App.process_message(from, channel, message)
+      }
+      catch (err) {
+        console.error(err)
       }
     })
 
-    App.irc_client.addListener("selfMessage", function (to, message) {
-      //
+    App.irc_client.addListener("selfMessage", function (channel, message) {
+      // Messages from the bot itself
     })
 
     // Without this it might crash sometimes
@@ -28,21 +31,25 @@ module.exports = function (App) {
       console.info(`Joined ${channel}`)
     })
 
-    App.irc_respond = function (to, s) {
-      App.irc_client.say(to, s)
+    App.irc_client.addListener("part", function(channel, nick, reason, message) {
+      console.info(`Left ${channel}`)
+    })
+
+    App.irc_respond = function (channel, message) {
+      App.irc_client.say(channel, message)
+    }   
+
+    App.irc_join = function (channel) {
+      App.irc_client.join(channel)
     }
 
-    App.irc_join = function (s) {
-      App.irc_client.join(s)
+    App.irc_leave = function (channel) {
+      App.irc_client.part(channel)
     }
 
     App.irc_bold = function (s) {
       return "\x02" + s + "\x0F"
-    }
-
-    App.irc_leave = function (s) {
-      App.irc_client.part(s)
-    }
+    }    
 
     console.info("Joining irc...")
   }
