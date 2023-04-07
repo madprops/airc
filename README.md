@@ -293,6 +293,10 @@ So the default in `config.json` is used.
 
 ---
 
+All commands are ignored if the message ends with a "?".
+
+---
+
 ## Scripts <a name="scripts"></a>
 
 These are some script ideas you can use to manage the bot(s).
