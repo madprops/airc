@@ -50,6 +50,10 @@ module.exports = function (App) {
     return "Respond as if you were " + arg
   }
 
+  App.filter_channels = function (ch) {
+    App.config.channels = App.config.channels.filter(x => x.split(" ")[0].toLowerCase() !== ch)
+  }
+
   App.join_channel = function (channel, new_channel) {
     // The argument might contain the password
     let split = new_channel.split(" ")
@@ -59,7 +63,7 @@ module.exports = function (App) {
       return
     }
     
-    App.config.channels = App.config.channels.filter(x => x.split(" ")[0].toLowerCase() !== ch)
+    App.filter_channels(ch)
     App.config.channels.push(new_channel)
     App.update_config("channels", App.config.channels)   
     App.irc_respond(channel, "Attempting to join channel...")
@@ -67,8 +71,8 @@ module.exports = function (App) {
   }
 
   App.leave_channel = function (channel, old_channel) {
-    let low = channel.toLowerCase()
-    App.config.channels = App.config.channels.filter(x => x.split(" ")[0].toLowerCase() !== low)
+    let ch = old_channel.toLowerCase()
+    App.filter_channels(ch)
     App.update_config("channels", App.config.channels)
     App.irc_respond(channel, "Leaving channel...")
     App.irc_leave(old_channel)
