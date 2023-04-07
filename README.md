@@ -355,8 +355,8 @@ Change details accordingly.
 
 ```bash
 #!/usr/bin/env bash
-cd && cd bot1 && git pull
-cd && cd bot2 && git pull
+cd && cd mybot && git pull
+cd && cd otherbot && git pull
 ```
 
 ---
@@ -365,10 +365,10 @@ cd && cd bot2 && git pull
 
 ```bash
 #!/usr/bin/env bash
-./stop_bot1.sh
-./stop_bot2.sh
-./start_bot1.sh
-./start_bot2.sh
+./stop_mybot.sh
+./stop_otherbot.sh
+./start_mybot.sh
+./start_otherbot.sh
 ```
 
 ---
