@@ -42,8 +42,8 @@ When you have that ready you can then do this:
 
 1) Go to the dir where you want the bot to be
 1) `git clone https://github.com/madprops/airc`
-1) Rename the dir (optional)
-1) Get inside the new bot dir
+1) Rename the new dir (optional)
+1) Get inside the new dir
 1) Run `npm install` to install dependencies
 1) Create and edit `config.user.json` (read [Configuration](#configuration))
 1) Export api key to the environment (read [Credentials](#credentials))
