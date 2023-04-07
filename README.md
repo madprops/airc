@@ -155,7 +155,7 @@ These can be set to:
 
 ## Credentials <a name="credentials"></a>
 
-It reads the openai api key from the shell environment, it's not added to the code or config. 
+The program reads the openai api key from the shell environment, it's not added to the code or config. 
 
 You must do this before running the bot:
 
@@ -201,7 +201,7 @@ This is an alternative way to make the bot respond which might make sense in som
 
 ---
 
-There's a rate limit cooldown of some seconds after the last message.
+There is a rate limit cooldown of some seconds after the last message.
 
 This is to avoid attacks or mistakes.
 
@@ -237,9 +237,13 @@ Aliases to this are: `ur`, `you are`.
 
 Shortcut to `rules default` is `reset`.
 
+This empties the rules. Making the bot respond with its default personality.
+
 ---
 
-`users [add|remove] [nickname]`: Add or remove a nickname from the users array. 
+`add user [nickname]`: Add a nickname to the users array. 
+
+`remove user [nickname]`: Remove a nickname from the users array. 
 
 ---
 
@@ -253,9 +257,7 @@ Shortcut to `rules default` is `reset`.
 
 ---
 
-Number based configs like these:
-
-`max_tokens` | `max_prompt` | `max_rules` | `max_context`
+`max_prompt` | `max_rules` | `max_context` | `max_tokens`
 
 Can be changed by providing a number as an argument:
 
@@ -265,11 +267,7 @@ Can be changed by providing a number as an argument:
 
 The value of any config can be read by simply writing its name with no arguments.
 
----
-
-Commands of multi-word configs like `allow_ask` expect spaces instead of underscores:
-
-`allow ask all`
+`rules` | `allow ask` | `users`
 
 ---
 
@@ -277,7 +275,7 @@ Commands of multi-word configs like `allow_ask` expect spaces instead of undersc
 
 When the bot joins a channel, if the channel is not in the `channels` config it will be added.
 
-A password can be supplied with `join #somechannel somepassword`
+A password can be supplied: `join #somechannel somepassword`
 
 ---
 
@@ -287,7 +285,7 @@ If the channel is in the `channels` config it will be removed.
 
 ---
 
-There's a global !report command that causes all owned bots in the room to report.
+There's a global `!report` command that causes all owned bots in the room to report.
 
 Each bot also has an individual `report` command.
 
@@ -299,7 +297,9 @@ There's a `config` command that prints a summary of various settings.
 
 ---
 
-Changes to config properties are saved in `config.user.json`.
+Changes to any config are saved in `config.user.json`.
+
+`config.json` is left intact.
 
 ---
 
@@ -310,6 +310,8 @@ So the default in `config.json` is used.
 ---
 
 All commands are ignored if the message ends with `?`.
+
+Because most likely it's meant as a question for the ai.
 
 ---
 
@@ -368,3 +370,13 @@ Restart bots:
 ./start_bot1.sh
 ./start_bot2.sh
 ```
+
+---
+
+On updates I run this:
+
+```bash
+./update_airc.sh && ./restart_airc.sh
+```
+
+It fetches changes from the repo and restarts the bots.
