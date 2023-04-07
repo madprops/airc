@@ -95,7 +95,7 @@ davinci is more fun, can impersonate anything.
 
 Prompt is the text sent to openai to ask a question.
 
-Rules length is not considered.
+Rules length or context length are not considered.
 
 ---
 
