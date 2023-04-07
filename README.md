@@ -30,11 +30,24 @@ For example:
 
 ## Installation <a name="installation"></a>
 
-1) Clone this repo
-1) Run `npm install` inside the dir
-1) Create and edit `config.user.json`
-1) Export api key to environment
-1) Run it with `node bot.js`
+You need to have `Node.js` installed.
+
+And be able to install packages through the `npm` commmand.
+
+---
+
+When you have that ready you can then do this:
+
+---
+
+1) Go to the dir where you want the bot to be
+1) `git clone https://github.com/madprops/airc`
+1) Rename the dir (optional)
+1) Get inside the new bot dir
+1) Run `npm install` to install dependencies
+1) Create and edit `config.user.json` (read `Configuration`)
+1) Export api key to the environment (read `Credentials`)
+1) Run it with: `node bot.js`
 
 ---
 
