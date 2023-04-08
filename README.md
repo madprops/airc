@@ -342,7 +342,7 @@ There's a `config` command that prints a summary of various configs.
 
 This shows a quick overview of what the bot can do.
 
-There's a global `!config` command.
+There's also a global `!config` command.
 
 ---
 
