@@ -346,7 +346,7 @@ while true; do nohup node /home/botguy/mybot/bot.js
 done &
 ```
 
-`nohup` makes the node process persist even after you log out of that session.
+`nohup` makes the node process persist even after you log out of that session (ssh).
 
 If it crashes it will auto-restart because of the while loop.
 
