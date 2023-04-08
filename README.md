@@ -267,13 +267,13 @@ This empties the rules. Making the bot respond with its default personality.
 
 ---
 
-`allow ask [all|users|admins]`: Change `ask` permission.
+`allow ask [all | users | admins]`: Change `ask` permission.
 
-`allow rules [all|users|admins]`: Change `rules` permission.
+`allow rules [all| users | admins]`: Change `rules` permission.
 
 ---
 
-`model [davinci|turbo]`: Change the openai model.
+`model [davinci | turbo]`: Change the openai model.
 
 ---
 
