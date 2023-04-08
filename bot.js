@@ -14,6 +14,19 @@ App.max_user_length = 25
 App.rate_limit_delay = 2000
 App.rate_limit_date = Date.now()
 
+App.models = [
+  {
+    short_name: "davinci",
+    full_name: "text-davinci-003",
+    method: 1
+  },
+  {
+    short_name: "turbo",
+    full_name: "gpt-3.5-turbo",
+    method: 2
+  },
+]
+
 App.get_user_config = function () {
   let json_text = App.i.fs.readFileSync(App.get_config_path(), "utf8")
   let obj = JSON.parse(json_text)

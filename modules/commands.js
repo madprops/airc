@@ -78,13 +78,13 @@ module.exports = function (App) {
     let split = cmd.split(" ")
     let num_words = split.length
     let cmd_key = split.join("_").toLowerCase()
-    let can_rules = App.is_allowed("allow_rules", from)
+    let can_change_rules = App.is_allowed("allow_rules", from)
     let is_admin = App.is_admin(from)
 
     // Commands that anybody can use:
 
     if (App.cmd_match("help", cmd, "exact")) {
-      let help = App.cmd_help(can_rules, is_admin)
+      let help = App.cmd_help(can_change_rules, is_admin)
 
       if (help) {
         App.irc_respond(channel, help.join("  👾  "))
@@ -98,7 +98,7 @@ module.exports = function (App) {
       let arg = App.cmd_arg("help", cmd)
 
       if (arg) {
-        let help = App.cmd_help(can_rules, is_admin, arg)
+        let help = App.cmd_help(can_change_rules, is_admin, arg)
 
         if (help) {
           App.irc_respond(channel, help.join("  👾  "))
@@ -116,7 +116,7 @@ module.exports = function (App) {
     // Commands that modify rules:
 
     if (App.cmd_match("rules", cmd, "arg")) {
-      if (!can_rules) { return true }
+      if (!can_change_rules) { return true }
       let arg = App.cmd_arg("rules", cmd)
 
       if (arg) {
@@ -127,7 +127,7 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("you're", cmd, "arg")) {
-      if (!can_rules) { return true }
+      if (!can_change_rules) { return true }
       let arg = App.cmd_arg("you're", cmd)
 
       if (arg) {
@@ -139,7 +139,7 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("you are", cmd, "arg")) {
-      if (!can_rules) { return true }
+      if (!can_change_rules) { return true }
       let arg = App.cmd_arg("you are", cmd)
 
       if (arg) {
@@ -151,7 +151,7 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("ur", cmd, "arg")) {
-      if (!can_rules) { return true }
+      if (!can_change_rules) { return true }
       let arg = App.cmd_arg("ur", cmd)
 
       if (arg) {
@@ -163,13 +163,13 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("respond", cmd, "arg")) {
-      if (!can_rules) { return true }
+      if (!can_change_rules) { return true }
       App.change_rules(channel, cmd)
       return true
     }    
 
     if (App.cmd_match("reset", cmd, "exact")) {
-      if (!can_rules) { return true }
+      if (!can_change_rules) { return true }
       App.change_rules(channel, "default")
       return true
     }
@@ -257,16 +257,16 @@ module.exports = function (App) {
       if (num_words > 2) { return false }
       if (!is_admin) { return true }
       let arg = App.cmd_arg("model", cmd)
-      let allowed = ["davinci", "turbo", "default"]
+      let allowed = App.models.map(x => x.short_name)
+      allowed.push("default")
 
       if (arg && allowed.includes(arg)) {
         let model = arg
 
-        if (arg === "davinci") {
-          model = "text-davinci-003"
-        }
-        else if (arg === "turbo") {
-          model = "gpt-3.5-turbo"
+        for (let m of App.models) {
+          if (m.short_name === model) {
+            model = m.full_name
+          }
         }
 
         App.update_config("model", model)

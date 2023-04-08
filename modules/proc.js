@@ -167,4 +167,14 @@ module.exports = function (App) {
     App.irc_respond(channel, `Leaving ${ch}...`)
     App.irc_leave(old_channel)
   }  
+
+  App.get_model = function () {
+    let full_name = App.config.model
+
+    for (let model of App.models) {
+      if (model.full_name === full_name) {
+        return model
+      }
+    }
+  }
 }

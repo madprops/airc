@@ -9,8 +9,10 @@ module.exports = function (App) {
   }
 
   App.ask_openai = async function (prompt, callback) {
+    let model = App.get_model()
+
     try {
-      if (App.config.model === "text-davinci-003") {
+      if (model.method === 1) {
         let ans = await App.openai_client.createCompletion({
           model: App.config.model,
           prompt: prompt,
@@ -25,8 +27,8 @@ module.exports = function (App) {
           }
         }
       }
-
-      else if (App.config.model === "gpt-3.5-turbo") {
+      
+      else if (model.method === 2) {
         let ans = await App.openai_client.createChatCompletion({
           model: App.config.model,
           messages: [{role: "user", content: prompt}],
