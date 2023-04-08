@@ -66,7 +66,7 @@ To solve this, a file called `config.user.json` is created at launch if it does 
 
 The format of both config files is the same, they're json objects.
 
-The settings in `config.user.json` override whatever is set in `config.json`.
+The configs in `config.user.json` override whatever is set in `config.json`.
 
 Override the required configs like the nickname and channels in `config.user.json`.
 
@@ -77,7 +77,7 @@ Now you can `git pull` for updates any time without worrying about conflicts.
 
 ---
 
-These are the available settings:
+These are the available configs:
 
 ---
 
@@ -319,7 +319,7 @@ It shows how long ago the bot was launched, and how much memory it is using.
 
 ---
 
-There's a `config` command that prints a summary of various settings.
+There's a `config` command that prints a summary of various configs.
 
 ---
 
