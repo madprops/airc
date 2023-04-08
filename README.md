@@ -92,9 +92,13 @@ And make sure it's not registered: `/msg nickserv info nickname`.
 
 `server`: irc server to connect to.
 
+For example `irc.libera.chat`.
+
 ---
 
 `channels`: List of irc channels to join.
+
+These can contain passwords. `#mychannel channelpass`.
 
 ---
 
