@@ -98,7 +98,7 @@ For example `irc.libera.chat`.
 
 `channels`: List of irc channels to join.
 
-These can contain passwords. `#mychannel channelpass`.
+These can contain passwords: `#mychannel channelpass`.
 
 ---
 
