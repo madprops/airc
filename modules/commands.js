@@ -81,6 +81,16 @@ module.exports = function (App) {
     return help
   }
 
+  App.cmd_change_rules = function (channel, rules) {
+    rules = App.limit(rules, App.config.max_rules)
+    App.update_config("rules", rules)
+    App.cmd_show(channel, "rules")
+  }
+
+  App.cmd_respond_as = function (thing) {
+    return "Respond as if you were " + thing
+  }
+
   App.check_commands = function (from, channel, cmd) {
     let split = cmd.split(" ")
     let num_words = split.length
@@ -127,7 +137,7 @@ module.exports = function (App) {
       let arg = App.cmd_arg("rules", cmd)
 
       if (arg) {
-        App.change_rules(channel, arg)
+        App.cmd_change_rules(channel, arg)
       }
 
       return true
@@ -138,8 +148,8 @@ module.exports = function (App) {
       let arg = App.cmd_arg("you're", cmd)
 
       if (arg) {
-        let rules = App.respond_as(arg)
-        App.change_rules(channel, rules)
+        let rules = App.cmd_respond_as(arg)
+        App.cmd_change_rules(channel, rules)
       }
 
       return true
@@ -150,8 +160,8 @@ module.exports = function (App) {
       let arg = App.cmd_arg("you are", cmd)
 
       if (arg) {
-        let rules = App.respond_as(arg)
-        App.change_rules(channel, rules)
+        let rules = App.cmd_respond_as(arg)
+        App.cmd_change_rules(channel, rules)
       }
 
       return true
@@ -162,8 +172,8 @@ module.exports = function (App) {
       let arg = App.cmd_arg("ur", cmd)
 
       if (arg) {
-        let rules = App.respond_as(arg)
-        App.change_rules(channel, rules)
+        let rules = App.cmd_respond_as(arg)
+        App.cmd_change_rules(channel, rules)
       }
 
       return true
@@ -171,13 +181,13 @@ module.exports = function (App) {
 
     if (App.cmd_match("respond", cmd, "arg")) {
       if (!can_change_rules) { return true }
-      App.change_rules(channel, cmd)
+      App.cmd_change_rules(channel, cmd)
       return true
     }
 
     if (App.cmd_match("reset", cmd, "exact")) {
       if (!can_change_rules) { return true }
-      App.change_rules(channel, "default")
+      App.cmd_change_rules(channel, "default")
       return true
     }
 

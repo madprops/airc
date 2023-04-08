@@ -146,14 +146,4 @@ module.exports = function (App) {
 
     App.irc_respond(channel, info.join(" | "))
   }
-
-  App.change_rules = function (channel, rules) {
-    rules = App.limit(rules, App.config.max_rules)
-    App.update_config("rules", rules)
-    App.cmd_show(channel, "rules")
-  }
-
-  App.respond_as = function (thing) {
-    return "Respond as if you were " + thing
-  }
 }
