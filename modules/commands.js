@@ -3,7 +3,7 @@
 // Checks return true to avoid asking when cmds were meant
 
 module.exports = function (App) {
-  App.cmd_show = function (channel, key) {
+  App.cmd_info = function (key) {
     key = key.toLowerCase()
     let value
 
@@ -16,8 +16,12 @@ module.exports = function (App) {
 
     value = value || "(Empty)"
     let label = App.capitalize(key.replace(/_/g, " "))
-    let res = App.irc_bold(label) + ": " + value
-    App.irc_respond(channel, res)
+    return App.irc_bold(label) + ": " + value
+  }
+
+  App.cmd_show = function (channel, key) {
+    let info = App.cmd_info(key)
+    App.irc_respond(channel, info)
   }
 
   App.cmd_match = function (cmd_name, full_cmd, mode) {
@@ -313,12 +317,7 @@ module.exports = function (App) {
 
     if (App.cmd_match("config", cmd, "exact")) {
       if (!is_admin) { return true }
-      App.cmd_show(channel, "model")
-      App.cmd_show(channel, "rules")
-      App.cmd_show(channel, "allow_ask")
-      App.cmd_show(channel, "allow_rules")
-      App.cmd_show(channel, "users")
-      App.cmd_show(channel, "admins")
+      App.show_config(channel)
       return true
     }
 

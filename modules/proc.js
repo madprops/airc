@@ -32,6 +32,11 @@ module.exports = function (App) {
         App.report_self(channel)
         return
       }
+
+      if (message === "!config") {
+        App.show_config(channel)
+        return
+      }      
     }
 
     App.check_nick_mention(from, channel, message)
@@ -123,6 +128,23 @@ module.exports = function (App) {
     let memory = App.get_memory_used()
     App.irc_respond(channel, `🚀 Launched ${timeago} | Memory: ${memory} MB`)
     return
+  }
+
+  App.show_config = function (channel) {
+    let info = []
+
+    for (let key of [
+      "model",
+      "rules",
+      "allow_ask",
+      "allow_rules",
+      "users",
+      "admins",
+    ]) {
+      info.push(App.cmd_info(key))
+    }
+
+    App.irc_respond(channel, info.join(" | "))
   }
 
   App.change_rules = function (channel, rules) {

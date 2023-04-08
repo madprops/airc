@@ -342,6 +342,8 @@ There's a `config` command that prints a summary of various configs.
 
 This shows a quick overview of what the bot can do.
 
+There's a global `!config` command.
+
 ---
 
 Changes to any config through commands are saved automatically in `config.user.json`.

@@ -18,12 +18,12 @@ App.models = [
   {
     short_name: "davinci",
     full_name: "text-davinci-003",
-    method: 1
+    method: 1,
   },
   {
     short_name: "turbo",
     full_name: "gpt-3.5-turbo",
-    method: 2
+    method: 2,
   },
 ]
 
