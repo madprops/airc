@@ -31,7 +31,8 @@ module.exports = function (App) {
 
     if (mode === "arg") {
       re = new RegExp("^" + cmd_name + " ", "i")
-    } else {
+    }
+    else {
       re = new RegExp("^" + cmd_name + "$", "i")
     }
 

@@ -36,7 +36,7 @@ module.exports = function (App) {
       if (message === "!config") {
         App.show_config(channel)
         return
-      }      
+      }
     }
 
     App.check_nick_mention(from, channel, message)

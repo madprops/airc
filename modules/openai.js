@@ -20,7 +20,7 @@ module.exports = function (App) {
         return model
       }
     }
-  }  
+  }
 
   App.start_openai = function () {
     let configuration = new App.i.openai.Configuration({
