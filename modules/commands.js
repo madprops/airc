@@ -259,8 +259,7 @@ module.exports = function (App) {
       if (num_words > 2) { return false }
       if (!is_admin) { return true }
       let arg = App.cmd_arg("model", cmd)
-      let allowed = [...App.cmd_models]
-      allowed.push("default")
+      let allowed = [...App.cmd_models, "default"]
 
       if (arg && allowed.includes(arg)) {
         let model = arg
