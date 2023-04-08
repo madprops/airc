@@ -259,7 +259,7 @@ Aliases to this are: `ur`, `you are`.
 
 ---
 
-Shortcut to `rules default` is `reset`.
+`reset`: Shortcut to `rules default`.
 
 This empties the rules. Making the bot respond with its default personality.
 
