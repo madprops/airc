@@ -5,7 +5,7 @@ module.exports = function (App) {
   App.process_message = function (from, channel, message) {
     let can_ask = App.is_allowed("allow_ask", from)
     let can_rules = App.is_allowed("allow_rules", from)
-    
+
     // User can't do anything
     if (!can_ask && !can_rules) {
       return
@@ -133,48 +133,5 @@ module.exports = function (App) {
 
   App.respond_as = function (thing) {
     return "Respond as if you were " + thing
-  }
-
-  App.filter_channels = function (ch) {
-    App.config.channels = App.config.channels.filter(x => x.split(" ")[0].toLowerCase() !== ch)
-  }
-
-  App.join_channel = function (channel, new_channel) {
-    // The argument might contain the password
-    let split = new_channel.split(" ")
-    let ch = split[0].toLowerCase()
-
-    if (!ch.startsWith("#")) {
-      return
-    }
-    
-    App.filter_channels(ch)
-    App.config.channels.push(new_channel)
-    App.update_config("channels", App.config.channels)   
-    App.irc_respond(channel, `Joining ${ch}...`)
-    App.irc_join(new_channel)
-  }
-
-  App.leave_channel = function (channel, old_channel) {
-    let ch = old_channel.toLowerCase()
-
-    if (!ch.startsWith("#")) {
-      return
-    }
-
-    App.filter_channels(ch)
-    App.update_config("channels", App.config.channels)
-    App.irc_respond(channel, `Leaving ${ch}...`)
-    App.irc_leave(old_channel)
-  }  
-
-  App.get_model = function () {
-    let full_name = App.config.model
-
-    for (let model of App.models) {
-      if (model.full_name === full_name) {
-        return model
-      }
-    }
   }
 }

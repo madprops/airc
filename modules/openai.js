@@ -8,13 +8,23 @@ module.exports = function (App) {
     console.info("Started openai")
   }
 
+  App.get_model = function () {
+    let full_name = App.config.model
+
+    for (let model of App.models) {
+      if (model.full_name === full_name) {
+        return model
+      }
+    }
+  }
+
   App.ask_openai = async function (prompt, callback) {
     let model = App.get_model()
 
     try {
       if (model.method === 1) {
         let ans = await App.openai_client.createCompletion({
-          model: App.config.model,
+          model: model.full_name,
           prompt: prompt,
           max_tokens: App.config.max_tokens
         })
@@ -27,10 +37,10 @@ module.exports = function (App) {
           }
         }
       }
-      
+
       else if (model.method === 2) {
         let ans = await App.openai_client.createChatCompletion({
-          model: App.config.model,
+          model: model.full_name,
           messages: [{role: "user", content: prompt}],
           max_tokens: App.config.max_tokens
         })

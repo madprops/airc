@@ -106,7 +106,7 @@ module.exports = function (App) {
           App.irc_respond(channel, help.join("  👾  "))
         }
       }
-      
+
       return true
     }
 
@@ -168,7 +168,7 @@ module.exports = function (App) {
       if (!can_change_rules) { return true }
       App.change_rules(channel, cmd)
       return true
-    }    
+    }
 
     if (App.cmd_match("reset", cmd, "exact")) {
       if (!can_change_rules) { return true }
