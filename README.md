@@ -158,7 +158,7 @@ What they can do can be determined through permissions.
 
 `admins`: Array of nicknames. They can run all the commands.
 
-They are able to add/remove users, and modify permissions.
+They are able to add/remove users, modify permissions, and change other configs.
 
 ---
 
