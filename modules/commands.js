@@ -40,28 +40,56 @@ module.exports = function (App) {
     return full_cmd.replace(re, "").trim()
   }
 
-  App.cmd_help = [
+  App.cmd_help_rules = [
     "you're | you are | ur | respond + [rules]",
+    "reset: empty the rules",
+  ]
+
+  App.cmd_help_admins = [
     "add user + [nick]",
     "remove user + [nick]",
     "allow ask + [all | users | admins]",
     "allow rules + [all | users | admins]",
     "model + [davinci | turbo]",
-    "reset: empty the rules",
     "report: respond with some info",
     "config: show some of the config",
   ]
+
+  App.cmd_help = function (rules, admin, filter = "") {
+    let help = []
+
+    if (rules) {
+      help.push(...App.cmd_help_rules)
+    }
+
+    if (admin) {
+      help.push(...App.cmd_help_admins)
+    }
+
+    if (filter) {
+      let low = filter.toLowerCase()
+      help = help.filter(x => x.includes(low))
+    }
+
+    return help
+  }
 
   App.check_commands = function (from, channel, cmd) {
     let split = cmd.split(" ")
     let num_words = split.length
     let cmd_key = split.join("_").toLowerCase()
+    let can_change_rules = App.is_allowed("allow_rules", from)
     let is_admin = App.is_admin(from)
 
     // Commands that anybody can use:
 
     if (App.cmd_match("help", cmd, "exact")) {
-      App.irc_respond(channel, App.cmd_help.join("  👾  "))
+      let help = App.cmd_help(can_change_rules, is_admin)
+
+      if (help) {
+        App.irc_respond(channel, help.join("  👾  "))
+      }
+      
       return true
     }
 
@@ -70,19 +98,13 @@ module.exports = function (App) {
       let arg = App.cmd_arg("help", cmd)
 
       if (arg) {
-        let low = arg.toLowerCase()
-        let filtered = App.cmd_help.filter(x => x.includes(low))
+        let help = App.cmd_help(can_change_rules, is_admin, arg)
 
-        if (filtered.length > 0) {
-          App.irc_respond(channel, filtered.join("  👾  "))
+        if (help) {
+          App.irc_respond(channel, help.join("  👾  "))
         }
       }
       
-      return true
-    }
-
-    if (App.cmd_match("ping", cmd, "exact")) {
-      App.irc_respond(channel, "Pong!")
       return true
     }
 
@@ -92,8 +114,6 @@ module.exports = function (App) {
     }
 
     // Commands that modify rules:
-
-    let can_change_rules = App.is_allowed("allow_rules", from)
 
     if (App.cmd_match("rules", cmd, "arg")) {
       if (!can_change_rules) { return true }
