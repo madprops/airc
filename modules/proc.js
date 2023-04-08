@@ -3,6 +3,14 @@
 
 module.exports = function (App) {
   App.process_message = function (from, channel, message) {
+    let can_ask = App.is_allowed("allow_ask", from)
+    let can_rules = App.is_allowed("allow_rules", from)
+    
+    // User can't do anything
+    if (!can_ask && !can_rules) {
+      return
+    }
+
     // Rate limit to avoid attacks or mistakes
     if (!App.is_admin(from)) {
       if ((Date.now() - App.rate_limit_date) <= App.rate_limit_delay) {
@@ -12,10 +20,6 @@ module.exports = function (App) {
 
     App.rate_limit_date = Date.now()
     message = App.remove_multiple_spaces(message)
-
-    if (!App.is_allowed("allow_ask", from)) {requestAnimationFrame
-      return
-    }
 
     let low_message = message.toLowerCase()
 
