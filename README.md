@@ -32,7 +32,7 @@ For example:
 
 You need to have `Node.js` installed.
 
-And be able to install packages through the `npm` commmand.
+And be able to install packages through the `npm` command.
 
 You will also need an openai api key.
 
