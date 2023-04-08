@@ -45,12 +45,14 @@ module.exports = function (App) {
     "reset: empty the rules",
   ]
 
+  App.cmd_models = App.models.map(x => x.short_name)
+
   App.cmd_help_admins = [
     "add user + [nick]",
     "remove user + [nick]",
     "allow ask + [all | users | admins]",
     "allow rules + [all | users | admins]",
-    "model + [davinci | turbo]",
+    `model + [${App.cmd_models.join(" | ")}]`,
     "report: respond with some info",
     "config: show some of the config",
   ]
@@ -257,7 +259,7 @@ module.exports = function (App) {
       if (num_words > 2) { return false }
       if (!is_admin) { return true }
       let arg = App.cmd_arg("model", cmd)
-      let allowed = App.models.map(x => x.short_name)
+      let allowed = [...App.cmd_models]
       allowed.push("default")
 
       if (arg && allowed.includes(arg)) {
