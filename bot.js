@@ -90,9 +90,6 @@ if (!App.get_model()) {
   App.update_config("model", "default")
 }
 
-App.main = function () {
-  App.start_openai()
-  App.start_irc()
-  App.date_started = Date.now()
-}
-App.main()
+App.start_openai()
+App.start_irc()
+App.date_started = Date.now()
