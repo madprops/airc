@@ -89,12 +89,12 @@ module.exports = function (App) {
       if (help) {
         App.irc_respond(channel, help.join("  👾  "))
       }
-      
+
       return true
     }
 
     if (App.cmd_match("help", cmd, "arg")) {
-      if (num_words > 2) { return false }
+      if (num_words > 3) { return false }
       let arg = App.cmd_arg("help", cmd)
 
       if (arg) {
