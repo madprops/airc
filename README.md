@@ -162,9 +162,13 @@ They are able to add/remove users, modify permissions, and change other configs.
 
 ---
 
-`allow_ask`: Who is allowed to ask questions to the ai.
+`allow_ask`: Array of nicknames. 
 
-`allow_rules`: Who is allowed to modify the personality of the ai through rules.
+Who is allowed to ask questions to the ai.
+
+`allow_rules`: Array of nicknames. 
+
+Who is allowed to modify the personality of the ai through rules.
 
 These can be set to:
 
