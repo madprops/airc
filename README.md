@@ -114,13 +114,19 @@ Prompt is the text sent to openai to ask a question.
 
 Rules length or context length are not considered.
 
+If longer, the remainder is trimmed out.
+
 ---
 
 `max_rules`: Maximum length allowed for rules.
 
+If longer, the remainder is trimmed out.
+
 ---
 
 `max_context`: How long the context used with `^` can be.
+
+If longer, the remainder is trimmed out.
 
 ---
 
