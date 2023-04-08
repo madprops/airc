@@ -85,10 +85,14 @@ require("./modules/proc.js")(App)
 require("./modules/commands.js")(App)
 require("./modules/utils.js")(App)
 
+// Check if model is still supported
+if (!App.get_model()) {
+  App.update_config("model", "default")
+}
+
 App.main = function () {
   App.start_openai()
   App.start_irc()
   App.date_started = Date.now()
 }
-
 App.main()
