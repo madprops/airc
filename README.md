@@ -34,7 +34,7 @@ You need to have `Node.js` installed.
 
 And be able to install packages through the `npm` commmand.
 
-You will need an openai api key.
+You will also need an openai api key.
 
 ---
 
