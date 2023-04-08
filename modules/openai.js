@@ -1,12 +1,16 @@
 module.exports = function (App) {
-  App.start_openai = function () {
-    let configuration = new App.i.openai.Configuration({
-      apiKey: process.env.OPENAI_API_KEY
-    })
-
-    App.openai_client = new App.i.openai.OpenAIApi(configuration)
-    console.info("Started openai")
-  }
+  App.models = [
+    {
+      short_name: "davinci",
+      full_name: "text-davinci-003",
+      method: 1,
+    },
+    {
+      short_name: "turbo",
+      full_name: "gpt-3.5-turbo",
+      method: 2,
+    },
+  ]
 
   App.get_model = function () {
     let full_name = App.config.model
@@ -16,6 +20,15 @@ module.exports = function (App) {
         return model
       }
     }
+  }  
+
+  App.start_openai = function () {
+    let configuration = new App.i.openai.Configuration({
+      apiKey: process.env.OPENAI_API_KEY
+    })
+
+    App.openai_client = new App.i.openai.OpenAIApi(configuration)
+    console.info("Started openai")
   }
 
   App.ask_openai = async function (prompt, callback) {
