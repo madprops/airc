@@ -211,8 +211,6 @@ It does this by storing its last response.
 last_responses[channel] = response
 ```
 
----
-
 **You**: What is 2 + 2 ?
 
 **Bot**: 2 + 2 = 4
