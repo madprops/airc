@@ -237,6 +237,10 @@ For example: `mybot, help`.
 
 ---
 
+If a user is allowed to change the rules, it will get access to rules-related commands.
+
+If a user is an admin it gets access to all commands.
+
 These are the available commands:
 
 ---
