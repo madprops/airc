@@ -74,6 +74,10 @@ Leave `config.json` intact, you can still use it as reference.
 
 Now you can `git pull` for updates any time without worrying about conflicts.
 
+Another reason to not touch `config.json` is that it serves as defaults fallback:
+
+`mybot: allow ask default` will set `allow_ask` to defaults
+by removing it from `config.user.json` and using the value in `config.json`.
 
 ---
 
