@@ -245,7 +245,7 @@ These are the available commands:
 
 ---
 
-`you're [thing]`: Shortcut to set a personality.
+`you're [thing]`: Shortcut to set a personality through rules.
 
 `you're a monkey` would set the rules to `Respond as if you were a monkey`.
 
