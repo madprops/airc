@@ -46,10 +46,10 @@ When you have that ready you can then do this:
 1) `git clone https://github.com/madprops/airc`
 1) Rename the new dir (optional)
 1) Get inside the new dir
-1) Run `npm install` to install dependencies
+1) Run `npm install` to install node dependencies
 1) Create and edit `config.user.json` (read [Configuration](#configuration))
 1) Export api key to the environment (read [Credentials](#credentials))
-1) Run it with `node bot.js` to test it
+1) Run it with `node bot.js` and check that it works
 1) Create scripts to help you manage the bot (read [Scripts](#scripts))
 
 ---
