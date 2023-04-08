@@ -328,7 +328,7 @@ It shows how long ago the bot was launched, and how much memory it is using.
 
 There's a `config` command that prints a summary of various configs.
 
-Good to have a quick overview of what the bot can do.
+This shows a quick overview of what the bot can do.
 
 ---
 
