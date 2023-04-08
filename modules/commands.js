@@ -40,25 +40,44 @@ module.exports = function (App) {
     return full_cmd.replace(re, "").trim()
   }
 
+  App.cmd_help = [
+    "you're | you are | ur | respond + [rules]",
+    "add user + [nick]",
+    "remove user + [nick]",
+    "allow ask + [all | users | admins]",
+    "allow rules + [all | users | admins]",
+    "model + [davinci | turbo]",
+    "reset: empty the rules",
+    "report: respond with some info",
+    "config: show some of the config",
+  ]
+
   App.check_commands = function (from, channel, cmd) {
+    let split = cmd.split(" ")
+    let num_words = split.length
+    let cmd_key = split.join("_").toLowerCase()
+    let is_admin = App.is_admin(from)
 
     // Commands that anybody can use:
 
     if (App.cmd_match("help", cmd, "exact")) {
-      let cmds = [
-        "you're [rules]",
-        "respond [rules]",
-        "add user [nick]",
-        "remove user [nick]",
-        "allow ask [all|users|admins]",
-        "allow rules [all|users|admins]",
-        "model [davinci|turbo]",
-        "reset",
-        "report",
-        "config",
-      ]
+      App.irc_respond(channel, App.cmd_help.join("  👾  "))
+      return true
+    }
 
-      App.irc_respond(channel, cmds.join(" 👾 "))
+    if (App.cmd_match("help", cmd, "arg")) {
+      if (num_words > 2) { return false }
+      let arg = App.cmd_arg("help", cmd)
+
+      if (arg) {
+        let low = arg.toLowerCase()
+        let filtered = App.cmd_help.filter(x => x.includes(low))
+
+        if (filtered.length > 0) {
+          App.irc_respond(channel, filtered.join("  👾  "))
+        }
+      }
+      
       return true
     }
 
@@ -137,13 +156,7 @@ module.exports = function (App) {
 
     // Commands only admins can use:
 
-    let is_admin = App.is_admin(from)
-    let split = cmd.split(" ")
-    let cmd_key = split.join("_").toLowerCase()
-    let num_words = split.length
-
-    // Check if it matches a config
-    // Print the config value
+    // Check if it matches a config and print the value
     if (Object.keys(App.config).includes(cmd_key)) {
       if (!is_admin) { return true }
       App.cmd_show(channel, cmd_key)
