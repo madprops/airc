@@ -332,7 +332,7 @@ This shows a quick overview of what the bot can do.
 
 ---
 
-Changes to any config are saved in `config.user.json`.
+Changes to any config through commands are saved automatically in `config.user.json`.
 
 `config.json` is left intact and used for default values.
 
