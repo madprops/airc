@@ -205,9 +205,11 @@ Nickname detection is case insensitive. `MyBot` and `mybot` work.
 
 If a message starts with `^`, the bot will use the previous message from itself as context.
 
-It does this by storing the last response from the bot.
+It does this by storing its last response.
 
-This is the only way context is used.
+```js
+last_responses[channel] = response
+```
 
 ---
 
