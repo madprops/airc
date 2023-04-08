@@ -315,6 +315,8 @@ Each bot also has an individual `report` command.
 
 It shows how long ago the bot was launched, and how much memory it is using.
 
+![](https://i.imgur.com/BJKrcAI.jpg)
+
 ---
 
 There's a `config` command that prints a summary of various settings.
