@@ -310,7 +310,7 @@ This empties the rules. Making the bot respond with its default personality.
 
 ---
 
-`max_prompt` | `max_rules` | `max_context` | `max_tokens | max_words`
+`max_prompt` | `max_rules` | `max_context` | `max_tokens | words`
 
 Can be changed by providing a number as an argument:
 
