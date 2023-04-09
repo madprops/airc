@@ -191,23 +191,23 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("max words", cmd, "arg")) {
+    if (App.cmd_match("words", cmd, "arg")) {
       if (num_words > 3) { return false }
       if (!can_rules) { return false }
-      let arg = App.cmd_arg("max words", cmd)
+      let arg = App.cmd_arg("words", cmd)
 
       if (arg) {
         if (arg === "default") {
-          App.update_config("max_words", arg)
-          App.cmd_show(channel, "max_words")
+          App.update_config("words", arg)
+          App.cmd_show(channel, "words")
         }        
         else {
           let n = parseInt(arg)
     
           if (!isNaN(n)) {
             if (n >= 0 && n <= 1000) {
-              App.update_config("max_words", n)
-              App.cmd_show(channel, "max_words")
+              App.update_config("words", n)
+              App.cmd_show(channel, "words")
             }
           }
         }

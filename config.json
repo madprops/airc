@@ -10,11 +10,11 @@
   "max_rules": 350,
   "max_context": 350,
   "rules": "",
+  "words": 60,
   "admins": [
     "madprops"
   ],
   "users": [],
   "allow_ask": "all",
-  "allow_rules": "all",
-  "max_words": 60
+  "allow_rules": "all"
 }

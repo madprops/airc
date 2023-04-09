@@ -115,11 +115,11 @@ module.exports = function (App) {
       prompt = rules + "\n" + prompt
     }
 
-    let max_words = App.config.max_words
+    let words = App.config.words
 
-    if (max_words > 0) {
-      let w = max_words === 1 ? "word" : "words or fewer"
-      prompt = `Respond using ${max_words} ${w}.` + "\n" + prompt
+    if (words > 0) {
+      let w = words === 1 ? "word" : "words or fewer"
+      prompt = `Respond using ${words} ${w}.` + "\n" + prompt
     }
 
     console.info(from + ' => ' + channel + ': ' + prompt)
@@ -143,7 +143,7 @@ module.exports = function (App) {
     for (let key of [
       "model",
       "rules",
-      "max_words",
+      "words",
       "allow_ask",
       "allow_rules",
       "users",
