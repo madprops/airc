@@ -192,7 +192,7 @@ module.exports = function (App) {
     }
 
     if (App.cmd_match("words", cmd, "arg")) {
-      if (num_words > 3) { return false }
+      if (num_words > 2) { return false }
       if (!can_rules) { return false }
       let arg = App.cmd_arg("words", cmd)
 
