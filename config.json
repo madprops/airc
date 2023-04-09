@@ -16,5 +16,5 @@
   "users": [],
   "allow_ask": "all",
   "allow_rules": "all",
-  "max_words": 70
+  "max_words": 60
 }
