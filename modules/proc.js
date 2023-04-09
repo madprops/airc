@@ -143,6 +143,7 @@ module.exports = function (App) {
     for (let key of [
       "model",
       "rules",
+      "max_words",
       "allow_ask",
       "allow_rules",
       "users",
