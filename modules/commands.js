@@ -191,6 +191,25 @@ module.exports = function (App) {
       return true
     }
 
+    if (App.cmd_match("max words", cmd, "arg")) {
+      if (num_words > 3) { return false }
+      if (!can_rules) { return false }
+      let arg = App.cmd_arg("max words", cmd)
+
+      if (arg) {
+        let n = parseInt(arg)
+
+        if (!isNaN(n)) {
+          if (n >= 0 && n <= 1000) {
+            App.update_config("max_words", n)
+            App.cmd_show(channel, "max_words")
+          }
+        }
+      }
+
+      return true
+    }    
+
     // Commands only admins can use:
 
     // Check if it matches a config and print the value

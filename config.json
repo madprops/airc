@@ -15,5 +15,6 @@
   ],
   "users": [],
   "allow_ask": "all",
-  "allow_rules": "all"
+  "allow_rules": "all",
+  "max_words": 100
 }

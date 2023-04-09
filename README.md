@@ -140,6 +140,12 @@ The bigger this is the bigger responses can be, but it gets more expensive.
 
 ---
 
+`max_words`: The bot is instructed to use these many words as a maximum.
+
+If this is set to 0 it is ignored.
+
+---
+
 `rules`: Optional instructions for the bot, they're prepended before every prompt.
 
 For example: `Please respond in the style of Stewie from Family Guy`.
@@ -298,7 +304,7 @@ This empties the rules. Making the bot respond with its default personality.
 
 ---
 
-`max_prompt` | `max_rules` | `max_context` | `max_tokens`
+`max_prompt` | `max_rules` | `max_context` | `max_tokens | max_words`
 
 Can be changed by providing a number as an argument:
 

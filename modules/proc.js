@@ -115,6 +115,13 @@ module.exports = function (App) {
       prompt = rules + "\n" + prompt
     }
 
+    let max_words = App.config.max_words
+
+    if (max_words > 0) {
+      let w = max_words === 1 ? "word" : "words or fewer"
+      prompt = `Respond using ${max_words} ${w}.` + "\n" + prompt
+    }
+
     console.info(from + ' => ' + channel + ': ' + prompt)
 
     App.ask_openai(prompt, function (text) {
