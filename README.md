@@ -140,18 +140,6 @@ The bigger this is the bigger responses can be, but it gets more expensive.
 
 ---
 
-`max_words`: The bot is instructed to use these many words as a maximum.
-
-If this is set to 0 it is ignored.
-
-```js
-prompt = `Respond using ${n} words or fewer.` + "\n" + prompt
-```
-
-Users that are allowed to change the rules can also change this.
-
----
-
 `rules`: Optional instructions for the bot, they're prepended before every prompt.
 
 For example: `Please respond in the style of Stewie from Family Guy`.
@@ -163,6 +151,18 @@ if (rules) {
   prompt = rules + "\n" + prompt
 }
 ```
+
+---
+
+`words`: The bot is instructed to use these many words as a maximum.
+
+If this is set to 0 it is ignored.
+
+```js
+prompt = `Respond using ${n} words or fewer.` + "\n" + prompt
+```
+
+Users that are allowed to change the rules can also change this.
 
 ---
 
