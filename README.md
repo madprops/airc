@@ -145,7 +145,7 @@ The bigger this is the bigger responses can be, but it gets more expensive.
 If this is set to 0 it is ignored.
 
 ```js
-prompt = "Respond using 100 words or fewer" + "\n" + prompt
+prompt = `Respond using ${n} words or fewer.` + "\n" + prompt
 ```
 
 ---
