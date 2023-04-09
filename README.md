@@ -148,6 +148,8 @@ If this is set to 0 it is ignored.
 prompt = `Respond using ${n} words or fewer.` + "\n" + prompt
 ```
 
+Users that are allowed to change the rules can also change this.
+
 ---
 
 `rules`: Optional instructions for the bot, they're prepended before every prompt.
