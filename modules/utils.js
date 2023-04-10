@@ -122,4 +122,8 @@ module.exports = function (App) {
     let used = parseInt(mem.rss / 1000000)
     return used
   }
+
+  App.join = function (list) {
+    return list.join(" 👾 ")
+  }
 }
