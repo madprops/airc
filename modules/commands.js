@@ -189,32 +189,7 @@ module.exports = function (App) {
       if (!can_rules) { return false }
       App.cmd_change_rules(channel, "default")
       return true
-    }
-
-    if (App.cmd_match("words", cmd, "arg")) {
-      if (num_words > 2) { return false }
-      if (!can_rules) { return false }
-      let arg = App.cmd_arg("words", cmd)
-
-      if (arg) {
-        if (arg === "default") {
-          App.update_config("words", arg)
-          App.cmd_show(channel, "words")
-        }        
-        else {
-          let n = parseInt(arg)
-    
-          if (!isNaN(n)) {
-            if (n >= 0 && n <= 1000) {
-              App.update_config("words", n)
-              App.cmd_show(channel, "words")
-            }
-          }
-        }
-      }
-
-      return true
-    }    
+    }  
 
     // Commands only admins can use:
 

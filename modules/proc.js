@@ -115,13 +115,6 @@ module.exports = function (App) {
       prompt = rules + "\n" + prompt
     }
 
-    let words = App.config.words
-
-    if (words > 0) {
-      let w = words === 1 ? "word" : "words or fewer"
-      prompt = `Respond using ${words} ${w}.` + "\n" + prompt
-    }
-
     console.info(from + ' => ' + channel + ': ' + prompt)
 
     App.ask_openai(prompt, function (text) {
@@ -143,7 +136,6 @@ module.exports = function (App) {
     for (let key of [
       "model",
       "rules",
-      "words",
       "allow_ask",
       "allow_rules",
       "users",

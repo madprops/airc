@@ -154,18 +154,6 @@ if (rules) {
 
 ---
 
-`words`: The bot is instructed to use these many words as a maximum.
-
-If this is set to 0 it is ignored.
-
-```js
-prompt = `Respond using ${n} words or fewer.` + "\n" + prompt
-```
-
-Users that are allowed to change the rules can also change this.
-
----
-
 `users`: Array of nicknames. They might have more permissions than non-users.
 
 What they can do can be determined through permissions.
@@ -310,7 +298,7 @@ This empties the rules. Making the bot respond with its default personality.
 
 ---
 
-`max_prompt` | `max_rules` | `max_context` | `max_tokens` | `words`
+`max_prompt` | `max_rules` | `max_context` | `max_tokens`
 
 Can be changed by providing a number as an argument:
 

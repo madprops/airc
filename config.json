@@ -10,7 +10,6 @@
   "max_rules": 350,
   "max_context": 350,
   "rules": "",
-  "words": 60,
   "admins": [
     "madprops"
   ],
