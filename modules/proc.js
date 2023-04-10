@@ -2,7 +2,7 @@
 // Input from irc is checked and maybe sent to openai
 
 module.exports = function (App) {
-  App.process_message = function (from, channel, message) {
+  App.process_message = function (from, channel, text) {
     let can_ask = App.is_allowed("allow_ask", from)
     let can_rules = App.is_allowed("allow_rules", from)
 
@@ -19,40 +19,38 @@ module.exports = function (App) {
     }
 
     App.rate_limit_date = Date.now()
-    message = App.remove_multiple_spaces(message)
-    message = App.remove_multiple_linebreaks(message)
+    text = App.clean(text)
+    let low = text.toLowerCase()
 
-    let low_message = message.toLowerCase()
-
-    if (low_message.includes("http://") || low_message.includes("https://")) {
+    if (low.includes("http://") || low.includes("https://")) {
       return
     }
 
     if (App.is_admin(from)) {
-      if (message === "!report") {
+      if (text === "!report") {
         App.report_self(channel)
         return
       }
 
-      if (message === "!config") {
+      if (text === "!config") {
         App.show_config(channel)
         return
       }
     }
 
-    App.check_nick_mention(from, channel, message)
+    App.check_nick_mention(from, channel, text)
   }
 
-  App.check_nick_mention = function (from, channel, message) {
-    let re = new RegExp(/^(?<nickname>\w+)[,:](?<message>.*)$/, "")
-    let match = message.match(re)
+  App.check_nick_mention = function (from, channel, text) {
+    let re = new RegExp(/^(?<nickname>\w+)[,:](?<text>.*)$/, "")
+    let match = text.match(re)
 
     if (!match) {
       return
     }
 
     let nick = match.groups.nickname.trim()
-    let prompt = match.groups.message.trim()
+    let prompt = match.groups.text.trim()
 
     if (!nick || !prompt) {
       return
@@ -119,6 +117,7 @@ module.exports = function (App) {
     console.info(from + ' => ' + channel + ': ' + prompt)
 
     App.ask_openai(prompt, function (text) {
+      text = App.clean(text)
       text = App.join(text.split("\n"))
       App.irc_respond(channel, text)
       App.last_responses[channel] = text
