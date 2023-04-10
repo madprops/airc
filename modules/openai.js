@@ -1,13 +1,13 @@
 module.exports = function (App) {
   App.models = [
     {
-      short_name: "davinci",
-      full_name: "text-davinci-003",
+      short_name: `davinci`,
+      full_name: `text-davinci-003`,
       method: 1,
     },
     {
-      short_name: "turbo",
-      full_name: "gpt-3.5-turbo",
+      short_name: `turbo`,
+      full_name: `gpt-3.5-turbo`,
       method: 2,
     },
   ]
@@ -28,7 +28,7 @@ module.exports = function (App) {
     })
 
     App.openai_client = new App.i.openai.OpenAIApi(configuration)
-    console.info("Started openai")
+    console.info(`Started openai`)
   }
 
   App.ask_openai = async function (prompt, callback) {
@@ -54,7 +54,7 @@ module.exports = function (App) {
       else if (model.method === 2) {
         let ans = await App.openai_client.createChatCompletion({
           model: model.full_name,
-          messages: [{role: "user", content: prompt}],
+          messages: [{role: `user`, content: prompt}],
           max_tokens: App.config.max_tokens
         })
 
@@ -68,7 +68,7 @@ module.exports = function (App) {
       }
     }
     catch (err) {
-      console.error("openai completion error")
+      console.error(`openai completion error`)
     }
   }
 }

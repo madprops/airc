@@ -3,8 +3,8 @@
 
 module.exports = function (App) {
   App.process_message = function (from, channel, text) {
-    let can_ask = App.is_allowed("allow_ask", from)
-    let can_rules = App.is_allowed("allow_rules", from)
+    let can_ask = App.is_allowed(`allow_ask`, from)
+    let can_rules = App.is_allowed(`allow_rules`, from)
 
     // User can't do anything
     if (!can_ask && !can_rules) {
@@ -22,17 +22,17 @@ module.exports = function (App) {
     text = App.clean(text)
     let low = text.toLowerCase()
 
-    if (low.includes("http://") || low.includes("https://")) {
+    if (low.includes(`http://`) || low.includes(`https://`)) {
       return
     }
 
     if (App.is_admin(from)) {
-      if (text === "!report") {
+      if (text === `!report`) {
         App.report_self(channel)
         return
       }
 
-      if (text === "!config") {
+      if (text === `!config`) {
         App.show_config(channel)
         return
       }
@@ -42,7 +42,7 @@ module.exports = function (App) {
   }
 
   App.check_nick_mention = function (from, channel, text) {
-    let re = new RegExp(/^(?<nickname>\w+)[,:](?<text>.*)$/, "")
+    let re = new RegExp(/^(?<nickname>\w+)[,:](?<text>.*)$/, ``)
     let match = text.match(re)
 
     if (!match) {
@@ -57,21 +57,21 @@ module.exports = function (App) {
     }
 
     if (nick.toLowerCase() === App.nick().toLowerCase()) {
-      if(prompt === "hi" || prompt === "hello") {
-        App.irc_respond(channel, "hi!")
+      if(prompt === `hi` || prompt === `hello`) {
+        App.irc_respond(channel, `hi!`)
         return
       }
 
       // Check if context is used
       let last_response = App.last_responses[channel]
 
-      if (last_response && prompt.startsWith("^")) {
-        let words = prompt.replace("^", "")
+      if (last_response && prompt.startsWith(`^`)) {
+        let words = prompt.replace(`^`, ``)
         App.ask_ai(from, channel, words, last_response)
         return
       }
 
-      if (prompt.endsWith("?")) {
+      if (prompt.endsWith(`?`)) {
         App.ask_ai(from, channel, prompt)
         return
       }
@@ -85,7 +85,7 @@ module.exports = function (App) {
   }
 
   // Prepare prompt and ask openai
-  App.ask_ai = function (from, channel, prompt = "", context = "") {
+  App.ask_ai = function (from, channel, prompt = ``, context = ``) {
     prompt = App.limit(prompt, App.config.max_prompt)
     prompt = App.terminate(prompt)
 
@@ -118,7 +118,7 @@ module.exports = function (App) {
 
     App.ask_openai(prompt, function (text) {
       text = App.clean(text)
-      text = App.join(text.split("\n"))
+      text = App.join(text.split(`\n`))
       App.irc_respond(channel, text)
       App.last_responses[channel] = text
     })
@@ -135,16 +135,16 @@ module.exports = function (App) {
     let info = []
 
     for (let key of [
-      "model",
-      "rules",
-      "allow_ask",
-      "allow_rules",
-      "users",
-      "admins",
+      `model`,
+      `rules`,
+      `allow_ask`,
+      `allow_rules`,
+      `users`,
+      `admins`,
     ]) {
       info.push(App.cmd_info(key))
     }
 
-    App.irc_respond(channel, App.join(info, "|"))
+    App.irc_respond(channel, App.join(info, `|`))
   }
 }

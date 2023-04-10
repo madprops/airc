@@ -7,15 +7,15 @@ module.exports = function (App) {
     key = key.toLowerCase()
     let value
 
-    if (typeof App.config[key] === "object") {
-      value = App.config[key].join(", ")
+    if (typeof App.config[key] === `object`) {
+      value = App.config[key].join(`, `)
     }
     else {
       value = String(App.config[key])
     }
 
-    value = value || "(Empty)"
-    let label = App.capitalize(key.replace(/_/g, " "))
+    value = value || `(Empty)`
+    let label = App.capitalize(key.replace(/_/g, ` `))
     return `${App.irc_bold(label)}: ${value}`
   }
 
@@ -29,11 +29,11 @@ module.exports = function (App) {
 
     let re
 
-    if (mode === "arg") {
-      re = new RegExp(`^${cmd_name} `, "i")
+    if (mode === `arg`) {
+      re = new RegExp(`^${cmd_name} `, `i`)
     }
     else {
-      re = new RegExp(`^${cmd_name}$`, "i")
+      re = new RegExp(`^${cmd_name}$`, `i`)
     }
 
     return re.test(full_cmd)
@@ -41,28 +41,28 @@ module.exports = function (App) {
 
   App.cmd_arg = function (cmd_name, full_cmd) {
     cmd_name = App.escape_regex(cmd_name)
-    let re = new RegExp(`^${cmd_name} `, "i")
-    return full_cmd.replace(re, "").trim()
+    let re = new RegExp(`^${cmd_name} `, `i`)
+    return full_cmd.replace(re, ``).trim()
   }
 
   App.cmd_help_rules = [
-    "you're | you are | ur | respond + [rules]",
-    "reset: empty the rules",
+    `you're | you are | ur | respond + [rules]`,
+    `reset: empty the rules`,
   ]
 
   App.cmd_models = App.models.map(x => x.short_name)
 
   App.cmd_help_admins = [
-    "add user + [nick]",
-    "remove user + [nick]",
-    "allow ask + [all | users | admins]",
-    "allow rules + [all | users | admins]",
-    `model + [${App.cmd_models.join(" | ")}]`,
-    "report: respond with some info",
-    "config: show some of the config",
+    `add user + [nick]`,
+    `remove user + [nick]`,
+    `allow ask + [all | users | admins]`,
+    `allow rules + [all | users | admins]`,
+    `model + [${App.cmd_models.join(` | `)}]`,
+    `report: respond with some info`,
+    `config: show some of the config`,
   ]
 
-  App.cmd_help = function (can_rules, is_admin, filter = "") {
+  App.cmd_help = function (can_rules, is_admin, filter = ``) {
     let help = []
 
     if (can_rules) {
@@ -83,8 +83,8 @@ module.exports = function (App) {
 
   App.cmd_change_rules = function (channel, rules) {
     rules = App.limit(rules, App.config.max_rules)
-    App.update_config("rules", rules)
-    App.cmd_show(channel, "rules")
+    App.update_config(`rules`, rules)
+    App.cmd_show(channel, `rules`)
   }
 
   App.cmd_respond_as = function (thing) {
@@ -92,15 +92,15 @@ module.exports = function (App) {
   }
 
   App.check_commands = function (from, channel, cmd) {
-    let split = cmd.split(" ")
+    let split = cmd.split(` `)
     let num_words = split.length
-    let cmd_key = split.join("_").toLowerCase()
-    let can_rules = App.is_allowed("allow_rules", from)
+    let cmd_key = split.join(`_`).toLowerCase()
+    let can_rules = App.is_allowed(`allow_rules`, from)
     let is_admin = App.is_admin(from)
 
     // Commands that anybody can use:
 
-    if (App.cmd_match("help", cmd, "exact")) {
+    if (App.cmd_match(`help`, cmd, `exact`)) {
       let help = App.cmd_help(can_rules, is_admin)
 
       if (help) {
@@ -110,9 +110,9 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("help", cmd, "arg")) {
+    if (App.cmd_match(`help`, cmd, `arg`)) {
       if (num_words > 3) { return false }
-      let arg = App.cmd_arg("help", cmd)
+      let arg = App.cmd_arg(`help`, cmd)
 
       if (arg) {
         let help = App.cmd_help(can_rules, is_admin, arg)
@@ -125,16 +125,16 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("rules", cmd, "exact")) {
-      App.cmd_show(channel, "rules")
+    if (App.cmd_match(`rules`, cmd, `exact`)) {
+      App.cmd_show(channel, `rules`)
       return true
     }
 
     // Commands that modify rules:
 
-    if (App.cmd_match("rules", cmd, "arg")) {
+    if (App.cmd_match(`rules`, cmd, `arg`)) {
       if (!can_rules) { return false }
-      let arg = App.cmd_arg("rules", cmd)
+      let arg = App.cmd_arg(`rules`, cmd)
 
       if (arg) {
         App.cmd_change_rules(channel, arg)
@@ -143,9 +143,9 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("you're", cmd, "arg")) {
+    if (App.cmd_match(`you're`, cmd, `arg`)) {
       if (!can_rules) { return false }
-      let arg = App.cmd_arg("you're", cmd)
+      let arg = App.cmd_arg(`you're`, cmd)
 
       if (arg) {
         let rules = App.cmd_respond_as(arg)
@@ -155,9 +155,9 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("you are", cmd, "arg")) {
+    if (App.cmd_match(`you are`, cmd, `arg`)) {
       if (!can_rules) { return false }
-      let arg = App.cmd_arg("you are", cmd)
+      let arg = App.cmd_arg(`you are`, cmd)
 
       if (arg) {
         let rules = App.cmd_respond_as(arg)
@@ -167,9 +167,9 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("ur", cmd, "arg")) {
+    if (App.cmd_match(`ur`, cmd, `arg`)) {
       if (!can_rules) { return false }
-      let arg = App.cmd_arg("ur", cmd)
+      let arg = App.cmd_arg(`ur`, cmd)
 
       if (arg) {
         let rules = App.cmd_respond_as(arg)
@@ -179,15 +179,15 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("respond", cmd, "arg")) {
+    if (App.cmd_match(`respond`, cmd, `arg`)) {
       if (!can_rules) { return false }
       App.cmd_change_rules(channel, cmd)
       return true
     }
 
-    if (App.cmd_match("reset", cmd, "exact")) {
+    if (App.cmd_match(`reset`, cmd, `exact`)) {
       if (!can_rules) { return false }
-      App.cmd_change_rules(channel, "default")
+      App.cmd_change_rules(channel, `default`)
       return true
     }  
 
@@ -200,17 +200,17 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("add user", cmd, "arg")) {
+    if (App.cmd_match(`add user`, cmd, `arg`)) {
       if (num_words > 3) { return false }
       if (!is_admin) { return true }
-      let arg = App.cmd_arg("add user", cmd)
+      let arg = App.cmd_arg(`add user`, cmd)
 
       if (arg) {
         if (arg.length <= App.max_user_length) {
           if (!App.is_user(arg) && !App.is_admin(arg)) {
             App.config.users.push(arg)
-            App.update_config("users", App.config.users)
-            App.cmd_show(channel, "users")
+            App.update_config(`users`, App.config.users)
+            App.cmd_show(channel, `users`)
           }
         }
       }
@@ -218,63 +218,63 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("remove user", cmd, "arg")) {
+    if (App.cmd_match(`remove user`, cmd, `arg`)) {
       if (num_words > 3) { return false }
       if (!is_admin) { return true }
-      let arg = App.cmd_arg("remove user", cmd)
+      let arg = App.cmd_arg(`remove user`, cmd)
 
       if (arg) {
         if (App.is_user(arg)) {
           let nick = arg.toLowerCase()
           let users = App.config.users.map(x => x.toLowerCase()).filter(x => x !== nick)
-          App.update_config("users", users)
-          App.cmd_show(channel, "users")
+          App.update_config(`users`, users)
+          App.cmd_show(channel, `users`)
         }
       }
 
       return true
     }
 
-    if (App.cmd_match("users default", cmd, "exact")) {
+    if (App.cmd_match(`users default`, cmd, `exact`)) {
       if (!is_admin) { return true }
-      App.update_config("users", "default")
-      App.cmd_show(channel, "users")
+      App.update_config(`users`, `default`)
+      App.cmd_show(channel, `users`)
       return true
     }
 
-    if (App.cmd_match("allow ask", cmd, "arg")) {
+    if (App.cmd_match(`allow ask`, cmd, `arg`)) {
       if (num_words > 3) { return false }
       if (!is_admin) { return true }
-      let arg = App.cmd_arg("allow ask", cmd)
-      let allowed = ["all", "users", "admins", "default"]
+      let arg = App.cmd_arg(`allow ask`, cmd)
+      let allowed = [`all`, `users`, `admins`, `default`]
 
       if (arg && allowed.includes(arg)) {
-        App.update_config("allow_ask", arg)
-        App.cmd_show(channel, "allow_ask")
+        App.update_config(`allow_ask`, arg)
+        App.cmd_show(channel, `allow_ask`)
       }
 
       return true
     }
 
-    if (App.cmd_match("allow rules", cmd, "arg")) {
+    if (App.cmd_match(`allow rules`, cmd, `arg`)) {
       if (num_words > 3) { return false }
       if (!is_admin) { return true }
-      let arg = App.cmd_arg("allow rules", cmd)
-      let allowed = ["all", "users", "admins", "default"]
+      let arg = App.cmd_arg(`allow rules`, cmd)
+      let allowed = [`all`, `users`, `admins`, `default`]
 
       if (arg && allowed.includes(arg)) {
-        App.update_config("allow_rules", arg)
-        App.cmd_show(channel, "allow_rules")
+        App.update_config(`allow_rules`, arg)
+        App.cmd_show(channel, `allow_rules`)
       }
 
       return true
     }
 
-    if (App.cmd_match("model", cmd, "arg")) {
+    if (App.cmd_match(`model`, cmd, `arg`)) {
       if (num_words > 2) { return false }
       if (!is_admin) { return true }
-      let arg = App.cmd_arg("model", cmd)
-      let allowed = [...App.cmd_models, "default"]
+      let arg = App.cmd_arg(`model`, cmd)
+      let allowed = [...App.cmd_models, `default`]
 
       if (arg && allowed.includes(arg)) {
         let model = arg
@@ -285,24 +285,24 @@ module.exports = function (App) {
           }
         }
 
-        App.update_config("model", model)
-        App.cmd_show(channel, "model")
+        App.update_config(`model`, model)
+        App.cmd_show(channel, `model`)
       }
 
       return true
     }
 
-    if (App.cmd_match("max tokens", cmd, "arg") ||
-    App.cmd_match("max prompt", cmd, "arg") ||
-    App.cmd_match("max context", cmd, "arg") ||
-    App.cmd_match("max rules", cmd, "arg")) {
+    if (App.cmd_match(`max tokens`, cmd, `arg`) ||
+    App.cmd_match(`max prompt`, cmd, `arg`) ||
+    App.cmd_match(`max context`, cmd, `arg`) ||
+    App.cmd_match(`max rules`, cmd, `arg`)) {
       if (num_words > 3) { return false }
       if (!is_admin) { return true }
-      let two = split.slice(0, 2).join(" ")
-      let key = two.split(" ").join("_")
+      let two = split.slice(0, 2).join(` `)
+      let key = two.split(` `).join(`_`)
       let arg = App.cmd_arg(two, cmd)
 
-      if (arg === "default") {
+      if (arg === `default`) {
         App.update_config(key, arg)
         App.cmd_show(channel, key)
       }
@@ -320,22 +320,22 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("report", cmd, "exact")) {
+    if (App.cmd_match(`report`, cmd, `exact`)) {
       if (!is_admin) { return true }
       App.report_self(channel)
       return true
     }
 
-    if (App.cmd_match("config", cmd, "exact")) {
+    if (App.cmd_match(`config`, cmd, `exact`)) {
       if (!is_admin) { return true }
       App.show_config(channel)
       return true
     }
 
-    if (App.cmd_match("join", cmd, "arg")) {
+    if (App.cmd_match(`join`, cmd, `arg`)) {
       if (num_words > 3) { return false }
       if (!is_admin) { return true }
-      let arg = App.cmd_arg("join", cmd)
+      let arg = App.cmd_arg(`join`, cmd)
 
       if (arg) {
         App.join_channel(channel, arg)
@@ -344,16 +344,16 @@ module.exports = function (App) {
       return true
     }
 
-    if (App.cmd_match("leave", cmd, "exact")) {
+    if (App.cmd_match(`leave`, cmd, `exact`)) {
       if (!is_admin) { return true }
       App.leave_channel(channel, channel)
       return true
     }
 
-    if (App.cmd_match("leave", cmd, "arg")) {
+    if (App.cmd_match(`leave`, cmd, `arg`)) {
       if (num_words > 2) { return false }
       if (!is_admin) { return true }
-      let arg = App.cmd_arg("leave", cmd)
+      let arg = App.cmd_arg(`leave`, cmd)
 
       if (arg) {
         App.leave_channel(channel, arg)

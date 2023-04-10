@@ -14,12 +14,12 @@ module.exports = function (App) {
   }
 
   App.is_allowed = function (key, nickname) {
-    if (App.config[key] === "users") {
+    if (App.config[key] === `users`) {
       if (!App.is_user(nickname) && !App.is_admin(nickname)) {
         return false
       }
     }
-    else if (App.config[key] === "admins") {
+    else if (App.config[key] === `admins`) {
       if (!App.is_admin(nickname)) {
         return false
       }
@@ -39,7 +39,7 @@ module.exports = function (App) {
     let result
 
     if (diff < App.MINUTE) {
-      result = "just now"
+      result = `just now`
     }
     else if (diff < App.HOUR) {
       let n = Math.floor(diff / 60 / 1000)
@@ -86,15 +86,15 @@ module.exports = function (App) {
   }
 
   App.escape_regex = function (text) {
-    return text.replace(/[^A-Za-z0-9]/g, "\\$&")
+    return text.replace(/[^A-Za-z0-9]/g, `\\$&`)
   }
 
   App.remove_multiple_spaces = function (text) {
-    return text.trim().replace(/ +/g, " ")
+    return text.trim().replace(/ +/g, ` `)
   }
 
   App.remove_multiple_linebreaks = function (text) {
-    return text.trim().replace(/\n+/g, "\n")
+    return text.trim().replace(/\n+/g, `\n`)
   }
 
   App.clean = function (text) {
@@ -105,9 +105,9 @@ module.exports = function (App) {
 
   App.capitalize = function (text) {
     let result = text.toLowerCase()
-      .split(" ")
+      .split(` `)
       .map(word => word.charAt(0).toUpperCase() + word.substring(1))
-      .join(" ")
+      .join(` `)
 
     return result
   }
@@ -120,7 +120,7 @@ module.exports = function (App) {
   // To avoid autocompletions from the ai
   App.terminate = function (text) {
     if (text && /\w$/.test(text)) {
-      text += "."
+      text += `.`
     }
 
     return text
@@ -133,7 +133,7 @@ module.exports = function (App) {
     return used
   }
 
-  App.join = function (list, char = "👾") {
+  App.join = function (list, char = `👾`) {
     return list.join(` ${char} `)
   }
 }
