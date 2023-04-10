@@ -118,6 +118,7 @@ module.exports = function (App) {
     console.info(from + ' => ' + channel + ': ' + prompt)
 
     App.ask_openai(prompt, function (text) {
+      text = text.split("\n").join(" 👾 ")
       App.irc_respond(channel, text)
       App.last_responses[channel] = text
     })
