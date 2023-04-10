@@ -145,6 +145,6 @@ module.exports = function (App) {
       info.push(App.cmd_info(key))
     }
 
-    App.irc_respond(channel, info.join(" | "))
+    App.irc_respond(channel, App.join(info, "|"))
   }
 }

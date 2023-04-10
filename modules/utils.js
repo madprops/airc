@@ -133,7 +133,7 @@ module.exports = function (App) {
     return used
   }
 
-  App.join = function (list) {
-    return list.join(" 👾 ")
+  App.join = function (list, char = "👾") {
+    return list.join(` ${char} `)
   }
 }
