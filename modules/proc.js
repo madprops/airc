@@ -20,6 +20,7 @@ module.exports = function (App) {
 
     App.rate_limit_date = Date.now()
     message = App.remove_multiple_spaces(message)
+    message = App.remove_multiple_linebreaks(message)
 
     let low_message = message.toLowerCase()
 
@@ -57,7 +58,7 @@ module.exports = function (App) {
       return
     }
 
-    if (nick.toLowerCase() === App.config.nickname.toLowerCase()) {
+    if (nick.toLowerCase() === App.nick().toLowerCase()) {
       if(prompt === "hi" || prompt === "hello") {
         App.irc_respond(channel, "hi!")
         return

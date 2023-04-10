@@ -93,6 +93,10 @@ module.exports = function (App) {
     return text.trim().replace(/ +/g, " ")
   }
 
+  App.remove_multiple_linebreaks = function (text) {
+    return text.trim().replace(/\n+/g, "\n")
+  }  
+
   App.capitalize = function (text) {
     let result = text.toLowerCase()
       .split(" ")

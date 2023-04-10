@@ -84,6 +84,10 @@ module.exports = function (App) {
       App.irc_leave(old_channel)
     }
 
+    App.nick = function () {
+      return App.irc_client.nick
+    }
+
     console.info("Joining irc...")
   }
 }
