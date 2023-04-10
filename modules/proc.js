@@ -94,7 +94,7 @@ module.exports = function (App) {
       context = App.terminate(context)
 
       if (prompt) {
-        prompt = context + "\n" + prompt
+        prompt = `${context}\n${prompt}`
       }
       else {
         prompt = context
@@ -111,7 +111,7 @@ module.exports = function (App) {
     if (rules) {
       rules = App.limit(rules, App.config.max_rules)
       rules = App.terminate(rules)
-      prompt = rules + "\n" + prompt
+      prompt = `${rules}\n${prompt}`
     }
 
     console.info(from + ' => ' + channel + ': ' + prompt)

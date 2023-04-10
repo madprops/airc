@@ -16,7 +16,7 @@ module.exports = function (App) {
 
     value = value || "(Empty)"
     let label = App.capitalize(key.replace(/_/g, " "))
-    return App.irc_bold(label) + ": " + value
+    return `${App.irc_bold(label)}: ${value}`
   }
 
   App.cmd_show = function (channel, key) {
@@ -30,10 +30,10 @@ module.exports = function (App) {
     let re
 
     if (mode === "arg") {
-      re = new RegExp("^" + cmd_name + " ", "i")
+      re = new RegExp(`^${cmd_name} `, "i")
     }
     else {
-      re = new RegExp("^" + cmd_name + "$", "i")
+      re = new RegExp(`^${cmd_name}$`, "i")
     }
 
     return re.test(full_cmd)
@@ -41,7 +41,7 @@ module.exports = function (App) {
 
   App.cmd_arg = function (cmd_name, full_cmd) {
     cmd_name = App.escape_regex(cmd_name)
-    let re = new RegExp("^" + cmd_name + " ", "i")
+    let re = new RegExp(`^${cmd_name} `, "i")
     return full_cmd.replace(re, "").trim()
   }
 
@@ -88,7 +88,7 @@ module.exports = function (App) {
   }
 
   App.cmd_respond_as = function (thing) {
-    return "Respond as if you were " + thing
+    return `Respond as if you were ${thing}`
   }
 
   App.check_commands = function (from, channel, cmd) {

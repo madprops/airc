@@ -48,7 +48,7 @@ module.exports = function (App) {
     }
 
     App.irc_bold = function (text) {
-      return "\x02" + text + "\x0F"
+      return `\x02${text}\x0F`
     }
 
     App.filter_channels = function (ch) {
