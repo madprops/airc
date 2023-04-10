@@ -104,7 +104,7 @@ module.exports = function (App) {
       let help = App.cmd_help(can_rules, is_admin)
 
       if (help) {
-        App.irc_respond(channel, help.join("  👾  "))
+        App.irc_respond(channel, App.join(help))
       }
 
       return true
