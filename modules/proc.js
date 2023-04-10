@@ -114,7 +114,7 @@ module.exports = function (App) {
       prompt = `${rules}\n${prompt}`
     }
 
-    console.info(from + ' => ' + channel + ': ' + prompt)
+    console.info(`${from} => ${channel}: ${prompt}`)
 
     App.ask_openai(prompt, function (text) {
       text = App.clean(text)
