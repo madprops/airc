@@ -138,6 +138,6 @@ module.exports = function (App) {
   }
 
   App.unquote = function (text) {
-    return text.replace(/^"(.*)"$/, `$1`);
+    return text.replace(/^"(.*)"$/, `$1`)
   }
 }
