@@ -136,4 +136,8 @@ module.exports = function (App) {
   App.join = function (list, char = `👾`) {
     return list.join(` ${char} `)
   }
+
+  App.unquote = function (text) {
+    return text.replace(/^"(.*)"$/, `$1`);
+  }
 }
