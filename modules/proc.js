@@ -127,7 +127,9 @@ module.exports = (App) => {
     App.ask_openai(prompt, (text) => {
       text = App.clean(text)
       text = App.unquote(text)
-      text = App.join(text.split(`\n`))
+
+      // Trim each line and join
+      text = App.join(text.split(`\n`).map(x => x.trim()))
 
       if (mention) {
         text = `${mention}: ${text}`

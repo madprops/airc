@@ -100,7 +100,7 @@ module.exports = (App) => {
   App.clean = (text) => {
     text = App.remove_multiple_spaces(text)
     text = App.remove_multiple_linebreaks(text)
-    return text
+    return text.trim()
   }
 
   App.capitalize = (text) => {
