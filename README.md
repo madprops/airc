@@ -228,7 +228,7 @@ It does this by storing its last responses.
 last_responses[channel] = response
 ```
 
-**You**: What is 2 + 2 ?
+**You**: Bot, What is 2 + 2 ?
 
 **Bot**: 2 + 2 = 4
 
@@ -240,7 +240,7 @@ last_responses[channel] = response
 
 If a message ends with `@somenickname`, the response will be directed at that nickname.
 
-**You**: What is 2 + 2 @Sam
+**You**: Bot, What is 2 + 2 @Sam
 
 **Bot**: Sam: 2 + 2 = 4
 
