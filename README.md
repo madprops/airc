@@ -238,6 +238,14 @@ last_responses[channel] = response
 
 ---
 
+If a message ends with `@somenickname`, the response will be directed at that nickname.
+
+**You**: What is 2 + 2 @Sam
+
+**Bot**: Sam: 2 + 2 = 4
+
+---
+
 There is a rate limit cooldown of some seconds after the last message.
 
 This is to avoid attacks or mistakes.
