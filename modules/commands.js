@@ -143,40 +143,18 @@ module.exports = (App) => {
       return true
     }
 
-    if (App.cmd_match(`you're`, cmd, `arg`)) {
-      if (!can_rules) { return false }
-      let arg = App.cmd_arg(`you're`, cmd)
-
-      if (arg) {
-        let rules = App.cmd_respond_as(arg)
-        App.cmd_change_rules(channel, rules)
+    for (let c of [`you're`, `you are`, `ur`]) {
+      if (App.cmd_match(c, cmd, `arg`)) {
+        if (!can_rules) { return false }
+        let arg = App.cmd_arg(c, cmd)
+    
+        if (arg) {
+          let rules = App.cmd_respond_as(arg)
+          App.cmd_change_rules(channel, rules)
+        }
+    
+        return true
       }
-
-      return true
-    }
-
-    if (App.cmd_match(`you are`, cmd, `arg`)) {
-      if (!can_rules) { return false }
-      let arg = App.cmd_arg(`you are`, cmd)
-
-      if (arg) {
-        let rules = App.cmd_respond_as(arg)
-        App.cmd_change_rules(channel, rules)
-      }
-
-      return true
-    }
-
-    if (App.cmd_match(`ur`, cmd, `arg`)) {
-      if (!can_rules) { return false }
-      let arg = App.cmd_arg(`ur`, cmd)
-
-      if (arg) {
-        let rules = App.cmd_respond_as(arg)
-        App.cmd_change_rules(channel, rules)
-      }
-
-      return true
     }
 
     if (App.cmd_match(`respond`, cmd, `arg`)) {
