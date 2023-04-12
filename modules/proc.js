@@ -3,8 +3,8 @@
 
 module.exports = (App) => {
   App.process_message = (from, channel, text) => {
-    let can_ask = App.is_allowed(`allow_ask`, from)
-    let can_rules = App.is_allowed(`allow_rules`, from)
+    let can_ask = App.is_allowed(`ask`, from)
+    let can_rules = App.is_allowed(`rules`, from)
 
     // User can't do anything
     if (!can_ask && !can_rules) {

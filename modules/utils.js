@@ -13,13 +13,15 @@ module.exports = (App) => {
     return App.config.admins.map(x => x.toLowerCase()).some(x => x === nick)
   }
 
-  App.is_allowed = (key, nickname) => {
-    if (App.config[key] === `users`) {
+  App.is_allowed = (what, nickname) => {
+    let config = App.config[`allow_${what}`]
+
+    if (config === `users`) {
       if (!App.is_user(nickname) && !App.is_admin(nickname)) {
         return false
       }
     }
-    else if (App.config[key] === `admins`) {
+    else if (config === `admins`) {
       if (!App.is_admin(nickname)) {
         return false
       }
