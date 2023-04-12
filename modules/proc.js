@@ -86,6 +86,14 @@ module.exports = function (App) {
 
   // Prepare prompt and ask openai
   App.ask_ai = function (from, channel, prompt = ``, context = ``) {
+    let mention
+
+    // Check for @nick at the end to direct the response at
+    prompt = prompt.replace(/\s\@\s*(\w+)$/, (match, group) => {
+      mention = group
+      return ``
+    })
+
     prompt = App.limit(prompt, App.config.max_prompt)
     prompt = App.terminate(prompt)
 
@@ -120,6 +128,11 @@ module.exports = function (App) {
       text = App.clean(text)
       text = App.unquote(text)
       text = App.join(text.split(`\n`))
+
+      if (mention) {
+        text = `${mention}: ${text}`
+      }
+
       App.irc_respond(channel, text)
       App.last_responses[channel] = text
     })
