@@ -14,19 +14,19 @@ App.max_user_length = 25
 App.rate_limit_delay = 2000
 App.rate_limit_date = Date.now()
 
-App.get_user_config = function () {
+App.get_user_config = () => {
   let json_text = App.i.fs.readFileSync(App.get_config_path(), `utf8`)
   let obj = JSON.parse(json_text)
   return obj
 }
 
 // Get the correct config path
-App.get_config_path = function () {
+App.get_config_path = () => {
   let p = App.i.path.dirname(__filename)
   return App.i.path.join(p, `config.user.json`)
 }
 
-App.update_config = function (key, value) {
+App.update_config = (key, value) => {
   try {
     key = key.toLowerCase()
     let user_config = App.get_user_config()

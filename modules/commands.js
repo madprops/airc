@@ -2,8 +2,8 @@
 // If it returns true it stops the prompt to trigger a question
 // Checks return true to avoid asking when cmds were meant
 
-module.exports = function (App) {
-  App.cmd_info = function (key) {
+module.exports = (App) => {
+  App.cmd_info = (key) => {
     key = key.toLowerCase()
     let value
 
@@ -19,12 +19,12 @@ module.exports = function (App) {
     return `${App.irc_bold(label)}: ${value}`
   }
 
-  App.cmd_show = function (channel, key) {
+  App.cmd_show = (channel, key) => {
     let info = App.cmd_info(key)
     App.irc_respond(channel, info)
   }
 
-  App.cmd_match = function (cmd_name, full_cmd, mode) {
+  App.cmd_match = (cmd_name, full_cmd, mode) => {
     cmd_name = App.escape_regex(cmd_name)
 
     let re
@@ -39,7 +39,7 @@ module.exports = function (App) {
     return re.test(full_cmd)
   }
 
-  App.cmd_arg = function (cmd_name, full_cmd) {
+  App.cmd_arg = (cmd_name, full_cmd) => {
     cmd_name = App.escape_regex(cmd_name)
     let re = new RegExp(`^${cmd_name} `, `i`)
     return full_cmd.replace(re, ``).trim()
@@ -62,7 +62,7 @@ module.exports = function (App) {
     `config: show some of the config`,
   ]
 
-  App.cmd_help = function (can_rules, is_admin, filter = ``) {
+  App.cmd_help = (can_rules, is_admin, filter = ``) => {
     let help = []
 
     if (can_rules) {
@@ -81,17 +81,17 @@ module.exports = function (App) {
     return help
   }
 
-  App.cmd_change_rules = function (channel, rules) {
+  App.cmd_change_rules = (channel, rules) => {
     rules = App.limit(rules, App.config.max_rules)
     App.update_config(`rules`, rules)
     App.cmd_show(channel, `rules`)
   }
 
-  App.cmd_respond_as = function (thing) {
+  App.cmd_respond_as = (thing) => {
     return `Respond as if you were ${thing}`
   }
 
-  App.check_commands = function (from, channel, cmd) {
+  App.check_commands = (from, channel, cmd) => {
     let split = cmd.split(` `)
     let num_words = split.length
     let cmd_key = split.join(`_`).toLowerCase()

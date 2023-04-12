@@ -1,19 +1,19 @@
-module.exports = function (App) {
-  App.get_random_int = function (min, max) {
+module.exports = (App) => {
+  App.get_random_int = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
-  App.is_user = function (nickname) {
+  App.is_user = (nickname) => {
     let nick = nickname.toLowerCase()
     return App.config.users.map(x => x.toLowerCase()).some(x => x === nick)
   }
 
-  App.is_admin = function (nickname) {
+  App.is_admin = (nickname) => {
     let nick = nickname.toLowerCase()
     return App.config.admins.map(x => x.toLowerCase()).some(x => x === nick)
   }
 
-  App.is_allowed = function (key, nickname) {
+  App.is_allowed = (key, nickname) => {
     if (App.config[key] === `users`) {
       if (!App.is_user(nickname) && !App.is_admin(nickname)) {
         return false
@@ -34,7 +34,7 @@ module.exports = function (App) {
   App.YEAR = 31536000000
 
   // Return a timeago string
-  App.timeago = function (date) {
+  App.timeago = (date) => {
     let diff = Date.now() - date
     let result
 
@@ -85,25 +85,25 @@ module.exports = function (App) {
     return result
   }
 
-  App.escape_regex = function (text) {
+  App.escape_regex = (text) => {
     return text.replace(/[^A-Za-z0-9]/g, `\\$&`)
   }
 
-  App.remove_multiple_spaces = function (text) {
+  App.remove_multiple_spaces = (text) => {
     return text.trim().replace(/ +/g, ` `)
   }
 
-  App.remove_multiple_linebreaks = function (text) {
+  App.remove_multiple_linebreaks = (text) => {
     return text.trim().replace(/\n+/g, `\n`)
   }
 
-  App.clean = function (text) {
+  App.clean = (text) => {
     text = App.remove_multiple_spaces(text)
     text = App.remove_multiple_linebreaks(text)
     return text
   }
 
-  App.capitalize = function (text) {
+  App.capitalize = (text) => {
     let result = text.toLowerCase()
       .split(` `)
       .map(word => word.charAt(0).toUpperCase() + word.substring(1))
@@ -112,13 +112,13 @@ module.exports = function (App) {
     return result
   }
 
-  App.limit = function (text, limit) {
+  App.limit = (text, limit) => {
     return text.substring(0, limit).trim()
   }
 
   // Add proper punctuation at the end
   // To avoid autocompletions from the ai
-  App.terminate = function (text) {
+  App.terminate = (text) => {
     if (text && /\w$/.test(text)) {
       text += `.`
     }
@@ -127,17 +127,17 @@ module.exports = function (App) {
   }
 
   // Return in MB
-  App.get_memory_used = function () {
+  App.get_memory_used = () => {
     let mem = App.i.process.memoryUsage()
     let used = parseInt(mem.rss / 1000000)
     return used
   }
 
-  App.join = function (list, char = `👾`) {
+  App.join = (list, char = `👾`) => {
     return list.join(` ${char} `)
   }
 
-  App.unquote = function (text) {
+  App.unquote = (text) => {
     return text.replace(/^"(.*)"$/, `$1`)
   }
 }

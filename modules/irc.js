@@ -1,11 +1,11 @@
-module.exports = function (App) {
-  App.start_irc = function () {
+module.exports = (App) => {
+  App.start_irc = () => {
     App.irc_client = new App.i.irc.Client(App.config.server, App.config.nickname, {
       channels: App.config.channels,
       messageSplit: 444
     })
 
-    App.irc_client.addListener(`message`, function (from, channel, message) {
+    App.irc_client.addListener(`message`, (from, channel, message) => {
       // Ignore private messages
       if (!channel.startsWith(`#`)) {
         return
@@ -19,44 +19,44 @@ module.exports = function (App) {
       }
     })
 
-    App.irc_client.addListener(`selfMessage`, function (channel, message) {
+    App.irc_client.addListener(`selfMessage`, (channel, message) => {
       // Messages from the bot itself
     })
 
     // Without this it might crash sometimes
-    App.irc_client.addListener(`error`, function(e) {
+    App.irc_client.addListener(`error`, (e) => {
       console.error(`irc error`)
     })
 
-    App.irc_client.addListener(`join`, function(channel, nick, message) {
+    App.irc_client.addListener(`join`, (channel, nick, message) => {
       console.info(`Joined ${channel}`)
     })
 
-    App.irc_client.addListener(`part`, function(channel, nick, reason, message) {
+    App.irc_client.addListener(`part`, (channel, nick, reason, message) => {
       console.info(`Left ${channel}`)
     })
 
-    App.irc_respond = function (channel, message) {
+    App.irc_respond = (channel, message) => {
       App.irc_client.say(channel, message)
     }
 
-    App.irc_join = function (channel) {
+    App.irc_join = (channel) => {
       App.irc_client.join(channel)
     }
 
-    App.irc_leave = function (channel) {
+    App.irc_leave = (channel) => {
       App.irc_client.part(channel)
     }
 
-    App.irc_bold = function (text) {
+    App.irc_bold = (text) => {
       return `\x02${text}\x0F`
     }
 
-    App.filter_channels = function (ch) {
+    App.filter_channels = (ch) => {
       App.config.channels = App.config.channels.filter(x => x.split(` `)[0].toLowerCase() !== ch)
     }
 
-    App.join_channel = function (channel, new_channel) {
+    App.join_channel = (channel, new_channel) => {
       // The argument might contain the password
       let split = new_channel.split(` `)
       let ch = split[0].toLowerCase()
@@ -72,7 +72,7 @@ module.exports = function (App) {
       App.irc_join(new_channel)
     }
 
-    App.leave_channel = function (channel, old_channel) {
+    App.leave_channel = (channel, old_channel) => {
       let ch = old_channel.toLowerCase()
 
       if (!ch.startsWith(`#`)) {
@@ -85,7 +85,7 @@ module.exports = function (App) {
       App.irc_leave(old_channel)
     }
 
-    App.nick = function () {
+    App.nick = () => {
       return App.irc_client.nick
     }
 

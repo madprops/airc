@@ -1,8 +1,8 @@
 // These are functions that process a received message
 // Input from irc is checked and maybe sent to openai
 
-module.exports = function (App) {
-  App.process_message = function (from, channel, text) {
+module.exports = (App) => {
+  App.process_message = (from, channel, text) => {
     let can_ask = App.is_allowed(`allow_ask`, from)
     let can_rules = App.is_allowed(`allow_rules`, from)
 
@@ -41,7 +41,7 @@ module.exports = function (App) {
     App.check_nick_mention(from, channel, text)
   }
 
-  App.check_nick_mention = function (from, channel, text) {
+  App.check_nick_mention = (from, channel, text) => {
     let re = new RegExp(/^(?<nickname>\w+)[,:](?<text>.*)$/, ``)
     let match = text.match(re)
 
@@ -85,7 +85,7 @@ module.exports = function (App) {
   }
 
   // Prepare prompt and ask openai
-  App.ask_ai = function (from, channel, prompt = ``, context = ``) {
+  App.ask_ai = (from, channel, prompt = ``, context = ``) => {
     let mention
 
     // Check for @nick at the end to direct the response at
@@ -124,7 +124,7 @@ module.exports = function (App) {
 
     console.info(`${from} => ${channel}: ${prompt}`)
 
-    App.ask_openai(prompt, function (text) {
+    App.ask_openai(prompt, (text) => {
       text = App.clean(text)
       text = App.unquote(text)
       text = App.join(text.split(`\n`))
@@ -138,14 +138,14 @@ module.exports = function (App) {
     })
   }
 
-  App.report_self = function (channel) {
+  App.report_self = (channel) => {
     let timeago = App.timeago(App.date_started)
     let memory = App.get_memory_used()
     App.irc_respond(channel, `🚀 Launched ${timeago} | Memory: ${memory} MB`)
     return
   }
 
-  App.show_config = function (channel) {
+  App.show_config = (channel) => {
     let info = []
 
     for (let key of [

@@ -1,4 +1,4 @@
-module.exports = function (App) {
+module.exports = (App) => {
   App.models = [
     {
       short_name: `davinci`,
@@ -12,7 +12,7 @@ module.exports = function (App) {
     },
   ]
 
-  App.get_model = function () {
+  App.get_model = () => {
     let full_name = App.config.model
 
     for (let model of App.models) {
@@ -22,7 +22,7 @@ module.exports = function (App) {
     }
   }
 
-  App.start_openai = function () {
+  App.start_openai = () => {
     let configuration = new App.i.openai.Configuration({
       apiKey: process.env.OPENAI_API_KEY
     })
@@ -31,7 +31,7 @@ module.exports = function (App) {
     console.info(`Started openai`)
   }
 
-  App.ask_openai = async function (prompt, callback) {
+  App.ask_openai = async (prompt, callback) => {
     let model = App.get_model()
 
     try {
