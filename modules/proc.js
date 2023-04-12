@@ -89,7 +89,7 @@ module.exports = (App) => {
     let mention
 
     // Check for @nick at the end to direct the response at
-    prompt = prompt.replace(/\s\@\s*(\w+)$/, (match, group) => {
+    prompt = prompt.replace(/\@\s*(\w+)$/, (match, group) => {
       mention = group
       return ``
     })
