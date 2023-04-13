@@ -246,11 +246,7 @@ If a message ends with `@somenickname`, the response will be directed at that ni
 
 ---
 
-There is a rate limit cooldown of some seconds after the last message.
-
-This is to avoid attacks or mistakes.
-
-Only admins bypass this check.
+There's an automatic antispam system that bans users who abuse the bot.
 
 ---
 

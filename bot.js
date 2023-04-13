@@ -15,8 +15,13 @@ App.i.openai = require(`openai`)
 
 App.last_responses = {}
 App.max_user_length = 25
-App.rate_limit_delay = 2000
-App.rate_limit_date = Date.now()
+
+// Reach this level to get banned temporarily
+App.antispam_max_limit = 5
+// Ban duration in minutes
+App.antispam_ban_duration = 60
+// Decrease a level every this ms
+App.antispam_check_delay = 1200
 
 App.get_user_config = () => {
   let json_text = App.i.fs.readFileSync(App.get_config_path(), `utf8`)
@@ -75,12 +80,14 @@ require(`./modules/irc.js`)(App)
 require(`./modules/openai.js`)(App)
 require(`./modules/proc.js`)(App)
 require(`./modules/commands.js`)(App)
+require(`./modules/antispam.js`)(App)
 
 // Check if model is still supported
 if (!App.models[App.config.model]) {
   App.update_config(`model`, `default`)
 }
 
+App.start_antispam()
 App.start_openai()
 App.start_irc()
 App.date_started = Date.now()

@@ -3,6 +3,11 @@
 
 module.exports = (App) => {
   App.process_message = (from, channel, text) => {
+    // Ignore if user is banned
+    if (App.check_ban(from)) {
+      return
+    }
+
     let can_ask = App.is_allowed(`ask`, from)
     let can_rules = App.is_allowed(`rules`, from)
 
@@ -11,14 +16,6 @@ module.exports = (App) => {
       return
     }
 
-    // Rate limit to avoid attacks or mistakes
-    if (!App.is_admin(from)) {
-      if ((Date.now() - App.rate_limit_date) <= App.rate_limit_delay) {
-        return
-      }
-    }
-
-    App.rate_limit_date = Date.now()
     text = App.clean(text)
     let low = text.toLowerCase()
 
@@ -55,6 +52,13 @@ module.exports = (App) => {
     if (!nick || !prompt) {
       return
     }
+
+    // Add one spam point
+    if (App.add_spam(from)) {
+      let mins = App.antispam_ban_duration
+      App.irc_respond(channel, `${from} was banned for ${mins} minutes.`)
+      return
+    }   
 
     if (nick.toLowerCase() === App.nick().toLowerCase()) {
       if(prompt === `hi` || prompt === `hello`) {
