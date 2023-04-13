@@ -12,6 +12,14 @@ module.exports = (App) => {
     },
   ]
 
+  App.temps = {
+    "min": 0,
+    "low": 0.5,
+    "normal": 1,
+    "high": 1.5,
+    "max": 2,
+  }
+
   App.get_model = () => {
     let full_name = App.config.model
 
@@ -20,6 +28,10 @@ module.exports = (App) => {
         return model
       }
     }
+  }
+
+  App.get_temp = function () {
+    return App.temps[App.config.temp]
   }
 
   App.start_openai = () => {
@@ -39,7 +51,8 @@ module.exports = (App) => {
         let ans = await App.openai_client.createCompletion({
           model: model.full_name,
           prompt: prompt,
-          max_tokens: App.config.max_tokens
+          max_tokens: App.config.max_tokens,
+          temperature: App.get_temp(),
         })
 
         if (ans.status === 200) {
@@ -55,7 +68,8 @@ module.exports = (App) => {
         let ans = await App.openai_client.createChatCompletion({
           model: model.full_name,
           messages: [{role: `user`, content: prompt}],
-          max_tokens: App.config.max_tokens
+          max_tokens: App.config.max_tokens,
+          temperature: App.get_temp(),          
         })
 
         if (ans.status === 200) {

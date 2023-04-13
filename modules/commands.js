@@ -51,6 +51,7 @@ module.exports = (App) => {
   ]
 
   App.cmd_models = App.models.map(x => x.short_name)
+  App.cmd_temps = Object.keys(App.temps)
 
   App.cmd_help_admins = [
     `add user + [nick]`,
@@ -58,6 +59,7 @@ module.exports = (App) => {
     `allow ask + [all | users | admins]`,
     `allow rules + [all | users | admins]`,
     `model + [${App.cmd_models.join(` | `)}]`,
+    `temp + [${App.cmd_temps.join(` | `)}]`,
     `report: respond with some info`,
     `config: show some of the config`,
   ]
@@ -339,6 +341,20 @@ module.exports = (App) => {
 
       return true
     }
+
+    if (App.cmd_match(`temp`, cmd, `arg`)) {
+      if (num_words > 2) { return false }
+      if (!is_admin) { return true }
+      let arg = App.cmd_arg(`temp`, cmd)
+      let allowed = [`min`, `low`, `normal`, `high`, `max`, `default`]
+
+      if (arg && allowed.includes(arg)) {
+        App.update_config(`temp`, arg)
+        App.cmd_show(channel, `temp`)
+      }
+
+      return true
+    }    
   }
 
   return false

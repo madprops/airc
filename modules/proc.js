@@ -155,6 +155,7 @@ module.exports = (App) => {
       `rules`,
       `allow_ask`,
       `allow_rules`,
+      `temp`,
       `users`,
       `admins`,
     ]) {
