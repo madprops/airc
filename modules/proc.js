@@ -162,6 +162,6 @@ module.exports = (App) => {
       info.push(App.cmd_info(key))
     }
 
-    App.irc_respond(channel, App.join(info))
+    App.irc_respond(channel, App.join(info, `|`))
   }
 }
