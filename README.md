@@ -410,8 +410,8 @@ Change details accordingly.
 
 ```bash
 #!/usr/bin/env bash
-cd && cd mybot && git pull
-cd && cd otherbot && git pull
+cd && cd mybot && git pull && npm install
+cd && cd otherbot && git pull && npm install
 ```
 
 ---
