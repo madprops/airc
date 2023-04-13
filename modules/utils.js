@@ -135,7 +135,7 @@ module.exports = (App) => {
     return used
   }
 
-  App.join = (list, char = `👾`) => {
+  App.join = (list, char = `|`) => {
     return list.join(` ${char} `)
   }
 

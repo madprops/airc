@@ -47,7 +47,7 @@ module.exports = (App) => {
 
   App.cmd_help_rules = [
     `you're | you are | ur | respond + [ rules ]`,
-    `reset: empty the rules`,
+    `reset: Empty the rules`,
   ]
 
   App.cmd_models = App.models.map(x => x.short_name)
@@ -60,8 +60,10 @@ module.exports = (App) => {
     `allow rules + [ all | users | admins ]`,
     `model + [ ${App.cmd_models.join(` | `)} ]`,
     `temp + [ ${App.cmd_temps.join(` | `)} ]`,
-    `report: respond with some info`,
-    `config: show some of the config`,
+    `report: Respond with some info`,
+    `config: Show some of the config`,
+    `Start with ^: Use previous response as context`,
+    `End with @nick: Make the bot mention that nick`,
   ]
 
   App.cmd_help = (can_rules, is_admin, filter = ``) => {
