@@ -122,11 +122,16 @@ module.exports = (App) => {
 
       // With argument
       if (ans.arg) {
-        if (!c.on_arg) { return false }
+        if (!c.on_arg) {
+          return false
+        }
 
         if (c.limit_words) {
           let max_args = c.name.split(` `).length + 2
-          if (obj.num_words > max_args) { return false }
+
+          if (obj.num_words > max_args) {
+            return false
+          }
         }
 
         obj.arg = ans.arg
@@ -134,7 +139,10 @@ module.exports = (App) => {
       }
       // Exact match
       else {
-        if (!c.on_exact) { return false }
+        if (!c.on_exact) {
+          return false
+        }
+
         c.on_exact(obj)
       }
 
@@ -259,7 +267,7 @@ module.exports = (App) => {
         }
       },
       allow: `admins`,
-      limit_words: true,      
+      limit_words: true,
     },
     {
       name: `clear users`,
@@ -268,7 +276,7 @@ module.exports = (App) => {
         App.cmd_show(obj.channel, `users`)
       },
       allow: `admins`,
-      limit_words: true,      
+      limit_words: true,
     },
     {
       name: `allow ask`,
@@ -281,7 +289,7 @@ module.exports = (App) => {
         }
       },
       allow: `admins`,
-      limit_words: true,      
+      limit_words: true,
     },
     {
       name: `allow rules`,
@@ -294,7 +302,7 @@ module.exports = (App) => {
         }
       },
       allow: `admins`,
-      limit_words: true,      
+      limit_words: true,
     },
     {
       name: `model`,
@@ -316,7 +324,7 @@ module.exports = (App) => {
         }
       },
       allow: `admins`,
-      limit_words: true,      
+      limit_words: true,
     },
     {
       name: `max prompt`,
@@ -324,7 +332,7 @@ module.exports = (App) => {
         App.cmd_num(`max_prompt`, obj)
       },
       allow: `admins`,
-      limit_words: true,      
+      limit_words: true,
     },
     {
       name: `max context`,
@@ -332,7 +340,7 @@ module.exports = (App) => {
         App.cmd_num(`max_context`, obj)
       },
       allow: `admins`,
-      limit_words: true,      
+      limit_words: true,
     },
     {
       name: `max rules`,
@@ -340,7 +348,7 @@ module.exports = (App) => {
         App.cmd_num(`max_rules`, obj)
       },
       allow: `admins`,
-      limit_words: true,      
+      limit_words: true,
     },
     {
       name: `max tokens`,
@@ -348,7 +356,7 @@ module.exports = (App) => {
         App.cmd_num(`max_tokens`, obj)
       },
       allow: `admins`,
-      limit_words: true,      
+      limit_words: true,
     },
     {
       name: `report`,
@@ -356,7 +364,7 @@ module.exports = (App) => {
         App.report_self(obj.channel)
       },
       allow: `admins`,
-      limit_words: true,      
+      limit_words: true,
     },
     {
       name: `config`,
@@ -364,7 +372,7 @@ module.exports = (App) => {
         App.show_config(obj.channel)
       },
       allow: `admins`,
-      limit_words: true,      
+      limit_words: true,
     },
     {
       name: `join`,
@@ -372,7 +380,7 @@ module.exports = (App) => {
         App.join_channel(obj.channel, obj.arg)
       },
       allow: `admins`,
-      limit_words: true,      
+      limit_words: true,
     },
     {
       name: `leave`,
@@ -383,7 +391,7 @@ module.exports = (App) => {
         App.leave_channel(obj.channel, obj.arg)
       },
       allow: `admins`,
-      limit_words: true,      
+      limit_words: true,
     },
     {
       name: `temp`,
