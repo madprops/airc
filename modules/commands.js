@@ -84,6 +84,7 @@ module.exports = (App) => {
   App.cmd_help_admins = [
     `add user + [ nick ]`,
     `remove user + [ nick ]`,
+    `clear users`,
     `allow ask + [ all | users | admins ]`,
     `allow rules + [ all | users | admins ]`,
     `model + [ ${App.join(App.cmd_models, `|`)} ]`,
@@ -245,6 +246,15 @@ module.exports = (App) => {
 
       return true
     }
+
+    ans = App.cmd_match(`clear users`, cmd, `exact`)
+
+    if (ans[0]) {
+      if (!is_admin) { return true }
+      App.update_config(`users`, `default`)
+      App.cmd_show(channel, `users`)
+      return true
+    }    
 
     ans = App.cmd_match(`allow ask`, cmd, `arg`)
 
