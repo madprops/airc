@@ -4,7 +4,7 @@
   "channels": [
     "#airc-test"
   ],
-  "model": "text-davinci-003",
+  "model": "davinci",
   "max_tokens": 200,
   "max_prompt": 350,
   "max_rules": 350,

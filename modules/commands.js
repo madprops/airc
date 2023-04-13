@@ -50,7 +50,7 @@ module.exports = (App) => {
     `reset: Empty the rules`,
   ]
 
-  App.cmd_models = App.models.map(x => x.short_name)
+  App.cmd_models = Object.keys(App.models)
   App.cmd_temps = Object.keys(App.temps)
 
   App.cmd_help_admins = [
@@ -261,9 +261,10 @@ module.exports = (App) => {
       if (arg && allowed.includes(arg)) {
         let model = arg
 
-        for (let m of App.models) {
-          if (m.short_name === model) {
-            model = m.full_name
+        for (let key of App.cmd_models) {
+          if (key === model) {
+            model = key
+            break
           }
         }
 

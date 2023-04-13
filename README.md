@@ -104,11 +104,11 @@ These can contain passwords: `#mychannel channelpass`.
 
 `model`: Which openai model to use.
 
-Either `text-davinci-003` or `gpt-3.5-turbo`.
+Either `davinci` or `turbo`.
 
 davinci is more fun, can impersonate anything.
 
-3.5 turbo is cheaper but a lot more filtered.
+turbo is cheaper but a lot more filtered.
 
 ---
 

@@ -77,7 +77,7 @@ require(`./modules/commands.js`)(App)
 require(`./modules/utils.js`)(App)
 
 // Check if model is still supported
-if (!App.get_model()) {
+if (!App.models[App.config.model]) {
   App.update_config(`model`, `default`)
 }
 

@@ -1,33 +1,21 @@
 module.exports = (App) => {
-  App.models = [
-    {
-      short_name: `davinci`,
-      full_name: `text-davinci-003`,
+  App.models = {
+    davinci: {
+      name: `text-davinci-003`,
       method: 1,
     },
-    {
-      short_name: `turbo`,
-      full_name: `gpt-3.5-turbo`,
+    turbo: {
+      name: `gpt-3.5-turbo`,
       method: 2,
     },
-  ]
-
-  App.temps = {
-    "min": 0,
-    "low": 0.5,
-    "normal": 1,
-    "high": 1.5,
-    "max": 2,
   }
 
-  App.get_model = () => {
-    let full_name = App.config.model
-
-    for (let model of App.models) {
-      if (model.full_name === full_name) {
-        return model
-      }
-    }
+  App.temps = {
+    min: 0,
+    low: 0.5,
+    normal: 1,
+    high: 1.5,
+    max: 2,
   }
 
   App.get_temp = function () {
@@ -44,12 +32,13 @@ module.exports = (App) => {
   }
 
   App.ask_openai = async (prompt, callback) => {
-    let model = App.get_model()
+    let model = App.models[App.config.model]
+    console.info(`Model: ${model.name} | Method: ${model.method}`)
 
     try {
       if (model.method === 1) {
         let ans = await App.openai_client.createCompletion({
-          model: model.full_name,
+          model: model.name,
           prompt: prompt,
           max_tokens: App.config.max_tokens,
           temperature: App.get_temp(),
@@ -66,7 +55,7 @@ module.exports = (App) => {
 
       else if (model.method === 2) {
         let ans = await App.openai_client.createChatCompletion({
-          model: model.full_name,
+          model: model.name,
           messages: [{role: `user`, content: prompt}],
           max_tokens: App.config.max_tokens,
           temperature: App.get_temp(),
