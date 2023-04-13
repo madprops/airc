@@ -294,6 +294,8 @@ This empties the rules. Making the bot respond with its default personality.
 
 `remove user [nickname]`: Remove a nickname from the users array. 
 
+`clear users`: Remove all users, empty array. 
+
 ---
 
 `allow ask [all | users | admins]`: Change `ask` permission.
@@ -367,6 +369,14 @@ So the default in `config.json` is used.
 All commands are ignored if the message ends with `?`.
 
 Because most likely it's meant as a question for the ai.
+
+---
+
+Commands have a 0.8 similarity check.
+
+For example `modelz` can pass as `model`.
+
+This is to permit small typos.
 
 ---
 
