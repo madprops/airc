@@ -71,13 +71,23 @@ module.exports = (App) => {
         return
       }
 
-      if (prompt.endsWith(`?`)) {
+      let is_question = prompt.endsWith(`?`)
+      
+      if (is_question) {
         App.ask_ai(from, channel, prompt)
         return
       }
 
       if (App.check_commands(from, channel, prompt)) {
         return
+      }
+      
+      if (!is_question) {
+        let num_words = prompt.split(` `).length
+
+        if (num_words <= 2) {
+          return
+        }
       }
 
       App.ask_ai(from, channel, prompt)
