@@ -16,5 +16,7 @@
   "users": [],
   "allow_ask": "all",
   "allow_rules": "all",
-  "temp": "normal"
+  "temp": "normal",
+  "antispam_limit": 5,
+  "antispam_ban_minutes": 60
 }

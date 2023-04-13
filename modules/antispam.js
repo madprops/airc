@@ -9,7 +9,7 @@
   App.antispam_timeout = function () {
     setTimeout(function () {
       App.antispam_timeout_action()
-    }, App.antispam_check_delay)
+    }, 1200)
   }
 
   // What to do on each anti spam iteration
@@ -48,7 +48,7 @@
     let user = App.antispam_nicknames[nick]
     user.level += amount
 
-    if (user.level >= App.antispam_max_limit) {
+    if (user.level >= App.config.antispam_limit) {
       App.antispam_ban(nick)
       return true
     }
@@ -57,7 +57,7 @@
   }
 
   // Ban a user from connecting
-  App.antispam_ban = function (nickname, minutes = App.antispam_ban_duration) {
+  App.antispam_ban = function (nickname) {
     let nick = nickname.toLowerCase()
     let user = App.antispam_nicknames[nick]
 
@@ -66,7 +66,8 @@
     }
 
     user.banned = true
-    user.banned_until = Date.now() + (minutes * 1000 * 60)
+    let mins = App.config.antispam_ban_minutes * 1000 * 60
+    user.banned_until = Date.now() + mins
     console.info(`Nickname banned: ${nickname}`)
   }
 
