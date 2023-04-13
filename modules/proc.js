@@ -82,10 +82,11 @@ module.exports = (App) => {
         return
       }
 
+      // Filter possible command mistakes or low effort prompts
       if (!is_question) {
         let num_words = prompt.split(` `).length
 
-        if (num_words <= 2) {
+        if (num_words <= 3) {
           return
         }
       }
