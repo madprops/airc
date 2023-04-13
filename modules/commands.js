@@ -46,7 +46,7 @@ module.exports = (App) => {
   }
 
   App.cmd_help_rules = [
-    `you're | you are | ur | respond + [rules]`,
+    `you're | you are | ur | respond + [ rules ]`,
     `reset: empty the rules`,
   ]
 
@@ -54,12 +54,12 @@ module.exports = (App) => {
   App.cmd_temps = Object.keys(App.temps)
 
   App.cmd_help_admins = [
-    `add user + [nick]`,
-    `remove user + [nick]`,
-    `allow ask + [all | users | admins]`,
-    `allow rules + [all | users | admins]`,
-    `model + [${App.cmd_models.join(` | `)}]`,
-    `temp + [${App.cmd_temps.join(` | `)}]`,
+    `add user + [ nick ]`,
+    `remove user + [ nick ]`,
+    `allow ask + [ all | users | admins ]`,
+    `allow rules + [ all | users | admins ]`,
+    `model + [ ${App.cmd_models.join(` | `)} ]`,
+    `temp + [ ${App.cmd_temps.join(` | `)} ]`,
     `report: respond with some info`,
     `config: show some of the config`,
   ]
