@@ -127,7 +127,6 @@ module.exports = (App) => {
   App.check_commands = (from, channel, cmd) => {
     let split = cmd.split(` `)
     let num_words = split.length
-    let cmd_key = split.join(`_`).toLowerCase()
     let can_rules = App.is_allowed(`rules`, from)
     let is_admin = App.is_admin(from)
     let ans
