@@ -86,6 +86,7 @@ module.exports = (App) => {
 
   // Prepare prompt and ask openai
   App.ask_ai = (from, channel, prompt = ``, context = ``) => {
+    return
     let mention
 
     // Check for @nick at the end to direct the response at

@@ -70,11 +70,11 @@ App.original_config = structuredClone(App.config)
 Object.assign(App.config, App.get_user_config())
 
 // Load js modules
+require(`./modules/utils.js`)(App)
 require(`./modules/irc.js`)(App)
 require(`./modules/openai.js`)(App)
 require(`./modules/proc.js`)(App)
 require(`./modules/commands.js`)(App)
-require(`./modules/utils.js`)(App)
 
 // Check if model is still supported
 if (!App.models[App.config.model]) {
