@@ -424,14 +424,20 @@ module.exports = (App) => {
     }
 
     // Print values
-    if (obj.is_admin) {
-      for (let c of Object.keys(App.config)) {
-        let ans = App.cmd_match(c.split(`_`).join(` `), cmd)
+    for (let c of Object.keys(App.config)) {
+      let ans = App.cmd_match(c.split(`_`).join(` `), cmd)
 
-        if (ans.ok) {
-          App.cmd_show(channel, c)
-          return true
+      if (ans.ok) {
+        let public = [`rules`]
+
+        if (!public.includes(c)) {
+          if (!obj.is_admin) {
+            return false
+          }
         }
+
+        App.cmd_show(channel, c)
+        return true
       }
     }
 
