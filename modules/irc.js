@@ -2,7 +2,6 @@ module.exports = (App) => {
   App.start_irc = () => {
     App.irc_client = new App.i.irc.Client(App.config.server, App.config.nickname, {
       channels: App.config.channels,
-      messageSplit: 250
     })
 
     App.irc_client.addListener(`message`, (from, channel, message) => {
@@ -37,7 +36,16 @@ module.exports = (App) => {
     })
 
     App.irc_respond = (channel, message) => {
-      App.irc_client.say(channel, message)
+      if (message.length > 400) {
+        let lines = message.match(/.{1,250}/g)
+
+        for (let line of lines) {
+          App.irc_client.say(channel, line)
+        }
+      }
+      else {
+        App.irc_client.say(channel, message)
+      }
     }
 
     App.irc_join = (channel) => {
