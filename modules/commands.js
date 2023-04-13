@@ -103,55 +103,6 @@ module.exports = (App) => {
     return `Respond as if you were ${thing}`
   }
 
-  App.check_command = (c, obj) => {
-    let ans = App.cmd_match(c.name, obj.cmd)
-
-    if (ans.ok) {
-      if (c.allow !== `all`) {
-        if (c.allow === `rules`) {
-          if (!obj.can_rules) {
-            return false
-          }
-        }
-        else if (c.allow === `admins`) {
-          if (!obj.is_admin) {
-            return false
-          }
-        }
-      }
-
-      // With argument
-      if (ans.arg) {
-        if (!c.on_arg) {
-          return false
-        }
-
-        if (c.limit_words) {
-          let max_args = c.name.split(` `).length + 2
-
-          if (obj.num_words > max_args) {
-            return false
-          }
-        }
-
-        obj.arg = ans.arg
-        c.on_arg(obj)
-      }
-      // Exact match
-      else {
-        if (!c.on_exact) {
-          return false
-        }
-
-        c.on_exact(obj)
-      }
-
-      return true
-    }
-
-    return false
-  }
-
   App.cmd_ur = (obj) => {
     let rules = App.cmd_respond_as(obj.arg)
     App.cmd_change_rules(obj.channel, rules)
@@ -407,6 +358,55 @@ module.exports = (App) => {
       limit_words: true,
     },
   ]
+
+  App.check_command = (c, obj) => {
+    let ans = App.cmd_match(c.name, obj.cmd)
+
+    if (ans.ok) {
+      if (c.allow !== `all`) {
+        if (c.allow === `rules`) {
+          if (!obj.can_rules) {
+            return false
+          }
+        }
+        else if (c.allow === `admins`) {
+          if (!obj.is_admin) {
+            return false
+          }
+        }
+      }
+
+      // With argument
+      if (ans.arg) {
+        if (!c.on_arg) {
+          return false
+        }
+
+        if (c.limit_words) {
+          let max_args = c.name.split(` `).length + 2
+
+          if (obj.num_words > max_args) {
+            return false
+          }
+        }
+
+        obj.arg = ans.arg
+        c.on_arg(obj)
+      }
+      // Exact match
+      else {
+        if (!c.on_exact) {
+          return false
+        }
+
+        c.on_exact(obj)
+      }
+
+      return true
+    }
+
+    return false
+  }  
 
   App.check_commands = (from, channel, cmd) => {
     let obj = {}
