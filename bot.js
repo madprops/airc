@@ -6,7 +6,7 @@ App.i = {}
 App.i.fs = require(`fs`)
 App.i.path = require(`path`)
 App.i.process = require(`process`)
-App.i.irc = require(`irc`)
+App.i.irc = require(`matrix-org-irc`)
 App.i.openai = require(`openai`)
 
 App.last_responses = {}
