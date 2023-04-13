@@ -5,7 +5,7 @@
     "#airc-test"
   ],
   "model": "davinci",
-  "max_tokens": 190,
+  "max_tokens": 200,
   "max_prompt": 350,
   "max_rules": 350,
   "max_context": 350,
