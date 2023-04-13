@@ -205,7 +205,7 @@ module.exports = (App) => {
     // Check if it matches a config and print its value
     for (let c of Object.keys(App.config)) {
       ans = App.cmd_match(c.split("_").join(" "), cmd, `exact`)
-      
+
       if (ans.ok) {
         if (!is_admin) { return true }
         App.cmd_show(channel, c)
@@ -253,7 +253,7 @@ module.exports = (App) => {
       App.update_config(`users`, `default`)
       App.cmd_show(channel, `users`)
       return true
-    }    
+    }
 
     ans = App.cmd_match(`allow ask`, cmd, `arg`)
 
@@ -317,14 +317,14 @@ module.exports = (App) => {
         if (!is_admin) { return true }
         let two = split.slice(0, 2).join(` `)
         let key = two.split(` `).join(`_`)
-  
+
         if (ans.arg === `default`) {
           App.update_config(key, ans.arg)
           App.cmd_show(channel, key)
         }
         else {
           let n = parseInt(ans.arg)
-  
+
           if (!isNaN(n)) {
             if (n > 0 && n <= (10 * 1000)) {
               App.update_config(key, n)
@@ -332,7 +332,7 @@ module.exports = (App) => {
             }
           }
         }
-  
+
         return true
       }
     }
