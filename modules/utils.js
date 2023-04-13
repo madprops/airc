@@ -175,7 +175,8 @@ module.exports = (App) => {
       for (let j = 0; j <= string_2.length; j++) {
         if (i == 0) {
           costs[j] = j
-        } else {
+        } 
+        else {
           if (j > 0) {
             let new_value = costs[j - 1]
 
