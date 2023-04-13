@@ -36,6 +36,9 @@ module.exports = (App) => {
     })
 
     App.irc_respond = (channel, message) => {
+      // This is meant to show large mesages in nicer chunks
+      // The irc library doesn't handle emojis very well
+      // And the splits can be wrong. So we'll split it ourselves
       if (message.length > 400) {
         let lines = message.match(/.{1,250}/g)
 
