@@ -58,7 +58,7 @@ module.exports = (App) => {
       let mins = App.antispam_ban_duration
       App.irc_respond(channel, `${from} was banned for ${mins} minutes.`)
       return
-    }   
+    }
 
     if (nick.toLowerCase() === App.nick().toLowerCase()) {
       if(prompt === `hi` || prompt === `hello`) {

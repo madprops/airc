@@ -16,7 +16,7 @@
   App.antispam_timeout_action = function () {
     for (let key in App.antispam_nicknames) {
       let user = App.antispam_nicknames[key]
-      
+
       if (user.banned) {
         if (Date.now() > user.banned_until) {
           user.banned = false
