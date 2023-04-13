@@ -18,7 +18,7 @@ module.exports = (App) => {
     max: 2,
   }
 
-  App.get_temp = function () {
+  App.get_temp = () => {
     return App.temps[App.config.temp]
   }
 

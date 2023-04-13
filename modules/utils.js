@@ -144,7 +144,7 @@ module.exports = (App) => {
   }
 
   // Find the similarity between two strings
-  App.string_similarity = function (string_1, string_2) {
+  App.string_similarity = (string_1, string_2) => {
     let longer = string_1
     let shorter = string_2
 
@@ -163,7 +163,7 @@ module.exports = (App) => {
   }
 
   // Find the similarity distance between two strings
-  App.string_similarity_distance = function (string_1, string_2) {
+  App.string_similarity_distance = (string_1, string_2) => {
     string_1 = string_1.toLowerCase()
     string_2 = string_2.toLowerCase()
 

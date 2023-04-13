@@ -74,14 +74,14 @@ module.exports = (App) => {
     `End with @nick: Make the bot mention that nick`,
   ]
 
-  App.cmd_help = (can_rules, is_admin, filter = ``) => {
+  App.cmd_help = (obj, filter) => {
     let help = []
 
-    if (can_rules) {
+    if (obj.can_rules) {
       help.push(...App.cmd_help_rules)
     }
 
-    if (is_admin) {
+    if (obj.is_admin) {
       help.push(...App.cmd_help_admins)
     }
 
@@ -129,14 +129,14 @@ module.exports = (App) => {
     {
       name: `help`,
       on_exact: (obj) => {
-        let help = App.cmd_help(obj.can_rules, obj.is_admin)
+        let help = App.cmd_help(obj)
 
         if (help) {
           App.irc_respond(obj.channel, App.join(help))
         }
       },
       on_arg: (obj) => {
-        let help = App.cmd_help(obj.can_rules, obj.is_admin, obj.arg)
+        let help = App.cmd_help(obj, obj.arg)
 
         if (help) {
           App.irc_respond(obj.channel, App.join(help))
@@ -406,7 +406,7 @@ module.exports = (App) => {
     }
 
     return false
-  }  
+  }
 
   App.check_commands = (from, channel, cmd) => {
     let obj = {}
