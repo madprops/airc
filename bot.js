@@ -6,7 +6,11 @@ App.i = {}
 App.i.fs = require(`fs`)
 App.i.path = require(`path`)
 App.i.process = require(`process`)
+
+// A fork of node-irc that fixes a bunch of stuff
 App.i.irc = require(`matrix-org-irc`)
+
+// Official openai library
 App.i.openai = require(`openai`)
 
 App.last_responses = {}
