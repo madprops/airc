@@ -69,7 +69,7 @@ module.exports = (App) => {
           model: model.full_name,
           messages: [{role: `user`, content: prompt}],
           max_tokens: App.config.max_tokens,
-          temperature: App.get_temp(),          
+          temperature: App.get_temp(),
         })
 
         if (ans.status === 200) {

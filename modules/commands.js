@@ -149,12 +149,12 @@ module.exports = (App) => {
       if (App.cmd_match(c, cmd, `arg`)) {
         if (!can_rules) { return false }
         let arg = App.cmd_arg(c, cmd)
-    
+
         if (arg) {
           let rules = App.cmd_respond_as(arg)
           App.cmd_change_rules(channel, rules)
         }
-    
+
         return true
       }
     }
@@ -169,7 +169,7 @@ module.exports = (App) => {
       if (!can_rules) { return false }
       App.cmd_change_rules(channel, `default`)
       return true
-    }  
+    }
 
     // Commands only admins can use:
 
@@ -354,7 +354,7 @@ module.exports = (App) => {
       }
 
       return true
-    }    
+    }
   }
 
   return false
