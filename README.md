@@ -350,6 +350,12 @@ The higher the temperature the more "random" the responses are.
 
 ---
 
+`ban [nickname]`: Manually ban a user.
+
+`unban [nickname]`: Manually unban a user.
+
+---
+
 There's a global `!report` command that causes all owned bots in the room to report.
 
 Each bot also has an individual `report` command.
