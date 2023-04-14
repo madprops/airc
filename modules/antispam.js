@@ -23,6 +23,9 @@
         if (user.level > 0) {
           user.level -= 1
         }
+        else {
+          delete App.antispam_users[nick]
+        }
       }
     }
 
