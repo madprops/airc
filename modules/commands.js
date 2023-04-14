@@ -191,7 +191,7 @@ module.exports = (App) => {
     },
     {
       name: `reset`,
-      on_arg: (obj) => {
+      on_exact: (obj) => {
         App.cmd_change_rules(obj.channel, `default`)
       },
       allow: `rules`,
@@ -315,7 +315,7 @@ module.exports = (App) => {
     },
     {
       name: `report`,
-      on_arg: (obj) => {
+      on_exact: (obj) => {
         App.report_self(obj.channel)
       },
       allow: `admins`,
@@ -323,7 +323,7 @@ module.exports = (App) => {
     },
     {
       name: `config`,
-      on_arg: (obj) => {
+      on_exact: (obj) => {
         App.show_config(obj.channel)
       },
       allow: `admins`,
