@@ -364,7 +364,7 @@ module.exports = (App) => {
     {
       name: `ban`,
       on_arg: (obj) => {
-        App.spam_ban(obj.arg)
+        App.antispam_ban(obj.arg)
         App.cmd_done(obj)
       },
       allow: `admins`,
@@ -373,7 +373,7 @@ module.exports = (App) => {
     {
       name: `unban`,
       on_arg: (obj) => {
-        App.spam_unban(obj.arg)
+        App.antispam_unban(obj.arg)
         App.cmd_done(obj)
       },
       allow: `admins`,
