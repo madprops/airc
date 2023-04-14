@@ -226,7 +226,7 @@ module.exports = (App) => {
     },
     {
       name: `clear users`,
-      on_arg: (obj) => {
+      on_exact: (obj) => {
         App.update_config(`users`, `default`)
         App.cmd_show(obj.channel, `users`)
       },
