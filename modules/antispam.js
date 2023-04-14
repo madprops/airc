@@ -1,19 +1,19 @@
   module.exports = (App) => {
-  App.start_antispam = function () {
+  App.start_antispam = () => {
     App.antispam_nicknames = {}
     App.antispam_timeout()
     console.info(`Started antispam`)
   }
 
   // Starts a timeout to check spam on nicknames
-  App.antispam_timeout = function () {
-    setTimeout(function () {
+  App.antispam_timeout = () => {
+    setTimeout(() => {
       App.antispam_timeout_action()
     }, 1200)
   }
 
   // What to do on each anti spam iteration
-  App.antispam_timeout_action = function () {
+  App.antispam_timeout_action = () => {
     for (let key in App.antispam_nicknames) {
       let user = App.antispam_nicknames[key]
 
@@ -34,7 +34,7 @@
   }
 
   // Add spam points and check if user is banned
-  App.add_spam = function (nickname, amount = 1) {
+  App.add_spam = (nickname, amount = 1) => {
     let nick = nickname.toLowerCase()
 
     if (!App.antispam_nicknames[nick]) {
@@ -57,7 +57,7 @@
   }
 
   // Ban a user from connecting
-  App.antispam_ban = function (nickname) {
+  App.antispam_ban = (nickname) => {
     let nick = nickname.toLowerCase()
     let user = App.antispam_nicknames[nick]
 
@@ -71,7 +71,7 @@
     console.info(`Nickname banned: ${nickname}`)
   }
 
-  App.check_ban = function (nickname) {
+  App.check_ban = (nickname) => {
     let nick = nickname.toLowerCase()
     let user = App.antispam_nicknames[nick]
 
@@ -83,7 +83,7 @@
     }
   }
 
-  App.get_antispam_level = function (nickname) {
+  App.get_antispam_level = (nickname) => {
     let nick = nickname.toLowerCase()
     let user = App.antispam_nicknames[nick]
 
