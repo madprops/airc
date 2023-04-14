@@ -17,6 +17,6 @@
   "allow_ask": "all",
   "allow_rules": "all",
   "temp": "normal",
-  "antispam_limit": 5,
-  "antispam_minutes": 60
+  "spam_limit": 5,
+  "spam_minutes": 60
 }

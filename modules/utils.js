@@ -198,4 +198,13 @@ module.exports = (App) => {
 
     return costs[string_2.length]
   }
+
+  App.plural = (num, singular, plural) => {
+    if (num === 1) {
+      return `${num.toLocaleString()} ${singular}`
+    }
+    else {
+      return `${num.toLocaleString()} ${plural}`
+    }
+  }
 }

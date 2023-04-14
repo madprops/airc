@@ -73,14 +73,14 @@ require(`./modules/irc.js`)(App)
 require(`./modules/openai.js`)(App)
 require(`./modules/proc.js`)(App)
 require(`./modules/commands.js`)(App)
-require(`./modules/antispam.js`)(App)
+require(`./modules/spam.js`)(App)
 
 // Check if model is still supported
 if (!App.models[App.config.model]) {
   App.update_config(`model`, `default`)
 }
 
-App.start_antispam()
+App.start_spam()
 App.start_openai()
 App.start_irc()
 App.date_started = Date.now()

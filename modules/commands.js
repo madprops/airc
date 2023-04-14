@@ -364,7 +364,7 @@ module.exports = (App) => {
     {
       name: `ban`,
       on_arg: (obj) => {
-        App.antispam_ban(obj.arg)
+        App.spam_ban(obj.arg)
         App.cmd_done(obj)
       },
       allow: `admins`,
@@ -373,28 +373,28 @@ module.exports = (App) => {
     {
       name: `unban`,
       on_arg: (obj) => {
-        App.antispam_unban(obj.arg)
+        App.spam_unban(obj.arg)
         App.cmd_done(obj)
       },
       allow: `admins`,
       limit_words: true,
     },
     {
-      name: `antispam limit`,
+      name: `spam limit`,
       on_arg: (obj) => {
-        App.cmd_num(`antispam_limit`, obj)
+        App.cmd_num(`spam_limit`, obj)
       },
       allow: `admins`,
       limit_words: true,
     },
     {
-      name: `antispam minutes`,
+      name: `spam minutes`,
       on_arg: (obj) => {
-        App.cmd_num(`antispam_minutes`, obj)
+        App.cmd_num(`spam_minutes`, obj)
       },
       allow: `admins`,
       limit_words: true,
-    },        
+    },
   ]
 
   App.check_command = (c, obj) => {

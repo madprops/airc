@@ -186,13 +186,13 @@ They are able to add/remove users, modify permissions, and change other configs.
 
 ---
 
-`antispam_limit`: Ban a user after reaching this spam level.
+`spam_limit`: Ban a user after reaching this spam level.
 
 Spam level is increased by 1 on each bot mention.
 
 Spam level gets decreased by 1 every 1200ms.
 
-`antispam_minutes`: Ban a user for these minutes after it reaches the limit.
+`spam_minutes`: Ban a user for these minutes after it reaches the limit.
 
 ---
 
@@ -256,7 +256,7 @@ If a message ends with `@somenickname`, the response will be directed at that ni
 
 ---
 
-There's an automatic antispam system that bans users who abuse the bot.
+There's an automatic anti-spam system that bans users who abuse the bot.
 
 ---
 
@@ -316,7 +316,7 @@ This empties the rules. Making the bot respond with its default personality.
 
 `max_prompt` | `max_rules` | `max_context` | `max_tokens`
 
-`antispam_level` | `antispam_minutes`
+`spam_level` | `spam_minutes`
 
 Can be changed by providing a number as an argument:
 

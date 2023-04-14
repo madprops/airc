@@ -56,10 +56,10 @@ module.exports = (App) => {
     if (nick.toLowerCase() === App.nick().toLowerCase()) {
       // Add one spam point
       if (App.add_spam(from)) {
-        let mins = App.antispam_minutes
-        App.irc_respond(channel, `${from} was banned for ${mins} minutes.`)
+        let mins = App.plural(App.config.spam_minutes, "minute", "minutes")
+        App.irc_respond(channel, `${from} was banned for ${mins}.`)
         return
-      }      
+      }
 
       if(prompt === `hi` || prompt === `hello`) {
         App.irc_respond(channel, `hi!`)
