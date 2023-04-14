@@ -125,6 +125,10 @@ module.exports = (App) => {
     }
   }
 
+  App.cmd_done = (obj) => {
+    App.irc_respond(obj.channel, `Done.`)
+  }
+
   App.commands = [
     {
       name: `help`,
@@ -353,6 +357,24 @@ module.exports = (App) => {
           App.update_config(`temp`, obj.arg)
           App.cmd_show(obj.channel, `temp`)
         }
+      },
+      allow: `admins`,
+      limit_words: true,
+    },
+    {
+      name: `ban`,
+      on_arg: (obj) => {
+        App.antispam_ban(obj.arg)
+        App.cmd_done(obj)
+      },
+      allow: `admins`,
+      limit_words: true,
+    },
+    {
+      name: `unban`,
+      on_arg: (obj) => {
+        App.antispam_unban(obj.arg)
+        App.cmd_done(obj)
       },
       allow: `admins`,
       limit_words: true,
