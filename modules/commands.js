@@ -379,6 +379,22 @@ module.exports = (App) => {
       allow: `admins`,
       limit_words: true,
     },
+    {
+      name: `antispam limit`,
+      on_arg: (obj) => {
+        App.cmd_num(`antispam_limit`, obj)
+      },
+      allow: `admins`,
+      limit_words: true,
+    },
+    {
+      name: `antispam minutes`,
+      on_arg: (obj) => {
+        App.cmd_num(`antispam_minutes`, obj)
+      },
+      allow: `admins`,
+      limit_words: true,
+    },        
   ]
 
   App.check_command = (c, obj) => {
