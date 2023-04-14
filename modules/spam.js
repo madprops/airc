@@ -1,5 +1,5 @@
   module.exports = (App) => {
-  App.start_spam = () => {
+  App.start_antispam = () => {
     App.spam_users = {}
     App.spam_timeout()
     console.info(`Started anti-spam`)

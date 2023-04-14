@@ -80,7 +80,7 @@ if (!App.models[App.config.model]) {
   App.update_config(`model`, `default`)
 }
 
-App.start_spam()
+App.start_antispam()
 App.start_openai()
 App.start_irc()
 App.date_started = Date.now()
