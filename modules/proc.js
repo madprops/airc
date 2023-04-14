@@ -55,7 +55,7 @@ module.exports = (App) => {
 
     // Add one spam point
     if (App.add_spam(from)) {
-      let mins = App.antispam_ban_minutes
+      let mins = App.antispam_minutes
       App.irc_respond(channel, `${from} was banned for ${mins} minutes.`)
       return
     }

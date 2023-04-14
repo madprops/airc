@@ -192,7 +192,7 @@ Spam level is increased by 1 on each bot mention.
 
 Spam level gets decreased by 1 every 1200ms.
 
-`antispam_ban_minutes`: Ban a user for these minutes after it reaches the limit.
+`antispam_minutes`: Ban a user for these minutes after it reaches the limit.
 
 ---
 

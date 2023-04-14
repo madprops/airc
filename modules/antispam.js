@@ -66,7 +66,7 @@
     }
 
     user.banned = true
-    let mins = App.config.antispam_ban_minutes * 1000 * 60
+    let mins = App.config.antispam_minutes * 1000 * 60
     user.banned_until = Date.now() + mins
     console.info(`Nickname banned: ${nickname}`)
   }

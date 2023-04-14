@@ -18,5 +18,5 @@
   "allow_rules": "all",
   "temp": "normal",
   "antispam_limit": 5,
-  "antispam_ban_minutes": 60
+  "antispam_minutes": 60
 }
