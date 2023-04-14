@@ -344,6 +344,12 @@ If the channel is in the `channels` config it will be removed.
 
 ---
 
+`temp [min | low | normal | high | max]`: Change the temperature.
+
+The higher the temperature the more "random" the responses are.
+
+---
+
 There's a global `!report` command that causes all owned bots in the room to report.
 
 Each bot also has an individual `report` command.
