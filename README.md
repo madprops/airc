@@ -316,6 +316,8 @@ This empties the rules. Making the bot respond with its default personality.
 
 `max_prompt` | `max_rules` | `max_context` | `max_tokens`
 
+`antispam_level` | `antispam_minutes`
+
 Can be changed by providing a number as an argument:
 
 `max prompt 200`
