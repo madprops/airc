@@ -322,6 +322,8 @@ Can be changed by providing a number as an argument:
 
 `max prompt 200`
 
+Separate words with spaces instead of underscores.
+
 ---
 
 The value of any config can be read by simply writing its name with no arguments.
