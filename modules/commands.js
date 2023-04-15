@@ -75,7 +75,7 @@ module.exports = (App) => {
     `End with @nick: Make the bot mention that nick`,
   ]
 
-  App.cmd_help = (obj, filter) => {
+  App.cmd_help = (obj) => {
     let help = []
 
     if (obj.can_rules) {
@@ -86,18 +86,18 @@ module.exports = (App) => {
       help.push(...App.cmd_help_admins)
     }
 
-    if (filter) {
-      let low = filter.toLowerCase()
+    if (obj.arg) {
+      let low = obj.arg.toLowerCase()
       help = help.filter(x => x.includes(low))
     }
 
     return help
   }
 
-  App.cmd_change_rules = (channel, rules) => {
-    rules = App.limit(rules, App.config.max_rules)
-    App.update_config(`rules`, rules)
-    App.cmd_show(channel, `rules`)
+  App.cmd_change_rules = (obj) => {
+    obj.arg = App.limit(obj.arg, App.config.max_rules)
+    App.update_config(`rules`, obj.arg)
+    App.cmd_show(obj.channel, `rules`)
   }
 
   App.cmd_respond_as = (thing) => {
@@ -105,8 +105,8 @@ module.exports = (App) => {
   }
 
   App.cmd_ur = (obj) => {
-    let rules = App.cmd_respond_as(obj.arg)
-    App.cmd_change_rules(obj.channel, rules)
+    obj.arg = App.cmd_respond_as(obj.arg)
+    App.cmd_change_rules(obj)
   }
 
   App.cmd_num = (key, obj) => {
@@ -141,7 +141,7 @@ module.exports = (App) => {
         }
       },
       on_arg: (obj) => {
-        let help = App.cmd_help(obj, obj.arg)
+        let help = App.cmd_help(obj)
 
         if (help) {
           App.irc_respond(obj.channel, App.join(help))
@@ -153,7 +153,7 @@ module.exports = (App) => {
     {
       name: `rules`,
       on_arg: (obj) => {
-        App.cmd_change_rules(obj.channel, obj.arg)
+        App.cmd_change_rules(obj)
       },
       allow: `rules`,
       limit_words: false,
@@ -185,7 +185,8 @@ module.exports = (App) => {
     {
       name: `respond`,
       on_arg: (obj) => {
-        App.cmd_change_rules(obj.channel, obj.cmd)
+        obj.arg = `Respond ${obj.arg}`
+        App.cmd_change_rules(obj)
       },
       allow: `rules`,
       limit_words: false,
@@ -193,7 +194,8 @@ module.exports = (App) => {
     {
       name: `reset`,
       on_exact: (obj) => {
-        App.cmd_change_rules(obj.channel, `default`)
+        obj.arg = `default`
+        App.cmd_change_rules(obj)
       },
       allow: `rules`,
       limit_words: true,
