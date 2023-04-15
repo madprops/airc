@@ -11,25 +11,13 @@
     }, 1200)
   }
 
-  App.antispam_timeout_action = () => {
-    for (let nick in App.antispam_users) {
-      let user = App.antispam_users[nick]
+  App.get_antispam_user = (nickname, create = false) => {
+    let nick = nickname.toLowerCase()
+    let user = App.antispam_users[nick]
 
-      if (user.banned) {
-        if (Date.now() > user.banned_until) {
-          App.antispam_unban(nick)
-        }
-      } else {
-        if (user.level > 0) {
-          user.level -= 1
-        }
-        else {
-          delete App.antispam_users[nick]
-        }
-      }
+    if (!user && create) {
+      App.antispam_create_user(nick)
     }
-
-    App.antispam_timeout()
   }
 
   App.antispam_create_user = (nickname) => {
@@ -40,16 +28,38 @@
       banned: false,
       banned_until: 0
     }
+
+    return App.antispam_users[nick]
+  }  
+
+  App.delete_antispam_user = (nickname) => {
+    let nick = nickname.toLowerCase()
+    delete App.antispam_users[nick]
+  }
+
+  App.antispam_timeout_action = () => {
+    for (let nickname in App.antispam_users) {
+      let user = App.get_antispam_user(nickname, true)
+
+      if (user.banned) {
+        if (Date.now() > user.banned_until) {
+          App.antispam_unban(nick)
+        }
+      } else {
+        if (user.level > 0) {
+          user.level -= 1
+        }
+        else {
+          App.delete_antispam_user(nickname)
+        }
+      }
+    }
+
+    App.antispam_timeout()
   }
 
   App.add_spam = (nickname, amount = 1) => {
-    let nick = nickname.toLowerCase()
-
-    if (!App.antispam_users[nick]) {
-      App.antispam_create_user(nick)
-    }
-
-    let user = App.antispam_users[nick]
+    let user = App.get_antispam_user(nickname, true)
     user.level += amount
 
     if (user.level >= App.config.spam_limit) {
@@ -61,13 +71,7 @@
   }
 
   App.antispam_ban = (nickname) => {
-    let nick = nickname.toLowerCase()
-
-    if (!App.antispam_users[nick]) {
-      App.antispam_create_user(nick)
-    }
-
-    let user = App.antispam_users[nick]
+    let user = App.get_antispam_user(nickname, true)
     let mins = App.config.spam_minutes * 1000 * 60
     user.banned = true
     user.banned_until = Date.now() + mins
@@ -75,8 +79,7 @@
   }
 
   App.antispam_unban = (nickname) => {
-    let nick = nickname.toLowerCase()
-    let user = App.antispam_users[nick]
+    let user = App.get_antispam_user(nickname)
 
     if (!user) {
       return
@@ -90,22 +93,20 @@
   }
 
   App.check_ban = (nickname) => {
-    let nick = nickname.toLowerCase()
-    let user = App.antispam_users[nick]
+    let user = App.get_antispam_user(nickname)
 
     if (user) {
-      return App.antispam_users[nick].banned
+      return user.banned
     }
 
     return false
   }
 
   App.get_spam_level = (nickname) => {
-    let nick = nickname.toLowerCase()
-    let user = App.antispam_users[nick]
+    let user = App.get_antispam_user(nickname)
 
     if (user) {
-      return App.antispam_users[nick].level
+      return user.level
     }
 
     return 0
