@@ -395,6 +395,15 @@ module.exports = (App) => {
       allow: `admins`,
       limit_words: true,
     },
+    {
+      name: `default all`,
+      on_exact: (obj) => {
+        App.default_config()
+        App.cmd_done(obj)
+      },
+      allow: `admins`,
+      limit_words: true,
+    },
   ]
 
   App.check_command = (c, obj) => {

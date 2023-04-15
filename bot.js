@@ -50,6 +50,20 @@ App.update_config = (key, value) => {
   }
 }
 
+// Remove all overriden configs except some
+App.default_config = () => {
+  let user_config = App.get_user_config()
+  let keep = [`nickname`, `channels`]
+
+  for (let key in user_config) {
+    if (keep.includes(key)) {
+      continue
+    }
+
+    App.update_config(key, `default`)
+  }
+}
+
 // Create config.user.json
 // If it does not exist
 if (!App.i.fs.existsSync(App.get_config_path())) {

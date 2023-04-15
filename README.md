@@ -356,6 +356,10 @@ The higher the temperature the more "random" the responses are.
 
 ---
 
+`default all`: Removes all overriden configs in `config.user.json` except `nickname` and `channels`.
+
+---
+
 There's a global `!report` command that causes all owned bots in the room to report.
 
 Each bot also has an individual `report` command.
