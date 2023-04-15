@@ -70,6 +70,7 @@ module.exports = (App) => {
     `temp + [ ${App.join(App.cmd_temps, `|`)} ]`,
     `report: Respond with some info`,
     `config: Show some of the config`,
+    `default all: Remove all overrides`,
     `Start with ^: Use previous response as context`,
     `End with @nick: Make the bot mention that nick`,
   ]
