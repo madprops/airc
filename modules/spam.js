@@ -32,8 +32,8 @@
     }
 
     return App.antispam_users[nick]
-  }  
-  
+  }
+
   App.delete_antispam_user = (nickname) => {
     let nick = nickname.toLowerCase()
     delete App.antispam_users[nick]
@@ -47,7 +47,7 @@
         if (Date.now() > user.banned_until) {
           App.antispam_unban(nickname)
         }
-      } 
+      }
       else {
         if (user.level > 0) {
           user.level -= 1
