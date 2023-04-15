@@ -90,7 +90,7 @@ module.exports = (App) => {
       if (!is_question) {
         let num_words = prompt.split(` `).length
 
-        if (num_words <= 3) {
+        if (num_words <= 2) {
           return
         }
       }
