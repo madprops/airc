@@ -47,7 +47,8 @@
         if (Date.now() > user.banned_until) {
           App.antispam_unban(nickname)
         }
-      } else {
+      } 
+      else {
         if (user.level > 0) {
           user.level -= 1
         }
