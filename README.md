@@ -190,7 +190,7 @@ They are able to add/remove users, modify permissions, and change other configs.
 
 Spam level is increased by 1 on each bot mention.
 
-Spam level gets decreased by 1 every 1200ms.
+Spam level gets decreased by 1 every second or so.
 
 `spam_minutes`: Ban a user for these minutes after it reaches the limit.
 

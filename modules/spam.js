@@ -8,7 +8,7 @@
   App.antispam_timeout = () => {
     setTimeout(() => {
       App.antispam_timeout_action()
-    }, 1200)
+    }, 1500)
   }
 
   App.get_antispam_user = (nickname, create = false) => {
@@ -16,8 +16,10 @@
     let user = App.antispam_users[nick]
 
     if (!user && create) {
-      App.antispam_create_user(nick)
+      user = App.antispam_create_user(nick)
     }
+
+    return user
   }
 
   App.antispam_create_user = (nickname) => {
@@ -31,7 +33,7 @@
 
     return App.antispam_users[nick]
   }  
-
+  
   App.delete_antispam_user = (nickname) => {
     let nick = nickname.toLowerCase()
     delete App.antispam_users[nick]
@@ -43,7 +45,7 @@
 
       if (user.banned) {
         if (Date.now() > user.banned_until) {
-          App.antispam_unban(nick)
+          App.antispam_unban(nickname)
         }
       } else {
         if (user.level > 0) {
@@ -63,7 +65,7 @@
     user.level += amount
 
     if (user.level >= App.config.spam_limit) {
-      App.antispam_ban(nick)
+      App.antispam_ban(nickname)
       return true
     }
 
