@@ -209,7 +209,6 @@ module.exports = (App) => {
           }
         }
       },
-      allow: `admins`,
     },
     {
       name: `remove user`,
@@ -221,7 +220,6 @@ module.exports = (App) => {
           App.cmd_show(obj.channel, `users`)
         }
       },
-      allow: `admins`,
     },
     {
       name: `clear users`,
@@ -229,7 +227,6 @@ module.exports = (App) => {
         App.update_config(`users`, `default`)
         App.cmd_show(obj.channel, `users`)
       },
-      allow: `admins`,
     },
     {
       name: `allow ask`,
@@ -241,7 +238,6 @@ module.exports = (App) => {
           App.cmd_show(obj.channel, `allow_ask`)
         }
       },
-      allow: `admins`,
     },
     {
       name: `allow rules`,
@@ -253,7 +249,6 @@ module.exports = (App) => {
           App.cmd_show(obj.channel, `allow_rules`)
         }
       },
-      allow: `admins`,
     },
     {
       name: `model`,
@@ -274,56 +269,48 @@ module.exports = (App) => {
           App.cmd_show(obj.channel, `model`)
         }
       },
-      allow: `admins`,
     },
     {
       name: `max prompt`,
       on_arg: (obj) => {
         App.cmd_num(`max_prompt`, obj)
       },
-      allow: `admins`,
     },
     {
       name: `max context`,
       on_arg: (obj) => {
         App.cmd_num(`max_context`, obj)
       },
-      allow: `admins`,
     },
     {
       name: `max rules`,
       on_arg: (obj) => {
         App.cmd_num(`max_rules`, obj)
       },
-      allow: `admins`,
     },
     {
       name: `max tokens`,
       on_arg: (obj) => {
         App.cmd_num(`max_tokens`, obj)
       },
-      allow: `admins`,
     },
     {
       name: `report`,
       on_exact: (obj) => {
         App.report_self(obj.channel)
       },
-      allow: `admins`,
     },
     {
       name: `config`,
       on_exact: (obj) => {
         App.show_config(obj.channel)
       },
-      allow: `admins`,
     },
     {
       name: `join`,
       on_arg: (obj) => {
         App.join_channel(obj.channel, obj.arg)
       },
-      allow: `admins`,
     },
     {
       name: `leave`,
@@ -333,7 +320,6 @@ module.exports = (App) => {
       on_arg: (obj) => {
         App.leave_channel(obj.channel, obj.arg)
       },
-      allow: `admins`,
     },
     {
       name: `temp`,
@@ -345,7 +331,6 @@ module.exports = (App) => {
           App.cmd_show(obj.channel, `temp`)
         }
       },
-      allow: `admins`,
     },
     {
       name: `ban`,
@@ -353,7 +338,6 @@ module.exports = (App) => {
         App.antispam_ban(obj.arg)
         App.cmd_done(obj)
       },
-      allow: `admins`,
     },
     {
       name: `unban`,
@@ -361,21 +345,18 @@ module.exports = (App) => {
         App.antispam_unban(obj.arg)
         App.cmd_done(obj)
       },
-      allow: `admins`,
     },
     {
       name: `spam limit`,
       on_arg: (obj) => {
         App.cmd_num(`spam_limit`, obj)
       },
-      allow: `admins`,
     },
     {
       name: `spam minutes`,
       on_arg: (obj) => {
         App.cmd_num(`spam_minutes`, obj)
       },
-      allow: `admins`,
     },
     {
       name: `default all`,
@@ -383,7 +364,6 @@ module.exports = (App) => {
         App.default_config()
         App.cmd_done(obj)
       },
-      allow: `admins`,
     },
   ]
 
@@ -391,17 +371,16 @@ module.exports = (App) => {
     let ans = App.cmd_match(c.name, obj.cmd)
 
     if (ans.ok) {
-      if (c.allow !== `all`) {
-        if (c.allow === `rules`) {
-          if (!obj.can_rules) {
-            return false
-          }
+      if (c.allow === `all`) {
+        // Anybody can use this command
+      }
+      else if (c.allow === `rules`) {
+        if (!obj.can_rules) {
+          return false
         }
-        else if (c.allow === `admins`) {
-          if (!obj.is_admin) {
-            return false
-          }
-        }
+      }
+      else if (!obj.is_admin) {
+        return false
       }
 
       // With argument
