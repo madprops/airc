@@ -75,188 +75,188 @@ module.exports = (App) => {
     `End with @nick: Make the bot mention that nick`,
   ]
 
-  App.cmd_help = (obj) => {
+  App.cmd_help = (data) => {
     let help = []
 
-    if (obj.can_rules) {
+    if (data.can_rules) {
       help.push(...App.cmd_help_rules)
     }
 
-    if (obj.is_admin) {
+    if (data.is_admin) {
       help.push(...App.cmd_help_admins)
     }
 
-    if (obj.arg) {
-      let low = obj.arg.toLowerCase()
+    if (data.arg) {
+      let low = data.arg.toLowerCase()
       help = help.filter(x => x.includes(low))
     }
 
     return help
   }
 
-  App.cmd_change_rules = (obj) => {
-    obj.arg = App.limit(obj.arg, App.config.max_rules)
-    App.update_config(`rules`, obj.arg)
-    App.cmd_show(obj.channel, `rules`)
+  App.cmd_change_rules = (data) => {
+    data.arg = App.limit(data.arg, App.config.max_rules)
+    App.update_config(`rules`, data.arg)
+    App.cmd_show(data.channel, `rules`)
   }
 
   App.cmd_respond_as = (thing) => {
     return `Respond as if you were ${thing}`
   }
 
-  App.cmd_ur = (obj) => {
-    obj.arg = App.cmd_respond_as(obj.arg)
-    App.cmd_change_rules(obj)
+  App.cmd_ur = (data) => {
+    data.arg = App.cmd_respond_as(data.arg)
+    App.cmd_change_rules(data)
   }
 
-  App.cmd_num = (key, obj) => {
-    if (obj.arg === `default`) {
+  App.cmd_num = (key, data) => {
+    if (data.arg === `default`) {
       App.update_config(key, `default`)
-      App.cmd_show(obj.channel, key)
+      App.cmd_show(data.channel, key)
     }
     else {
-      let n = parseInt(obj.arg)
+      let n = parseInt(data.arg)
 
       if (!isNaN(n)) {
         if (n > 0 && n <= (10 * 1000)) {
           App.update_config(key, n)
-          App.cmd_show(obj.channel, key)
+          App.cmd_show(data.channel, key)
         }
       }
     }
   }
 
-  App.cmd_done = (obj) => {
-    App.irc_respond(obj.channel, `Done.`)
+  App.cmd_done = (data) => {
+    App.irc_respond(data.channel, `Done.`)
   }
 
   App.commands = [
     {
       name: `help`,
-      on_exact: (obj) => {
-        let help = App.cmd_help(obj)
+      on_exact: (data) => {
+        let help = App.cmd_help(data)
 
         if (help) {
-          App.irc_respond(obj.channel, App.join(help))
+          App.irc_respond(data.channel, App.join(help))
         }
       },
-      on_arg: (obj) => {
-        let help = App.cmd_help(obj)
+      on_arg: (data) => {
+        let help = App.cmd_help(data)
 
         if (help) {
-          App.irc_respond(obj.channel, App.join(help))
+          App.irc_respond(data.channel, App.join(help))
         }
       },
       allow: `all`,
     },
     {
       name: `rules`,
-      on_arg: (obj) => {
-        App.cmd_change_rules(obj)
+      on_arg: (data) => {
+        App.cmd_change_rules(data)
       },
       allow: `rules`,
       no_limit: true,
     },
     {
       name: `you're`,
-      on_arg: (obj) => {
-        App.cmd_ur(obj)
+      on_arg: (data) => {
+        App.cmd_ur(data)
       },
       allow: `rules`,
       no_limit: true,
     },
     {
       name: `you are`,
-      on_arg: (obj) => {
-        App.cmd_ur(obj)
+      on_arg: (data) => {
+        App.cmd_ur(data)
       },
       allow: `rules`,
       no_limit: true,
     },
     {
       name: `ur`,
-      on_arg: (obj) => {
-        App.cmd_ur(obj)
+      on_arg: (data) => {
+        App.cmd_ur(data)
       },
       allow: `rules`,
       no_limit: true,
     },
     {
       name: `respond`,
-      on_arg: (obj) => {
-        obj.arg = `Respond ${obj.arg}`
-        App.cmd_change_rules(obj)
+      on_arg: (data) => {
+        data.arg = `Respond ${data.arg}`
+        App.cmd_change_rules(data)
       },
       allow: `rules`,
       no_limit: true,
     },
     {
       name: `reset`,
-      on_exact: (obj) => {
-        obj.arg = `default`
-        App.cmd_change_rules(obj)
+      on_exact: (data) => {
+        data.arg = `default`
+        App.cmd_change_rules(data)
       },
       allow: `rules`,
     },
     {
       name: `add user`,
-      on_arg: (obj) => {
-        if (obj.arg.length <= App.max_user_length) {
-          if (!App.is_user(obj.arg) && !App.is_admin(obj.arg)) {
-            App.config.users.push(obj.arg)
+      on_arg: (data) => {
+        if (data.arg.length <= App.max_user_length) {
+          if (!App.is_user(data.arg) && !App.is_admin(data.arg)) {
+            App.config.users.push(data.arg)
             App.update_config(`users`, App.config.users)
-            App.cmd_show(obj.channel, `users`)
+            App.cmd_show(data.channel, `users`)
           }
         }
       },
     },
     {
       name: `remove user`,
-      on_arg: (obj) => {
-        if (App.is_user(obj.arg)) {
-          let nick = obj.arg.toLowerCase()
+      on_arg: (data) => {
+        if (App.is_user(data.arg)) {
+          let nick = data.arg.toLowerCase()
           let users = App.config.users.map(x => x.toLowerCase()).filter(x => x !== nick)
           App.update_config(`users`, users)
-          App.cmd_show(obj.channel, `users`)
+          App.cmd_show(data.channel, `users`)
         }
       },
     },
     {
       name: `clear users`,
-      on_exact: (obj) => {
+      on_exact: (data) => {
         App.update_config(`users`, `default`)
-        App.cmd_show(obj.channel, `users`)
+        App.cmd_show(data.channel, `users`)
       },
     },
     {
       name: `allow ask`,
-      on_arg: (obj) => {
+      on_arg: (data) => {
         let allowed = [`all`, `users`, `admins`, `default`]
 
-        if (allowed.includes(obj.arg)) {
-          App.update_config(`allow_ask`, obj.arg)
-          App.cmd_show(obj.channel, `allow_ask`)
+        if (allowed.includes(data.arg)) {
+          App.update_config(`allow_ask`, data.arg)
+          App.cmd_show(data.channel, `allow_ask`)
         }
       },
     },
     {
       name: `allow rules`,
-      on_arg: (obj) => {
+      on_arg: (data) => {
         let allowed = [`all`, `users`, `admins`, `default`]
 
-        if (allowed.includes(obj.arg)) {
-          App.update_config(`allow_rules`, obj.arg)
-          App.cmd_show(obj.channel, `allow_rules`)
+        if (allowed.includes(data.arg)) {
+          App.update_config(`allow_rules`, data.arg)
+          App.cmd_show(data.channel, `allow_rules`)
         }
       },
     },
     {
       name: `model`,
-      on_arg: (obj) => {
+      on_arg: (data) => {
         let allowed = [...App.cmd_models, `default`]
 
-        if (allowed.includes(obj.arg)) {
-          let model = obj.arg
+        if (allowed.includes(data.arg)) {
+          let model = data.arg
 
           for (let key of App.cmd_models) {
             if (key === model) {
@@ -266,120 +266,120 @@ module.exports = (App) => {
           }
 
           App.update_config(`model`, model)
-          App.cmd_show(obj.channel, `model`)
+          App.cmd_show(data.channel, `model`)
         }
       },
     },
     {
       name: `max prompt`,
-      on_arg: (obj) => {
-        App.cmd_num(`max_prompt`, obj)
+      on_arg: (data) => {
+        App.cmd_num(`max_prompt`, data)
       },
     },
     {
       name: `max context`,
-      on_arg: (obj) => {
-        App.cmd_num(`max_context`, obj)
+      on_arg: (data) => {
+        App.cmd_num(`max_context`, data)
       },
     },
     {
       name: `max rules`,
-      on_arg: (obj) => {
-        App.cmd_num(`max_rules`, obj)
+      on_arg: (data) => {
+        App.cmd_num(`max_rules`, data)
       },
     },
     {
       name: `max tokens`,
-      on_arg: (obj) => {
-        App.cmd_num(`max_tokens`, obj)
+      on_arg: (data) => {
+        App.cmd_num(`max_tokens`, data)
       },
     },
     {
       name: `report`,
-      on_exact: (obj) => {
-        App.report_self(obj.channel)
+      on_exact: (data) => {
+        App.report_self(data.channel)
       },
     },
     {
       name: `config`,
-      on_exact: (obj) => {
-        App.show_config(obj.channel)
+      on_exact: (data) => {
+        App.show_config(data.channel)
       },
     },
     {
       name: `join`,
-      on_arg: (obj) => {
-        App.join_channel(obj.channel, obj.arg)
+      on_arg: (data) => {
+        App.join_channel(data.channel, data.arg)
       },
     },
     {
       name: `leave`,
-      on_exact: (obj) => {
-        App.leave_channel(obj.channel, obj.channel)
+      on_exact: (data) => {
+        App.leave_channel(data.channel, data.channel)
       },
-      on_arg: (obj) => {
-        App.leave_channel(obj.channel, obj.arg)
+      on_arg: (data) => {
+        App.leave_channel(data.channel, data.arg)
       },
     },
     {
       name: `temp`,
-      on_arg: (obj) => {
+      on_arg: (data) => {
         let allowed = [`min`, `low`, `normal`, `high`, `max`, `default`]
 
-        if (allowed.includes(obj.arg)) {
-          App.update_config(`temp`, obj.arg)
-          App.cmd_show(obj.channel, `temp`)
+        if (allowed.includes(data.arg)) {
+          App.update_config(`temp`, data.arg)
+          App.cmd_show(data.channel, `temp`)
         }
       },
     },
     {
       name: `ban`,
-      on_arg: (obj) => {
-        App.antispam_ban(obj.arg)
-        App.cmd_done(obj)
+      on_arg: (data) => {
+        App.antispam_ban(data.arg)
+        App.cmd_done(data)
       },
     },
     {
       name: `unban`,
-      on_arg: (obj) => {
-        App.antispam_unban(obj.arg)
-        App.cmd_done(obj)
+      on_arg: (data) => {
+        App.antispam_unban(data.arg)
+        App.cmd_done(data)
       },
     },
     {
       name: `spam limit`,
-      on_arg: (obj) => {
-        App.cmd_num(`spam_limit`, obj)
+      on_arg: (data) => {
+        App.cmd_num(`spam_limit`, data)
       },
     },
     {
       name: `spam minutes`,
-      on_arg: (obj) => {
-        App.cmd_num(`spam_minutes`, obj)
+      on_arg: (data) => {
+        App.cmd_num(`spam_minutes`, data)
       },
     },
     {
       name: `default all`,
-      on_exact: (obj) => {
+      on_exact: (data) => {
         App.default_config()
-        App.cmd_done(obj)
+        App.cmd_done(data)
       },
     },
   ]
 
-  App.check_command = (c, obj) => {
-    let ans = App.cmd_match(c.name, obj.cmd)
+  App.check_command = (c, data) => {
+    let ans = App.cmd_match(c.name, data.cmd)
 
     if (ans.ok) {
       if (c.allow === `all`) {
         // Anybody can use this command
       }
       else if (c.allow === `rules`) {
-        if (!obj.can_rules) {
+        if (!data.can_rules) {
           return false
         }
       }
-      else if (!obj.is_admin) {
+      else if (!data.is_admin) {
         return false
       }
 
@@ -394,13 +394,13 @@ module.exports = (App) => {
         if (!c.no_limit) {
           let max_args = c.name.split(` `).length + 2
 
-          if (obj.num_words > max_args) {
+          if (data.num_words > max_args) {
             return false
           }
         }
 
-        obj.arg = ans.arg
-        c.on_arg(obj)
+        data.arg = ans.arg
+        c.on_arg(data)
       }
       // Exact match
       else {
@@ -408,7 +408,7 @@ module.exports = (App) => {
           return false
         }
 
-        c.on_exact(obj)
+        c.on_exact(data)
       }
 
       return true
@@ -418,16 +418,16 @@ module.exports = (App) => {
   }
 
   App.check_commands = (from, channel, cmd) => {
-    let obj = {}
-    obj.from = from
-    obj.channel = channel
-    obj.cmd = cmd
-    obj.num_words = cmd.split(` `).length
-    obj.can_rules = App.is_allowed(`rules`, from)
-    obj.is_admin = App.is_admin(from)
+    let data = {}
+    data.from = from
+    data.channel = channel
+    data.cmd = cmd
+    data.num_words = cmd.split(` `).length
+    data.can_rules = App.is_allowed(`rules`, from)
+    data.is_admin = App.is_admin(from)
 
     for (let c of App.commands) {
-      if (App.check_command(c, obj)) {
+      if (App.check_command(c, data)) {
         return true
       }
     }
@@ -440,7 +440,7 @@ module.exports = (App) => {
         let public = [`rules`]
 
         if (!public.includes(c)) {
-          if (!obj.is_admin) {
+          if (!data.is_admin) {
             return false
           }
         }
