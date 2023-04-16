@@ -350,6 +350,8 @@ If the channel is in the `channels` config it will be removed.
 
 The higher the temperature the more "random" the responses are.
 
+Users with the `rules` permission can also change this.
+
 ---
 
 `ban [nickname]`: Manually ban a user.
