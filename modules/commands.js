@@ -199,6 +199,18 @@ module.exports = (App) => {
       allow: `rules`,
     },
     {
+      name: `temp`,
+      on_arg: (data) => {
+        let allowed = [`min`, `low`, `normal`, `high`, `max`, `default`]
+
+        if (allowed.includes(data.arg)) {
+          App.update_config(`temp`, data.arg)
+          App.cmd_show(data.channel, `temp`)
+        }
+      },
+      allow: `rules`,
+    },
+    {
       name: `add user`,
       on_arg: (data) => {
         if (data.arg.length <= App.max_user_length) {
@@ -322,17 +334,6 @@ module.exports = (App) => {
       },
     },
     {
-      name: `temp`,
-      on_arg: (data) => {
-        let allowed = [`min`, `low`, `normal`, `high`, `max`, `default`]
-
-        if (allowed.includes(data.arg)) {
-          App.update_config(`temp`, data.arg)
-          App.cmd_show(data.channel, `temp`)
-        }
-      },
-    },
-    {
       name: `ban`,
       on_arg: (data) => {
         App.antispam_ban(data.arg)
@@ -438,11 +439,18 @@ module.exports = (App) => {
 
       if (ans.ok) {
         let public = [`rules`]
+        let rules = [`temp`]
 
-        if (!public.includes(c)) {
-          if (!data.is_admin) {
+        if (public.includes(c)) {
+          // Anybody can see this value
+        }
+        else if (rules.includes(c)) {
+          if (!data.can_rules) {
             return false
           }
+        }
+        else if (!data.is_admin) {
+          return false
         }
 
         App.cmd_show(channel, c)
