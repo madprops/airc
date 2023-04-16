@@ -1,9 +1,9 @@
 {
-  "nickname": "airc-bot",
   "server": "irc.libera.chat",
   "channels": [
     "#airc-test"
   ],
+  "nickname": "airc-bot",
   "model": "davinci",
   "max_tokens": 200,
   "max_prompt": 350,

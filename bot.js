@@ -53,7 +53,7 @@ App.update_config = (key, value) => {
 // Remove all overriden configs except some
 App.default_config = () => {
   let user_config = App.get_user_config()
-  let keep = [`nickname`, `channels`]
+  let keep = [`server`, `channels`, `nickname`]
 
   for (let key in user_config) {
     if (keep.includes(key)) {

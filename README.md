@@ -358,7 +358,7 @@ The higher the temperature the more "random" the responses are.
 
 ---
 
-`default all`: Removes all overriden configs in `config.user.json` except `nickname` and `channels`.
+`default all`: Removes all overriden configs in `config.user.json` except `server`, `channels`, and `nickname`.
 
 ---
 
