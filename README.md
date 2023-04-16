@@ -419,7 +419,7 @@ These are some script ideas you can use to manage the bot(s).
 ```bash
 #!/usr/bin/env bash
 export OPENAI_API_KEY=mySecretKey
-node /home/botguy/mybot/bot.js
+node /home/botguy/mybot/bot.js &
 ```
 
 Change details accordingly.
