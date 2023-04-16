@@ -419,13 +419,8 @@ These are some script ideas you can use to manage the bot(s).
 ```bash
 #!/usr/bin/env bash
 export OPENAI_API_KEY=mySecretKey
-while true; do nohup node /home/botguy/mybot/bot.js
-done &
+node /home/botguy/mybot/bot.js
 ```
-
-`nohup` makes the node process persist even after you log out of that session (ssh).
-
-If it crashes it will auto-restart because of the while loop.
 
 Change details accordingly.
 
