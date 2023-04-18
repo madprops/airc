@@ -414,24 +414,33 @@ These are some script ideas you can use to manage the bot(s).
 
 ---
 
-`start_mybot.sh`
+`start_airc.sh`
 
 ```bash
 #!/usr/bin/env bash
 export OPENAI_API_KEY=mySecretKey
-node /home/botguy/mybot/bot.js &
+while true; do nohup node /home/botdude/$1/bot.js
+done &
 ```
+
+Send the name of the bot dir as an argument.
+
+`nohup` makes the node process persist even after you log out of that session (ssh).
+
+If it crashes it will auto-restart because of the while loop.
 
 Change details accordingly.
 
 ---
 
-`stop_mybot.sh`
+`stop_airc.sh`
 
 ```bash
 #!/usr/bin/env bash
-ps ax | grep -e "start_mybot.sh" -e "mybot/bot.js"| grep -v grep | awk '{print $1}' | xargs kill
+ps ax | grep -e "start_airc.sh $1" -e "$1/bot.js"| grep -v grep | awk '{print $1}' | xargs kill
 ```
+
+Send the name of the bot dir as an argument.
 
 This stops the start script and the bot process.
 
@@ -453,10 +462,11 @@ cd && cd otherbot && git pull && npm install
 
 ```bash
 #!/usr/bin/env bash
-./stop_mybot.sh
-./stop_otherbot.sh
-./start_mybot.sh
-./start_otherbot.sh
+./stop_airc.sh mybot
+./stop_airc.sh otherbot
+
+./start_airc.sh mybot
+./start_airc.sh otherbot
 ```
 
 ---
