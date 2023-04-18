@@ -28,13 +28,13 @@ module.exports = (App) => {
     })
 
     App.irc_client.addListener(`join`, (channel, nick, message) => {
-      if (nick === App.config.nickname) {
+      if (nick === App.nick()) {
         console.info(`Joined ${channel}`)
       }
     })
 
     App.irc_client.addListener(`part`, (channel, nick, reason, message) => {
-      if (nick === App.config.nickname) {
+      if (nick === App.nick()) {
         console.info(`Left ${channel}`)
       }
     })
