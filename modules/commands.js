@@ -362,6 +362,13 @@ module.exports = (App) => {
       },
     },
     {
+      name: `separator`,
+      on_arg: (data) => {
+        App.update_config(`separator`, data.arg)
+        App.cmd_show(data.channel, `separator`)
+      },
+    },
+    {
       name: `default all`,
       on_exact: (data) => {
         App.default_config()

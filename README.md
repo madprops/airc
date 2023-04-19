@@ -196,6 +196,12 @@ Spam level gets decreased by 1 every second or so.
 
 ---
 
+`separator`: The icon/characater/string used to separate newlines.
+
+It defaults to the alien emoji 👾.
+
+---
+
 ## Credentials <a name="credentials"></a>
 
 The program reads the openai api key from the shell environment, it's not added to the code or config. 

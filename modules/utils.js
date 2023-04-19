@@ -135,8 +135,8 @@ module.exports = (App) => {
     return used
   }
 
-  App.join = (list, char = `👾`) => {
-    return list.join(` ${char} `)
+  App.join = (list, char) => {
+    return list.join(` ${char || App.config.separator} `)
   }
 
   App.unquote = (text) => {

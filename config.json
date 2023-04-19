@@ -18,5 +18,6 @@
   "allow_rules": "all",
   "temp": "normal",
   "spam_limit": 3,
-  "spam_minutes": 30
+  "spam_minutes": 30,
+  "separator": "👾"
 }
