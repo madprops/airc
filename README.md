@@ -360,6 +360,14 @@ Users with the `rules` permission can also change this.
 
 ---
 
+`separator [char]`: Change the newline separator.
+
+This can be used to give your bot a unique style.
+
+Or when you need something with better contrast.
+
+---
+
 `ban [nickname]`: Manually ban a user.
 
 `unban [nickname]`: Manually unban a user.
