@@ -54,7 +54,7 @@ module.exports = (App) => {
 
   App.cmd_help_rules = [
     `you're | you are | ur | respond + [ rules ]`,
-    `reset: Empty the rules`,
+    `reset: Set rules and temp to default`,
   ]
 
   App.cmd_models = Object.keys(App.models)
@@ -193,8 +193,10 @@ module.exports = (App) => {
     {
       name: `reset`,
       on_exact: (data) => {
-        data.arg = `default`
-        App.cmd_change_rules(data)
+        App.update_config(`rules`, `default`)
+        App.cmd_show(data.channel, `rules`)
+        App.update_config(`temp`, `default`)
+        App.cmd_show(data.channel, `temp`)
       },
       allow: `rules`,
     },
