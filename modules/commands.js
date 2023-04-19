@@ -52,13 +52,14 @@ module.exports = (App) => {
     return {ok: ok, arg: arg}
   }
 
+  App.cmd_models = Object.keys(App.models)
+  App.cmd_temps = Object.keys(App.temps)
+
   App.cmd_help_rules = [
     `you're | you are | ur | respond + [ rules ]`,
     `reset: Set rules and temp to default`,
+    `temp + [ ${App.join(App.cmd_temps, `|`)} ]`,
   ]
-
-  App.cmd_models = Object.keys(App.models)
-  App.cmd_temps = Object.keys(App.temps)
 
   App.cmd_help_admins = [
     `add user + [ nick ]`,
@@ -67,7 +68,18 @@ module.exports = (App) => {
     `allow ask + [ all | users | admins ]`,
     `allow rules + [ all | users | admins ]`,
     `model + [ ${App.join(App.cmd_models, `|`)} ]`,
-    `temp + [ ${App.join(App.cmd_temps, `|`)} ]`,
+    `separator + [ emoji ]`,
+    `compact + [ true | false ]`,
+    `max prompt [ number ]`,
+    `max context [ number ]`,
+    `max rules [ number ]`,
+    `max tokens [ number ]`,
+    `join + [ channel ]`,
+    `leave + [ channel? ]`,
+    `ban + [ nickname ]`,
+    `unban + [ nickname ]`,
+    `spam limit + [ number ]`,
+    `spam minutes + [ number ]`,
     `report: Respond with some info`,
     `config: Show some of the config`,
     `default all: Remove all overrides`,
