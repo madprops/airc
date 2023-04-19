@@ -86,7 +86,7 @@ These are the available configs:
 
 Make sure it's not in use yet: `/whois nickname`.
 
-And make sure it's not registered: `/msg nickserv info nickname`.
+And make sure it's not registered by another person: `/msg nickserv info nickname`.
 
 ---
 
