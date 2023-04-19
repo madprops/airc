@@ -143,8 +143,9 @@ module.exports = (App) => {
       text = App.clean(text)
       text = App.unquote(text)
 
-      // Trim each line and join
-      text = App.join(text.split(`\n`).map(x => x.trim()))
+      if (App.config.compact) {
+        text = App.join(text.split(`\n`).map(x => x.trim()))
+      }
 
       if (mention) {
         text = `${mention}: ${text}`

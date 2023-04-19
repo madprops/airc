@@ -369,6 +369,14 @@ module.exports = (App) => {
       },
     },
     {
+      name: `compact`,
+      on_arg: (data) => {
+        let bool = data.arg.toLowerCase() === "true"
+        App.update_config(`compact`, bool)
+        App.cmd_show(data.channel, `compact`)
+      },
+    },
+    {
       name: `default all`,
       on_exact: (data) => {
         App.default_config()

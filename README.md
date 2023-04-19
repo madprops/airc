@@ -196,9 +196,17 @@ Spam level gets decreased by 1 every second or so.
 
 ---
 
-`separator`: The icon/characater/string used to separate newlines.
+`compact [true, false]`: Enable or disable compact mode.
 
-It defaults to the alien emoji 👾.
+Instead of printing new lines on ai response, lines are joined with the `separator`.
+
+This allows a more compact output.
+
+If this is disabled, the output will leave the newlines as is.
+
+---
+
+`separator`: The icon/character/string used to separate newlines and items.
 
 ---
 
