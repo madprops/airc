@@ -207,4 +207,8 @@ module.exports = (App) => {
       return `${num.toLocaleString()} ${plural}`
     }
   }
+
+  App.bool = (string) => {
+    return string.toLowerCase() === "true"
+  }
 }

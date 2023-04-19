@@ -371,8 +371,7 @@ module.exports = (App) => {
     {
       name: `compact`,
       on_arg: (data) => {
-        let bool = data.arg.toLowerCase() === "true"
-        App.update_config(`compact`, bool)
+        App.update_config(`compact`, App.bool(data.arg))
         App.cmd_show(data.channel, `compact`)
       },
     },
