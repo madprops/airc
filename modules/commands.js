@@ -149,7 +149,8 @@ module.exports = (App) => {
         let help = App.cmd_help(data)
 
         if (help) {
-          App.irc_respond(data.channel, App.join(help))
+          App.irc_respond(data.from, App.join(help))
+          App.irc_respond(data.channel, `🛟 Help sent as a private message`)
         }
       },
       on_arg: (data) => {
