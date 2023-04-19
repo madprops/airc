@@ -30,7 +30,7 @@ For example:
 
 ## Installation <a name="installation"></a>
 
-You need to have `Node.js` installed.
+You need to have [Node.js](https://nodejs.org/) installed.
 
 You will also need an [openai](https://openai.com/) api key.
 
