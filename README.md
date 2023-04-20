@@ -4,11 +4,11 @@ This is a nodejs bot that allows users in irc channels to ask questions to opena
 
 It includes commands to alter the way the bot responds.
 
-For example:
+For example, here's using the `ur` command.
 
 ---
 
-**You**: Bot, you're an angry squirrel
+**You**: Bot, ur an angry squirrel
 
 **Bot**: Rules: Respond as if you were an angry squirrel
 
@@ -290,11 +290,9 @@ These are the available commands:
 
 ---
 
-`you're [thing]`: Shortcut to set a personality through rules.
+`ur [thing]`: Set a personality through rules.
 
-`you're a monkey` would set the rules to `Respond as if you were a monkey`.
-
-Aliases to this are: `ur`, `you are`.
+`ur a monkey` would set the rules to `Respond as if you were a monkey`.
 
 ---
 
@@ -304,9 +302,7 @@ Aliases to this are: `ur`, `you are`.
 
 ---
 
-`reset`: Shortcut to `rules default`.
-
-This empties the rules. Making the bot respond with its default personality.
+`reset`: Make the bot respond with its default personality.
 
 ---
 
