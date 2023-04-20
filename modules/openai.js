@@ -11,6 +11,11 @@ module.exports = (App) => {
   }
 
   App.start_openai = () => {
+    // Check if model is still supported
+    if (!App.models[App.config.model]) {
+      App.update_config(`model`, `reset`)
+    }
+
     let configuration = new App.i.openai.Configuration({
       apiKey: process.env.OPENAI_API_KEY
     })
