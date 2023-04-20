@@ -58,7 +58,7 @@ module.exports = (App) => {
 
   App.cmd_help_rules = [
     `${p}ur + [ personality ]`,
-    `${p}reset: Set the rules to default`,
+    `${p}rules: [ rules ]`,
   ]
 
   App.cmd_help_admins = [
@@ -83,7 +83,7 @@ module.exports = (App) => {
     `${p}spam minutes + [ number ]`,
     `${p}report: Respond with some info`,
     `${p}config: Show some of the config`,
-    `${p}default all: Remove all overrides`,
+    `${p}reset all: Remove all overrides`,
   ]
 
   App.cmd_help_all = [
@@ -120,8 +120,8 @@ module.exports = (App) => {
   }
 
   App.cmd_num = (key, data) => {
-    if (data.arg === `default`) {
-      App.update_config(key, `default`)
+    if (data.arg === `reset`) {
+      App.update_config(key, `reset`)
       App.cmd_show(data.channel, key)
     }
     else {
@@ -163,10 +163,9 @@ module.exports = (App) => {
       allow: `rules`,
     },
     {
-      name: `reset`,
-      on_exact: (data) => {
-        App.update_config(`rules`, `default`)
-        App.cmd_show(data.channel, `rules`)
+      name: `rules`,
+      on_arg: (data) => {
+        App.cmd_change_rules(data)
       },
       allow: `rules`,
     },
@@ -196,14 +195,14 @@ module.exports = (App) => {
     {
       name: `clear users`,
       on_exact: (data) => {
-        App.update_config(`users`, `default`)
+        App.update_config(`users`, `reset`)
         App.cmd_show(data.channel, `users`)
       },
     },
     {
       name: `allow ask`,
       on_arg: (data) => {
-        let allowed = [`all`, `users`, `admins`, `default`]
+        let allowed = [`all`, `users`, `admins`, `reset`]
 
         if (allowed.includes(data.arg)) {
           App.update_config(`allow_ask`, data.arg)
@@ -214,7 +213,7 @@ module.exports = (App) => {
     {
       name: `allow rules`,
       on_arg: (data) => {
-        let allowed = [`all`, `users`, `admins`, `default`]
+        let allowed = [`all`, `users`, `admins`, `reset`]
 
         if (allowed.includes(data.arg)) {
           App.update_config(`allow_rules`, data.arg)
@@ -225,7 +224,7 @@ module.exports = (App) => {
     {
       name: `model`,
       on_arg: (data) => {
-        let allowed = [...App.cmd_models, `default`]
+        let allowed = [...App.cmd_models, `reset`]
 
         if (allowed.includes(data.arg)) {
           let model = data.arg
@@ -341,9 +340,9 @@ module.exports = (App) => {
       },
     },
     {
-      name: `default all`,
+      name: `reset all`,
       on_exact: (data) => {
-        App.default_config()
+        App.reset_config()
         App.cmd_done(data)
       },
     },

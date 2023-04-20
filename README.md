@@ -142,7 +142,7 @@ The bigger this is the bigger responses can be, but it gets more expensive.
 
 `rules`: Instructions for the bot. They're prepended before every prompt.
 
-Users change this through the `ur` command, and restore it with `reset`.
+Users change this through the `ur` and `rules` commands.
 
 ---
 
@@ -286,10 +286,6 @@ These are the available commands:
 
 ---
 
-`reset`: Reset the rules to default.
-
----
-
 `add user [nickname]`: Add a nickname to the users array.
 
 `remove user [nickname]`: Remove a nickname from the users array.
@@ -364,7 +360,7 @@ Or when you need something with better contrast.
 
 ---
 
-`default all`: Removes all overriden configs in `config.user.json` except `server`, `channels`, and `nickname`.
+`reset all`: Removes all overriden configs in `config.user.json` except `server`, `channels`, and `nickname`.
 
 ---
 
@@ -392,7 +388,7 @@ Changes to any config through commands are saved automatically in `config.user.j
 
 ---
 
-If `default` is sent to a command as a value, it will remove the overriden value from `config.user.json`.
+If `reset` is sent to a command as a value, it will remove the overriden value from `config.user.json`.
 
 So the default in `config.json` is used.
 

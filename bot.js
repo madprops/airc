@@ -33,7 +33,7 @@ App.update_config = (key, value) => {
     key = key.toLowerCase()
     let user_config = App.get_user_config()
 
-    if (value === `default`) {
+    if (value === `reset`) {
       delete user_config[key]
       App.config[key] = structuredClone(App.original_config[key])
     }
@@ -51,7 +51,7 @@ App.update_config = (key, value) => {
 }
 
 // Remove all overriden configs except some
-App.default_config = () => {
+App.reset_config = () => {
   let user_config = App.get_user_config()
   let keep = [`server`, `channels`, `nickname`]
 
@@ -60,7 +60,7 @@ App.default_config = () => {
       continue
     }
 
-    App.update_config(key, `default`)
+    App.update_config(key, `reset`)
   }
 }
 
@@ -91,7 +91,7 @@ require(`./modules/spam.js`)(App)
 
 // Check if model is still supported
 if (!App.models[App.config.model]) {
-  App.update_config(`model`, `default`)
+  App.update_config(`model`, `reset`)
 }
 
 App.start_antispam()
