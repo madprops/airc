@@ -56,7 +56,7 @@ module.exports = (App) => {
   App.cmd_temps = Object.keys(App.temps)
 
   App.cmd_help_rules = [
-    `ur + [ rules ]`,
+    `ur + [ personality ]`,
     `temp + [ ${App.join(App.cmd_temps, `|`)} ]`,
     `reset: Set rules and temp to default`,
   ]
