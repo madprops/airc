@@ -286,17 +286,15 @@ These are the available commands:
 
 ---
 
-`add user [nickname]`: Add a nickname to the users array.
+`add_user [nickname]`: Add a nickname to the users array.
 
-`remove user [nickname]`: Remove a nickname from the users array.
-
-`clear users`: Remove all users, empty array.
+`remove_user [nickname]`: Remove a nickname from the users array.
 
 ---
 
-`allow ask [all | users | admins]`: Change `ask` permission.
+`allow_ask [all | users | admins]`: Change `ask` permission.
 
-`allow rules [all| users | admins]`: Change `rules` permission.
+`allow_rules [all| users | admins]`: Change `rules` permission.
 
 ---
 
@@ -310,15 +308,13 @@ These are the available commands:
 
 Can be changed by providing a number as an argument:
 
-`max prompt 200`
-
-Separate words with spaces instead of underscores.
+`max_prompt 200`
 
 ---
 
 The value of any config can be read by simply writing its name with no arguments.
 
-`rules` | `allow ask` | `users`
+`rules` | `allow_ask` | `users`
 
 Most properties can only be read my admins.
 
@@ -360,7 +356,9 @@ Or when you need something with better contrast.
 
 ---
 
-`reset all`: Removes all overriden configs in `config.user.json` except `server`, `channels`, and `nickname`.
+`reset [config | all]`: Reset a config by removing it from `config.user.json`.
+
+`reset all` Removes all overriden configs except `server`, `channels`, and `nickname`.
 
 ---
 
@@ -388,23 +386,9 @@ Changes to any config through commands are saved automatically in `config.user.j
 
 ---
 
-If `reset` is sent to a command as a value, it will remove the overriden value from `config.user.json`.
-
-So the default in `config.json` is used.
-
----
-
 All commands are ignored if the message ends with `?`.
 
 Because most likely it's meant as a question for the ai.
-
----
-
-Commands have a 0.8 similarity check.
-
-For example `modelz` can pass as `model`.
-
-This is to permit small typos.
 
 ---
 

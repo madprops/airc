@@ -4,7 +4,6 @@
 
 module.exports = (App) => {
   App.cmd_info = (key) => {
-    key = key.toLowerCase()
     let value
 
     if (typeof App.config[key] === `object`) {
@@ -15,8 +14,7 @@ module.exports = (App) => {
     }
 
     value = value || `(Empty)`
-    let label = App.capitalize(key.replace(/_/g, ` `))
-    return `${App.irc_bold(label)}: ${value}`
+    return `${App.irc_bold(key)}: ${value}`
   }
 
   App.cmd_show = (channel, key) => {
@@ -25,26 +23,15 @@ module.exports = (App) => {
   }
 
   App.cmd_match = (cmd_name, full_cmd) => {
-    let arg = ``
     let ok = false
-    let low_cmd = cmd_name.toLowerCase()
-    let low_full = full_cmd.toLowerCase()
-    let num_words = cmd_name.split(` `).length
-    let full_key = full_cmd.split(` `).slice(0, num_words).join(` `)
-    let low_full_key = full_key.toLowerCase()
+    let arg = ""
 
-    ok = low_full.startsWith(low_cmd)
-
-    if (!ok) {
-      // Check if it's at least similar
-      let similarity = App.string_similarity(low_cmd, low_full_key)
-
-      // The closest to 1 the more similar it has to be
-      ok = similarity >= 0.8
+    if (full_cmd.startsWith(cmd_name)) {
+      ok = true
     }
 
     if (ok) {
-      let name = App.escape_regex(full_key)
+      let name = App.escape_regex(cmd_name)
       let re = new RegExp(`^${name}\\s*`, `i`)
       arg = full_cmd.replace(re, ``).trim()
     }
@@ -62,28 +49,27 @@ module.exports = (App) => {
   ]
 
   App.cmd_help_admins = [
-    `${p}add user + [ nick ]`,
-    `${p}remove user + [ nick ]`,
-    `${p}clear users`,
-    `${p}allow ask + [ all | users | admins ]`,
-    `${p}allow rules + [ all | users | admins ]`,
+    `${p}add_user + [ nick ]`,
+    `${p}remove_user + [ nick ]`,
+    `${p}allow_ask + [ all | users | admins ]`,
+    `${p}allow_rules + [ all | users | admins ]`,
     `${p}model + [ ${App.join(App.cmd_models, `|`)} ]`,
     `${p}prefix + [ char ]`,
     `${p}separator + [ emoji ]`,
     `${p}compact + [ true | false ]`,
-    `${p}max prompt [ number ]`,
-    `${p}max context [ number ]`,
-    `${p}max rules [ number ]`,
-    `${p}max tokens [ number ]`,
+    `${p}max_prompt [ number ]`,
+    `${p}max_context [ number ]`,
+    `${p}max_rules [ number ]`,
+    `${p}max_tokens [ number ]`,
     `${p}join + [ channel ]`,
     `${p}leave + [ channel? ]`,
     `${p}ban + [ nick ]`,
     `${p}unban + [ nick ]`,
-    `${p}spam limit + [ number ]`,
-    `${p}spam minutes + [ number ]`,
+    `${p}spam_limit + [ number ]`,
+    `${p}spam_minutes + [ number ]`,
     `${p}report: Respond with some info`,
     `${p}config: Show some of the config`,
-    `${p}reset all: Remove all overrides`,
+    `${p}reset + [ config | all ]: Reset configs to default`,
   ]
 
   App.cmd_help_all = [
@@ -120,18 +106,12 @@ module.exports = (App) => {
   }
 
   App.cmd_num = (key, data) => {
-    if (data.arg === `reset`) {
-      App.update_config(key, `reset`)
-      App.cmd_show(data.channel, key)
-    }
-    else {
-      let n = parseInt(data.arg)
+    let n = parseInt(data.arg)
 
-      if (!isNaN(n)) {
-        if (n > 0 && n <= (10 * 1000)) {
-          App.update_config(key, n)
-          App.cmd_show(data.channel, key)
-        }
+    if (!isNaN(n)) {
+      if (n > 0 && n <= (10 * 1000)) {
+        App.update_config(key, n)
+        App.cmd_show(data.channel, key)
       }
     }
   }
@@ -170,7 +150,7 @@ module.exports = (App) => {
       allow: `rules`,
     },
     {
-      name: `add user`,
+      name: `add_user`,
       on_arg: (data) => {
         if (data.arg.length <= App.max_user_length) {
           if (!App.is_user(data.arg) && !App.is_admin(data.arg)) {
@@ -182,7 +162,7 @@ module.exports = (App) => {
       },
     },
     {
-      name: `remove user`,
+      name: `remove_user`,
       on_arg: (data) => {
         if (App.is_user(data.arg)) {
           let nick = data.arg.toLowerCase()
@@ -193,16 +173,9 @@ module.exports = (App) => {
       },
     },
     {
-      name: `clear users`,
-      on_exact: (data) => {
-        App.update_config(`users`, `reset`)
-        App.cmd_show(data.channel, `users`)
-      },
-    },
-    {
-      name: `allow ask`,
+      name: `allow_ask`,
       on_arg: (data) => {
-        let allowed = [`all`, `users`, `admins`, `reset`]
+        let allowed = [`all`, `users`, `admins`]
 
         if (allowed.includes(data.arg)) {
           App.update_config(`allow_ask`, data.arg)
@@ -211,9 +184,9 @@ module.exports = (App) => {
       },
     },
     {
-      name: `allow rules`,
+      name: `allow_rules`,
       on_arg: (data) => {
-        let allowed = [`all`, `users`, `admins`, `reset`]
+        let allowed = [`all`, `users`, `admins`]
 
         if (allowed.includes(data.arg)) {
           App.update_config(`allow_rules`, data.arg)
@@ -224,9 +197,7 @@ module.exports = (App) => {
     {
       name: `model`,
       on_arg: (data) => {
-        let allowed = [...App.cmd_models, `reset`]
-
-        if (allowed.includes(data.arg)) {
+        if (App.cmd_models.includes(data.arg)) {
           let model = data.arg
 
           for (let key of App.cmd_models) {
@@ -242,25 +213,25 @@ module.exports = (App) => {
       },
     },
     {
-      name: `max prompt`,
+      name: `max_prompt`,
       on_arg: (data) => {
         App.cmd_num(`max_prompt`, data)
       },
     },
     {
-      name: `max context`,
+      name: `max_context`,
       on_arg: (data) => {
         App.cmd_num(`max_context`, data)
       },
     },
     {
-      name: `max rules`,
+      name: `max_rules`,
       on_arg: (data) => {
         App.cmd_num(`max_rules`, data)
       },
     },
     {
-      name: `max tokens`,
+      name: `max_tokens`,
       on_arg: (data) => {
         App.cmd_num(`max_tokens`, data)
       },
@@ -307,13 +278,13 @@ module.exports = (App) => {
       },
     },
     {
-      name: `spam limit`,
+      name: `spam_limit`,
       on_arg: (data) => {
         App.cmd_num(`spam_limit`, data)
       },
     },
     {
-      name: `spam minutes`,
+      name: `spam_minutes`,
       on_arg: (data) => {
         App.cmd_num(`spam_minutes`, data)
       },
@@ -340,10 +311,20 @@ module.exports = (App) => {
       },
     },
     {
-      name: `reset all`,
-      on_exact: (data) => {
-        App.reset_config()
-        App.cmd_done(data)
+      name: `reset`,
+      on_arg: (data) => {
+        if (data.arg === `all`) {
+          App.reset_config()
+          App.cmd_done(data)
+        }
+        else {
+          let keys = Object.keys(App.config)
+
+          if (keys.includes(data.arg)) {
+            App.update_config(data.arg, `reset`)
+            App.cmd_show(data.channel, data.arg)
+          }
+        }
       },
     },
   ]
