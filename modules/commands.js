@@ -22,6 +22,10 @@ module.exports = (App) => {
     App.irc_respond(channel, info)
   }
 
+  App.cmd_denied = (data) => {
+    App.irc_respond(data.channel, `Permission Denied`)
+  }
+
   App.cmd_match = (cmd_name, full_cmd) => {
     let ok = false
     let arg = ``
@@ -325,25 +329,32 @@ module.exports = (App) => {
         allowed = true
       }
 
-      if (allowed) {
-        // With argument
-        if (ans.arg) {
-          if (c.on_arg) {
+      if (ans.arg) {
+        if (c.on_arg) {
+          if (allowed) {
             data.arg = ans.arg
             c.on_arg(data)
           }
           else {
-            return false
+            App.cmd_denied(data)
           }
         }
-        // Exact match
         else {
-          if (c.on_exact) {
+          return false
+        }
+      }
+      // Exact match
+      else {
+        if (c.on_exact) {
+          if (allowed) {
             c.on_exact(data)
           }
           else {
-            return false
+            App.cmd_denied(data)
           }
+        }
+        else {
+          return false
         }
       }
 
@@ -370,20 +381,7 @@ module.exports = (App) => {
       let ans = App.cmd_match(c, cmd)
 
       if (ans.ok) {
-        let allowed = false
-        let public = [`rules`]
-
-        if (public.includes(c)) {
-          allowed = true
-        }
-        else if (data.is_admin) {
-          allowed = true
-        }
-
-        if (allowed) {
-          App.cmd_show(channel, c)
-        }
-
+        App.cmd_show(channel, c)
         break
       }
     }
