@@ -142,6 +142,8 @@ The bigger this is the bigger responses can be, but it gets more expensive.
 
 `rules`: Instructions for the bot. They're prepended before every prompt.
 
+Users change this through the `ur` command, and restore it with `reset`.
+
 ---
 
 `users`: Array of nicknames. They might have more permissions than non-users.
