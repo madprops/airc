@@ -112,15 +112,6 @@ module.exports = (App) => {
     App.cmd_show(data.channel, `rules`)
   }
 
-  App.cmd_respond_as = (thing) => {
-    return `Respond as if you were ${thing}`
-  }
-
-  App.cmd_ur = (data) => {
-    data.arg = App.cmd_respond_as(data.arg)
-    App.cmd_change_rules(data)
-  }
-
   App.cmd_num = (key, data) => {
     if (data.arg === `default`) {
       App.update_config(key, `default`)
@@ -163,41 +154,9 @@ module.exports = (App) => {
       allow: `all`,
     },
     {
-      name: `rules`,
-      on_arg: (data) => {
-        App.cmd_change_rules(data)
-      },
-      allow: `rules`,
-      no_limit: true,
-    },
-    {
-      name: `you're`,
-      on_arg: (data) => {
-        App.cmd_ur(data)
-      },
-      allow: `rules`,
-      no_limit: true,
-    },
-    {
-      name: `you are`,
-      on_arg: (data) => {
-        App.cmd_ur(data)
-      },
-      allow: `rules`,
-      no_limit: true,
-    },
-    {
       name: `ur`,
       on_arg: (data) => {
-        App.cmd_ur(data)
-      },
-      allow: `rules`,
-      no_limit: true,
-    },
-    {
-      name: `respond`,
-      on_arg: (data) => {
-        data.arg = `Respond ${data.arg}`
+        data.arg = `Respond as if you were ${data.arg}`
         App.cmd_change_rules(data)
       },
       allow: `rules`,
