@@ -378,11 +378,17 @@ module.exports = (App) => {
             data.arg = ans.arg
             c.on_arg(data)
           }
+          else {
+            return false
+          }
         }
         // Exact match
         else {
           if (c.on_exact) {
             c.on_exact(data)
+          }
+          else {
+            return false
           }
         }
       }
