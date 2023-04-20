@@ -74,8 +74,8 @@ module.exports = (App) => {
     `max tokens [ number ]`,
     `join + [ channel ]`,
     `leave + [ channel? ]`,
-    `ban + [ nickname ]`,
-    `unban + [ nickname ]`,
+    `ban + [ nick ]`,
+    `unban + [ nick ]`,
     `spam limit + [ number ]`,
     `spam minutes + [ number ]`,
     `report: Respond with some info`,
@@ -138,6 +138,7 @@ module.exports = (App) => {
         let help = App.cmd_help(data)
 
         if (help) {
+          help.push(`Repo: github.com/madprops/airc`)
           App.irc_respond(data.from, App.join(help))
           App.irc_respond(data.channel, `🛟 Help sent as a private message`)
         }
