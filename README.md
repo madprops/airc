@@ -316,8 +316,6 @@ The value of any config can be read by simply writing its name with no arguments
 
 `rules` | `allow_ask` | `users`
 
-Most properties can only be read my admins.
-
 ---
 
 `join [channel]`: Joins an irc channel.
