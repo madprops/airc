@@ -16,7 +16,6 @@
   "users": [],
   "allow_ask": "all",
   "allow_rules": "all",
-  "temp": "normal",
   "spam_limit": 3,
   "spam_minutes": 30,
   "compact": true,

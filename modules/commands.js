@@ -53,12 +53,10 @@ module.exports = (App) => {
   }
 
   App.cmd_models = Object.keys(App.models)
-  App.cmd_temps = Object.keys(App.temps)
 
   App.cmd_help_rules = [
     `ur + [ personality ]`,
-    `temp + [ ${App.join(App.cmd_temps, `|`)} ]`,
-    `reset: Set rules and temp to default`,
+    `reset: Set the rules to default`,
   ]
 
   App.cmd_help_admins = [
@@ -167,20 +165,6 @@ module.exports = (App) => {
       on_exact: (data) => {
         App.update_config(`rules`, `default`)
         App.cmd_show(data.channel, `rules`)
-        App.update_config(`temp`, `default`)
-        App.cmd_show(data.channel, `temp`)
-      },
-      allow: `rules`,
-    },
-    {
-      name: `temp`,
-      on_arg: (data) => {
-        let allowed = [`min`, `low`, `normal`, `high`, `max`, `default`]
-
-        if (allowed.includes(data.arg)) {
-          App.update_config(`temp`, data.arg)
-          App.cmd_show(data.channel, `temp`)
-        }
       },
       allow: `rules`,
     },
@@ -427,7 +411,6 @@ module.exports = (App) => {
 
       if (ans.ok) {
         let public = [`rules`]
-        let rules = [`temp`]
 
         if (public.includes(c)) {
           // Anybody can see this value

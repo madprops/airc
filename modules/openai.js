@@ -10,18 +10,6 @@ module.exports = (App) => {
     },
   }
 
-  App.temps = {
-    min: 0,
-    low: 0.5,
-    normal: 1,
-    high: 1.5,
-    max: 2,
-  }
-
-  App.get_temp = () => {
-    return App.temps[App.config.temp]
-  }
-
   App.start_openai = () => {
     let configuration = new App.i.openai.Configuration({
       apiKey: process.env.OPENAI_API_KEY
@@ -41,7 +29,6 @@ module.exports = (App) => {
           model: model.name,
           prompt: prompt,
           max_tokens: App.config.max_tokens,
-          temperature: App.get_temp(),
         })
 
         if (ans.status === 200) {
@@ -58,7 +45,6 @@ module.exports = (App) => {
           model: model.name,
           messages: [{role: `user`, content: prompt}],
           max_tokens: App.config.max_tokens,
-          temperature: App.get_temp(),
         })
 
         if (ans.status === 200) {

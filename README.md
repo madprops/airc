@@ -356,14 +356,6 @@ If the channel is in the `channels` config it will be removed.
 
 ---
 
-`temp [min | low | normal | high | max]`: Change the temperature.
-
-The higher the temperature the more "random" the responses are.
-
-Users with the `rules` permission can also change this.
-
----
-
 `compact [true | false]`: Enable or disable compact mode.
 
 ---
