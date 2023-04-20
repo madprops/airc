@@ -54,36 +54,36 @@ module.exports = (App) => {
 
   App.cmd_models = Object.keys(App.models)
 
-  App.p = App.config.prefix
+  let p = App.config.prefix
 
   App.cmd_help_rules = [
-    `${App.p}ur + [ personality ]`,
-    `${App.p}reset: Set the rules to default`,
+    `${p}ur + [ personality ]`,
+    `${p}reset: Set the rules to default`,
   ]
 
   App.cmd_help_admins = [
-    `${App.p}add user + [ nick ]`,
-    `${App.p}remove user + [ nick ]`,
-    `${App.p}clear users`,
-    `${App.p}allow ask + [ all | users | admins ]`,
-    `${App.p}allow rules + [ all | users | admins ]`,
-    `${App.p}model + [ ${App.join(App.cmd_models, `|`)} ]`,
-    `${App.p}prefix + [ char ]`,
-    `${App.p}separator + [ emoji ]`,
-    `${App.p}compact + [ true | false ]`,
-    `${App.p}max prompt [ number ]`,
-    `${App.p}max context [ number ]`,
-    `${App.p}max rules [ number ]`,
-    `${App.p}max tokens [ number ]`,
-    `${App.p}join + [ channel ]`,
-    `${App.p}leave + [ channel? ]`,
-    `${App.p}ban + [ nick ]`,
-    `${App.p}unban + [ nick ]`,
-    `${App.p}spam limit + [ number ]`,
-    `${App.p}spam minutes + [ number ]`,
-    `${App.p}report: Respond with some info`,
-    `${App.p}config: Show some of the config`,
-    `${App.p}default all: Remove all overrides`,
+    `${p}add user + [ nick ]`,
+    `${p}remove user + [ nick ]`,
+    `${p}clear users`,
+    `${p}allow ask + [ all | users | admins ]`,
+    `${p}allow rules + [ all | users | admins ]`,
+    `${p}model + [ ${App.join(App.cmd_models, `|`)} ]`,
+    `${p}prefix + [ char ]`,
+    `${p}separator + [ emoji ]`,
+    `${p}compact + [ true | false ]`,
+    `${p}max prompt [ number ]`,
+    `${p}max context [ number ]`,
+    `${p}max rules [ number ]`,
+    `${p}max tokens [ number ]`,
+    `${p}join + [ channel ]`,
+    `${p}leave + [ channel? ]`,
+    `${p}ban + [ nick ]`,
+    `${p}unban + [ nick ]`,
+    `${p}spam limit + [ number ]`,
+    `${p}spam minutes + [ number ]`,
+    `${p}report: Respond with some info`,
+    `${p}config: Show some of the config`,
+    `${p}default all: Remove all overrides`,
   ]
 
   App.cmd_help_all = [

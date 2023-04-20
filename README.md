@@ -266,9 +266,9 @@ There's an automatic anti-spam system that bans users who abuse the bot.
 
 ## Commands <a name="commands"></a>
 
-The bot listens to commands when mentioned.
+The bot listens to commands when mentioned and the prefix is used.
 
-For example: `mybot, help`.
+For example: `mybot, !help`.
 
 ---
 
