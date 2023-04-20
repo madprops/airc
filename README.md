@@ -140,20 +140,6 @@ The bigger this is the bigger responses can be, but it gets more expensive.
 
 ---
 
-`rules`: Optional instructions for the bot, they're prepended before every prompt.
-
-For example: `Please respond in the style of Stewie from Family Guy`.
-
-The code used to build the prompt looks like this:
-
-```js
-if (rules) {
-  prompt = rules + "\n" + prompt
-}
-```
-
----
-
 `users`: Array of nicknames. They might have more permissions than non-users.
 
 What they can do can be determined through permissions.
@@ -244,13 +230,7 @@ Nickname detection is case insensitive. `MyBot` and `mybot` work.
 
 ---
 
-If a message starts with `^`, the bot will use the previous message from itself as context.
-
-It does this by storing its last responses.
-
-```js
-last_responses[channel] = response
-```
+If a message starts with `^`, the bot will use the previous message from itself as context:
 
 **You**: Bot, What is 2 + 2 ?
 
@@ -296,13 +276,7 @@ These are the available commands:
 
 ---
 
-`respond`: Shortcut to set the rules.
-
-`respond like a lawyer` will set the rules to exactly that.
-
----
-
-`reset`: Make the bot respond with its default personality.
+`reset`: Reset the rules to default.
 
 ---
 
