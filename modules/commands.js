@@ -81,8 +81,12 @@ module.exports = (App) => {
     `report: Respond with some info`,
     `config: Show some of the config`,
     `default all: Remove all overrides`,
+  ]
+
+  App.cmd_help_all = [
     `Start with ^: Use previous response as context`,
     `End with @nick: Make the bot mention that nick`,
+    `Repo: github.com/madprops/airc`,
   ]
 
   App.cmd_help = (data) => {
@@ -96,9 +100,11 @@ module.exports = (App) => {
       help.push(...App.cmd_help_admins)
     }
 
+    help.push(...App.cmd_help_all)
+
     if (data.arg) {
       let low = data.arg.toLowerCase()
-      help = help.filter(x => x.includes(low))
+      help = help.filter(x => x.toLowerCase().includes(low))
     }
 
     return help
@@ -136,19 +142,12 @@ module.exports = (App) => {
       name: `help`,
       on_exact: (data) => {
         let help = App.cmd_help(data)
-
-        if (help) {
-          help.push(`Repo: github.com/madprops/airc`)
-          App.irc_respond(data.from, App.join(help))
-          App.irc_respond(data.channel, `🛟 Help sent as a private message`)
-        }
+        App.irc_respond(data.from, App.join(help))
+        App.irc_respond(data.channel, `🛟 Help sent as a private message`)
       },
       on_arg: (data) => {
         let help = App.cmd_help(data)
-
-        if (help) {
-          App.irc_respond(data.channel, App.join(help))
-        }
+        App.irc_respond(data.channel, App.join(help))
       },
       allow: `all`,
     },
@@ -415,11 +414,6 @@ module.exports = (App) => {
 
         if (public.includes(c)) {
           // Anybody can see this value
-        }
-        else if (rules.includes(c)) {
-          if (!data.can_rules) {
-            return false
-          }
         }
         else if (!data.is_admin) {
           return false
