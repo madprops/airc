@@ -4,11 +4,11 @@ This is a nodejs bot that allows users in irc channels to ask questions to opena
 
 It includes commands to alter the way the bot responds.
 
-For example, here's using the `ur` command:
+For example, here's using the `!ur` command:
 
 ---
 
-**You**: Bot, ur an angry squirrel
+**You**: Bot, !ur an angry squirrel
 
 **Bot**: Rules: Respond as if you were an angry squirrel
 
@@ -202,6 +202,10 @@ If this is disabled, the output will leave the newlines as is.
 
 ---
 
+`prefix`: The command prefix. Like `!`. Used before every command.
+
+---
+
 ## Credentials <a name="credentials"></a>
 
 The program reads the openai api key from the shell environment, it's not added to the code or config.
@@ -347,6 +351,10 @@ If the channel is in the `channels` config it will be removed.
 This can be used to give your bot a unique style.
 
 Or when you need something with better contrast.
+
+---
+
+`prefix [char]`: Change the commands prefix.
 
 ---
 

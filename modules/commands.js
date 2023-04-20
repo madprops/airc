@@ -54,33 +54,36 @@ module.exports = (App) => {
 
   App.cmd_models = Object.keys(App.models)
 
+  App.p = App.config.prefix
+
   App.cmd_help_rules = [
-    `ur + [ personality ]`,
-    `reset: Set the rules to default`,
+    `${App.p}ur + [ personality ]`,
+    `${App.p}reset: Set the rules to default`,
   ]
 
   App.cmd_help_admins = [
-    `add user + [ nick ]`,
-    `remove user + [ nick ]`,
-    `clear users`,
-    `allow ask + [ all | users | admins ]`,
-    `allow rules + [ all | users | admins ]`,
-    `model + [ ${App.join(App.cmd_models, `|`)} ]`,
-    `separator + [ emoji ]`,
-    `compact + [ true | false ]`,
-    `max prompt [ number ]`,
-    `max context [ number ]`,
-    `max rules [ number ]`,
-    `max tokens [ number ]`,
-    `join + [ channel ]`,
-    `leave + [ channel? ]`,
-    `ban + [ nick ]`,
-    `unban + [ nick ]`,
-    `spam limit + [ number ]`,
-    `spam minutes + [ number ]`,
-    `report: Respond with some info`,
-    `config: Show some of the config`,
-    `default all: Remove all overrides`,
+    `${App.p}add user + [ nick ]`,
+    `${App.p}remove user + [ nick ]`,
+    `${App.p}clear users`,
+    `${App.p}allow ask + [ all | users | admins ]`,
+    `${App.p}allow rules + [ all | users | admins ]`,
+    `${App.p}model + [ ${App.join(App.cmd_models, `|`)} ]`,
+    `${App.p}prefix + [ char ]`,
+    `${App.p}separator + [ emoji ]`,
+    `${App.p}compact + [ true | false ]`,
+    `${App.p}max prompt [ number ]`,
+    `${App.p}max context [ number ]`,
+    `${App.p}max rules [ number ]`,
+    `${App.p}max tokens [ number ]`,
+    `${App.p}join + [ channel ]`,
+    `${App.p}leave + [ channel? ]`,
+    `${App.p}ban + [ nick ]`,
+    `${App.p}unban + [ nick ]`,
+    `${App.p}spam limit + [ number ]`,
+    `${App.p}spam minutes + [ number ]`,
+    `${App.p}report: Respond with some info`,
+    `${App.p}config: Show some of the config`,
+    `${App.p}default all: Remove all overrides`,
   ]
 
   App.cmd_help_all = [
@@ -158,7 +161,6 @@ module.exports = (App) => {
         App.cmd_change_rules(data)
       },
       allow: `rules`,
-      no_limit: true,
     },
     {
       name: `reset`,
@@ -325,6 +327,13 @@ module.exports = (App) => {
       },
     },
     {
+      name: `prefix`,
+      on_arg: (data) => {
+        App.update_config(`prefix`, data.arg)
+        App.cmd_show(data.channel, `prefix`)
+      },
+    },
+    {
       name: `compact`,
       on_arg: (data) => {
         App.update_config(`compact`, App.bool(data.arg))
@@ -343,51 +352,43 @@ module.exports = (App) => {
   App.check_command = (c, data) => {
     let ans = App.cmd_match(c.name, data.cmd)
 
+    if (!ans.ok) {
+      return false
+    }
+
     if (ans.ok) {
+      let allowed = false
+
       if (c.allow === `all`) {
-        // Anybody can use this command
+        allowed = true
       }
       else if (c.allow === `rules`) {
-        if (!data.can_rules) {
-          return false
+        if (data.can_rules) {
+          allowed = true
         }
       }
-      else if (!data.is_admin) {
-        return false
+      else if (data.is_admin) {
+        allowed = true
       }
 
-      // With argument
-      if (ans.arg) {
-        if (!c.on_arg) {
-          return false
-        }
-
-        // Ignore commands that are too long
-        // Except on commands like rules changes
-        if (!c.no_limit) {
-          let max_args = c.name.split(` `).length + 2
-
-          if (data.num_words > max_args) {
-            return false
+      if (allowed) {
+        // With argument
+        if (ans.arg) {
+          if (c.on_arg) {
+            data.arg = ans.arg
+            c.on_arg(data)
           }
         }
-
-        data.arg = ans.arg
-        c.on_arg(data)
-      }
-      // Exact match
-      else {
-        if (!c.on_exact) {
-          return false
+        // Exact match
+        else {
+          if (c.on_exact) {
+            c.on_exact(data)
+          }
         }
-
-        c.on_exact(data)
       }
 
       return true
     }
-
-    return false
   }
 
   App.check_commands = (from, channel, cmd) => {
@@ -395,13 +396,12 @@ module.exports = (App) => {
     data.from = from
     data.channel = channel
     data.cmd = cmd
-    data.num_words = cmd.split(` `).length
     data.can_rules = App.is_allowed(`rules`, from)
     data.is_admin = App.is_admin(from)
 
     for (let c of App.commands) {
       if (App.check_command(c, data)) {
-        return true
+        return
       }
     }
 
@@ -410,20 +410,22 @@ module.exports = (App) => {
       let ans = App.cmd_match(c.split(`_`).join(` `), cmd)
 
       if (ans.ok) {
+        let allowed = false
         let public = [`rules`]
 
         if (public.includes(c)) {
-          // Anybody can see this value
+          allowed = true
         }
-        else if (!data.is_admin) {
-          return false
+        else if (data.is_admin) {
+          allowed = true
         }
 
-        App.cmd_show(channel, c)
-        return true
+        if (allowed) {
+          App.cmd_show(channel, c)
+        }
+
+        break
       }
     }
-
-    return false
   }
 }
