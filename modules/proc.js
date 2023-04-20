@@ -75,22 +75,13 @@ module.exports = (App) => {
         return
       }
 
-      let is_command = prompt.startsWith(App.config.prefix)
-
-      if (is_command) {
-        let cmd = prompt.replace(App.config.prefix, ``)
+      if (prompt.startsWith(`!`)) {
+        let cmd = prompt.replace(`!`, ``)
 
         if (/^\w/.test(cmd)) {
           App.check_commands(from, channel, cmd)
         }
 
-        return
-      }
-
-      let is_question = prompt.endsWith(`?`)
-
-      if (is_question) {
-        App.ask_ai(from, channel, prompt)
         return
       }
 

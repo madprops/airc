@@ -41,35 +41,32 @@ module.exports = (App) => {
 
   App.cmd_models = Object.keys(App.models)
 
-  let p = App.config.prefix
-
   App.cmd_help_rules = [
-    `${p}ur + [ personality ]`,
-    `${p}rules: [ rules ]`,
+    `!ur + [ personality ]`,
+    `!rules: [ rules ]`,
   ]
 
   App.cmd_help_admins = [
-    `${p}add_user + [ nick ]`,
-    `${p}remove_user + [ nick ]`,
-    `${p}allow_ask + [ all | users | admins ]`,
-    `${p}allow_rules + [ all | users | admins ]`,
-    `${p}model + [ ${App.join(App.cmd_models, `|`)} ]`,
-    `${p}prefix + [ char ]`,
-    `${p}separator + [ emoji ]`,
-    `${p}compact + [ true | false ]`,
-    `${p}max_prompt [ number ]`,
-    `${p}max_context [ number ]`,
-    `${p}max_rules [ number ]`,
-    `${p}max_tokens [ number ]`,
-    `${p}join + [ channel ]`,
-    `${p}leave + [ channel? ]`,
-    `${p}ban + [ nick ]`,
-    `${p}unban + [ nick ]`,
-    `${p}spam_limit + [ number ]`,
-    `${p}spam_minutes + [ number ]`,
-    `${p}report: Respond with some info`,
-    `${p}config: Show some of the config`,
-    `${p}reset + [ config | all ]: Reset configs to default`,
+    `!add_user + [ nick ]`,
+    `!remove_user + [ nick ]`,
+    `!allow_ask + [ all | users | admins ]`,
+    `!allow_rules + [ all | users | admins ]`,
+    `!model + [ ${App.join(App.cmd_models, `|`)} ]`,
+    `!separator + [ emoji ]`,
+    `!compact + [ true | false ]`,
+    `!max_prompt [ number ]`,
+    `!max_context [ number ]`,
+    `!max_rules [ number ]`,
+    `!max_tokens [ number ]`,
+    `!join + [ channel ]`,
+    `!leave + [ channel? ]`,
+    `!ban + [ nick ]`,
+    `!unban + [ nick ]`,
+    `!spam_limit + [ number ]`,
+    `!spam_minutes + [ number ]`,
+    `!report: Respond with some info`,
+    `!config: Show some of the config`,
+    `!reset + [ config | all ]: Reset configs to default`,
   ]
 
   App.cmd_help_all = [
@@ -294,13 +291,6 @@ module.exports = (App) => {
       on_arg: (data) => {
         App.update_config(`separator`, data.arg)
         App.cmd_show(data.channel, `separator`)
-      },
-    },
-    {
-      name: `prefix`,
-      on_arg: (data) => {
-        App.update_config(`prefix`, data.arg)
-        App.cmd_show(data.channel, `prefix`)
       },
     },
     {

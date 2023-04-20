@@ -19,6 +19,5 @@
   "spam_limit": 3,
   "spam_minutes": 30,
   "compact": true,
-  "separator": "👾",
-  "prefix": "!"
+  "separator": "👾"
 }

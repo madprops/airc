@@ -202,10 +202,6 @@ If this is disabled, the output will leave the newlines as is.
 
 ---
 
-`prefix`: The command prefix. Like `!`. Used before every command.
-
----
-
 ## Credentials <a name="credentials"></a>
 
 The program reads the openai api key from the shell environment, it's not added to the code or config.
@@ -266,9 +262,13 @@ There's an automatic anti-spam system that bans users who abuse the bot.
 
 ## Commands <a name="commands"></a>
 
-The bot listens to commands when mentioned and the prefix is used.
+The bot listens to commands when mentioned and ! is used.
 
 For example: `mybot, !help`.
+
+For example: `mybot, !add_user joe`.
+
+For example: `mybot, !reset rules`.
 
 ---
 
