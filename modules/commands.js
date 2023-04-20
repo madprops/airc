@@ -393,7 +393,7 @@ module.exports = (App) => {
 
     // Print values
     for (let c of Object.keys(App.config)) {
-      let ans = App.cmd_match(c.split(`_`).join(` `), cmd)
+      let ans = App.cmd_match(c, cmd)
 
       if (ans.ok) {
         let allowed = false
