@@ -24,7 +24,7 @@ module.exports = (App) => {
 
   App.cmd_match = (cmd_name, full_cmd) => {
     let ok = false
-    let arg = ""
+    let arg = ``
 
     if (full_cmd.startsWith(cmd_name)) {
       ok = true

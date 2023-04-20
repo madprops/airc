@@ -153,6 +153,6 @@ module.exports = (App) => {
   }
 
   App.bool = (string) => {
-    return string.toLowerCase() === "true"
+    return string.toLowerCase() === `true`
   }
 }
