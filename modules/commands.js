@@ -57,8 +57,8 @@ module.exports = (App) => {
 
   App.cmd_help_rules = [
     `ur + [ rules ]`,
-    `reset: Set rules and temp to default`,
     `temp + [ ${App.join(App.cmd_temps, `|`)} ]`,
+    `reset: Set rules and temp to default`,
   ]
 
   App.cmd_help_admins = [
