@@ -262,7 +262,7 @@ There's an automatic anti-spam system that bans users who abuse the bot.
 
 ## Commands <a name="commands"></a>
 
-The bot listens to commands when mentioned and `!` is used at the start of the message.
+The bot listens to commands when it is mentioned and `!` is used at the start of the message.
 
 For example: `mybot, !help`.
 
