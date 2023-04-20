@@ -4,7 +4,7 @@ This is a nodejs bot that allows users in irc channels to ask questions to opena
 
 It includes commands to alter the way the bot responds.
 
-For example, here's using the `ur` command.
+For example, here's using the `ur` command:
 
 ---
 
@@ -82,7 +82,7 @@ These are the available configs:
 
 ---
 
-`nickname`: irc nickname of the bot. 
+`nickname`: irc nickname of the bot.
 
 Make sure it's not in use yet: `/whois nickname`.
 
@@ -134,7 +134,7 @@ If longer, the remainder is trimmed out.
 
 ---
 
-`max_tokens`: Maximum amount of tokens openai can play with. 
+`max_tokens`: Maximum amount of tokens openai can play with.
 
 The bigger this is the bigger responses can be, but it gets more expensive.
 
@@ -204,7 +204,7 @@ If this is disabled, the output will leave the newlines as is.
 
 ## Credentials <a name="credentials"></a>
 
-The program reads the openai api key from the shell environment, it's not added to the code or config. 
+The program reads the openai api key from the shell environment, it's not added to the code or config.
 
 You must do this before running the bot:
 
@@ -226,7 +226,7 @@ Format: `nickname[, or :] question`
 
 `mybot, some question`
 
-or 
+or
 
 `mybot: some question`
 
@@ -286,11 +286,11 @@ These are the available commands:
 
 ---
 
-`add user [nickname]`: Add a nickname to the users array. 
+`add user [nickname]`: Add a nickname to the users array.
 
-`remove user [nickname]`: Remove a nickname from the users array. 
+`remove user [nickname]`: Remove a nickname from the users array.
 
-`clear users`: Remove all users, empty array. 
+`clear users`: Remove all users, empty array.
 
 ---
 
@@ -442,7 +442,7 @@ This stops the start script and the bot process.
 
 Change details accordingly.
 
---- 
+---
 
 `update_airc.sh`
 
