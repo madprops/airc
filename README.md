@@ -346,10 +346,6 @@ Or when you need something with better contrast.
 
 ---
 
-`prefix [char]`: Change the commands prefix.
-
----
-
 `ban [nickname]`: Manually ban a user.
 
 `unban [nickname]`: Manually unban a user.
