@@ -140,6 +140,10 @@ The bigger this is the bigger responses can be, but it gets more expensive.
 
 ---
 
+`rules`: Instructions for the bot. They're prepended before every prompt.
+
+---
+
 `users`: Array of nicknames. They might have more permissions than non-users.
 
 What they can do can be determined through permissions.
