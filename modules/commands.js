@@ -41,12 +41,9 @@ module.exports = (App) => {
 
   App.cmd_models = Object.keys(App.models)
 
-  App.cmd_help_rules = [
+  App.cmd_help_items = [
     `!ur + [ personality ]`,
     `!rules: [ rules ]`,
-  ]
-
-  App.cmd_help_admins = [
     `!add_user + [ nick ]`,
     `!remove_user + [ nick ]`,
     `!allow_ask + [ all | users | admins ]`,
@@ -67,26 +64,13 @@ module.exports = (App) => {
     `!report: Respond with some info`,
     `!config: Show some of the config`,
     `!reset + [ config | all ]: Reset configs to default`,
-  ]
-
-  App.cmd_help_all = [
     `Start with ^: Use previous response as context`,
     `End with @nick: Make the bot mention that nick`,
-    `Repo: github.com/madprops/airc`,
+    `Repo: https://github.com/madprops/airc`,
   ]
 
   App.cmd_help = (data) => {
-    let help = []
-
-    if (data.can_rules) {
-      help.push(...App.cmd_help_rules)
-    }
-
-    if (data.is_admin) {
-      help.push(...App.cmd_help_admins)
-    }
-
-    help.push(...App.cmd_help_all)
+    let help = [...App.cmd_help_items]
 
     if (data.arg) {
       let low = data.arg.toLowerCase()
