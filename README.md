@@ -198,7 +198,13 @@ If this is disabled, the output will leave the newlines as is.
 
 ---
 
-`separator`: The icon/character/string used to separate newlines and items.
+`command_char`: The character used to run commands like `!`.
+
+`context_char`: The character used to use context like `^`.
+
+`mention_char`: The character used to mention users like `@`.
+
+`join_char`: The character used to join lines/items like `👾`.
 
 ---
 
@@ -353,6 +359,12 @@ Or when you need something with better contrast.
 `reset [config | all]`: Reset a config by removing it from `config.user.json`.
 
 `reset all` Removes all overriden configs except `server`, `channels`, and `nickname`.
+
+---
+
+The characters used to run commands, use context, do a mention, or join lines can be changed:
+
+`command_char` | `context_char` | `mention_char` | `join_char`
 
 ---
 
