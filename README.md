@@ -390,6 +390,10 @@ Because most likely it's meant as a question for the ai.
 
 ---
 
+There's a similarity check to allow minor typos in command names and values.
+
+---
+
 ## Scripts <a name="scripts"></a>
 
 These are some script ideas you can use to manage the bot(s).

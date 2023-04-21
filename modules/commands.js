@@ -34,12 +34,21 @@ module.exports = (App) => {
       ok = true
     }
 
-    let name = App.escape_regex(cmd_name)
-    let match_regex = new RegExp(`^${name}(\\s|$)`)
+    let first = full_cmd.split(` `)[0]
+    let name_re = App.escape_regex(cmd_name)
+    let match_regex = new RegExp(`^${name_re}(\\s|$)`)
+
     ok = match_regex.test(full_cmd)
 
+    if (!ok) {
+      if (App.similarity(cmd_name, first) >= 0.8) {
+        ok = true
+      }
+    }
+
     if (ok) {
-      let re = new RegExp(`^${name}\\s*`, `i`)
+      let first_re = App.escape_regex(first)
+      let re = new RegExp(`^${first_re}\\s*`, `i`)
       arg = full_cmd.replace(re, ``).trim()
     }
 
@@ -113,6 +122,22 @@ module.exports = (App) => {
     App.irc_respond(data.channel, `Done.`)
   }
 
+  App.cmd_similar = (arg, items) => {
+    let max = 0
+    let ans = ""
+
+    for (let item of items) {
+      let n = App.similarity(arg, item)
+
+      if (n >= 0.7 && n > max) {
+        max = n
+        ans = item
+      }
+    }
+
+    return ans
+  }
+
   App.commands = [
     {
       name: `help`,
@@ -169,9 +194,10 @@ module.exports = (App) => {
       name: `allow_ask`,
       on_arg: (data) => {
         let allowed = [`all`, `users`, `admins`]
+        let value = App.cmd_similar(data.arg, allowed)
 
-        if (allowed.includes(data.arg)) {
-          App.update_config(`allow_ask`, data.arg)
+        if (value) {
+          App.update_config(`allow_ask`, value)
           App.cmd_show(data.channel, `allow_ask`)
         }
       },
@@ -180,9 +206,10 @@ module.exports = (App) => {
       name: `allow_rules`,
       on_arg: (data) => {
         let allowed = [`all`, `users`, `admins`]
+        let value = App.cmd_similar(data.arg, allowed)
 
-        if (allowed.includes(data.arg)) {
-          App.update_config(`allow_rules`, data.arg)
+        if (value) {
+          App.update_config(`allow_rules`, value)
           App.cmd_show(data.channel, `allow_rules`)
         }
       },
