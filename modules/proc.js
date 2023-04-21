@@ -61,12 +61,10 @@ module.exports = (App) => {
         return
       }
 
-      let last_response = App.last_responses[channel]
-
       // Check if context is used
-      if (last_response && prompt.startsWith(App.config.context_char)) {
+      if (App.last_responses[channel] && prompt.startsWith(App.config.context_char)) {
         let words = prompt.replace(App.config.context_char, ``)
-        App.ask_ai(from, channel, words, last_response)
+        App.ask_ai(from, channel, words, App.last_responses[channel])
         return
       }
 
