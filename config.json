@@ -19,5 +19,8 @@
   "spam_limit": 3,
   "spam_minutes": 30,
   "compact": true,
-  "separator": "👾"
+  "command_char": "!",
+  "context_char": "^",
+  "mention_char": "@",
+  "join_char": "👾"
 }

@@ -34,8 +34,11 @@ module.exports = (App) => {
       ok = true
     }
 
+    let name = App.escape_regex(cmd_name)
+    let match_regex = new RegExp(`^${name}(\\s|$)`)
+    ok = match_regex.test(full_cmd)
+
     if (ok) {
-      let name = App.escape_regex(cmd_name)
       let re = new RegExp(`^${name}\\s*`, `i`)
       arg = full_cmd.replace(re, ``).trim()
     }
@@ -44,28 +47,33 @@ module.exports = (App) => {
   }
 
   App.cmd_models = Object.keys(App.models)
+  App.p = App.config.command_char
 
   App.cmd_help_items = [
-    `!ur + [ personality ]`,
-    `!rules: [ rules ]`,
-    `!add_user + [ nick ]`,
-    `!remove_user + [ nick ]`,
-    `!allow_ask + [ all | users | admins ]`,
-    `!allow_rules + [ all | users | admins ]`,
-    `!model + [ ${App.join(App.cmd_models, `|`)} ]`,
-    `!separator + [ emoji ]`,
-    `!compact + [ true | false ]`,
-    `!max_prompt [ number ]`,
-    `!max_context [ number ]`,
-    `!max_rules [ number ]`,
-    `!max_tokens [ number ]`,
-    `!join + [ channel ]`,
-    `!leave + [ channel? ]`,
-    `!ban + [ nick ]`,
-    `!unban + [ nick ]`,
-    `!spam_limit + [ number ]`,
-    `!spam_minutes + [ number ]`,
-    `!reset + [ config | all ]: Reset configs to default`,
+    `${App.p}ur + [ personality ]`,
+    `${App.p}rules: [ rules ]`,
+    `${App.p}add_user + [ nick ]`,
+    `${App.p}remove_user + [ nick ]`,
+    `${App.p}allow_ask + [ all | users | admins ]`,
+    `${App.p}allow_rules + [ all | users | admins ]`,
+    `${App.p}model + [ ${App.join(App.cmd_models, `|`)} ]`,
+    `${App.p}separator + [ emoji ]`,
+    `${App.p}compact + [ true | false ]`,
+    `${App.p}max_prompt [ number ]`,
+    `${App.p}max_context [ number ]`,
+    `${App.p}max_rules [ number ]`,
+    `${App.p}max_tokens [ number ]`,
+    `${App.p}join + [ channel ]`,
+    `${App.p}leave + [ channel? ]`,
+    `${App.p}ban + [ nick ]`,
+    `${App.p}unban + [ nick ]`,
+    `${App.p}spam_limit + [ number ]`,
+    `${App.p}spam_minutes + [ number ]`,
+    `${App.p}command_char + [ char ]`,
+    `${App.p}context_char + [ char ]`,
+    `${App.p}mention_char + [ char ]`,
+    `${App.p}join_char + [ char ]`,
+    `${App.p}reset + [ config | all ]: Reset configs to default`,
     `!report: (Global) Respond with some info`,
     `!config: (Global) Show some of the config`,
     `Start with ^: Use previous response as context`,
@@ -286,6 +294,34 @@ module.exports = (App) => {
       on_arg: (data) => {
         App.update_config(`compact`, App.bool(data.arg))
         App.cmd_show(data.channel, `compact`)
+      },
+    },
+    {
+      name: `command_char`,
+      on_arg: (data) => {
+        App.update_config(`command_char`, data.arg)
+        App.cmd_show(data.channel, `command_char`)
+      },
+    },
+    {
+      name: `context_char`,
+      on_arg: (data) => {
+        App.update_config(`context_char`, data.arg)
+        App.cmd_show(data.channel, `context_char`)
+      },
+    },
+    {
+      name: `mention_char`,
+      on_arg: (data) => {
+        App.update_config(`mention_char`, data.arg)
+        App.cmd_show(data.channel, `mention_char`)
+      },
+    },
+    {
+      name: `join_char`,
+      on_arg: (data) => {
+        App.update_config(`join_char`, data.arg)
+        App.cmd_show(data.channel, `join_char`)
       },
     },
     {

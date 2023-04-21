@@ -69,19 +69,15 @@ module.exports = (App) => {
       // Check if context is used
       let last_response = App.last_responses[channel]
 
-      if (last_response && prompt.startsWith(`^`)) {
-        let words = prompt.replace(`^`, ``)
+      if (last_response && prompt.startsWith(App.config.context_char)) {
+        let words = prompt.replace(App.config.context_char, ``)
         App.ask_ai(from, channel, words, last_response)
         return
       }
 
-      if (prompt.startsWith(`!`)) {
-        let cmd = prompt.replace(`!`, ``)
-
-        if (/^\w/.test(cmd)) {
-          App.check_commands(from, channel, cmd)
-        }
-
+      if (prompt.startsWith(App.config.command_char)) {
+        let cmd = prompt.replace(App.config.command_char, ``)
+        App.check_commands(from, channel, cmd)
         return
       }
 
@@ -92,9 +88,11 @@ module.exports = (App) => {
   // Prepare prompt and ask openai
   App.ask_ai = (from, channel, prompt = ``, context = ``) => {
     let mention
+    let mention_char = App.escape_regex(App.config.mention_char)
+    let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)
 
     // Check for @nick at the end to direct the response at
-    prompt = prompt.replace(/\@\s*(\w+)$/, (match, group) => {
+    prompt = prompt.replace(mention_regex, (match, group) => {
       mention = group
       return ``
     })
