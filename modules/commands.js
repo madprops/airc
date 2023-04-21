@@ -217,17 +217,10 @@ module.exports = (App) => {
     {
       name: `model`,
       on_arg: (data) => {
-        if (App.cmd_models.includes(data.arg)) {
-          let model = data.arg
+        let value = App.cmd_similar(data.arg, App.cmd_models)
 
-          for (let key of App.cmd_models) {
-            if (key === model) {
-              model = key
-              break
-            }
-          }
-
-          App.update_config(`model`, model)
+        if (value) {
+          App.update_config(`model`, value)
           App.cmd_show(data.channel, `model`)
         }
       },
