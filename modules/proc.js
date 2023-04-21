@@ -61,15 +61,16 @@ module.exports = (App) => {
         return
       }
 
-      // Check if context is used
       let last_response = App.last_responses[channel]
 
+      // Check if context is used
       if (last_response && prompt.startsWith(App.config.context_char)) {
         let words = prompt.replace(App.config.context_char, ``)
         App.ask_ai(from, channel, words, last_response)
         return
       }
 
+      // Check if it's a command
       if (prompt.startsWith(App.config.command_char)) {
         let cmd = prompt.replace(App.config.command_char, ``)
         App.check_commands(from, channel, cmd)
