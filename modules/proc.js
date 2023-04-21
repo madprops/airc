@@ -61,11 +61,6 @@ module.exports = (App) => {
         return
       }
 
-      if(prompt === `hi` || prompt === `hello`) {
-        App.irc_respond(channel, `hi!`)
-        return
-      }
-
       // Check if context is used
       let last_response = App.last_responses[channel]
 
