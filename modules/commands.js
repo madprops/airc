@@ -124,7 +124,7 @@ module.exports = (App) => {
 
   App.cmd_similar = (arg, items) => {
     let max = 0
-    let ans = ""
+    let ans = ``
 
     for (let item of items) {
       let n = App.similarity(arg, item)
