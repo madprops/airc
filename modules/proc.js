@@ -91,7 +91,6 @@ module.exports = (App) => {
     let mention_char = App.escape_regex(App.config.mention_char)
     let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)
 
-    // Check for @nick at the end to direct the response at
     prompt = prompt.replace(mention_regex, (match, group) => {
       mention = group
       return ``

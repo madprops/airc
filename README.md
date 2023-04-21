@@ -190,7 +190,7 @@ Spam level gets decreased by 1 every second or so.
 
 `compact`: Enable or disable compact mode.
 
-Instead of printing new lines on ai response, lines are joined with the `separator`.
+Instead of printing new lines on ai response, lines are joined with the `join_char`.
 
 This allows a more compact output.
 
@@ -339,14 +339,6 @@ If the channel is in the `channels` config it will be removed.
 ---
 
 `compact [true | false]`: Enable or disable compact mode.
-
----
-
-`separator [char]`: Change the newline/item separator.
-
-This can be used to give your bot a unique style.
-
-Or when you need something with better contrast.
 
 ---
 
