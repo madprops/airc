@@ -44,10 +44,9 @@ module.exports = (App) => {
   App.update_config = (key, value) => {
     try {
       key = key.toLowerCase()
-      let config = App.get_config()
       let user_config = App.get_user_config()
 
-      if (value === `reset` || config[key] === value) {
+      if (value === `reset`) {
         delete user_config[key]
         App.config[key] = structuredClone(App.original_config[key])
       }
