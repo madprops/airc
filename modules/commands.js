@@ -129,7 +129,7 @@ module.exports = (App) => {
     for (let item of items) {
       let n = App.similarity(arg, item)
 
-      if (n >= 0.7 && n > max) {
+      if (n >= 0.6 && n > max) {
         max = n
         ans = item
       }
@@ -312,8 +312,13 @@ module.exports = (App) => {
     {
       name: `compact`,
       on_arg: (data) => {
-        App.update_config(`compact`, App.bool(data.arg))
-        App.cmd_show(data.channel, `compact`)
+        let allowed = [`true`, `false`]
+        let value = App.cmd_similar(data.arg, allowed)
+
+        if (value) {
+          App.update_config(`compact`, App.bool(value))
+          App.cmd_show(data.channel, `compact`)
+        }
       },
     },
     {

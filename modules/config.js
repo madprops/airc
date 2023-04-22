@@ -8,13 +8,19 @@ module.exports = (App) => {
 
     // Main config object
     // It can change through commands
-    App.config = require(App.get_config_path())
+    App.config = App.get_config()
 
     // Save a fixed copy of the config for defaults
     App.original_config = structuredClone(App.config)
 
     // Assign user config to default config
     Object.assign(App.config, App.get_user_config())
+  }
+
+  App.get_config = () => {
+    let json_text = App.i.fs.readFileSync(App.get_config_path(), `utf8`)
+    let obj = JSON.parse(json_text)
+    return obj
   }
 
   App.get_user_config = () => {
@@ -38,9 +44,10 @@ module.exports = (App) => {
   App.update_config = (key, value) => {
     try {
       key = key.toLowerCase()
+      let config = App.get_config()
       let user_config = App.get_user_config()
 
-      if (value === `reset`) {
+      if (value === `reset` || config[key] === value) {
         delete user_config[key]
         App.config[key] = structuredClone(App.original_config[key])
       }
@@ -53,6 +60,7 @@ module.exports = (App) => {
       App.i.fs.writeFileSync(App.get_user_config_path(), json_text)
     }
     catch (err) {
+      console.error(err)
       console.error(`Error updating the config file`)
     }
   }
