@@ -94,6 +94,7 @@ module.exports = (App) => {
     let full_prompt = prompt
 
     if (use_context) {
+      // Add previous response
       let res = App.context[channel]
       let res_user = App.terminate(App.limit(res.user, App.config.max_context))
       let res_ai = App.terminate(App.limit(res.ai, App.config.max_context))
