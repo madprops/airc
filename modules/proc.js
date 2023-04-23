@@ -91,6 +91,8 @@ module.exports = (App) => {
     prompt = App.limit(prompt, App.config.max_prompt)
     prompt = App.terminate(prompt)
 
+    let full_prompt = prompt
+
     if (use_context) {
       let res = App.context[channel]
 
@@ -103,14 +105,14 @@ module.exports = (App) => {
       let context = `${res_user}\n${res_ai}`
 
       if (prompt) {
-        prompt = `${context}\n${prompt}`
+        full_prompt = `${context}\n${full_prompt}`
       }
       else {
-        prompt = context
+        full_prompt = context
       }
     }
 
-    if (!prompt) {
+    if (!full_prompt) {
       return
     }
 
@@ -120,12 +122,12 @@ module.exports = (App) => {
     if (rules) {
       rules = App.limit(rules, App.config.max_rules)
       rules = App.terminate(rules)
-      prompt = `${rules}\n${prompt}`
+      full_prompt = `${rules}\n${full_prompt}`
     }
 
-    console.info(`${from} => ${channel}: ${prompt}`)
+    console.info(`${from} => ${channel}: ${full_prompt}`)
 
-    App.ask_openai(prompt, (response) => {
+    App.ask_openai(full_prompt, (response) => {
       response = App.clean(response)
       response = App.unquote(response)
 
