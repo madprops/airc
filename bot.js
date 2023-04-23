@@ -13,7 +13,7 @@ App.i.irc = require(`matrix-org-irc`)
 // Official openai library
 App.i.openai = require(`openai`)
 
-App.last_responses = {}
+App.context = {}
 App.max_user_length = 25
 
 // Need to prepare config first

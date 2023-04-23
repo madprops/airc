@@ -61,13 +61,6 @@ module.exports = (App) => {
         return
       }
 
-      // Check if context is used
-      if (App.last_responses[channel] && prompt.startsWith(App.config.context_char)) {
-        let words = prompt.replace(App.config.context_char, ``)
-        App.ask_ai(from, channel, words, App.last_responses[channel])
-        return
-      }
-
       // Check if it's a command
       if (prompt.startsWith(App.config.command_char)) {
         let cmd = prompt.replace(App.config.command_char, ``)
@@ -80,10 +73,15 @@ module.exports = (App) => {
   }
 
   // Prepare prompt and ask openai
-  App.ask_ai = (from, channel, prompt = ``, context = ``) => {
+  App.ask_ai = (from, channel, prompt = ``) => {
     let mention
     let mention_char = App.escape_regex(App.config.mention_char)
     let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)
+    let use_context = prompt.startsWith(App.config.context_char)
+
+    if (use_context) {
+      prompt = prompt.replace(App.config.context_char, ``)
+    }
 
     prompt = prompt.replace(mention_regex, (match, group) => {
       mention = group
@@ -93,9 +91,16 @@ module.exports = (App) => {
     prompt = App.limit(prompt, App.config.max_prompt)
     prompt = App.terminate(prompt)
 
-    if (context) {
-      context = App.limit(context, App.config.max_context)
-      context = App.terminate(context)
+    if (use_context) {
+      let res = App.context[channel]
+
+      let res_user = App.limit(res.user, App.config.max_context)
+      res_user = App.terminate(res_user)
+
+      let res_ai = App.limit(res.ai, App.config.max_context)
+      res_ai = App.terminate(res_ai)
+
+      let context = `${res_user}\n${res_ai}`
 
       if (prompt) {
         prompt = `${context}\n${prompt}`
@@ -120,20 +125,20 @@ module.exports = (App) => {
 
     console.info(`${from} => ${channel}: ${prompt}`)
 
-    App.ask_openai(prompt, (text) => {
-      text = App.clean(text)
-      text = App.unquote(text)
+    App.ask_openai(prompt, (response) => {
+      response = App.clean(response)
+      response = App.unquote(response)
 
       if (App.config.compact) {
-        text = App.join(text.split(`\n`).map(x => x.trim()))
+        response = App.join(response.split(`\n`).map(x => x.trim()))
       }
 
       if (mention) {
-        text = `${mention}: ${text}`
+        response = `${mention}: ${response}`
       }
 
-      App.irc_respond(channel, text)
-      App.last_responses[channel] = text
+      App.irc_respond(channel, response)
+      App.context[channel] = {user: prompt, ai: response}
     })
   }
 
