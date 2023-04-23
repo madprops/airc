@@ -88,9 +88,9 @@ module.exports = (App) => {
       return ``
     })
 
-    prompt = App.limit(prompt, App.config.max_prompt)
-    prompt = App.terminate(prompt)
+    prompt = App.terminate(App.limit(prompt, App.config.max_prompt))
 
+    // Prompt plus optional context and rules
     let full_prompt = prompt
 
     if (use_context) {
