@@ -97,8 +97,7 @@ module.exports = (App) => {
       let res = App.context[channel]
       let res_user = App.terminate(App.limit(res.user, App.config.max_context))
       let res_ai = App.terminate(App.limit(res.ai, App.config.max_context))
-      let context = `${res_user}\n${res_ai}`
-      full_prompt = full_prompt ? `${context}\n${full_prompt}` : context
+      full_prompt = `${res_user}\n${res_ai}\n${full_prompt}`.trim()
     }
 
     if (!full_prompt) {
