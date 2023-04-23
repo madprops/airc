@@ -95,13 +95,8 @@ module.exports = (App) => {
 
     if (use_context) {
       let res = App.context[channel]
-
-      let res_user = App.limit(res.user, App.config.max_context)
-      res_user = App.terminate(res_user)
-
-      let res_ai = App.limit(res.ai, App.config.max_context)
-      res_ai = App.terminate(res_ai)
-
+      let res_user = App.terminate(App.limit(res.user, App.config.max_context))
+      let res_ai = App.terminate(App.limit(res.ai, App.config.max_context))
       let context = `${res_user}\n${res_ai}`
 
       if (prompt) {
