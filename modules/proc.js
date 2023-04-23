@@ -108,8 +108,7 @@ module.exports = (App) => {
     let rules = App.config.rules
 
     if (rules) {
-      rules = App.limit(rules, App.config.max_rules)
-      rules = App.terminate(rules)
+      rules = App.terminate(App.limit(rules, App.config.max_rules))
       full_prompt = `${rules}\n${full_prompt}`
     }
 
