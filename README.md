@@ -190,11 +190,17 @@ Spam level gets decreased by 1 every second or so.
 
 `compact`: Enable or disable compact mode.
 
-Instead of printing new lines on ai response, lines are joined with the `join_char`.
+Instead of printing new lines on ai response, lines are joined with the `avatar`.
 
 This allows a more compact output.
 
 If this is disabled, the output will leave the newlines as is.
+
+---
+
+`avatar`: Like `👾`.
+
+This appears at the start of messages and in between lines.
 
 ---
 
@@ -203,8 +209,6 @@ If this is disabled, the output will leave the newlines as is.
 `context_char`: The character used to use context like `^`.
 
 `mention_char`: The character used to mention users like `@`.
-
-`join_char`: The character used to join lines/items like `👾`.
 
 ---
 
@@ -354,9 +358,13 @@ If the channel is in the `channels` config it will be removed.
 
 ---
 
-The characters used to run commands, use context, do a mention, or join lines can be changed:
+The characters used to run commands, use context, or do a mention can be changed:
 
-`command_char` | `context_char` | `mention_char` | `join_char`
+`command_char [char]` | `context_char [char]` | `mention_char [char]`
+
+---
+
+`avatar [char]`: Change the avatar.
 
 ---
 

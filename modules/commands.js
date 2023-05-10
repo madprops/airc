@@ -81,7 +81,7 @@ module.exports = (App) => {
     `${App.p}command_char + [ char ]`,
     `${App.p}context_char + [ char ]`,
     `${App.p}mention_char + [ char ]`,
-    `${App.p}join_char + [ char ]`,
+    `${App.p}avatar + [ char ]`,
     `${App.p}reset + [ config | all ]: Reset configs to default`,
     `!report: (Global) Respond with some info`,
     `!config: (Global) Show some of the config`,
@@ -343,10 +343,10 @@ module.exports = (App) => {
       },
     },
     {
-      name: `join_char`,
+      name: `avatar`,
       on_arg: (data) => {
-        App.update_config(`join_char`, data.arg)
-        App.cmd_show(data.channel, `join_char`)
+        App.update_config(`avatar`, data.arg)
+        App.cmd_show(data.channel, `avatar`)
       },
     },
     {

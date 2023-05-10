@@ -22,5 +22,5 @@
   "command_char": "!",
   "context_char": "^",
   "mention_char": "@",
-  "join_char": "👾"
+  "avatar": "👾"
 }

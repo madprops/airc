@@ -127,7 +127,7 @@ module.exports = (App) => {
         response = `${mention}: ${response}`
       }
 
-      App.irc_respond(channel, response)
+      App.irc_respond(channel, `${App.config.avatar} ${response}`)
       App.context[channel] = {user: prompt, ai: response}
     })
   }
