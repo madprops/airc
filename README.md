@@ -274,6 +274,12 @@ If a message ends with `@somenickname`, the response will be directed at that ni
 
 ---
 
+If `autorespond` % is between `1` and `100`, there's a chance the bot will talk by itself.
+
+Autorespond has a cooldown, to avoid frequent replies.
+
+---
+
 There's an automatic anti-spam system that bans users who abuse the bot.
 
 ---
