@@ -174,6 +174,14 @@ module.exports = (App) => {
       return
     }
 
+    if (!text.match(/^\w+/)) {
+      return
+    }
+
+    if ((text.length < 20) || (text.length > 200)) {
+      return
+    }
+
     let rand = App.get_random_int(1, 100)
 
     if (rand <= App.config.autorespond) {
