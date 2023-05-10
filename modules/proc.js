@@ -182,7 +182,7 @@ module.exports = (App) => {
       return
     }
 
-    if ((text.length < 14) || (text.length > 240)) {
+    if ((text.length < 10) || (text.length > 250)) {
       return
     }
 
