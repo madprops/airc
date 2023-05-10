@@ -23,6 +23,10 @@ module.exports = (App) => {
       return
     }
 
+    if (low.includes(`www.`) || low.includes(`[url]`)) {
+      return
+    }
+
     if (App.is_admin(from)) {
       if (text === `!report`) {
         App.report_self(channel)
@@ -178,7 +182,7 @@ module.exports = (App) => {
       return
     }
 
-    if ((text.length < 20) || (text.length > 200)) {
+    if ((text.length < 14) || (text.length > 240)) {
       return
     }
 

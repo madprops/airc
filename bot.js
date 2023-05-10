@@ -15,10 +15,10 @@ App.i.openai = require(`openai`)
 
 App.context = {}
 App.max_user_length = 25
-App.last_autorespond = Date.now()
 
 // Make bots autorespond at most once an hour
 App.autorespond_cooldown = 1000 * 60 * 60
+App.last_autorespond = 0
 
 // Need to prepare config first
 require(`./modules/config.js`)(App)
