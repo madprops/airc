@@ -130,21 +130,11 @@ module.exports = (App) => {
         full_response = App.join(response.split(`\n`).map(x => x.trim()))
       }
 
-
       if (mention) {
         full_response = `${mention}: ${full_response}`
       }
 
-      let res
-
-      if (App.config.show_avatar) {
-        res = `${App.config.avatar} ${full_response}`
-      }
-      else {
-        res = full_response
-      }
-
-      App.irc_respond(channel, res)
+      App.irc_respond(channel, full_response)
       App.context[channel] = {user: prompt, ai: response}
     })
   }

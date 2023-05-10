@@ -40,6 +40,10 @@ module.exports = (App) => {
     })
 
     App.irc_respond = (channel, message) => {
+      if (App.config.show_avatar) {
+        message = App.add_avatar(message)
+      }
+
       App.irc_client.say(channel, message)
     }
 

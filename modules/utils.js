@@ -139,6 +139,10 @@ module.exports = (App) => {
     return list.join(` ${char || App.config.avatar} `)
   }
 
+  App.add_avatar = (text) => {
+    return `${App.config.avatar} ${text}`
+  }
+
   App.unquote = (text) => {
     return text.replace(/^"(.*)"$/, `$1`)
   }
