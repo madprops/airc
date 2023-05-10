@@ -43,7 +43,7 @@ module.exports = (App) => {
     let match = text.match(re)
 
     if (!match) {
-      App.autorespond(channel)
+      App.autorespond(channel, text)
       return
     }
 
@@ -175,7 +175,7 @@ module.exports = (App) => {
     App.irc_respond(channel, App.join(info, `|`))
   }
 
-  App.autorespond = (channel) => {
+  App.autorespond = (channel, text) => {
     if (App.config.autorespond <= 0) {
       return
     }
@@ -188,13 +188,16 @@ module.exports = (App) => {
 
     if (num <= App.config.autorespond) {
       let prompt
-      let n = App.get_random_int(1, 2)
+      let n = App.get_random_int(1, 3)
 
       if (n === 1) {
-        prompt = `How are you feeling right now?`
+        prompt = text
       }
       else if (n === 2) {
-        prompt = `What are you doing right now?`
+        prompt = `What are you doing?`
+      }
+      else if (n === 3) {
+        prompt = `How are you feeling?`
       }
 
       App.last_autorespond = Date.now()
