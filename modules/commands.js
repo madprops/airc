@@ -66,7 +66,9 @@ module.exports = (App) => {
     `${App.p}allow_ask + [ all | users | admins ]`,
     `${App.p}allow_rules + [ all | users | admins ]`,
     `${App.p}model + [ ${App.join(App.cmd_models, `|`)} ]`,
-    `${App.p}separator + [ emoji ]`,
+    `${App.p}avatar + [ char ]`,
+    `${App.p}show_avatar + [ true | false ]`,
+    `${App.p}autorespond + [ 0 - 100 ]`,
     `${App.p}compact + [ true | false ]`,
     `${App.p}max_prompt [ number ]`,
     `${App.p}max_context [ number ]`,
@@ -81,7 +83,6 @@ module.exports = (App) => {
     `${App.p}command_char + [ char ]`,
     `${App.p}context_char + [ char ]`,
     `${App.p}mention_char + [ char ]`,
-    `${App.p}avatar + [ char ]`,
     `${App.p}reset + [ config | all ]: Reset configs to default`,
     `!report: (Global) Respond with some info`,
     `!config: (Global) Show some of the config`,
@@ -303,13 +304,6 @@ module.exports = (App) => {
       },
     },
     {
-      name: `separator`,
-      on_arg: (data) => {
-        App.update_config(`separator`, data.arg)
-        App.cmd_show(data.channel, `separator`)
-      },
-    },
-    {
       name: `compact`,
       on_arg: (data) => {
         let allowed = [`true`, `false`]
@@ -347,6 +341,28 @@ module.exports = (App) => {
       on_arg: (data) => {
         App.update_config(`avatar`, data.arg)
         App.cmd_show(data.channel, `avatar`)
+      },
+    },
+    {
+      name: `show_avatar`,
+      on_arg: (data) => {
+        let allowed = [`true`, `false`]
+        let value = App.cmd_similar(data.arg, allowed)
+        App.update_config(`show_avatar`, App.bool(value))
+        App.cmd_show(data.channel, `show_avatar`)
+      },
+    },
+    {
+      name: `autorespond`,
+      on_arg: (data) => {
+        let n = parseInt(data.arg)
+
+        if (!isNaN(n)) {
+          if (n >= 0 && n <= 100) {
+            App.update_config(`autorespond`, n)
+            App.cmd_show(data.channel, `autorespond`)
+          }
+        }
       },
     },
     {

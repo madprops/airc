@@ -43,17 +43,23 @@ module.exports = (App) => {
     let match = text.match(re)
 
     if (!match) {
+      App.autorespond(channel)
       return
     }
 
     let nick = match.groups.nickname.trim()
     let prompt = match.groups.text.trim()
+    let mentioned = false
 
-    if (!nick || !prompt) {
+    if (!prompt) {
       return
     }
 
-    if (nick.toLowerCase() === App.nick().toLowerCase()) {
+    if (nick) {
+      mentioned = nick.toLowerCase() === App.nick().toLowerCase()
+    }
+
+    if (mentioned) {
       // Add one spam point
       if (App.add_spam(from)) {
         let mins = App.plural(App.config.spam_minutes, `minute`, `minutes`)
@@ -118,16 +124,27 @@ module.exports = (App) => {
     App.ask_openai(full_prompt, (response) => {
       response = App.clean(response)
       response = App.unquote(response)
+      let full_response = response
 
       if (App.config.compact) {
-        response = App.join(response.split(`\n`).map(x => x.trim()))
+        full_response = App.join(response.split(`\n`).map(x => x.trim()))
       }
+
 
       if (mention) {
-        response = `${mention}: ${response}`
+        full_response = `${mention}: ${full_response}`
       }
 
-      App.irc_respond(channel, `${App.config.avatar} ${response}`)
+      let res
+
+      if (App.config.show_avatar) {
+        res = `${App.config.avatar} ${full_response}`
+      }
+      else {
+        res = full_response
+      }
+
+      App.irc_respond(channel, res)
       App.context[channel] = {user: prompt, ai: response}
     })
   }
@@ -155,5 +172,23 @@ module.exports = (App) => {
     }
 
     App.irc_respond(channel, App.join(info, `|`))
+  }
+
+  App.autorespond = (channel) => {
+    let num = App.get_random_int(1, 100)
+
+    if (num <= App.config.autorespond) {
+      let prompt
+      let n = App.get_random_int(1, 2)
+
+      if (n === 1) {
+        prompt = `How are you feeling right now?`
+      }
+      else if (n === 2) {
+        prompt = `What are you doing right now?`
+      }
+
+      App.ask_ai(`$autorespond`, channel, prompt)
+    }
   }
 }
