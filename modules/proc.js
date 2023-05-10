@@ -143,6 +143,7 @@ module.exports = (App) => {
     let info = []
 
     for (let key of [
+      `avatar`,
       `model`,
       `rules`,
       `allow_ask`,
