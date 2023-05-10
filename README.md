@@ -204,6 +204,14 @@ This appears at the start of messages and in between lines.
 
 ---
 
+`show_avatar`: Whether to show the avatar at the start or not.
+
+---
+
+`autorespond`: Probability % to talk by itself. From 0 to 100.
+
+---
+
 `command_char`: The character used to run commands like `!`.
 
 `context_char`: The character used to use context like `^`.
@@ -302,23 +310,13 @@ These are the available commands:
 
 ---
 
-`allow_ask [all | users | admins]`: Change `ask` permission.
+Most configs can be edited through commands. For example:
 
-`allow_rules [all| users | admins]`: Change `rules` permission.
+`!allow_ask true`
 
----
+`!autorespond 10`
 
-`model [davinci | turbo]`: Change the openai model.
-
----
-
-`max_prompt` | `max_rules` | `max_context` | `max_tokens`
-
-`spam_level` | `spam_minutes`
-
-Can be changed by providing a number as an argument:
-
-`max_prompt 200`
+`!avatar 🌴`
 
 ---
 
@@ -342,10 +340,6 @@ If the channel is in the `channels` config it will be removed.
 
 ---
 
-`compact [true | false]`: Enable or disable compact mode.
-
----
-
 `ban [nickname]`: Manually ban a user.
 
 `unban [nickname]`: Manually unban a user.
@@ -355,16 +349,6 @@ If the channel is in the `channels` config it will be removed.
 `reset [config | all]`: Reset a config by removing it from `config.user.json`.
 
 `reset all` Removes all overriden configs except `server`, `channels`, and `nickname`.
-
----
-
-The characters used to run commands, use context, or do a mention can be changed:
-
-`command_char [char]` | `context_char [char]` | `mention_char [char]`
-
----
-
-`avatar [char]`: Change the avatar.
 
 ---
 

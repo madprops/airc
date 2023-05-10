@@ -83,6 +83,7 @@ module.exports = (App) => {
     `${App.p}command_char + [ char ]`,
     `${App.p}context_char + [ char ]`,
     `${App.p}mention_char + [ char ]`,
+    `${App.p}config`,
     `${App.p}reset + [ config | all ]: Reset configs to default`,
     `!report: (Global) Respond with some info`,
     `!config: (Global) Show some of the config`,
@@ -363,6 +364,12 @@ module.exports = (App) => {
             App.cmd_show(data.channel, `autorespond`)
           }
         }
+      },
+    },
+    {
+      name: `config`,
+      on_exact: (data) => {
+        App.show_config(data.channel)
       },
     },
     {

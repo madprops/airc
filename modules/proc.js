@@ -161,8 +161,9 @@ module.exports = (App) => {
 
     for (let key of [
       `avatar`,
-      `model`,
       `rules`,
+      `autorespond`,
+      `model`,
       `allow_ask`,
       `allow_rules`,
       `users`,
@@ -175,6 +176,10 @@ module.exports = (App) => {
   }
 
   App.autorespond = (channel) => {
+    if (App.config.autorespond <= 0) {
+      return
+    }
+
     let num = App.get_random_int(1, 100)
 
     if (num <= App.config.autorespond) {
