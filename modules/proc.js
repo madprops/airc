@@ -180,6 +180,10 @@ module.exports = (App) => {
       return
     }
 
+    if ((Date.now() - App.last_autorespond) <= App.autorespond_cooldown) {
+      return
+    }
+
     let num = App.get_random_int(1, 100)
 
     if (num <= App.config.autorespond) {
@@ -193,6 +197,7 @@ module.exports = (App) => {
         prompt = `What are you doing right now?`
       }
 
+      App.last_autorespond = Date.now()
       App.ask_ai(`$autorespond`, channel, prompt)
     }
   }
