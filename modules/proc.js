@@ -174,24 +174,11 @@ module.exports = (App) => {
       return
     }
 
-    let num = App.get_random_int(1, 100)
+    let rand = App.get_random_int(1, 100)
 
-    if (num <= App.config.autorespond) {
-      let prompt
-      let n = App.get_random_int(1, 3)
-
-      if (n === 1) {
-        prompt = text
-      }
-      else if (n === 2) {
-        prompt = `What are you doing?`
-      }
-      else if (n === 3) {
-        prompt = `How are you feeling?`
-      }
-
+    if (rand <= App.config.autorespond) {
       App.last_autorespond = Date.now()
-      App.ask_ai(`$autorespond`, channel, prompt)
+      App.ask_ai(`$autorespond`, channel, text)
     }
   }
 }
