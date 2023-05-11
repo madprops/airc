@@ -214,6 +214,26 @@ It's recommended to make this an emoji character.
 
 ---
 
+`autorespond_prompts`: This is a list of prompts autorespond can use.
+
+An item is picked at random every time autorespond triggers.
+
+These strings can have special tokens:
+
+{{date}}, {{noun}}, {{a_noun}}, {{adjective}}, and {{an_adjective}}.
+
+It replaces each token with an appropriate random word.
+
+For instance `Take this {{noun}}` could be `Take this hammer`.
+
+`I need {{a_noun}}` could be `I need a plane`.
+
+{{a_noun}} and {{an_adjective}} use `a` or `an` automatically.
+
+{{date}} uses today's date like `May 11`.
+
+---
+
 `command_char`: The character used to run commands like `!`.
 
 `context_char`: The character used to use context like `^`.
