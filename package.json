@@ -2,6 +2,7 @@
   "name": "airc",
   "dependencies": {
     "openai": "~3.2.1",
-    "matrix-org-irc": "~1.5.0"
+    "matrix-org-irc": "~1.5.0",
+    "sentencer": "~0.2.1"
   }
 }

@@ -182,6 +182,7 @@ module.exports = (App) => {
 
     if (rand <= App.config.autorespond) {
       let date = App.get_date()
+      let a_noun = App.i.sentencer.make(`{{ a_noun }}`)
 
       let prompts = [
         `What's an interesting fact?`,
@@ -193,6 +194,12 @@ module.exports = (App) => {
         `What are you eating?`,
         `What are you drinking?`,
         `Say something about money.`,
+        `Tell me a joke.`,
+        `What about that Donald Trump?`,
+        `Why should I buy ${a_noun}?`,
+        `What's an example of a corrupt politician?`,
+        `Explain a famous meme.`,
+        `What would make me feel better?`,
       ]
 
       App.last_autorespond = Date.now()
