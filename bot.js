@@ -1,5 +1,15 @@
 const App = {}
 
+if (process.argv.length < 3) {
+  console.info(`Provide the name of the config to use.`)
+  return
+}
+
+// The id/name of the bot instance
+// This indicates what config file to use
+App.name = process.argv[2]
+console.info(`Starting: ${App.name}`)
+
 // Imports go here
 App.i = {}
 

@@ -38,7 +38,7 @@ module.exports = (App) => {
   // Get the correct user config path
   App.get_user_config_path = () => {
     let p = App.i.path.dirname(__filename)
-    return App.i.path.join(p, `../config.user.json`)
+    return App.i.path.join(p, `../configs/${App.name}.json`)
   }
 
   App.update_config = (key, value) => {

@@ -380,6 +380,12 @@ module.exports = (App) => {
           App.cmd_done(data)
         }
         else {
+          let keep = [`server`, `channels`, `nickname`]
+
+          if (keep.includes(data.arg)) {
+            return
+          }
+
           let keys = Object.keys(App.config)
 
           if (keys.includes(data.arg)) {

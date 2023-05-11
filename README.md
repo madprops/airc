@@ -46,7 +46,7 @@ When you have that ready you can then do this:
 1) `git clone --depth 1 https://github.com/madprops/airc mybot`
 1) Get inside the new mybot dir (or however you named it)
 1) Run `npm install` to install the node dependencies
-1) Create and edit `config.user.json` (read [Configuration](#configuration))
+1) Create the first config file in `/configs` (read [Configuration](#configuration))
 1) Export api key to the environment (read [Credentials](#credentials))
 1) Run it with `node bot.js` and check that it works
 1) Check that the bot has read/write permissions on the config files
@@ -56,25 +56,32 @@ When you have that ready you can then do this:
 
 ## Configuration <a name="configuration"></a>
 
-Before you edit `config.json` read this:
+You can create many bots from a single installation.
 
-When `config.json` changes, it makes it hard for the bot admin to simply `git pull` for updates.
+Simply create `json` files inside `/configs` that override the defaults in `config.json`.
 
-Since the config in the repo conflicts with their own config.
+For example:
 
-To solve this, a file called `config.user.json` is created at launch if it does not exist.
+```json
+{
+  "nickname": "Skeletor",
+  "channels": [
+    "#eternia"
+  ],
+  "model": "davinci",
+  "avatar": "💀"
+}
+```
 
-The format of both config files is the same, they're json objects.
+Save that file as `/configs/skeletor.json`.
 
-The configs in `config.user.json` override whatever is set in `config.json`.
+Then start the bot like `node bot.js skeletor`.
 
-Override the required configs like the nickname and channels in `config.user.json`.
+Of course you can use any name.
 
-Leave `config.json` intact, you can still use it as reference.
+More bots can be added simply by adding more configs.
 
-Now you can `git pull` for updates any time without worrying about conflicts.
-
-Another reason to not touch `config.json` is that it serves as defaults fallback.
+But each config is started individually with their own process.
 
 ---
 
@@ -425,7 +432,7 @@ These are some script ideas you can use to manage the bot(s).
 ```bash
 #!/usr/bin/env bash
 export OPENAI_API_KEY=mySecretKey
-while true; do nohup node /home/botdude/$1/bot.js
+while true; do nohup node /home/botdude/airc/bot.js $1
 done &
 ```
 
@@ -443,7 +450,7 @@ Change details accordingly.
 
 ```bash
 #!/usr/bin/env bash
-ps ax | grep -e "start_airc.sh $1" -e "$1/bot.js"| grep -v grep | awk '{print $1}' | xargs kill
+ps ax | grep -e "start_airc.sh $1" -e "bot.js $1"| grep -v grep | awk '{print $1}' | xargs kill
 ```
 
 Send the name of the bot dir as an argument.
@@ -458,8 +465,7 @@ Change details accordingly.
 
 ```bash
 #!/usr/bin/env bash
-cd && cd mybot && git pull && npm install
-cd && cd otherbot && git pull && npm install
+cd && cd airc && git pull && npm install
 ```
 
 ---
