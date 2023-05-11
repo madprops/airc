@@ -432,7 +432,7 @@ These are some script ideas you can use to manage the bot(s).
 ```bash
 #!/usr/bin/env bash
 export OPENAI_API_KEY=mySecretKey
-while true; do nohup node /home/botdude/airc/bot.js $1
+while true; do nohup bash -c "node /home/botdude/airc/bot.js $1"
 done &
 ```
 
