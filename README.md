@@ -470,23 +470,10 @@ cd && cd airc && git pull && npm install
 
 ---
 
-`restart_airc.sh`
-
-```bash
-#!/usr/bin/env bash
-./stop_airc.sh mybot
-./stop_airc.sh otherbot
-
-./start_airc.sh mybot
-./start_airc.sh otherbot
-```
-
----
-
 On updates I run this:
 
 ```bash
-./update_airc.sh && ./restart_airc.sh
+./stop_airc_all.sh; ./update_airc.sh && ./start_airc_all.sh
 ```
 
 It fetches changes from the repo and restarts the bots.
