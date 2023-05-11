@@ -7,7 +7,7 @@ module.exports = (App) => {
     let value
 
     if (typeof App.config[key] === `object`) {
-      value = App.config[key].join(`, `)
+      value = App.join(App.config[key])
     }
     else {
       value = String(App.config[key])
