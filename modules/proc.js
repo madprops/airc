@@ -183,36 +183,7 @@ module.exports = (App) => {
     if (rand <= App.config.autorespond) {
       App.last_autorespond = Date.now()
       let i = App.get_random_int(0, App.config.autorespond_prompts.length - 1)
-      let prompt = App.config.autorespond_prompts[i]
-
-      // Replace special tokens in the autorespond string
-      // These are: {{date}}, {{noun}}, {{a_noun}}, {{adjective}}, and {{an_adjective}}
-      // It replaces each token with an appropriate random word
-      // For instance `Take this {{noun}}` could be `Take this hammer`
-      // `I need {{a_noun}}` could be `I need a plane`
-      // {{a_noun}} and {{an_adjective}} use `a` or `an` automatically
-      // {{date}} uses today's date like `May 11`
-
-      prompt = prompt.replace(/\{\{\s*date\s*\}\}/, () => {
-        return App.get_date()
-      })
-
-      prompt = prompt.replace(/\{\{\s*noun\s*\}\}/, () => {
-        return App.i.sentencer.make(`{{ noun }}`)
-      })
-
-      prompt = prompt.replace(/\{\{\s*a_noun\s*\}\}/, () => {
-        return App.i.sentencer.make(`{{ a_noun }}`)
-      })
-
-      prompt = prompt.replace(/\{\{\s*adjective\s*\}\}/, () => {
-        return App.i.sentencer.make(`{{ adjective }}`)
-      })
-
-      prompt = prompt.replace(/\{\{\s*an_adjective\s*\}\}/, () => {
-        return App.i.sentencer.make(`{{ an_adjective }}`)
-      })
-
+      let prompt = App.replace_tokens(App.config.autorespond_prompts[i])
       App.ask_ai(`$autorespond`, channel, prompt)
     }
   }
