@@ -47,7 +47,7 @@ module.exports = (App) => {
     let match = text.match(re)
 
     if (!match) {
-      App.autorespond(channel, text)
+      App.autorespond(channel)
       return
     }
 
@@ -169,7 +169,7 @@ module.exports = (App) => {
     App.irc_respond(channel, App.join(info, `|`))
   }
 
-  App.autorespond = (channel, text) => {
+  App.autorespond = (channel) => {
     if (App.config.autorespond <= 0) {
       return
     }
@@ -178,19 +178,26 @@ module.exports = (App) => {
       return
     }
 
-    if (!text.match(/^\w+/)) {
-      return
-    }
-
-    if ((text.length < 10) || (text.length > 250)) {
-      return
-    }
-
     let rand = App.get_random_int(1, 100)
 
     if (rand <= App.config.autorespond) {
+      let date = App.get_date()
+
+      let prompts = [
+        `What's an interesting fact?`,
+        `What's some good adivce?`,
+        `What are you doing?`,
+        `Name a historic event that happened in ${date}.`,
+        `Who would you like to meet?`,
+        `You're bleeding, ask for help.`,
+        `What are you eating?`,
+        `What are you drinking?`,
+        `Say something about money.`,
+      ]
+
       App.last_autorespond = Date.now()
-      App.ask_ai(`$autorespond`, channel, text)
+      let i = App.get_random_int(0, prompts.length - 1)
+      App.ask_ai(`$autorespond`, channel, prompts[i])
     }
   }
 }

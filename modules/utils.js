@@ -215,4 +215,9 @@ module.exports = (App) => {
 
     return costs[string_2.length]
   }
+
+  App.get_date = () => {
+    let now = new Date()
+    return now.toLocaleString(`en-US`, {month: `long`, day: `numeric`})
+  }
 }
