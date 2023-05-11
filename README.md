@@ -381,7 +381,7 @@ If the channel is in the `channels` config it will be removed.
 
 ---
 
-`reset [config | all]`: Reset a config by removing it from `config.user.json`.
+`reset [config | all]`: Reset a config by removing it from `/configs/name.json`.
 
 `reset all` Removes all overriden configs except `server`, `channels`, and `nickname`.
 
@@ -405,7 +405,7 @@ There's also a global `!config` command.
 
 ---
 
-Changes to any config through commands are saved automatically in `config.user.json`.
+Changes to any config through commands are saved automatically in `/configs/name.json`.
 
 `config.json` is left intact and used for default values.
 
