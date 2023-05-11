@@ -193,6 +193,7 @@ module.exports = (App) => {
         `What are you eating?`,
         `What are you drinking?`,
         `Say something about money.`,
+        `Say something about love.`,
       ]
 
       App.last_autorespond = Date.now()
