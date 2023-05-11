@@ -23,7 +23,7 @@ module.exports = (App) => {
   }
 
   App.cmd_denied = (data) => {
-    App.irc_respond(data.channel, `Permission Denied`)
+    App.irc_respond(data.channel, `Permission Denied.`)
   }
 
   App.cmd_match = (cmd_name, full_cmd) => {
@@ -146,7 +146,7 @@ module.exports = (App) => {
       on_exact: (data) => {
         let help = App.cmd_help(data)
         App.irc_respond(data.from, App.join(help))
-        App.irc_respond(data.channel, `🛟 Help sent as a private message`)
+        App.irc_respond(data.channel, `🛟 Help sent as a private message.`)
       },
       on_arg: (data) => {
         let help = App.cmd_help(data)
@@ -383,6 +383,7 @@ module.exports = (App) => {
           let keep = [`server`, `channels`, `nickname`]
 
           if (keep.includes(data.arg)) {
+            App.irc_respond(data.channel, `Can't reset ${data.arg}.`)
             return
           }
 
