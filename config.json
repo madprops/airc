@@ -41,5 +41,6 @@
     "What's an example of a corrupt politician?",
     "Explain a famous meme.",
     "What would make me feel better?"
-  ]
+  ],
+  "autorespond_cooldown": 60
 }

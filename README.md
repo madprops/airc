@@ -219,6 +219,8 @@ It's recommended to make this an emoji character.
 
 `autorespond`: Probability % to talk by itself. From 0 to 100.
 
+If set to 0 it will never autorespond.
+
 ---
 
 `autorespond_prompts`: This is a list of prompts autorespond can use.
@@ -238,6 +240,10 @@ For instance `Take this {{noun}}` could be `Take this hammer`.
 {{a_noun}} and {{an_adjective}} use `a` or `an` automatically.
 
 {{date}} uses today's date like `May 11`.
+
+---
+
+`autorespond_cooldown`: Stop the bot from autoresponding for at least these minutes after the last autorespond.
 
 ---
 
