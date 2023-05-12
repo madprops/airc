@@ -367,6 +367,12 @@ module.exports = (App) => {
       },
     },
     {
+      name: `autorespond_cooldown`,
+      on_arg: (data) => {
+        App.cmd_num(`autorespond_cooldown`, data)
+      },
+    },
+    {
       name: `config`,
       on_exact: (data) => {
         App.show_config(data.channel)
