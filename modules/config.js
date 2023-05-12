@@ -13,8 +13,24 @@ module.exports = (App) => {
     // Save a fixed copy of the config for defaults
     App.original_config = structuredClone(App.config)
 
+    // User overrides
+    let user_config = App.get_user_config()
+    let modified = false
+
+    // Remove unused properties
+    for (let key in user_config) {
+      if (!(key in App.config)) {
+        delete user_config[key]
+        modified = true
+      }
+    }
+
+    if (modified) {
+      App.save_user_config(user_config)
+    }
+
     // Assign user config to default config
-    Object.assign(App.config, App.get_user_config())
+    Object.assign(App.config, user_config)
   }
 
   App.get_config = () => {
@@ -41,6 +57,11 @@ module.exports = (App) => {
     return App.i.path.join(p, `../configs/${App.name}.json`)
   }
 
+  App.save_user_config = (obj) => {
+    let text = JSON.stringify(obj, null, 2)
+    App.i.fs.writeFileSync(App.get_user_config_path(), text)
+  }
+
   App.update_config = (key, value) => {
     try {
       key = key.toLowerCase()
@@ -55,8 +76,7 @@ module.exports = (App) => {
         App.config[key] = value
       }
 
-      let json_text = JSON.stringify(user_config, null, 2)
-      App.i.fs.writeFileSync(App.get_user_config_path(), json_text)
+      App.save_user_config(user_config)
     }
     catch (err) {
       console.error(err)

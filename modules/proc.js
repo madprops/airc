@@ -19,11 +19,8 @@ module.exports = (App) => {
     text = App.clean(text)
     let low = text.toLowerCase()
 
-    if (low.includes(`http://`) || low.includes(`https://`)) {
-      return
-    }
-
-    if (low.includes(`www.`) || low.includes(`[url]`)) {
+    // Ignore messages with urls
+    if (low.includes(`http://`) || low.includes(`https://`) || low.includes(`www.`)) {
       return
     }
 
@@ -47,7 +44,10 @@ module.exports = (App) => {
     let match = text.match(re)
 
     if (!match) {
-      App.autorespond(channel)
+      if (text.match(/^\w+/)) {
+        App.autorespond(channel)
+      }
+
       return
     }
 
