@@ -1,9 +1,8 @@
 module.exports = (App) => {
   App.prepare_config = () => {
-    // Create config.user.json if it does not exist
     if (!App.i.fs.existsSync(App.get_user_config_path())) {
-      App.i.fs.writeFileSync(App.get_user_config_path(), `{}`)
-      console.info(`Created user config file`)
+      console.info(`No config file found.`)
+      process.exit()
     }
 
     // Main config object
