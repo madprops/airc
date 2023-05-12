@@ -1,14 +1,17 @@
 const App = {}
 
+// Start useful functions first
+require(`./modules/utils.js`)(App)
+
 if (process.argv.length < 3) {
-  console.info(`Provide the name of the config to use.`)
+  App.log(`Provide the name of the config to use.`)
   return
 }
 
 // The id/name of the bot instance
 // This indicates what config file to use
 App.name = process.argv[2]
-console.info(`Starting: ${App.name}`)
+App.log(`Starting: ${App.name}`)
 
 // Imports go here
 App.i = {}
@@ -35,7 +38,6 @@ App.autorespond_cooldown = 1000 * 60 * App.config.autorespond_cooldown
 App.last_autorespond = 0
 
 // Load js modules
-require(`./modules/utils.js`)(App)
 require(`./modules/irc.js`)(App)
 require(`./modules/openai.js`)(App)
 require(`./modules/proc.js`)(App)

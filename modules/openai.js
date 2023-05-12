@@ -21,12 +21,12 @@ module.exports = (App) => {
     })
 
     App.openai_client = new App.i.openai.OpenAIApi(configuration)
-    console.info(`Started openai`)
+    App.log(`Started openai`)
   }
 
   App.ask_openai = async (prompt, callback) => {
     let model = App.models[App.config.model]
-    console.info(`Model: ${model.name} | Method: ${model.method}`)
+    App.log(`Model: ${model.name} | Method: ${model.method}`)
 
     try {
       if (model.method === 1) {
@@ -62,7 +62,7 @@ module.exports = (App) => {
       }
     }
     catch (err) {
-      console.error(`openai completion error`)
+      App.log(`openai error`, `error`)
     }
   }
 }

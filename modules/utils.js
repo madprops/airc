@@ -251,4 +251,17 @@ module.exports = (App) => {
 
     return text
   }
+
+  App.log = (message, mode = `normal`) => {
+    let icon
+
+    if (mode === `normal`) {
+      icon = `🟢`
+    }
+    else if (mode === `error`) {
+      icon = `🔴`
+    }
+
+    console.info(`${icon} ${message}`)
+  }
 }

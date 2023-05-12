@@ -123,7 +123,7 @@ module.exports = (App) => {
       full_prompt = `${rules}\n${full_prompt}`
     }
 
-    console.info(`${from} => ${channel}: ${full_prompt}`)
+    App.log(`${from} => ${channel}: ${full_prompt}`)
 
     App.ask_openai(full_prompt, (response) => {
       response = App.clean(response)

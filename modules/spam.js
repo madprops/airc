@@ -2,7 +2,7 @@
   App.start_antispam = () => {
     App.antispam_users = {}
     App.antispam_timeout()
-    console.info(`Started anti-spam`)
+    App.log(`Started anti-spam`)
   }
 
   App.antispam_timeout = () => {
@@ -78,7 +78,7 @@
     let mins = App.config.spam_minutes * 1000 * 60
     user.banned = true
     user.banned_until = Date.now() + mins
-    console.info(`Banned: ${nickname}`)
+    App.log(`Banned: ${nickname}`)
   }
 
   App.antispam_unban = (nickname) => {
@@ -92,7 +92,7 @@
     user.banned_until = 0
     user.level = 0
 
-    console.info(`Unbanned: ${nickname}`)
+    App.log(`Unbanned: ${nickname}`)
   }
 
   App.check_ban = (nickname) => {

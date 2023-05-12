@@ -1,7 +1,7 @@
 module.exports = (App) => {
   App.prepare_config = () => {
     if (!App.i.fs.existsSync(App.get_user_config_path())) {
-      console.info(`No config file found.`)
+      App.log(`No config file found.`, `error`)
       process.exit()
     }
 
@@ -78,8 +78,7 @@ module.exports = (App) => {
       App.save_user_config(user_config)
     }
     catch (err) {
-      console.error(err)
-      console.error(`Error updating the config file`)
+      App.log(err, `error`)
     }
   }
 

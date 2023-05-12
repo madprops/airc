@@ -14,7 +14,7 @@ module.exports = (App) => {
         App.process_message(from, channel, message)
       }
       catch (err) {
-        console.error(err)
+        App.log(err, `error`)
       }
     })
 
@@ -24,18 +24,18 @@ module.exports = (App) => {
 
     // Without this it might crash sometimes
     App.irc_client.addListener(`error`, (e) => {
-      console.error(`irc error`)
+      App.log(`irc error`, `error`)
     })
 
     App.irc_client.addListener(`join`, (channel, nick, message) => {
       if (nick === App.nick()) {
-        console.info(`Joined ${channel}`)
+        App.log(`Joined ${channel}`)
       }
     })
 
     App.irc_client.addListener(`part`, (channel, nick, reason, message) => {
       if (nick === App.nick()) {
-        console.info(`Left ${channel}`)
+        App.log(`Left ${channel}`)
       }
     })
 
@@ -96,6 +96,6 @@ module.exports = (App) => {
       return App.irc_client.nick
     }
 
-    console.info(`Joining irc...`)
+    App.log(`Joining irc...`)
   }
 }
