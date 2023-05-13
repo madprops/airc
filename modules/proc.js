@@ -45,7 +45,7 @@ module.exports = (App) => {
 
     if (!match) {
       if (text.match(/^\w+/)) {
-        App.autorespond(channel)
+        App.autorespond(from, channel, text)
       }
 
       return
@@ -169,7 +169,7 @@ module.exports = (App) => {
     App.irc_respond(channel, App.join(info, `|`))
   }
 
-  App.autorespond = (channel) => {
+  App.autorespond = (from, channel, text) => {
     if (App.config.autorespond <= 0) {
       return
     }
@@ -182,8 +182,7 @@ module.exports = (App) => {
 
     if (rand <= App.config.autorespond) {
       App.last_autorespond = Date.now()
-      let i = App.get_random_int(0, App.config.autorespond_prompts.length - 1)
-      let prompt = App.replace_tokens(App.config.autorespond_prompts[i])
+      let prompt = `${text} @${from}`
       App.ask_ai(`$autorespond`, channel, prompt)
     }
   }

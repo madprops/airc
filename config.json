@@ -25,22 +25,5 @@
   "avatar": "👾",
   "show_avatar": true,
   "autorespond": 1,
-  "autorespond_prompts": [
-    "What's an interesting fact?",
-    "What's some good adivce?",
-    "What are you doing?",
-    "What's a historic event that happened in {{date}}?",
-    "Who would you like to meet?",
-    "You're bleeding, ask for help.",
-    "What are you eating?",
-    "What are you drinking?",
-    "Say something about money.",
-    "Tell me a joke.",
-    "What about that Donald Trump?",
-    "Why should I buy {{a_noun}}?",
-    "What's an example of a corrupt politician?",
-    "Explain a famous meme.",
-    "What would make me feel better?"
-  ],
   "autorespond_cooldown": 60
 }
