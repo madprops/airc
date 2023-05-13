@@ -221,37 +221,6 @@ module.exports = (App) => {
     return now.toLocaleString(`en-US`, {month: `long`, day: `numeric`})
   }
 
-  // Replace special tokens in the autorespond string
-  // These are: {{date}}, {{noun}}, {{a_noun}}, {{adjective}}, and {{an_adjective}}
-  // It replaces each token with an appropriate random word
-  // For instance `Take this {{noun}}` could be `Take this hammer`
-  // `I need {{a_noun}}` could be `I need a plane`
-  // {{a_noun}} and {{an_adjective}} use `a` or `an` automatically
-  // {{date}} uses today's date like `May 11`
-  App.replace_tokens = (text) => {
-    text = text.replace(/\{\{\s*date\s*\}\}/, () => {
-      return App.get_date()
-    })
-
-    text = text.replace(/\{\{\s*noun\s*\}\}/, () => {
-      return App.i.sentencer.make(`{{ noun }}`)
-    })
-
-    text = text.replace(/\{\{\s*a_noun\s*\}\}/, () => {
-      return App.i.sentencer.make(`{{ a_noun }}`)
-    })
-
-    text = text.replace(/\{\{\s*adjective\s*\}\}/, () => {
-      return App.i.sentencer.make(`{{ adjective }}`)
-    })
-
-    text = text.replace(/\{\{\s*an_adjective\s*\}\}/, () => {
-      return App.i.sentencer.make(`{{ an_adjective }}`)
-    })
-
-    return text
-  }
-
   App.log = (message, mode = `normal`) => {
     let icon
 

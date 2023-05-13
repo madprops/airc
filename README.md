@@ -223,26 +223,6 @@ If set to 0 it will never autorespond.
 
 ---
 
-`autorespond_prompts`: This is a list of prompts autorespond can use.
-
-An item is picked at random every time autorespond triggers.
-
-These strings can have special tokens:
-
-{{date}}, {{noun}}, {{a_noun}}, {{adjective}}, and {{an_adjective}}.
-
-It replaces each token with an appropriate random word.
-
-For instance `Take this {{noun}}` could be `Take this hammer`.
-
-`I need {{a_noun}}` could be `I need a plane`.
-
-{{a_noun}} and {{an_adjective}} use `a` or `an` automatically.
-
-{{date}} uses today's date like `May 11`.
-
----
-
 `autorespond_cooldown`: Stop the bot from autoresponding for at least these minutes after the last autorespond.
 
 ---
