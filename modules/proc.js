@@ -182,7 +182,7 @@ module.exports = (App) => {
 
     if (rand <= App.config.autorespond) {
       App.last_autorespond = Date.now()
-      let prompt = `${text} @${from}`
+      let prompt = `${text} ${from}`
       App.ask_ai(`$autorespond`, channel, prompt)
     }
   }
