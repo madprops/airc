@@ -83,7 +83,7 @@ module.exports = (App) => {
   }
 
   // Prepare prompt and ask openai
-  App.ask_ai = (from, channel, prompt = ``) => {
+  App.ask_ai = (from, channel, prompt, max_words = 0) => {
     let mention
     let mention_char = App.escape_regex(App.config.mention_char)
     let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)
@@ -113,6 +113,11 @@ module.exports = (App) => {
 
     if (!full_prompt) {
       return
+    }
+
+    // Limit the words
+    if (max_words > 0) {
+      full_prompt = `Respond in ${max_words} words or less.\n${full_prompt}`
     }
 
     // Add some personality
@@ -182,7 +187,7 @@ module.exports = (App) => {
 
     if (rand <= App.config.autorespond) {
       App.last_autorespond = Date.now()
-      App.ask_ai(`$autorespond`, channel, text)
+      App.ask_ai(`$autorespond`, channel, text, App.config.autorespond_words)
     }
   }
 }

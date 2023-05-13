@@ -25,5 +25,6 @@
   "avatar": "👾",
   "show_avatar": true,
   "autorespond": 1,
-  "autorespond_cooldown": 60
+  "autorespond_cooldown": 60,
+  "autorespond_words": 20
 }

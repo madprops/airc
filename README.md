@@ -227,6 +227,10 @@ If set to 0 it will never autorespond.
 
 ---
 
+`autorespond_words`: The max amount of words autorespond should aim for.
+
+---
+
 `command_char`: The character used to run commands like `!`.
 
 `context_char`: The character used to use context like `^`.
