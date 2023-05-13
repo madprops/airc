@@ -34,7 +34,6 @@ App.last_autorespond = 0
 require(`./modules/config.js`)(App)
 App.prepare_config()
 
-
 // Load js modules
 require(`./modules/irc.js`)(App)
 require(`./modules/openai.js`)(App)
