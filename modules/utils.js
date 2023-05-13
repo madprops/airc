@@ -222,15 +222,11 @@ module.exports = (App) => {
   }
 
   App.log = (message, mode = `normal`) => {
-    let icon
-
-    if (mode === `normal`) {
-      icon = `🟢`
+    if (mode === `error`) {
+      console.error(message)
     }
-    else if (mode === `error`) {
-      icon = `🔴`
+    else {
+      console.info(`🟢 ${message}`)
     }
-
-    console.info(`${icon} ${message}`)
   }
 }
