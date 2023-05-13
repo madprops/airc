@@ -179,7 +179,9 @@ module.exports = (App) => {
       return
     }
 
-    if ((Date.now() - App.last_autorespond) <= App.autorespond_cooldown) {
+    let cooldown = 1000 * 60 * App.config.autorespond_cooldown
+
+    if ((Date.now() - App.last_autorespond) <= cooldown) {
       return
     }
 

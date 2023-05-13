@@ -109,11 +109,11 @@ module.exports = (App) => {
     App.cmd_show(data.channel, `rules`)
   }
 
-  App.cmd_num = (key, data) => {
+  App.cmd_num = (key, data, min = 1) => {
     let n = parseInt(data.arg)
 
     if (!isNaN(n)) {
-      if (n > 0 && n <= (10 * 1000)) {
+      if (n >= min && n <= (10 * 1000)) {
         App.update_config(key, n)
         App.cmd_show(data.channel, key)
       }
@@ -369,7 +369,13 @@ module.exports = (App) => {
     {
       name: `autorespond_cooldown`,
       on_arg: (data) => {
-        App.cmd_num(`autorespond_cooldown`, data)
+        App.cmd_num(`autorespond_cooldown`, data, 0)
+      },
+    },
+    {
+      name: `autorespond_words`,
+      on_arg: (data) => {
+        App.cmd_num(`autorespond_words`, data, 0)
       },
     },
     {

@@ -33,7 +33,6 @@ App.max_user_length = 25
 require(`./modules/config.js`)(App)
 App.prepare_config()
 
-App.autorespond_cooldown = 1000 * 60 * App.config.autorespond_cooldown
 App.last_autorespond = 0
 
 // Load js modules
