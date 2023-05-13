@@ -117,7 +117,16 @@ module.exports = (App) => {
 
     // Limit the words
     if (max_words > 0) {
-      full_prompt = `Respond in ${max_words} words or less.\n${full_prompt}`
+      let ws
+
+      if (max_words === 1) {
+        ws = `1 word`
+      }
+      else {
+        ws = `${max_words} words or less`
+      }
+
+      full_prompt = `Respond in ${ws}.\n${full_prompt}`
     }
 
     // Add some personality
