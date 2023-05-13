@@ -229,6 +229,8 @@ If set to 0 it will never autorespond.
 
 `autorespond_words`: The max amount of words autorespond should aim for.
 
+If set to `0` it won't use a limit.
+
 ---
 
 `command_char`: The character used to run commands like `!`.
@@ -236,6 +238,12 @@ If set to 0 it will never autorespond.
 `context_char`: The character used to use context like `^`.
 
 `mention_char`: The character used to mention users like `@`.
+
+---
+
+`words`: The max amount of words normal bot responses should aim for.
+
+If set to `0` it won't use a limit.
 
 ---
 

@@ -29,9 +29,13 @@ module.exports = (App) => {
         App.report_self(channel)
         return
       }
-
-      if (text === `!config`) {
+      else if (text === `!config`) {
         App.show_config(channel)
+        return
+      }
+      else if (text.startsWith(`!cmd `)) {
+        let cmd = text.replace(`!cmd `, ``)
+        App.check_commands(from, channel, cmd)
         return
       }
     }
@@ -83,7 +87,7 @@ module.exports = (App) => {
   }
 
   // Prepare prompt and ask openai
-  App.ask_ai = (from, channel, prompt, max_words = 0) => {
+  App.ask_ai = (from, channel, prompt, max_words = App.config.words) => {
     let mention
     let mention_char = App.escape_regex(App.config.mention_char)
     let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)

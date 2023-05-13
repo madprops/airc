@@ -379,6 +379,12 @@ module.exports = (App) => {
       },
     },
     {
+      name: `words`,
+      on_arg: (data) => {
+        App.cmd_num(`words`, data, 0)
+      },
+    },
+    {
       name: `config`,
       on_exact: (data) => {
         App.show_config(data.channel)
