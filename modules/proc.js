@@ -25,17 +25,13 @@ module.exports = (App) => {
     }
 
     if (App.is_admin(from)) {
-      if (text === `!report`) {
-        App.report_self(channel)
-        return
-      }
-      else if (text === `!config`) {
-        App.show_config(channel)
-        return
-      }
-      else if (text.startsWith(`!cmd `)) {
-        let cmd = text.replace(`!cmd `, ``)
-        App.check_commands(from, channel, cmd)
+      if (text.startsWith(`!cmd`)) {
+        let cmd = text.replace(`!cmd `, ``).trim()
+
+        if (cmd) {
+          App.check_commands(from, channel, cmd)
+        }
+
         return
       }
     }
@@ -159,32 +155,6 @@ module.exports = (App) => {
       App.irc_respond(channel, full_response)
       App.context[channel] = {user: prompt, ai: response}
     })
-  }
-
-  App.report_self = (channel) => {
-    let timeago = App.timeago(App.date_started)
-    let memory = App.get_memory_used()
-    App.irc_respond(channel, `🚀 Launched ${timeago} | Memory: ${memory} MB`)
-    return
-  }
-
-  App.show_config = (channel) => {
-    let info = []
-
-    for (let key of [
-      `rules`,
-      `autorespond`,
-      `model`,
-      `words`,
-      `allow_ask`,
-      `allow_rules`,
-      `users`,
-      `admins`,
-    ]) {
-      info.push(App.cmd_info(key))
-    }
-
-    App.irc_respond(channel, App.join(info, `|`))
   }
 
   App.autorespond = (channel, text) => {

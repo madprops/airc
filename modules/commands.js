@@ -3,6 +3,32 @@
 // Checks return true to avoid asking when cmds were meant
 
 module.exports = (App) => {
+  App.report_self = (channel) => {
+    let timeago = App.timeago(App.date_started)
+    let memory = App.get_memory_used()
+    App.irc_respond(channel, `Launched ${timeago} | Memory: ${memory} MB`)
+    return
+  }
+
+  App.show_config = (channel) => {
+    let info = []
+
+    for (let key of [
+      `rules`,
+      `autorespond`,
+      `model`,
+      `words`,
+      `allow_ask`,
+      `allow_rules`,
+      `users`,
+      `admins`,
+    ]) {
+      info.push(App.cmd_info(key))
+    }
+
+    App.irc_respond(channel, App.join(info, `|`))
+  }
+
   App.cmd_info = (key) => {
     let value
 

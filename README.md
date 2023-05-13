@@ -385,33 +385,31 @@ If the channel is in the `channels` config it will be removed.
 
 ---
 
-There's a global `!report` command that causes all owned bots in the room to report.
-
-Each bot also has an individual `report` command.
-
-It shows how long ago the bot was launched, and how much memory it is using.
-
-![](https://i.imgur.com/BJKrcAI.jpg)
-
----
-
-There's a `config` command that prints a summary of various configs.
+`config`: Prints a summary of various configs.
 
 This shows a quick overview of what the bot can do.
 
-There's also a global `!config` command.
+---
+
+`report`: It shows how long ago the bot was launched, and how much memory it is using.
+
+---
+
+Owned bots respond to a global `!cmd`.
+
+This can be used to check or change values to all bots at the same time.
+
+For example:
+
+`!cmd words 50`: This changes all owned bots's `words` config to 50.
+
+`!cmd rules`: This displays the rules of all bots.
 
 ---
 
 Changes to any config through commands are saved automatically in `/configs/name.json`.
 
 `config.json` is left intact and used for default values.
-
----
-
-All commands are ignored if the message ends with `?`.
-
-Because most likely it's meant as a question for the ai.
 
 ---
 
