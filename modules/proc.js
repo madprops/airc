@@ -176,6 +176,7 @@ module.exports = (App) => {
       `rules`,
       `autorespond`,
       `model`,
+      `words`,
       `allow_ask`,
       `allow_rules`,
       `users`,
