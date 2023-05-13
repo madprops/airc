@@ -172,7 +172,6 @@ module.exports = (App) => {
     let info = []
 
     for (let key of [
-      `avatar`,
       `rules`,
       `autorespond`,
       `model`,
