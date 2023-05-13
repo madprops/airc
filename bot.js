@@ -28,12 +28,12 @@ App.i.openai = require(`openai`)
 
 App.context = {}
 App.max_user_length = 25
+App.last_autorespond = 0
 
 // Need to prepare config first
 require(`./modules/config.js`)(App)
 App.prepare_config()
 
-App.last_autorespond = 0
 
 // Load js modules
 require(`./modules/irc.js`)(App)
