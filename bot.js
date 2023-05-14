@@ -27,7 +27,7 @@ App.i.irc = require(`matrix-org-irc`)
 App.i.openai = require(`openai`)
 
 App.context = {}
-App.max_user_length = 25
+App.max_username_length = 25
 App.last_autorespond = 0
 
 // Need to prepare config first

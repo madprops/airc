@@ -62,7 +62,7 @@ module.exports = (App) => {
       }
     }
     catch (err) {
-      App.log(`openai error`, `error`)
+      App.log(err, `error`)
     }
   }
 }

@@ -29,7 +29,7 @@ module.exports = (App) => {
         let cmd = text.replace(`!cmd `, ``).trim()
 
         if (cmd) {
-          App.check_commands(from, channel, cmd)
+          App.check_commands(from, channel, cmd, true)
         }
 
         return

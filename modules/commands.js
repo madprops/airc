@@ -3,14 +3,24 @@
 // Checks return true to avoid asking when cmds were meant
 
 module.exports = (App) => {
-  App.report_self = (channel) => {
+  App.cmd_change_nickname = (data) => {
+    let nick = data.arg
+
+    if (nick && nick.length > 0 && nick.length <= App.max_username_length) {
+      App.update_config(`nickname`, nick)
+      App.cmd_show(data.channel, `nickname`)
+      App.change_nickname(nick)
+    }
+  }
+
+  App.cmd_report_self = (channel) => {
     let timeago = App.timeago(App.date_started)
     let memory = App.get_memory_used()
     App.irc_respond(channel, `Launched ${timeago} | Memory: ${memory} MB`)
     return
   }
 
-  App.show_config = (channel) => {
+  App.cmd_show_config = (channel) => {
     let info = []
 
     for (let key of [
@@ -198,7 +208,7 @@ module.exports = (App) => {
     {
       name: `add_user`,
       on_arg: (data) => {
-        if (data.arg.length <= App.max_user_length) {
+        if (data.arg.length <= App.max_username_length) {
           if (!App.is_user(data.arg) && !App.is_admin(data.arg)) {
             App.config.users.push(data.arg)
             App.update_config(`users`, App.config.users)
@@ -280,13 +290,7 @@ module.exports = (App) => {
     {
       name: `report`,
       on_exact: (data) => {
-        App.report_self(data.channel)
-      },
-    },
-    {
-      name: `config`,
-      on_exact: (data) => {
-        App.show_config(data.channel)
+        App.cmd_report_self(data.channel)
       },
     },
     {
@@ -411,9 +415,16 @@ module.exports = (App) => {
       },
     },
     {
+      name: `nickname`,
+      on_arg: (data) => {
+        App.cmd_change_nickname(data)
+      },
+      no_batch: true
+    },
+    {
       name: `config`,
       on_exact: (data) => {
-        App.show_config(data.channel)
+        App.cmd_show_config(data.channel)
       },
     },
     {
@@ -464,6 +475,12 @@ module.exports = (App) => {
         allowed = true
       }
 
+      if (data.batch) {
+        if (c.no_batch) {
+          allowed = false
+        }
+      }
+
       if (ans.arg) {
         if (c.on_arg) {
           if (allowed) {
@@ -497,13 +514,14 @@ module.exports = (App) => {
     }
   }
 
-  App.check_commands = (from, channel, cmd) => {
+  App.check_commands = (from, channel, cmd, batch = false) => {
     let data = {}
     data.from = from
     data.channel = channel
     data.cmd = cmd
     data.can_rules = App.is_allowed(`rules`, from)
     data.is_admin = App.is_admin(from)
+    data.batch = batch
 
     for (let c of App.commands) {
       if (App.check_command(c, data)) {

@@ -23,8 +23,8 @@ module.exports = (App) => {
     })
 
     // Without this it might crash sometimes
-    App.irc_client.addListener(`error`, (e) => {
-      App.log(`irc error`, `error`)
+    App.irc_client.addListener(`error`, (err) => {
+      App.log(err, `error`)
     })
 
     App.irc_client.addListener(`join`, (channel, nick, message) => {
@@ -94,6 +94,10 @@ module.exports = (App) => {
 
     App.nick = () => {
       return App.irc_client.nick
+    }
+
+    App.change_nickname = (new_nickname) => {
+      App.irc_client.send(`NICK`, new_nickname)
     }
 
     App.log(`Joining irc...`)
