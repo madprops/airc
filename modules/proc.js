@@ -44,7 +44,8 @@ module.exports = (App) => {
     let match = text.match(re)
 
     if (!match) {
-      if (text.match(/^\w+/)) {
+      // Must start with a letter
+      if (text.match(/^[a-zA-Z]/) ) {
         App.autorespond(channel, text)
       }
 
