@@ -10,11 +10,11 @@ For example, here's using the `!ur` command:
 
 **You**: Bot, !ur an angry squirrel
 
-**Bot**: Rules: Respond as if you were an angry squirrel
+**Bot**: 🤖 Rules: Respond as if you were an angry squirrel
 
 **You**: Bot, why are you in a tree?
 
-**Bot**: Oh, you think it's funny, do you? Well, I'm in a tree because it is my home! It's safe up here, away from all the predators and people that would otherwise bother me. So don't you worry about why I'm in a tree - worry about why you're not!
+**Bot**: 🤖 Oh, you think it's funny, do you? Well, I'm in a tree because it is my home! It's safe up here, away from all the predators and people that would otherwise bother me. So don't you worry about why I'm in a tree - worry about why you're not!
 
 ---
 
@@ -285,11 +285,11 @@ If a message starts with `^`, the bot will use the previous message from itself 
 
 **You**: Bot, What is 2 + 2 ?
 
-**Bot**: 2 + 2 = 4
+**Bot**: 🤖 2 + 2 = 4
 
 **You**: Bot, ^ that plus 1
 
-**Bot**: That would be 5
+**Bot**: 🤖 That would be 5
 
 ---
 
@@ -297,7 +297,7 @@ If a message ends with `@somenickname`, the response will be directed at that ni
 
 **You**: Bot, What is 2 + 2 @Sam
 
-**Bot**: Sam: 2 + 2 = 4
+**Bot**: 🤖 Sam: 2 + 2 = 4
 
 ---
 
