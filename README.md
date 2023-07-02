@@ -69,9 +69,14 @@ For example:
     "#eternia"
   ],
   "model": "davinci",
-  "avatar": "💀"
+  "avatar": "💀",
+  "admins": [
+    "Marshall"
+  ]
 }
 ```
+
+(Remember to make yourself an admin)
 
 Save that file as `/configs/skeletor.json`.
 
