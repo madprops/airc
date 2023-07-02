@@ -354,7 +354,7 @@ These are the available commands:
 
 Most configs can be edited through commands. For example:
 
-`!allow_ask true`
+`!allow_ask all`
 
 `!autorespond 10`
 
