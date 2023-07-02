@@ -316,6 +316,10 @@ There's an automatic anti-spam system that bans users who abuse the bot.
 
 ---
 
+Use commands to change the rules, change permissions, add users, and change other configs.
+
+---
+
 ## Commands <a name="commands"></a>
 
 The bot listens to commands when it is mentioned and `!` is used at the start of the message.
