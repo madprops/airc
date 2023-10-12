@@ -445,7 +445,7 @@ let commmon = {
   },
   env_production: {
     NODE_ENV: `production`
-  }
+  },
 }
 
 module.exports = {
