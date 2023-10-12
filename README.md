@@ -451,34 +451,36 @@ Change details accordingly.
 
 ---
 
-`stop_airc.sh`
+## PM2 Config
 
-```bash
-#!/usr/bin/env bash
-ps ax | grep -e "start_airc.sh $1" -e "bot.js $1"| grep -v grep | awk '{print $1}' | xargs kill
+I now use PM2 to manage the bots.
+
+The following config might be useful:
+
+```js
+let commmon = {
+  script: 'airc/bot.js',
+  instances: 1,
+  autorestart: true,
+  watch: false,
+  max_memory_restart: '1G',
+  env: {
+    NODE_ENV: 'production'
+  },
+  env_production: {
+    NODE_ENV: 'production'
+  }
+}
+
+module.exports = {
+  apps: [
+    Object.assign({}, commmon, {
+      name: 'airc_bot1',
+      args: 'bot1'
+    }),
+    Object.assign({}, commmon, {
+      name: 'airc_bot2',
+      args: 'bot2'
+    }),
+]}
 ```
-
-Send the name of the bot dir as an argument.
-
-This stops the start script and the bot process.
-
-Change details accordingly.
-
----
-
-`update_airc.sh`
-
-```bash
-#!/usr/bin/env bash
-cd && cd airc && git pull && npm install
-```
-
----
-
-On updates I run this:
-
-```bash
-./stop_airc_all.sh; ./update_airc.sh && ./start_airc_all.sh
-```
-
-It fetches changes from the repo and restarts the bots.
