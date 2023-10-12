@@ -24,7 +24,7 @@ For example, here's using the `!ur` command:
 1. [Credentials](#credentials)
 1. [Usage](#usage)
 1. [Commands](#commands)
-1. [Scripts](#scripts)
+1. [Manage](#manage)
 
 ---
 
@@ -426,32 +426,7 @@ There's a similarity check to allow minor typos in command names and values.
 
 ---
 
-## Scripts <a name="scripts"></a>
-
-These are some script ideas you can use to manage the bot(s).
-
----
-
-`start_airc.sh`
-
-```bash
-#!/usr/bin/env bash
-export OPENAI_API_KEY=mySecretKey
-while true; do nohup bash -c "node /home/botdude/airc/bot.js $1"
-done &
-```
-
-Send the name of the bot dir as an argument.
-
-`nohup` makes the node process persist even after you log out of that session (ssh).
-
-If it crashes it will auto-restart because of the while loop.
-
-Change details accordingly.
-
----
-
-## PM2 Config
+## Manage <a name="manage"></a>
 
 I now use PM2 to manage the bots.
 
