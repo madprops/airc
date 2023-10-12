@@ -441,22 +441,32 @@ let commmon = {
   max_memory_restart: `1G`,
   env: {
     NODE_ENV: `production`,
-    OPENAI_API_KEY: `theSecretKey`
+    OPENAI_API_KEY: `secretKey`
   },
   env_production: {
     NODE_ENV: `production`
   },
 }
 
+function bot (name) {
+  return Object.assign({}, commmon, {
+    name: `airc_${name}`,
+    args: name,
+  })
+}
+
+let names = [
+  `bot1`,
+  `bot2`,
+]
+
+let apps = []
+
+for (let name of names) {
+  apps.push(bot(name))
+}
+
 module.exports = {
-  apps: [
-    Object.assign({}, commmon, {
-      name: `airc_bot1`,
-      args: `bot1`
-    }),
-    Object.assign({}, commmon, {
-      name: `airc_bot2`,
-      args: `bot2`
-    }),
-]}
+  apps: apps
+}
 ```
