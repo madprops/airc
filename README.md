@@ -434,28 +434,29 @@ The following config might be useful:
 
 ```js
 let commmon = {
-  script: 'airc/bot.js',
+  script: `airc/bot.js`,
   instances: 1,
   autorestart: true,
   watch: false,
-  max_memory_restart: '1G',
+  max_memory_restart: `1G`,
   env: {
-    NODE_ENV: 'production'
+    NODE_ENV: `production`,
+    OPENAI_API_KEY: `theSecretKey`
   },
   env_production: {
-    NODE_ENV: 'production'
+    NODE_ENV: `production`
   }
 }
 
 module.exports = {
   apps: [
     Object.assign({}, commmon, {
-      name: 'airc_bot1',
-      args: 'bot1'
+      name: `airc_bot1`,
+      args: `bot1`
     }),
     Object.assign({}, commmon, {
-      name: 'airc_bot2',
-      args: 'bot2'
+      name: `airc_bot2`,
+      args: `bot2`
     }),
 ]}
 ```
