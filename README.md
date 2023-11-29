@@ -50,7 +50,7 @@ When you have that ready you can then do this:
 1) Export api key to the environment (read [Credentials](#credentials))
 1) Run it with `node bot.js` and check that it works
 1) Check that the bot has read/write permissions on the config files
-1) Create scripts to help you manage the bot (read [Scripts](#scripts))
+1) Create scripts to help you manage the bot (read [Manage](#manage))
 
 ---
 
