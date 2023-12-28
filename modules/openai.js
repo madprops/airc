@@ -4,6 +4,10 @@ module.exports = (App) => {
       name: `text-davinci-003`,
       method: 1,
     },
+    turbo_instruct: {
+      name: `gpt-3.5-turbo-instruct`,
+      method: 1,
+    },
     turbo: {
       name: `gpt-3.5-turbo`,
       method: 2,

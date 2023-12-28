@@ -4,7 +4,7 @@
     "#airc-test"
   ],
   "nickname": "airc-bot",
-  "model": "davinci",
+  "model": "turbo_instruct",
   "max_tokens": 200,
   "max_prompt": 350,
   "max_rules": 350,
