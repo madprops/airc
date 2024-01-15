@@ -3,6 +3,7 @@
   "channels": [
     "#airc-test"
   ],
+  "port": 6667,
   "nickname": "airc-bot",
   "model": "turbo_instruct",
   "max_tokens": 200,
