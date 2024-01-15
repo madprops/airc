@@ -65,10 +65,10 @@ For example:
 ```json
 {
   "nickname": "Skeletor",
+  "avatar": "💀",
   "channels": [
     "#eternia"
   ],
-  "avatar": "💀",
   "admins": [
     "Marshall"
   ]
