@@ -68,7 +68,6 @@ For example:
   "channels": [
     "#eternia"
   ],
-  "model": "davinci",
   "avatar": "💀",
   "admins": [
     "Marshall"
