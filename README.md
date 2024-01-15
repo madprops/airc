@@ -115,11 +115,7 @@ These can contain passwords: `#mychannel channelpass`.
 
 `model`: Which openai model to use.
 
-Either `davinci`, `turbo_instruct`, or `turbo`.
-
-davinci is more fun, can impersonate anything.
-
-turbo is cheaper but a lot more filtered.
+Either `turbo_instruct`, `turbo`, or `davinci`.
 
 Edit: `davinci` is going to be deprecated early 2024 by openai.
 
