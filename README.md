@@ -579,4 +579,6 @@ module.exports = {
 }
 ```
 
-I use it like `pm2 start airc_config.js`
+Save it as `airc_config.js`
+
+Then use it like `pm2 start airc_config.js`
