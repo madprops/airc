@@ -92,7 +92,7 @@ Of course you can name the files anything.
 
 Each `json` file inside `/configs` is a bot.
 
-Bots have to be started or stopped manually by you.
+Bots have to be started and stopped manually by you.
 
 Each bot is started individually with their own process.
 
