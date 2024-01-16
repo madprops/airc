@@ -239,7 +239,7 @@ It gives your bots some personality.
 
 ---
 
-`show_avatar`: Whether to show the avatar at the start or not.
+`show_avatar`: Whether to show the avatar or not.
 
 ---
 
