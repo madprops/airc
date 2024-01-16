@@ -88,7 +88,7 @@ Remember to make yourself an admin.
 
 Then start the bot like `node bot.js skeletor`.
 
-Of course you can use any name.
+Of course you can name the files anything.
 
 Each `json` file inside `configs` is a bot.
 
