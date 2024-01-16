@@ -271,7 +271,7 @@ For instance, if `allow_ask` is set to `users`, only added users (and admins) ca
 
 If `allow_rules` is set to `all`, any user in the room can change the bot's rules with `!ur`.
 
-If they're set to `admins`, that functionality is reserved to the bot's admins.
+If they're set to `admins` only admins can use the bot at all.
 
 You can edit these through the bot: `mybot, !allow_ask all`.
 
