@@ -26,7 +26,7 @@ This is meant to be used with a group of people in an irc channel.
 
 It works as an assistant for general knowledge questions, or just for fun.
 
-It's easy to spawn multiple bots with different personalities.
+It's easy to create multiple bots with different personalities.
 
 ---
 
