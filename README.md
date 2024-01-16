@@ -347,7 +347,7 @@ Use commands to change the rules, change permissions, add users, and change othe
 
 ## Context <a name="context"></a>
 
-If a message starts with `^`, the bot will use the previous message from itself as context:
+If a message starts with `^`, the bot will use the previous question-answer as context:
 
 **You**: Bot, What is 2 + 2 ?
 
