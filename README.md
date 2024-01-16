@@ -337,9 +337,21 @@ For example: `mybot, !reset rules`.
 
 ---
 
-If a user is allowed to change the rules, it gets access to rules-related commands.
+Most configs can be edited through commands. For example:
 
-If a user is an admin it gets access to all commands.
+`!allow_ask all`
+
+`!autorespond 10`
+
+`!avatar 🌴`
+
+---
+
+The value of any config can be read by simply writing its name with no arguments.
+
+`!rules` | `!allow_ask` | `!users`
+
+---
 
 These are the available commands:
 
@@ -354,22 +366,6 @@ These are the available commands:
 `!add_user [nickname]`: Add a nickname to the users array.
 
 `!remove_user [nickname]`: Remove a nickname from the users array.
-
----
-
-Most configs can be edited through commands. For example:
-
-`!allow_ask all`
-
-`!autorespond 10`
-
-`!avatar 🌴`
-
----
-
-The value of any config can be read by simply writing its name with no arguments.
-
-`!rules` | `!allow_ask` | `!users`
 
 ---
 
@@ -424,6 +420,22 @@ For example:
 Changes to any config through commands are saved automatically in `/configs/botname.json`.
 
 `config.json` is left intact and used for default values.
+
+---
+
+Access to ai and rules can be defined.
+
+This is controlled by the `allow_ask` and `allow_rules` configs.
+
+These can be: `all`, `users`, or `admins`.
+
+For instance if `allow_ask` is set to `users`, only added users (and admins) can ask questions to ai.
+
+If `allow_rules` is set to `all`, any user in the room can change the bot's rules with `!ur`.
+
+If they're set to `admins`, that functionality is reserved to the bot's admins.
+
+If a user is an admin it gets access to all commands.
 
 ---
 

@@ -29,7 +29,7 @@ App.i.openai = require(`openai`)
 App.context = {}
 App.max_username_length = 25
 App.last_autorespond = 0
-App.config_keep = [`server`, `channels`, `port`, `nickname`]
+App.config_keep = [`server`, `channels`, `port`, `nickname`, `admins`]
 
 // Need to prepare config first
 require(`./modules/config.js`)(App)
