@@ -269,7 +269,7 @@ Ask = Asking a question to openai through the bot.
 
 Rules = Changing the rules/personality of the bot.
 
-These are the 2 most public functions of the bot.
+These are the two public functions of the bot.
 
 The rest are limited to admins.
 
