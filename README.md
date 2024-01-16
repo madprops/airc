@@ -82,7 +82,7 @@ For example this is a bot: `configs/skeletor.json`:
 }
 ```
 
-Override only configs you need, you don't need to define all.
+Override only the configs you need, you don't need to define all.
 
 Remember to add yourself as an admin.
 
