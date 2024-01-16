@@ -297,6 +297,22 @@ They can be added and removed with `!add_user` and `!remove_user`.
 
 ---
 
+## Admins <a name="admins>
+
+Admins can perform any action on the bot.
+
+They are responsible for configuring the bot and assigning permissions.
+
+Admins are manually added to the `admins` config.
+
+This config can't be modified through commands.
+
+And it won't get resetted when using `!reset`.
+
+Make sure to add your own nickaname(s) to this list.
+
+---
+
 ## Credentials <a name="credentials"></a>
 
 The program reads the openai api key from the shell environment, it's not added to the code or config.
