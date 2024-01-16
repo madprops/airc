@@ -257,6 +257,8 @@ If set to `0` it won't use a limit.
 
 ---
 
+## Permissions
+
 Access to ai and rules can be defined.
 
 This is controlled by the `allow_ask` and `allow_rules` configs.
