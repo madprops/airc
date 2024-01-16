@@ -235,6 +235,8 @@ This appears at the start of messages and in between lines.
 
 It's recommended to make this an emoji character.
 
+It gives your bots some personality.
+
 ---
 
 `show_avatar`: Whether to show the avatar at the start or not.
