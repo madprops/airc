@@ -2,23 +2,7 @@
 
 This is a nodejs bot that allows users in irc channels to ask questions to openai.
 
-It includes commands to alter the way the bot responds.
-
-For example, here's using the `!ur` command:
-
----
-
-**You**: Bot, !ur an angry squirrel
-
-**Bot**: 🤖 Rules: Respond as if you were an angry squirrel
-
-**You**: Bot, why are you in a tree?
-
-**Bot**: 🤖 Oh, you think it's funny, do you? Well, I'm in a tree because it is my home! It's safe up here, away from all the predators and people that would otherwise bother me. So don't you worry about why I'm in a tree - worry about why you're not!
-
----
-
-It supports [commands](#commands), [permissions](#permissions), and [context](#context).
+It supports [rules](#rules), [commands](#commands), [permissions](#permissions), and [context](#context).
 
 ---
 
@@ -364,6 +348,20 @@ If a message starts with `^`, the bot will use the previous question-answer as c
 It only supports 1 level of context (the previous interaction).
 
 ---
+
+## Rules <a name="rules"></a>
+
+The behavior of a bot can be altered through the `!ur` command:
+
+---
+
+**You**: Bot, !ur an angry squirrel
+
+**Bot**: 🤖 Rules: Respond as if you were an angry squirrel
+
+**You**: Bot, why are you in a tree?
+
+**Bot**: 🤖 Oh, you think it's funny, do you? Well, I'm in a tree because it is my home! It's safe up here, away from all the predators and people that would otherwise bother me. So don't you worry about why I'm in a tree - worry about why you're not!
 
 ## Commands <a name="commands"></a>
 
