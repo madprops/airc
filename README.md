@@ -353,7 +353,7 @@ It only supports 1 level of context (the previous interaction).
 
 The behavior of a bot can be altered through the `!ur` command.
 
-`ur` meaning something like `you are` (but shorter).
+`ur` meaning something like `you are` but shorter.
 
 This edits the `rules` config, which is prepended before every prompt.
 
