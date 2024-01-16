@@ -273,7 +273,7 @@ These are the two public functions of the bot.
 
 The rest are limited to admins.
 
-These can be: `all`, `users`, or `admins`.
+These configs can be set to: `all`, `users`, or `admins`.
 
 For instance, if `allow_ask` is set to `users`, only added users (and admins) can ask questions to the ai.
 
