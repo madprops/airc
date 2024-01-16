@@ -28,6 +28,8 @@ It works as an assistant for general knowledge questions, or just for fun.
 
 It's easy to create multiple bots with different personalities.
 
+It requires a paid openai api key.
+
 ---
 
 ## Index
