@@ -92,9 +92,7 @@ Of course you can name the files anything.
 
 Each `json` file inside `/configs` is a bot.
 
-More bots can be added simply by adding more configs.
-
-But each config is started individually with their own process.
+Each bot is started individually with their own process.
 
 When you modify configs through commands, the files gets updated automatically.
 
