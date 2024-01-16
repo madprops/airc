@@ -393,7 +393,7 @@ If the channel is in the `channels` config it will be removed.
 
 ---
 
-`!reset [config | all]`: Reset a config by removing it from `/configs/name.json`.
+`!reset [config | all]`: Reset a config by removing it from `/configs/botname.json`.
 
 `!reset all` Removes all overriden configs except `server`, `channels`, `port`, and `nickname`.
 
@@ -421,7 +421,7 @@ For example:
 
 ---
 
-Changes to any config through commands are saved automatically in `/configs/name.json`.
+Changes to any config through commands are saved automatically in `/configs/botname.json`.
 
 `config.json` is left intact and used for default values.
 
