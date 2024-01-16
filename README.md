@@ -90,6 +90,8 @@ Then start the bot like `node bot.js skeletor`.
 
 Of course you can use any name.
 
+Each `json` file inside `configs` is a bot.
+
 More bots can be added simply by adding more configs.
 
 But each config is started individually with their own process.
