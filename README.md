@@ -63,9 +63,11 @@ You can create many bots from a single installation.
 
 Simply create `json` files inside `/configs` that override the defaults.
 
-(All the defaults are defined in `config.json`. You shouldn't edit this file)
+All the defaults are defined in `config.json`. You shouldn't edit this file.
 
-For example (`configs/skeletor.json`):
+Use `config.json` as reference only.
+
+For example `configs/skeletor.json`:
 
 ```json
 {
