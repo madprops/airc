@@ -18,7 +18,13 @@ For example, here's using the `!ur` command:
 
 ---
 
-It supports commands, permissions, and follow-up questions.
+It supports [commands](#commands), [permissions](#permissions), and [context](#context).
+
+---
+
+This is meant to be used with a group of people in an irc channel.
+
+It works as an assistant for general knowledge questions, or just for fun.
 
 ---
 
@@ -261,7 +267,7 @@ If set to `0` it won't use a limit.
 
 ---
 
-## Permissions
+## Permissions <a name="permissions"></a>
 
 Access to ai and rules-change can be defined.
 
@@ -315,18 +321,6 @@ Nickname detection is case insensitive. `MyBot` and `mybot` work.
 
 ---
 
-If a message starts with `^`, the bot will use the previous message from itself as context:
-
-**You**: Bot, What is 2 + 2 ?
-
-**Bot**: 🤖 2 + 2 = 4
-
-**You**: Bot, ^ that plus 1
-
-**Bot**: 🤖 That would be 5
-
----
-
 If a message ends with `@somenickname`, the response will be directed at that nickname.
 
 **You**: Bot, What is 2 + 2 @Sam
@@ -346,6 +340,20 @@ There's an automatic anti-spam system that bans users who abuse the bot.
 ---
 
 Use commands to change the rules, change permissions, add users, and change other configs.
+
+---
+
+## Context <a name="context"></a>
+
+If a message starts with `^`, the bot will use the previous message from itself as context:
+
+**You**: Bot, What is 2 + 2 ?
+
+**Bot**: 🤖 2 + 2 = 4
+
+**You**: Bot, ^ that plus 1
+
+**Bot**: 🤖 That would be 5
 
 ---
 
