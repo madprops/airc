@@ -309,7 +309,7 @@ This config can't be modified through commands.
 
 And it won't get resetted when using `!reset`.
 
-Make sure to add your own nickaname(s) to this list.
+Make sure to add your own nickname(s) to this list.
 
 ---
 
