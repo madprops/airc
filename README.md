@@ -373,10 +373,6 @@ The value of any config can be read by simply writing its name with no arguments
 
 ---
 
-These are the available commands:
-
----
-
 `!ur [thing]`: Set a personality through rules.
 
 `!ur a monkey` would set the rules to `Respond as if you were a monkey`.
