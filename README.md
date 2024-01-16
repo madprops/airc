@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/H9yo8Jt.jpg" width="350">
+<img src="https://i.imgur.com/H9yo8Jt.jpg" width="420">
 
 This is a nodejs bot that allows users in irc channels to ask questions to openai.
 
