@@ -82,9 +82,9 @@ For example `configs/skeletor.json`:
 }
 ```
 
-(Remember to make yourself an admin)
-
 Override only configs you need, you don't need to define all.
+
+Remember to make yourself an admin.
 
 Then start the bot like `node bot.js skeletor`.
 
