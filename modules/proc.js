@@ -6,7 +6,7 @@ module.exports = (App) => {
     let def_args = {}
     App.def_args(def_args, args)
 
-    // Ignore if user is banned
+    // Ignore if the user is banned
     if (App.check_ban(args.from)) {
       return
     }
