@@ -405,11 +405,15 @@ The value of any config can be read by simply writing its name with no arguments
 
 `!ur a monkey` would set the rules to `Respond as if you were a monkey`.
 
+See [rules](#rules)
+
 ---
 
 `!add_user [nickname]`: Add a nickname to the users array.
 
 `!remove_user [nickname]`: Remove a nickname from the users array.
+
+See [permissions](#permissions)
 
 ---
 
