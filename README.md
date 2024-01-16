@@ -367,6 +367,10 @@ This edits the `rules` config, which is prepended before every prompt.
 
 ---
 
+To have a vanilla openai bot again (no rules) use `!reset rules`.
+
+---
+
 ## Commands <a name="commands"></a>
 
 The bot listens to commands when it is mentioned and `!` is used at the start of the message.
