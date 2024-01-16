@@ -80,6 +80,8 @@ For example:
 
 (Remember to make yourself an admin)
 
+Override only configs you need, you don't need to define all.
+
 Save that file as `/configs/skeletor.json`.
 
 Then start the bot like `node bot.js skeletor`.
@@ -89,6 +91,8 @@ Of course you can use any name.
 More bots can be added simply by adding more configs.
 
 But each config is started individually with their own process.
+
+When you modify configs through commands, the files gets updated automatically.
 
 ---
 
