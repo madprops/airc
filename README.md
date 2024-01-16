@@ -345,15 +345,15 @@ These are the available commands:
 
 ---
 
-`ur [thing]`: Set a personality through rules.
+`!ur [thing]`: Set a personality through rules.
 
-`ur a monkey` would set the rules to `Respond as if you were a monkey`.
+`!ur a monkey` would set the rules to `Respond as if you were a monkey`.
 
 ---
 
-`add_user [nickname]`: Add a nickname to the users array.
+`!add_user [nickname]`: Add a nickname to the users array.
 
-`remove_user [nickname]`: Remove a nickname from the users array.
+`!remove_user [nickname]`: Remove a nickname from the users array.
 
 ---
 
@@ -369,43 +369,43 @@ Most configs can be edited through commands. For example:
 
 The value of any config can be read by simply writing its name with no arguments.
 
-`rules` | `allow_ask` | `users`
+`!rules` | `!allow_ask` | `!users`
 
 ---
 
-`join [channel]`: Joins an irc channel.
+`!join [channel]`: Joins an irc channel.
 
-A password can be supplied: `join #somechannel somepassword`.
+A password can be supplied: `!join #somechannel somepassword`.
 
 If the channel is not in the `channels` config it will be added.
 
 ---
 
-`leave [channel]` or just `leave`: Leave an irc channel.
+`!leave [channel]` or just `!leave`: Leave an irc channel.
 
 If the channel is in the `channels` config it will be removed.
 
 ---
 
-`ban [nickname]`: Manually ban a user.
+`!ban [nickname]`: Manually ban a user.
 
-`unban [nickname]`: Manually unban a user.
-
----
-
-`reset [config | all]`: Reset a config by removing it from `/configs/name.json`.
-
-`reset all` Removes all overriden configs except `server`, `channels`, `port`, and `nickname`.
+`!unban [nickname]`: Manually unban a user.
 
 ---
 
-`config`: Prints a summary of various configs.
+`!reset [config | all]`: Reset a config by removing it from `/configs/name.json`.
+
+`!reset all` Removes all overriden configs except `server`, `channels`, `port`, and `nickname`.
+
+---
+
+`!config`: Prints a summary of various configs.
 
 This shows a quick overview of what the bot can do.
 
 ---
 
-`report`: It shows how long ago the bot was launched, and how much memory it is using.
+`!report`: It shows how long ago the bot was launched, and how much memory it is using.
 
 ---
 
