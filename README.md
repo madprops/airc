@@ -357,6 +357,10 @@ If a message starts with `^`, the bot will use the previous message from itself 
 
 ---
 
+It only supports 1 level of context (the previous interaction).
+
+---
+
 ## Commands <a name="commands"></a>
 
 The bot listens to commands when it is mentioned and `!` is used at the start of the message.
