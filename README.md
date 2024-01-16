@@ -41,6 +41,12 @@ You will also need an [openai](https://openai.com/) api key.
 
 ---
 
+You might want to have a dedicated user to handle the bots to avoid using root.
+
+You can call it `botdude` for example.
+
+---
+
 When you have that ready you can then do this:
 
 ---
@@ -582,7 +588,3 @@ module.exports = {
 Save it as `airc_config.js`.
 
 Then use it like `pm2 start airc_config.js`.
-
-You might want to have a dedicated user to handle the bots to avoid using root.
-
-You can call it `botdude` for example.
