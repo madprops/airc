@@ -257,6 +257,24 @@ If set to `0` it won't use a limit.
 
 ---
 
+Access to ai and rules can be defined.
+
+This is controlled by the `allow_ask` and `allow_rules` configs.
+
+These can be: `all`, `users`, or `admins`.
+
+For instance if `allow_ask` is set to `users`, only added users (and admins) can ask questions to ai.
+
+If `allow_rules` is set to `all`, any user in the room can change the bot's rules with `!ur`.
+
+If they're set to `admins`, that functionality is reserved to the bot's admins.
+
+If a user is an admin it gets access to all commands.
+
+You can manage users through the commands or by editing the config file.
+
+---
+
 ## Credentials <a name="credentials"></a>
 
 The program reads the openai api key from the shell environment, it's not added to the code or config.
@@ -420,22 +438,6 @@ For example:
 Changes to any config through commands are saved automatically in `/configs/botname.json`.
 
 `config.json` is left intact and used for default values.
-
----
-
-Access to ai and rules can be defined.
-
-This is controlled by the `allow_ask` and `allow_rules` configs.
-
-These can be: `all`, `users`, or `admins`.
-
-For instance if `allow_ask` is set to `users`, only added users (and admins) can ask questions to ai.
-
-If `allow_rules` is set to `all`, any user in the room can change the bot's rules with `!ur`.
-
-If they're set to `admins`, that functionality is reserved to the bot's admins.
-
-If a user is an admin it gets access to all commands.
 
 ---
 
