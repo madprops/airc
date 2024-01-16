@@ -265,9 +265,13 @@ Access to ai and rules can be defined.
 
 This is controlled by the `allow_ask` and `allow_rules` configs.
 
-Ask = Asking a question to openai through the bot
+Ask = Asking a question to openai through the bot.
 
-Rules = Changing the rules/personality of the bot
+Rules = Changing the rules/personality of the bot.
+
+These are the 2 most public functions of the bot.
+
+The rest are limited to admins.
 
 These can be: `all`, `users`, or `admins`.
 
