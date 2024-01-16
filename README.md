@@ -67,7 +67,7 @@ All the defaults are defined in `config.json`. You shouldn't edit this file.
 
 Use `config.json` as reference only.
 
-For example `configs/skeletor.json`:
+For example this is a bot: `configs/skeletor.json`:
 
 ```json
 {
