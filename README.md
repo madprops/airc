@@ -18,6 +18,10 @@ For example, here's using the `!ur` command:
 
 ---
 
+It supports commands, permissions, and followup questions using the `^` character.
+
+---
+
 ## Index
 1. [Installation](#installation)
 1. [Configuration](#configuration)
