@@ -46,4 +46,4 @@ App.start_antispam()
 App.start_openai()
 App.start_irc()
 
-App.date_started = Date.now()
+App.date_started = App.now()

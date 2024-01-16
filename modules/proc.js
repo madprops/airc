@@ -190,14 +190,14 @@ module.exports = (App) => {
 
     let cooldown = 1000 * 60 * App.config.autorespond_cooldown
 
-    if ((Date.now() - App.last_autorespond) <= cooldown) {
+    if ((App.now() - App.last_autorespond) <= cooldown) {
       return
     }
 
     let rand = App.get_random_int(1, 100)
 
     if (rand <= App.config.autorespond) {
-      App.last_autorespond = Date.now()
+      App.last_autorespond = App.now()
 
       App.ask_ai({
         from: `$autorespond`,

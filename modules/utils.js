@@ -37,7 +37,7 @@ module.exports = (App) => {
 
   // Return a timeago string
   App.timeago = (date) => {
-    let diff = Date.now() - date
+    let diff = App.now() - date
     let result
 
     if (diff < App.MINUTE) {
@@ -231,5 +231,9 @@ module.exports = (App) => {
         args[key] = def[key]
       }
     }
+  }
+
+  App.now = () => {
+    return Date.now()
   }
 }

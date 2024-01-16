@@ -44,7 +44,7 @@
       let user = App.get_antispam_user(nickname, true)
 
       if (user.banned) {
-        if (Date.now() > user.banned_until) {
+        if (App.now() > user.banned_until) {
           App.antispam_unban(nickname)
         }
       }
@@ -77,7 +77,7 @@
     let user = App.get_antispam_user(nickname, true)
     let mins = App.config.spam_minutes * 1000 * 60
     user.banned = true
-    user.banned_until = Date.now() + mins
+    user.banned_until = App.now() + mins
     App.log(`Banned: ${nickname}`)
   }
 
