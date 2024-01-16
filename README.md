@@ -341,10 +341,6 @@ There's an automatic anti-spam system that bans users who abuse the bot.
 
 ---
 
-Use commands to change the rules, change permissions, add users, and change other configs.
-
----
-
 ## Context <a name="context"></a>
 
 If a message starts with `^`, the bot will use the previous question-answer as context:
