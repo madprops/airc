@@ -351,7 +351,9 @@ It only supports 1 level of context (the previous interaction).
 
 ## Rules <a name="rules"></a>
 
-The behavior of a bot can be altered through the `!ur` command:
+The behavior of a bot can be altered through the `!ur` command.
+
+This edits the `rules` config, which is prepended before every prompt.
 
 ---
 
