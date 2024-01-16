@@ -283,6 +283,20 @@ Some bots are meant to be fixed, others might be more dynamic, others might belo
 
 ---
 
+## Users <a name="users"></a>
+
+There is a `users` config that holds a list of irc nicknames.
+
+They are only used to define access to certain bot features.
+
+They are used in the `allow_ask` and `allow_rules` configs.
+
+If these are set to `users`, only nicknames in the list have access.
+
+They can be added and removed with `!add_user` and `!remove_user`.
+
+---
+
 ## Credentials <a name="credentials"></a>
 
 The program reads the openai api key from the shell environment, it's not added to the code or config.
