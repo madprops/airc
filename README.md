@@ -94,6 +94,8 @@ Each `json` file inside `/configs` is a bot.
 
 Each bot is started individually with their own process.
 
+Bots have to be started or stopped manually by you.
+
 When you modify configs through commands, the files gets updated automatically.
 
 ---
