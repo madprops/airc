@@ -145,13 +145,19 @@ module.exports = (App) => {
     App.cmd_show(data.channel, `rules`)
   }
 
-  App.cmd_num = (key, data, min = 1) => {
-    let n = parseInt(data.arg)
+  App.cmd_num = (args = {}) => {
+    let def_args = {
+      min: 1,
+    }
+
+    App.def_args(def_args, args)
+
+    let n = parseInt(args.data.arg)
 
     if (!isNaN(n)) {
-      if (n >= min && n <= (10 * 1000)) {
-        App.update_config(key, n)
-        App.cmd_show(data.channel, key)
+      if (n >= args.min && n <= (10 * 1000)) {
+        App.update_config(args.key, n)
+        App.cmd_show(args.data.channel, args.key)
       }
     }
   }
@@ -266,25 +272,25 @@ module.exports = (App) => {
     {
       name: `max_prompt`,
       on_arg: (data) => {
-        App.cmd_num(`max_prompt`, data)
+        App.cmd_num({key: `max_prompt`, data: data})
       },
     },
     {
       name: `max_context`,
       on_arg: (data) => {
-        App.cmd_num(`max_context`, data)
+        App.cmd_num({key: `max_context`, data: data})
       },
     },
     {
       name: `max_rules`,
       on_arg: (data) => {
-        App.cmd_num(`max_rules`, data)
+        App.cmd_num({key: `max_rules`, data: data})
       },
     },
     {
       name: `max_tokens`,
       on_arg: (data) => {
-        App.cmd_num(`max_tokens`, data)
+        App.cmd_num({key: `max_tokens`, data: data})
       },
     },
     {
@@ -325,13 +331,13 @@ module.exports = (App) => {
     {
       name: `spam_limit`,
       on_arg: (data) => {
-        App.cmd_num(`spam_limit`, data)
+        App.cmd_num({key: `spam_limit`, data: data})
       },
     },
     {
       name: `spam_minutes`,
       on_arg: (data) => {
-        App.cmd_num(`spam_minutes`, data)
+        App.cmd_num({key: `spam_minutes`, data: data})
       },
     },
     {
@@ -399,19 +405,19 @@ module.exports = (App) => {
     {
       name: `autorespond_cooldown`,
       on_arg: (data) => {
-        App.cmd_num(`autorespond_cooldown`, data, 0)
+        App.cmd_num({key: `autorespond_cooldown`, data: data, min: 0})
       },
     },
     {
       name: `autorespond_words`,
       on_arg: (data) => {
-        App.cmd_num(`autorespond_words`, data, 0)
+        App.cmd_num({key: `autorespond_words`, data: data, min: 0})
       },
     },
     {
       name: `words`,
       on_arg: (data) => {
-        App.cmd_num(`words`, data, 0)
+        App.cmd_num({key: `words`, data: data, min: 0})
       },
     },
     {
@@ -512,14 +518,20 @@ module.exports = (App) => {
     }
   }
 
-  App.check_commands = (from, channel, cmd, batch = false) => {
+  App.check_commands = (args = {}) => {
+    let def_args = {
+      batch: false,
+    }
+
+    App.def_args(def_args, args)
+
     let data = {}
-    data.from = from
-    data.channel = channel
-    data.cmd = cmd
-    data.can_rules = App.is_allowed(`rules`, from)
-    data.is_admin = App.is_admin(from)
-    data.batch = batch
+    data.from = args.from
+    data.channel = args.channel
+    data.cmd = args.cmd
+    data.can_rules = App.is_allowed(`rules`, args.from)
+    data.is_admin = App.is_admin(args.from)
+    data.batch = args.batch
 
     for (let c of App.commands) {
       if (App.check_command(c, data)) {
@@ -529,10 +541,10 @@ module.exports = (App) => {
 
     // Print values
     for (let c of Object.keys(App.config)) {
-      let ans = App.cmd_match(c, cmd)
+      let ans = App.cmd_match(c, args.cmd)
 
       if (ans.ok) {
-        App.cmd_show(channel, c)
+        App.cmd_show(args.channel, c)
         break
       }
     }

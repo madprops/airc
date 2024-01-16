@@ -2,51 +2,66 @@
 // Input from irc is checked and maybe sent to openai
 
 module.exports = (App) => {
-  App.process_message = (from, channel, text) => {
+  App.process_message = (args = {}) => {
+    let def_args = {}
+    App.def_args(def_args, args)
+
     // Ignore if user is banned
-    if (App.check_ban(from)) {
+    if (App.check_ban(args.from)) {
       return
     }
 
-    let can_ask = App.is_allowed(`ask`, from)
-    let can_rules = App.is_allowed(`rules`, from)
+    let can_ask = App.is_allowed(`ask`, args.from)
+    let can_rules = App.is_allowed(`rules`, args.from)
 
     // User can't do anything
     if (!can_ask && !can_rules) {
       return
     }
 
-    text = App.clean(text)
-    let low = text.toLowerCase()
+    args.message = App.clean(args.message)
+    let low = args.message.toLowerCase()
 
     // Ignore messages with urls
     if (low.includes(`http://`) || low.includes(`https://`) || low.includes(`www.`)) {
       return
     }
 
-    if (App.is_admin(from)) {
-      if (text.startsWith(`!cmd`)) {
-        let cmd = text.replace(`!cmd `, ``).trim()
+    if (App.is_admin(args.from)) {
+      if (args.message.startsWith(`!cmd`)) {
+        let cmd = args.message.replace(`!cmd `, ``).trim()
 
         if (cmd) {
-          App.check_commands(from, channel, cmd, true)
+          App.check_commands({
+            from: args.from,
+            channel: args.channel,
+            cmd: cmd,
+            batch: true,
+          })
         }
 
         return
       }
     }
 
-    App.check_nick_mention(from, channel, text)
+    App.check_nick_mention({
+      from: args.from,
+      channel: args.channel,
+      message: args.message,
+    })
   }
 
-  App.check_nick_mention = (from, channel, text) => {
+  App.check_nick_mention = (args = {}) => {
+    let def_args = {}
+    App.def_args(def_args, args)
+
     let re = new RegExp(/^(?<nickname>\w+)[,:](?<text>.*)$/, ``)
-    let match = text.match(re)
+    let match = args.message.match(re)
 
     if (!match) {
       // Must start with a letter
-      if (text.match(/^[a-zA-Z]/) ) {
-        App.autorespond(channel, text)
+      if (args.message.match(/^[a-zA-Z]/) ) {
+        App.autorespond(args.channel, args.message)
       }
 
       return
@@ -66,47 +81,57 @@ module.exports = (App) => {
 
     if (mentioned) {
       // Add one spam point
-      if (App.add_spam(from)) {
+      if (App.add_spam(args.from)) {
         let mins = App.plural(App.config.spam_minutes, `minute`, `minutes`)
-        App.irc_respond(channel, `${from} was banned for ${mins}.`)
+        App.irc_respond(args.channel, `${args.from} was banned for ${mins}.`)
         return
       }
 
       // Check if it's a command
       if (prompt.startsWith(App.config.command_char)) {
         let cmd = prompt.replace(App.config.command_char, ``)
-        App.check_commands(from, channel, cmd)
+        App.check_commands({from: args.from, channel: args.channel, cmd: cmd})
         return
       }
 
-      App.ask_ai(from, channel, prompt)
+      App.ask_ai({
+        from: args.from,
+        channel: args.channel,
+        prompt: prompt,
+      })
     }
   }
 
   // Prepare prompt and ask openai
-  App.ask_ai = (from, channel, prompt, max_words = App.config.words) => {
+  App.ask_ai = (args = {}) => {
+    let def_args = {
+      max_words: App.config.words,
+    }
+
+    App.def_args(def_args, args)
+
     let mention
     let mention_char = App.escape_regex(App.config.mention_char)
     let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)
-    let use_context = prompt.startsWith(App.config.context_char)
+    let use_context = args.prompt.startsWith(App.config.context_char)
 
     if (use_context) {
-      prompt = prompt.replace(App.config.context_char, ``)
+      args.prompt = args.prompt.replace(App.config.context_char, ``)
     }
 
-    prompt = prompt.replace(mention_regex, (match, group) => {
+    args.prompt = args.prompt.replace(mention_regex, (match, group) => {
       mention = group
       return ``
     })
 
-    prompt = App.terminate(App.limit(prompt, App.config.max_prompt))
+    args.prompt = App.terminate(App.limit(args.prompt, App.config.max_prompt))
 
     // Prompt plus optional context and rules
-    let full_prompt = prompt
+    let full_prompt = args.prompt
 
     if (use_context) {
       // Add previous response
-      let res = App.context[channel]
+      let res = App.context[args.channel]
       let res_user = App.terminate(App.limit(res.user, App.config.max_context))
       let res_ai = App.terminate(App.limit(res.ai, App.config.max_context))
       full_prompt = `${res_user}\n${res_ai}\n${full_prompt}`.trim()
@@ -117,14 +142,14 @@ module.exports = (App) => {
     }
 
     // Limit the words
-    if (max_words > 0) {
+    if (args.max_words > 0) {
       let ws
 
-      if (max_words === 1) {
+      if (args.max_words === 1) {
         ws = `1 word`
       }
       else {
-        ws = `${max_words} words or less`
+        ws = `${args.max_words} words or less`
       }
 
       full_prompt = `Respond in ${ws}.\n${full_prompt}`
@@ -138,7 +163,7 @@ module.exports = (App) => {
       full_prompt = `${rules}\n${full_prompt}`
     }
 
-    App.log(`${from} => ${channel}: ${full_prompt}`)
+    App.log(`${args.from} => ${args.channel}: ${full_prompt}`)
 
     App.ask_openai(full_prompt, (response) => {
       response = App.clean(response)
@@ -153,8 +178,8 @@ module.exports = (App) => {
         full_response = `${mention}: ${full_response}`
       }
 
-      App.irc_respond(channel, full_response)
-      App.context[channel] = {user: prompt, ai: response}
+      App.irc_respond(args.channel, full_response)
+      App.context[args.channel] = {user: args.prompt, ai: response}
     })
   }
 
@@ -173,7 +198,13 @@ module.exports = (App) => {
 
     if (rand <= App.config.autorespond) {
       App.last_autorespond = Date.now()
-      App.ask_ai(`$autorespond`, channel, text, App.config.autorespond_words)
+
+      App.ask_ai({
+        from: `$autorespond`,
+        channel: channel,
+        prompt: text,
+        max_words: App.config.autorespond_words,
+      })
     }
   }
 }

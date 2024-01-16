@@ -224,4 +224,12 @@ module.exports = (App) => {
       console.info(`🟢 ${message}`)
     }
   }
+
+  App.def_args = (def, args) => {
+    for (let key in def) {
+      if ((args[key] === undefined) && (def[key] !== undefined)) {
+        args[key] = def[key]
+      }
+    }
+  }
 }

@@ -12,7 +12,7 @@ module.exports = (App) => {
       }
 
       try {
-        App.process_message(from, channel, message)
+        App.process_message({from: from, channel: channel, message: message})
       }
       catch (err) {
         App.log(err, `error`)
