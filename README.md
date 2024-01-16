@@ -431,7 +431,9 @@ For example:
 
 `!cmd rules`: This displays the rules of all bots.
 
-(Don't mention a bot when using these)
+`!cmd report`: Get an overview of your bots.
+
+(Don't mention a bot when using these, they're global commands)
 
 ---
 
