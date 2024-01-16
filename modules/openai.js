@@ -48,7 +48,6 @@ module.exports = (App) => {
           }
         }
       }
-
       else if (model.method === 2) {
         let ans = await App.openai_client.createChatCompletion({
           model: model.name,
