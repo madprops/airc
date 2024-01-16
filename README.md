@@ -18,7 +18,7 @@ For example, here's using the `!ur` command:
 
 ---
 
-It supports commands, permissions, and followup questions using the `^` character.
+It supports commands, permissions, and follow-up questions using the `^` character.
 
 ---
 
