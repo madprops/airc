@@ -431,6 +431,8 @@ For example:
 
 `!cmd rules`: This displays the rules of all bots.
 
+(Don't mention a bot when using these)
+
 ---
 
 Changes to any config through commands are saved automatically in `/configs/botname.json`.
