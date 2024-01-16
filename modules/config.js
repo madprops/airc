@@ -85,10 +85,8 @@ module.exports = (App) => {
   // Remove all overriden configs except some
   App.reset_config = () => {
     let user_config = App.get_user_config()
-    let keep = [`server`, `channels`, `port`, `nickname`]
-
     for (let key in user_config) {
-      if (keep.includes(key)) {
+      if (App.config_keep.includes(key)) {
         continue
       }
 
