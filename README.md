@@ -84,7 +84,7 @@ For example this is a bot: `configs/skeletor.json`:
 
 Override only configs you need, you don't need to define all.
 
-Remember to make yourself an admin.
+Remember to add yourself as an admin.
 
 Then start the bot with `node bot.js skeletor`.
 
