@@ -395,7 +395,7 @@ If the channel is in the `channels` config it will be removed.
 
 `reset [config | all]`: Reset a config by removing it from `/configs/name.json`.
 
-`reset all` Removes all overriden configs except `server`, `channels`, and `nickname`.
+`reset all` Removes all overriden configs except `server`, `channels`, `port`, and `nickname`.
 
 ---
 
