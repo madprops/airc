@@ -306,6 +306,8 @@ They can be added and removed with `!add_user` and `!remove_user`.
 
 Admins can perform any bot action.
 
+This is a list of irc nicknames.
+
 They are responsible for configuring the bot and assigning permissions.
 
 Admins are manually added to the `admins` config by editing the file.
@@ -314,7 +316,7 @@ This config can't be modified through commands.
 
 And it won't get resetted when using `!reset`.
 
-Make sure to add your own nickname(s) to this list.
+Make sure to add your own nickname to the list.
 
 ---
 
