@@ -61,9 +61,11 @@ When you have that ready you can then do this:
 
 You can create many bots from a single installation.
 
-Simply create `json` files inside `/configs` that override the defaults in `config.json`.
+Simply create `json` files inside `/configs` that override the defaults.
 
-For example:
+(All the defaults are defined in `config.json`. You shouldn't edit this file)
+
+For example (`configs/skeletor.json`):
 
 ```json
 {
@@ -81,8 +83,6 @@ For example:
 (Remember to make yourself an admin)
 
 Override only configs you need, you don't need to define all.
-
-Save that file as `/configs/skeletor.json`.
 
 Then start the bot like `node bot.js skeletor`.
 
