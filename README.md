@@ -365,6 +365,8 @@ This edits the `rules` config, which is prepended before every prompt.
 
 **Bot**: 🤖 Oh, you think it's funny, do you? Well, I'm in a tree because it is my home! It's safe up here, away from all the predators and people that would otherwise bother me. So don't you worry about why I'm in a tree - worry about why you're not!
 
+---
+
 ## Commands <a name="commands"></a>
 
 The bot listens to commands when it is mentioned and `!` is used at the start of the message.
