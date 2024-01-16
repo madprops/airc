@@ -96,7 +96,7 @@ Bots have to be started and stopped manually by you.
 
 Each bot is started individually with their own process.
 
-When you modify configs through commands, the files gets updated automatically.
+When you modify configs through commands the files gets updated automatically.
 
 ---
 
