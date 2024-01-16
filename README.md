@@ -534,7 +534,11 @@ There's a similarity check to allow minor typos in command names and values.
 
 ## Manage <a name="manage"></a>
 
-I now use PM2 to manage the bots.
+When you need to update airc, use `git pull` inside the airc directory.
+
+Then restart the bots.
+
+[PM2](https://github.com/Unitech/pm2) can be used to manage the bots more easily.
 
 The following config might be useful:
 
