@@ -289,6 +289,10 @@ Check current permissions with `!config` or directly: `!allow_rules`.
 
 You can manage users through `!add_user` and `!remove_user`, or by editing the config file.
 
+Assign permissions in whatever way they make sense.
+
+Some bots are meant to be fixed, others might be more dynamic, others might belong to certain users.
+
 ---
 
 ## Credentials <a name="credentials"></a>
