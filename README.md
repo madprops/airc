@@ -516,7 +516,9 @@ For example:
 
 `!cmd report`: Get an overview of your bots.
 
-(Don't mention a bot when using these, they're global commands)
+Don't mention a bot when using these, they're global commands.
+
+They work on all owned bots in the current room.
 
 ---
 
