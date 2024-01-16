@@ -275,7 +275,7 @@ If they're set to `admins`, that functionality is reserved to the bot's admins.
 
 If a user is an admin it gets access to all commands.
 
-You can manage users through the commands or by editing the config file.
+You can manage users through `!add_user` and `!remove_user`, or by editing the config file.
 
 ---
 
