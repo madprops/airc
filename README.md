@@ -247,6 +247,8 @@ It gives your bots some personality.
 
 If set to 0 it will never autorespond.
 
+Autorespond is triggered by normal messages from users.
+
 ---
 
 `autorespond_cooldown`: Stop the bot from autoresponding for at least these minutes after the last autorespond.

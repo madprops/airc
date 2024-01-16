@@ -163,6 +163,14 @@ module.exports = (App) => {
       return
     }
 
+    if (App.config.autorespond > 100) {
+      return
+    }
+
+    if (App.config.autorespond_words <= 0) {
+      return
+    }
+
     let cooldown = 1000 * 60 * App.config.autorespond_cooldown
 
     if ((Date.now() - App.last_autorespond) <= cooldown) {
