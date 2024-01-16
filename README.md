@@ -47,10 +47,6 @@ You can call it `botdude` for example.
 
 ---
 
-When you have that ready you can then do this:
-
----
-
 1) Go to the dir where you want the bot to be
 1) `git clone --depth 1 https://github.com/madprops/airc`
 1) Get inside the new airc dir `cd airc`
