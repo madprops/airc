@@ -435,7 +435,7 @@ module.exports = (App) => {
           App.cmd_done(data)
         }
         else {
-          let keep = [`server`, `channels`, `nickname`]
+          let keep = [`server`, `channels`, `port`, `nickname`]
 
           if (keep.includes(data.arg)) {
             App.irc_respond(data.channel, `Can't reset ${data.arg}.`)
