@@ -330,7 +330,7 @@ You must do this before running the bot:
 
 Using your secret api key, which is not meant to be shared.
 
-Doing it once is enough for as long as that shell instance exists.
+Doing it once is enough for the duration of that shell instance.
 
 ---
 
