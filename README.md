@@ -303,7 +303,7 @@ Admins can perform any bot action.
 
 They are responsible for configuring the bot and assigning permissions.
 
-Admins are manually added to the `admins` config.
+Admins are manually added to the `admins` config by editing the file.
 
 This config can't be modified through commands.
 
