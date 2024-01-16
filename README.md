@@ -585,4 +585,4 @@ Then use it like `pm2 start airc_config.js`.
 
 You might want to have a dedicated user to handle the bots to avoid using root.
 
-You can call it `botdude` or `node`.
+You can call it `botdude` for example.
