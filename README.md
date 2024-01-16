@@ -23,6 +23,11 @@ It requires a paid openai api key.
 1. [Usage](#usage)
 1. [Commands](#commands)
 1. [Manage](#manage)
+1. [Context](#context)
+1. [Rules](#rules)
+1. [Permissions](#permissions)
+1. [Users](#users)
+1. [Admins](#admins)
 
 ---
 
