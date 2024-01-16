@@ -113,6 +113,12 @@ These can contain passwords: `#mychannel channelpass`.
 
 ---
 
+`port`: The irc port to use.
+
+This is used when connecting to an irc server.
+
+---
+
 `model`: Which openai model to use.
 
 Either `turbo_instruct`, `turbo`, or `davinci`.
