@@ -48,7 +48,7 @@ When you have that ready you can then do this:
 1) Run `npm install` to install the node dependencies
 1) Create the first config file in `/configs` (read [Configuration](#configuration))
 1) Export api key to the environment (read [Credentials](#credentials))
-1) Run it with `node bot.js` and check that it works
+1) Run it with `node bot.js somebot` and check that it works
 1) Check that the bot has read/write permissions on the config files
 1) Create scripts to help you manage the bots (read [Manage](#manage))
 
