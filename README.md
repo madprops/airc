@@ -278,7 +278,7 @@ If `allow_rules` is set to `all`, any user in the room can change the bot's rule
 
 If they're set to `admins` only admins can use the bot at all.
 
-You can edit these through the bot: `mybot, !allow_ask all`.
+You can edit these through commands: `!allow_ask all`.
 
 Check current permissions with `!config` or directly: `!allow_rules`.
 
