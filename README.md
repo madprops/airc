@@ -222,9 +222,9 @@ See [Permissions](#permissions)
 
 ---
 
-`spam_limit` : Ban a user after reaching this spam level.
+`spam_limit` : Ban a nickname after reaching this spam level.
 
-`spam_minutes` : Ban a user for these minutes after it reaches the limit.
+`spam_minutes` : Ban a nickname for these minutes after it reaches the limit.
 
 See [Anti-Spam](#antispam)
 
