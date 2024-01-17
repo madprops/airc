@@ -673,7 +673,7 @@ The spam level is increased by `1` on each bot prompt from the nickname.
 
 The spam level gets decreased by `1` every second or so.
 
-If the spam level reaches the `spam_limit`, the user is banned.
+If the spam level reaches the `spam_limit`, the nickname is banned.
 
 Nicknames get automatically unbanned after `spam_minutes` passed.
 
