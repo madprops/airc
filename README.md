@@ -28,6 +28,7 @@ It requires a paid openai api key.
 1. [Permissions](#permissions)
 1. [Users](#users)
 1. [Admins](#admins)
+1. [Autorespond](#autorespond)
 
 ---
 
@@ -240,11 +241,7 @@ It gives your bots some personality.
 
 `autorespond`: Probability percentage to respond by itself. From 0 to 100.
 
-If set to 0 it will never autorespond.
-
-Autorespond is triggered by normal messages from users.
-
-If you enable this, 1 might be a good value.
+See [Autorespond](#autorespond)
 
 ---
 
@@ -384,7 +381,7 @@ If a message ends with `@somenickname`, the response will be directed at that ni
 
 If `autorespond` is between `1` and `100`, there's a chance the bot will talk by itself.
 
-Autorespond has a cooldown, to avoid frequent replies.
+See [Autorespond](#autorespond)
 
 ---
 
@@ -606,3 +603,21 @@ module.exports = {
 Save it as `airc_config.js` or any other name.
 
 Then use it like `pm2 start airc_config.js`.
+
+---
+
+## Autorespond <a name="autorespond"></a>
+
+Autorespond is triggered by normal messages from users.
+
+It means the bot will take the message that triggered autorespond and respond by itself using the message as the prompt.
+
+If set to 0 it will never autorespond.
+
+If you enable this, 1 might be a good value.
+
+That's 1% chance to respond on messages, which is enough in heavy channels.
+
+Some users find this to be problematic to their privacy, so it's disabled by default.
+
+Autorespond has a cooldown, to avoid frequent replies.
