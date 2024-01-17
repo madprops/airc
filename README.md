@@ -641,4 +641,6 @@ Users get automatically unbanned after `spam_minutes` passed.
 
 Admins can ban and unban users manually with `!ban` and `!unban`.
 
+Admins and users can also get banned.
+
 Restarting the bot unbans all users.
