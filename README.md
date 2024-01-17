@@ -402,7 +402,7 @@ It only supports 1 level of context (the previous interaction).
 
 Using more levels would require increasing token count.
 
-Plus more context might involve irrelvant interactions.
+Plus more context might involve irrelevant interactions.
 
 We found that 1 level of context works pretty well.
 
