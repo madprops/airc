@@ -659,9 +659,13 @@ By banning it means the nicknames get flagged and not considered by the bot anym
 
 There are 2 configs that control this, `spam_limit`, and `spam_minutes`.
 
-Spam level is increased by 1 on each bot mention.
+Every nickname gets assigned a `spam level` internally.
 
-Spam level gets decreased by 1 every second or so.
+Spam level reflects bot usage in quick succession, it grows and shrinks, starts at `0`.
+
+The spam level is increased by `1` on each bot mention.
+
+The spam level gets decreased by `1` every second or so.
 
 If the spam level reaches the limit, the user is banned.
 
