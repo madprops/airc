@@ -655,7 +655,7 @@ There's an anti-spam system that automatically bans nicknames from using the bot
 
 This is to avoid abuse but also accidents that could lead to many requests to openai.
 
-By banning it means the nicknames get flagged and not considered by the bot anymore.
+By banning it means that nicknames get flagged and ignored by the bot temporarily.
 
 There are 2 configs that control this, `spam_limit`, and `spam_minutes`.
 
