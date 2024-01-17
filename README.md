@@ -556,7 +556,7 @@ const BOTS = [
   `bot2`,
 ]
 
-const commmon = {
+const COMMON = {
   script: `airc/bot.js`,
   instances: 1,
   autorestart: true,
@@ -572,7 +572,7 @@ const commmon = {
 }
 
 function bot (name) {
-  return Object.assign({}, commmon, {
+  return Object.assign({}, COMMON, {
     name: `airc_${name}`,
     args: name,
   })
@@ -594,6 +594,8 @@ You only need to modify 2 variables at the top.
 1) Set your api key in `API_KEY`.
 
 2) Fill `BOTS` with the names of your bots.
+
+Modify `COMMON` if you must.
 
 Save it as `airc_config.js` or any other name.
 
