@@ -589,13 +589,11 @@ module.exports = {
 }
 ```
 
-You only need to modify 2 variables at the top.
-
-1) Set your api key in `API_KEY`.
+1) Fill `API_KEY` with your secret api key.
 
 2) Fill `BOTS` with the names of your bots.
 
-Modify `COMMON` if you must.
+3) Modify `COMMON` if you must.
 
 Save it as `airc_config.js` or any other name.
 
