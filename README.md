@@ -372,7 +372,7 @@ The bot should join the irc channel(s) some seconds after starting the program.
 
 ---
 
-Address a bot in a channel by mentioning it:
+Ask a question to a bot in the channel by highlighting it:
 
 `mybot, some question` or `mybot: some question`
 
@@ -448,7 +448,7 @@ To have a vanilla openai bot again (no rules) use `!reset rules`.
 
 ## Commands <a name="commands"></a>
 
-The bot listens to commands when it is mentioned and `!` is used at the start of the message.
+The bot listens to commands when it is highlighted at the start of the message and `!` is immediately used.
 
 For example: `mybot, !help`.
 
@@ -542,7 +542,7 @@ For example:
 
 `!cmd report` : Get an overview of all your bots.
 
-Don't mention a bot when using these, they're global commands.
+Don't highlight a bot when using these, they're global commands.
 
 They work on all owned bots in the current channel.
 
@@ -663,7 +663,7 @@ Nicknames gets assigned a `spam level` internally that starts at `0`.
 
 The spam level reflects recent bot usage by a nickname.
 
-The spam level is increased by `1` on each bot mention from the nickname.
+The spam level is increased by `1` on each bot prompt from the nickname.
 
 The spam level gets decreased by `1` every second or so.
 
