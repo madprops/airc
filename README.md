@@ -378,9 +378,9 @@ Nickname detection is case insensitive. `MyBot` and `mybot` work.
 
 If a message ends with `@nickname`, the response will be directed at that nickname.
 
-**You**: Bot, What is 2 + 2 @Sam
+**You**: &nbsp; Bot, What is 2 + 2 @Sam
 
-**Bot**: 🤖 Sam: 2 + 2 = 4
+**Bot**: &nbsp; 🤖 Sam: 2 + 2 = 4
 
 ---
 
@@ -396,13 +396,13 @@ See [Anti-Spam](#antispam)
 
 If a message starts with `^`, the bot will use the previous question-answer as context:
 
-**You**: Bot, What is 2 + 2 ?
+**You**: &nbsp; Bot, What is 2 + 2 ?
 
-**Bot**: 🤖 2 + 2 = 4
+**Bot**: &nbsp; 🤖 2 + 2 = 4
 
-**You**: Bot, ^ that plus 1
+**You**: &nbsp; Bot, ^ that plus 1
 
-**Bot**: 🤖 That would be 5
+**Bot**: &nbsp; 🤖 That would be 5
 
 ---
 
@@ -426,13 +426,13 @@ This edits the `rules` config, which is prepended before every prompt.
 
 ---
 
-**You**: Bot, !ur an angry squirrel
+**You**: &nbsp; Bot, !ur an angry squirrel
 
-**Bot**: 🤖 Rules: Respond as if you were an angry squirrel
+**Bot**: &nbsp; 🤖 Rules: Respond as if you were an angry squirrel
 
-**You**: Bot, why are you in a tree?
+**You**: &nbsp; Bot, why are you in a tree?
 
-**Bot**: 🤖 Oh, you think it's funny, do you? Well, I'm in a tree because it is my home! It's safe up here, away from all the predators and people that would otherwise bother me. So don't you worry about why I'm in a tree - worry about why you're not!
+**Bot**: &nbsp; 🤖 Oh, you think it's funny, do you? Well, I'm in a tree because it is my home! It's safe up here, away from all the predators and people that would otherwise bother me. So don't you worry about why I'm in a tree - worry about why you're not!
 
 ---
 
