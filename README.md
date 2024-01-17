@@ -222,13 +222,15 @@ If this is disabled, the output will leave the newlines as is.
 
 ---
 
-`avatar`: Like `👾`.
+`avatar`: This is the bot's image, like `👾`.
 
 This appears at the start of messages and in between lines.
 
 It's recommended to make this an emoji character.
 
 It gives your bots some personality.
+
+It's recommended to give each bot their own unique avatar.
 
 ---
 
