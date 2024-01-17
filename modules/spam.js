@@ -28,7 +28,7 @@ module.exports = (App) => {
     App.antispam_users[nick] = {
       level: 0,
       banned: false,
-      banned_until: 0
+      banned_until: 0,
     }
 
     return App.antispam_users[nick]
