@@ -641,7 +641,7 @@ That's 1% chance to respond on messages, which is enough in heavy channels.
 
 It's suggested to use a small number for this, like `12`, to avoid spamming the channel.
 
-Some users find this to be problematic for their privacy, so it's disabled by default.
+Some users find autorespond to be problematic for their privacy, so it's disabled by default.
 
 ---
 
