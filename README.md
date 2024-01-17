@@ -254,11 +254,11 @@ See [Autorespond](#autorespond)
 
 ---
 
-`command_char`: The character used to run commands like `!`.
+`command_char`: The character used to run commands, like `!`.
 
-`context_char`: The character used to use context like `^`.
+`context_char`: The character used to use context, like `^`.
 
-`mention_char`: The character used to mention users like `@`.
+`mention_char`: The character used to mention users, like `@`.
 
 ---
 
