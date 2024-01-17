@@ -619,7 +619,17 @@ That's 1% chance to respond on messages, which is enough in heavy channels.
 
 Some users find this to be problematic for their privacy, so it's disabled by default.
 
-Autorespond has a cooldown, to avoid frequent replies.
+---
+
+Related configs:
+
+`autorespond`
+
+`autorespond_cooldown`
+
+`autorespond_words`
+
+---
 
 ## Anti-Spam <a name="antispam"></a>
 
