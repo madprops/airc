@@ -61,9 +61,15 @@ You can name it `botdude` for example, or just use a user that isn't root.
 1) Run `npm install` to install the node dependencies
 1) Create the first config file in `/configs` (read [Configuration](#configuration))
 1) Export the api key to the environment (read [Credentials](#credentials))
-1) Run it with `node bot.js somebot` and check that it works
+1) Run it with `node bot.js mybot` and check that it works
+
 1) Check that the bot has read/write permissions on the config files
-1) Create scripts to help you manage the bots (read [Manage](#manage))
+- You can do this by changing a config like the avatar with `mybot, !avatar 😎`
+- Then check to see if the avatar config was updated in `/configs/mybot.json`
+
+---
+
+You might want to create scripts to help you manage the bots (read [Manage](#manage))
 
 ---
 
