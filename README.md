@@ -69,7 +69,9 @@ You can name it `botdude` for example, or just use a user that isn't root.
 
 ---
 
-You might want to create scripts to help you manage the bots (read [Manage](#manage))
+Read [Commands](#commands) to learn how to manage your bots from irc.
+
+Read [Manage](#manage) to learn more about managing airc.
 
 ---
 
