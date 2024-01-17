@@ -536,7 +536,7 @@ This can be used to check or change values on all bots at the same time.
 
 For example:
 
-`!cmd words 50` : This changes all owned bots's `words` config to 50.
+`!cmd words 50` : This changes all owned bots's `words` config to `50`.
 
 `!cmd rules` : This displays the rules of all bots.
 
