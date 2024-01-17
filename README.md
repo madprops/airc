@@ -549,7 +549,14 @@ When you need to update, use `git pull` inside the airc directory and restart th
 The following config might be useful:
 
 ```js
-let commmon = {
+const API_KEY = `secretKey`
+
+const BOTS = [
+  `bot1`,
+  `bot2`,
+]
+
+const commmon = {
   script: `airc/bot.js`,
   instances: 1,
   autorestart: true,
@@ -557,10 +564,10 @@ let commmon = {
   max_memory_restart: `1G`,
   env: {
     NODE_ENV: `production`,
-    OPENAI_API_KEY: `secretKey`
+    OPENAI_API_KEY: API_KEY,
   },
   env_production: {
-    NODE_ENV: `production`
+    NODE_ENV: `production`,
   },
 }
 
@@ -571,25 +578,22 @@ function bot (name) {
   })
 }
 
-let names = [
-  `bot1`,
-  `bot2`,
-]
+const apps = []
 
-let apps = []
-
-for (let name of names) {
+for (const name of BOTS) {
   apps.push(bot(name))
 }
 
 module.exports = {
-  apps: apps
+  apps: apps,
 }
 ```
 
-Set the api key in `OPENAI_API_KEY`.
+You only need to modify 2 variables at the top.
 
-Fill `names` with the names of your bots.
+1) Set your api key in `API_KEY`.
+
+2) Fill `BOTS` with the names of your bots.
 
 Save it as `airc_config.js` or any other name.
 
