@@ -75,7 +75,7 @@ All the defaults are defined in [config.json](config.json). You shouldn't edit t
 
 Use [config.json](config.json) as reference only.
 
-For example this is a bot: `configs/skeletor.json`:
+For example this is a bot: `configs/skeletor.json` :
 
 ```json
 {
@@ -112,7 +112,7 @@ These are the available configs:
 
 ---
 
-`nickname`: irc nickname of the bot.
+`nickname` : irc nickname of the bot.
 
 Make sure it's not in use yet: `/whois nickname`.
 
@@ -120,25 +120,25 @@ And make sure it's not registered by another person: `/msg nickserv info nicknam
 
 ---
 
-`server`: irc server to connect to.
+`server` : irc server to connect to.
 
 For example `irc.libera.chat`.
 
 ---
 
-`channels`: Array of irc channels to join.
+`channels` : Array of irc channels to join.
 
 These can contain passwords: `#mychannel channelpass`.
 
 ---
 
-`port`: The irc port to use.
+`port` : The irc port to use.
 
 This is used when connecting to an irc server.
 
 ---
 
-`model`: Which openai model to use.
+`model` : Which openai model to use.
 
 Either `turbo_instruct`, `turbo`, or `davinci`.
 
@@ -148,7 +148,7 @@ The default is now `turbo_instruct`.
 
 ---
 
-`max_prompt`: Ignore prompts longer than this.
+`max_prompt` : Ignore prompts longer than this.
 
 Prompt is the text sent to openai to ask a question.
 
@@ -158,31 +158,31 @@ If longer, the remainder is trimmed out.
 
 ---
 
-`max_rules`: Maximum length allowed for rules.
+`max_rules` : Maximum length allowed for rules.
 
 If longer, the remainder is trimmed out.
 
 ---
 
-`max_context`: How long the context used with `^` can be.
+`max_context` : How long the context used with `^` can be.
 
 If longer, the remainder is trimmed out.
 
 ---
 
-`max_tokens`: Maximum amount of tokens openai can play with.
+`max_tokens` : Maximum amount of tokens openai can play with.
 
 The bigger this is the bigger responses can be, but it gets more expensive.
 
 ---
 
-`rules`: Instructions for the bot. They're prepended before every prompt.
+`rules` : Instructions for the bot. They're prepended before every prompt.
 
 Users change this through the `!ur` and `!rules` commands.
 
 ---
 
-`users`: Array of nicknames. They might have more permissions than non-users.
+`users` : Array of nicknames. They might have more permissions than non-users.
 
 What they can do can be determined through permissions.
 
@@ -192,7 +192,7 @@ See [Permissions](#permissions)
 
 ---
 
-`admins`: Array of nicknames. They can run all the commands.
+`admins` : Array of nicknames. They can run all the commands.
 
 They are able to add/remove users, modify permissions, and change other configs.
 
@@ -200,9 +200,9 @@ See [Admins](#admins)
 
 ---
 
-`allow_ask`: Who is allowed to ask questions to the ai.
+`allow_ask` : Who is allowed to ask questions to the ai.
 
-`allow_rules`: Who is allowed to modify the personality of the ai through rules.
+`allow_rules` : Who is allowed to modify the personality of the ai through rules.
 
 These can be `all`, `users`, or `admins`.
 
@@ -210,15 +210,15 @@ See [Permissions](#permissions)
 
 ---
 
-`spam_limit`: Ban a user after reaching this spam level.
+`spam_limit` : Ban a user after reaching this spam level.
 
-`spam_minutes`: Ban a user for these minutes after it reaches the limit.
+`spam_minutes` : Ban a user for these minutes after it reaches the limit.
 
 See [Anti-Spam](#antispam)
 
 ---
 
-`compact`: Enable or disable compact mode.
+`compact` : Enable or disable compact mode.
 
 Instead of printing new lines on ai responses, lines are joined with the `avatar`.
 
@@ -228,7 +228,7 @@ If this is disabled, the output will leave the newlines as is.
 
 ---
 
-`avatar`: This is the bot's image, like `🤖`.
+`avatar` : This is the bot's image, like `🤖`.
 
 This appears at the start of messages and in between lines.
 
@@ -240,29 +240,29 @@ It gives your bots some personality.
 
 ---
 
-`show_avatar`: Whether to show the avatar or not.
+`show_avatar` : Whether to show the avatar or not.
 
 ---
 
-`autorespond`: Probability percentage to respond by itself. From `0` to `100`.
+`autorespond` : Probability percentage to respond by itself. From `0` to `100`.
 
-`autorespond_cooldown`: Stop the bot from autoresponding for at least these minutes after the last autorespond.
+`autorespond_cooldown` : Stop the bot from autoresponding for at least these minutes after the last autorespond.
 
-`autorespond_words`: The max amount of words autorespond should aim for. If set to `0` it won't use a limit.
+`autorespond_words` : The max amount of words autorespond should aim for. If set to `0` it won't use a limit.
 
 See [Autorespond](#autorespond)
 
 ---
 
-`command_char`: The character used to run commands, like `!`.
+`command_char` : The character used to run commands, like `!`.
 
-`context_char`: The character used to use context, like `^`.
+`context_char` : The character used to use context, like `^`.
 
-`mention_char`: The character used to mention users, like `@`.
+`mention_char` : The character used to mention users, like `@`.
 
 ---
 
-`words`: The max amount of words bot responses should aim for.
+`words` : The max amount of words bot responses should aim for.
 
 At most, this instructs the bot to not exceed that word limit, but it's not guaranteed.
 
@@ -468,7 +468,7 @@ The value of any config can be read by simply writing its name with no arguments
 
 ---
 
-`!ur [something]`: Set a personality through rules.
+`!ur [something]` : Set a personality through rules.
 
 `!ur a monkey` would set the rules to `Respond as if you were a monkey`.
 
@@ -476,15 +476,15 @@ See [Rules](#rules)
 
 ---
 
-`!add_user [nickname]`: Add a nickname to the users list.
+`!add_user [nickname]` : Add a nickname to the users list.
 
-`!remove_user [nickname]`: Remove a nickname from the users list.
+`!remove_user [nickname]` : Remove a nickname from the users list.
 
 See [Permissions](#permissions)
 
 ---
 
-`!join [channel]`: Joins an irc channel.
+`!join [channel]` : Joins an irc channel.
 
 A password can be supplied: `!join #somechannel somepassword`.
 
@@ -492,31 +492,31 @@ If the channel is not in the `channels` config it will be added.
 
 ---
 
-`!leave [channel]` or just `!leave`: Leave an irc channel.
+`!leave [channel]` or just `!leave` : Leave an irc channel.
 
 If the channel is in the `channels` config it will be removed.
 
 ---
 
-`!ban [nickname]`: Manually ban a user.
+`!ban [nickname]` : Manually ban a user.
 
-`!unban [nickname]`: Manually unban a user.
+`!unban [nickname]` : Manually unban a user.
 
 ---
 
-`!reset [config | all]`: Reset a config by removing it from `/configs/botname.json`.
+`!reset [config | all]` : Reset a config by removing it from `/configs/botname.json`.
 
 `!reset all` Removes all overriden configs except `server`, `channels`, `port`, `nickname`, and `admins`.
 
 ---
 
-`!config`: Prints a summary of various configs.
+`!config` : Prints a summary of various configs.
 
 This shows a quick overview of what the bot can do.
 
 ---
 
-`!report`: It shows how long ago the bot was launched, and how much memory it is using.
+`!report` : It shows how long ago the bot was launched, and how much memory it is using.
 
 ---
 
@@ -526,11 +526,11 @@ This can be used to check or change values on all bots at the same time.
 
 For example:
 
-`!cmd words 50`: This changes all owned bots's `words` config to 50.
+`!cmd words 50` : This changes all owned bots's `words` config to 50.
 
-`!cmd rules`: This displays the rules of all bots.
+`!cmd rules` : This displays the rules of all bots.
 
-`!cmd report`: Get an overview of all your bots.
+`!cmd report` : Get an overview of all your bots.
 
 Don't mention a bot when using these, they're global commands.
 
