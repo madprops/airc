@@ -510,6 +510,8 @@ If the channel is in the `channels` config it will be removed.
 
 `!unban [nickname]` : Manually unban a user.
 
+See [Anti-Spam](#antispam)
+
 ---
 
 `!reset [config | all]` : Reset a config by removing it from `/configs/botname.json`.
