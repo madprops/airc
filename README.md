@@ -498,7 +498,7 @@ If the channel is in the `channels` config it will be removed.
 
 `!reset [config | all]`: Reset a config by removing it from `/configs/botname.json`.
 
-`!reset all` Removes all overriden configs except `server`, `channels`, `port`, and `nickname`.
+`!reset all` Removes all overriden configs except `server`, `channels`, `port`, `nickname`, and `admins`.
 
 ---
 
@@ -512,9 +512,9 @@ This shows a quick overview of what the bot can do.
 
 ---
 
-Owned bots respond to a global `!cmd`.
+Owned bots respond to a global `!cmd` command.
 
-This can be used to check or change values to all bots at the same time.
+This can be used to check or change values on all bots at the same time.
 
 For example:
 
@@ -522,7 +522,7 @@ For example:
 
 `!cmd rules`: This displays the rules of all bots.
 
-`!cmd report`: Get an overview of your bots.
+`!cmd report`: Get an overview of all your bots.
 
 Don't mention a bot when using these, they're global commands.
 
