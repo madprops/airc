@@ -637,9 +637,9 @@ If you enable this, 1 might be a good value.
 
 That's 1% chance to respond on messages, which is enough in heavy channels.
 
-Some users find this to be problematic for their privacy, so it's disabled by default.
-
 It's suggested to use a small number of words for autorespond to avoid spam.
+
+Some users find this to be problematic for their privacy, so it's disabled by default.
 
 ---
 
