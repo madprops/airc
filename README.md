@@ -400,6 +400,10 @@ If a message starts with `^`, the bot will use the previous question-answer as c
 
 It only supports 1 level of context (the previous interaction).
 
+Using more levels would require increasing token count and it's messy.
+
+And we found that 1 level of context works pretty well.
+
 ---
 
 ## Rules <a name="rules"></a>
