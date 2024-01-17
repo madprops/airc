@@ -651,7 +651,7 @@ Related configs: `autorespond`, `autorespond_cooldown`, `autorespond_words`.
 
 ## Anti-Spam <a name="antispam"></a>
 
-There's an anti-spam system that automatically bans users from using the bot.
+There's an anti-spam system that automatically bans nicknames from using the bot.
 
 This is to avoid abuse but also accidents that could lead to many requests to openai.
 
@@ -667,8 +667,8 @@ If the spam level reaches the limit, the user is banned.
 
 Users get automatically unbanned after `spam_minutes` passed.
 
-Admins can ban and unban users manually with `!ban` and `!unban`.
+Admins can ban and unban nicknames manually with `!ban` and `!unban`.
 
-Admins and users can also get banned.
+Bot admins and users can also get banned.
 
-Restarting the bot unbans all users.
+Restarting the bot unbans all nicknames.
