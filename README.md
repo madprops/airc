@@ -2,7 +2,9 @@
 
 This is a nodejs bot that allows users in irc channels to ask questions to openai.
 
-It supports [rules](#rules), [commands](#commands), [permissions](#permissions), [context](#context), and more.
+It supports [rules](#rules), [commands](#commands),
+[permissions](#permissions), [context](#context),
+[autorespond](#autorespond), and more.
 
 ---
 
