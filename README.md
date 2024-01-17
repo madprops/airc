@@ -202,14 +202,6 @@ See [Permissions](#permissions)
 
 ---
 
-`all` -> Anybody.
-
-`users` -> Users and up.
-
-`admins` -> Admins only.
-
----
-
 `spam_limit`: Ban a user after reaching this spam level.
 
 Spam level is increased by 1 on each bot mention.
@@ -283,6 +275,16 @@ Access to ai and rules can be defined.
 This is controlled by the `allow_ask` and `allow_rules` configs.
 
 These can be set to: `all`, `users`, or `admins`.
+
+---
+
+`all` -> Anybody.
+
+`users` -> Users and up.
+
+`admins` -> Admins only.
+
+---
 
 For instance, if `allow_ask` is set to `users`, only added users (and admins) can ask questions to the ai.
 
