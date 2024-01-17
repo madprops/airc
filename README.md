@@ -663,7 +663,7 @@ Nicknames gets assigned a `spam level` internally that starts at `0`.
 
 The spam level reflects recent bot usage by a nickname.
 
-The spam level is increased by `1` on each bot mention.
+The spam level is increased by `1` on each bot mention from the nickname.
 
 The spam level gets decreased by `1` every second or so.
 
