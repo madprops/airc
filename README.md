@@ -1,8 +1,10 @@
 <img src="https://i.imgur.com/H9yo8Jt.jpg" width="420">
 
-This is a [Node.js](https://nodejs.org/) bot that allows users in
-[irc](https://en.wikipedia.org/wiki/Internet_Relay_Chat) channels
-to ask questions to [openai](https://openai.com/).
+---
+
+This is a [Node.js](https://nodejs.org/) bot
+for [irc](https://en.wikipedia.org/wiki/Internet_Relay_Chat)
+that interfaces with [openai](https://openai.com/).
 
 It supports [rules](#rules), [commands](#commands),
 [permissions](#permissions), [context](#context),
@@ -448,7 +450,7 @@ To have a vanilla openai bot again (no rules) use `!reset rules`.
 
 ## Commands <a name="commands"></a>
 
-Bots listen to commands from users in the irc channel.
+Bots listen to commands from nicknames in the irc channel.
 
 The bot admins can use all the commands, while others might have access to commands like `!ur` if they have permission.
 
@@ -629,7 +631,7 @@ Then use it like `pm2 start airc_config.js`.
 
 Bots have the ability to respond when not being directly prompted.
 
-Autorespond is triggered by normal messages from users.
+Autorespond is triggered by normal messages from nicknames.
 
 The bot will use the message that triggered autorespond as the prompt.
 
@@ -645,7 +647,7 @@ That's 1% chance to respond on messages, which is enough in heavy channels.
 
 It's suggested to use a small number for this, like `12`, to avoid spamming the channel.
 
-Some users find autorespond to be problematic for their privacy, so it's disabled by default.
+Some find autorespond to be problematic for their privacy, so it's disabled by default.
 
 ---
 
