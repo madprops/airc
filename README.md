@@ -514,7 +514,7 @@ See [Anti-Spam](#antispam)
 
 ---
 
-`!reset [config | all]` : Reset a config by removing it from `/configs/botname.json`.
+`!reset [config | all]` : Reset a config by removing it from `/configs/mybot.json`.
 
 `!reset all` Removes all overriden configs except `server`, `channels`, `port`, `nickname`, and `admins`.
 
@@ -548,7 +548,7 @@ They work on all owned bots in the current channel.
 
 ---
 
-Changes to any config through commands are saved automatically in `/configs/botname.json`.
+Changes to any config through commands are saved automatically in `/configs/mybot.json`.
 
 [config.json](config.json) is left intact and used for default values.
 
