@@ -320,6 +320,8 @@ If these are set to `users`, only nicknames in the list have access.
 
 They can be added and removed with `!add_user` and `!remove_user`.
 
+See [Permissions](#permissions)
+
 ---
 
 ## Admins <a name="admins"></a>
