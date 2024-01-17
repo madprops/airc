@@ -468,9 +468,9 @@ See [Rules](#rules)
 
 ---
 
-`!add_user [nickname]`: Add a nickname to the users array.
+`!add_user [nickname]`: Add a nickname to the users list.
 
-`!remove_user [nickname]`: Remove a nickname from the users array.
+`!remove_user [nickname]`: Remove a nickname from the users list.
 
 See [Permissions](#permissions)
 
