@@ -304,7 +304,7 @@ Users and admins are defined in the bot, they don't refer to the irc channel rol
 
 ---
 
-For instance, if `allow_ask` is set to `users`, only added users and admins can ask questions to the ai.
+For instance, if `allow_ask` is set to `users`, only users and admins can ask questions to the ai.
 
 If `allow_rules` is set to `all`, any nickname in the channel can change the bot's rules with `!ur`.
 
