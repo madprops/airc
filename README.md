@@ -180,11 +180,15 @@ Users change this through the `ur` and `rules` commands.
 
 What they can do can be determined through permissions.
 
+See [Users](#users)
+
 ---
 
 `admins`: Array of nicknames. They can run all the commands.
 
 They are able to add/remove users, modify permissions, and change other configs.
+
+See [Admins](#admins)
 
 ---
 
