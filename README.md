@@ -264,9 +264,9 @@ See [Autorespond](#autorespond)
 
 `words`: The max amount of words normal bot responses should aim for.
 
-If set to `0` it won't use a limit.
-
 At most this instructs the bot to consider using that amount of words, but it's not guaranteed.
+
+If set to `0` it won't use a limit.
 
 ---
 
