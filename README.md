@@ -290,6 +290,10 @@ These can be set to: `all`, `users`, or `admins`.
 
 ---
 
+Users and admins are defined in the bot, they don't refer to the irc channel roles.
+
+---
+
 For instance, if `allow_ask` is set to `users`, only added users (and admins) can ask questions to the ai.
 
 If `allow_rules` is set to `all`, any user in the room can change the bot's rules with `!ur`.
