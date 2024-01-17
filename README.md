@@ -262,7 +262,7 @@ See [Autorespond](#autorespond)
 
 ---
 
-`words`: The max amount of words normal bot responses should aim for.
+`words`: The max amount of words bot responses should aim for.
 
 At most this instructs the bot to consider using that amount of words, but it's not guaranteed.
 
