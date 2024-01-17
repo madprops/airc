@@ -199,7 +199,7 @@ module.exports = (App) => {
     {
       name: `ur`,
       on_arg: (data) => {
-        data.arg = `Respond as if you were ${data.arg}`
+        data.arg = `Respond as ${data.arg}`
         App.cmd_change_rules(data)
       },
       allow: `rules`,
