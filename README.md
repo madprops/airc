@@ -244,7 +244,7 @@ It gives your bots some personality.
 
 ---
 
-`autorespond`: Probability percentage to respond by itself. From 0 to 100.
+`autorespond`: Probability percentage to respond by itself. From `0` to `100`.
 
 `autorespond_cooldown`: Stop the bot from autoresponding for at least these minutes after the last autorespond.
 
@@ -264,7 +264,7 @@ See [Autorespond](#autorespond)
 
 `words`: The max amount of words bot responses should aim for.
 
-At most this instructs the bot to consider using that amount of words, but it's not guaranteed.
+At most, this instructs the bot to not exceed that word limit, but it's not guaranteed.
 
 If set to `0` it won't use a limit.
 
