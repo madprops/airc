@@ -629,22 +629,16 @@ This is to avoid abuse but also accidents that could lead to many requests to op
 
 By banning it means the nicknames get flagged and not considered by the bot anymore.
 
-There are 2 settings that control this:
-
-`spam_limit`: Ban a user after reaching this spam level.
-
-`spam_minutes`: Ban a user for these minutes after it reaches the limit.
+There are 2 configs that control this, `spam_limit`, and `spam_minutes`.
 
 Spam level is increased by 1 on each bot mention.
 
 Spam level gets decreased by 1 every second or so.
 
+If the spam level reaches the limit, the user is banned.
+
 Users get automatically unbanned after `spam_minutes` passed.
 
-Admins can ban and unban users manually:
-
-`!ban [nickname]`: Manually ban a user.
-
-`!unban [nickname]`: Manually unban a user.
+Admins can ban and unban users manually with `!ban` and `!unban`.
 
 Restarting the bot unbans all users.
