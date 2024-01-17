@@ -667,7 +667,7 @@ The spam level is increased by `1` on each bot mention.
 
 The spam level gets decreased by `1` every second or so.
 
-If the spam level reaches the limit, the user is banned.
+If the spam level reaches the `spam_limit`, the user is banned.
 
 Users get automatically unbanned after `spam_minutes` passed.
 
