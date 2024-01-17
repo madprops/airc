@@ -178,7 +178,7 @@ The bigger this is the bigger responses can be, but it gets more expensive.
 
 `rules`: Instructions for the bot. They're prepended before every prompt.
 
-Users change this through the `ur` and `rules` commands.
+Users change this through the `!ur` and `!rules` commands.
 
 ---
 
