@@ -214,9 +214,9 @@ Spam level gets decreased by 1 every second or so.
 
 `compact`: Enable or disable compact mode.
 
-Instead of printing new lines on ai response, lines are joined with the `avatar`.
+Instead of printing new lines on ai responses, lines are joined with the `avatar`.
 
-This allows a more compact output.
+This allows a more compact output which we found works nicely.
 
 If this is disabled, the output will leave the newlines as is.
 
