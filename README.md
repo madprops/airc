@@ -196,7 +196,7 @@ See [Admins](#admins)
 
 `allow_rules`: Who is allowed to modify the personality of the ai through rules.
 
-These can be `all` | `users` | `admins`
+These can be `all`, `users`, or `admins`.
 
 See [Permissions](#permissions)
 
