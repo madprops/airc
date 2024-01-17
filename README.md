@@ -278,11 +278,11 @@ These can be set to: `all`, `users`, or `admins`.
 
 ---
 
-`all` = Anybody
+`all` means anybody.
 
-`users` = Users and up
+`users` means users and up.
 
-`admins` = Admins only
+`admins` means admins only.
 
 ---
 
