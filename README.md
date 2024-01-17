@@ -566,7 +566,7 @@ When you need to update, use `git pull` inside the airc directory and restart th
 
 [PM2](https://github.com/Unitech/pm2) can be used to manage the bots more easily.
 
-The following config might be useful:
+The following script might be useful:
 
 ```js
 const API_KEY = `secretKey`
