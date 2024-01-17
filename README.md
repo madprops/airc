@@ -376,7 +376,7 @@ Nickname detection is case insensitive. `MyBot` and `mybot` work.
 
 ---
 
-If a message ends with `@somenickname`, the response will be directed at that nickname.
+If a message ends with `@nickname`, the response will be directed at that nickname.
 
 **You**: Bot, What is 2 + 2 @Sam
 
