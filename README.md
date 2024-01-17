@@ -222,7 +222,7 @@ If this is disabled, the output will leave the newlines as is.
 
 ---
 
-`avatar`: This is the bot's image, like `👾`.
+`avatar`: This is the bot's image, like `🤖`.
 
 This appears at the start of messages and in between lines.
 
