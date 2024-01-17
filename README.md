@@ -637,7 +637,9 @@ If you enable this, 1 might be a good value.
 
 That's 1% chance to respond on messages, which is enough in heavy channels.
 
-It's suggested to set a small number of max words for autorespond, to avoid spam.
+`autorespond_words` defines the maximum number of words the responses should be, similar to `words`.
+
+It's suggested to use a small number for this, like `12`, to avoid spamming the channel.
 
 Some users find this to be problematic for their privacy, so it's disabled by default.
 
