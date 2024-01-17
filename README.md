@@ -304,7 +304,7 @@ Users and admins are defined in the bot, they don't refer to the irc channel rol
 
 For instance, if `allow_ask` is set to `users`, only added users (and admins) can ask questions to the ai.
 
-If `allow_rules` is set to `all`, any user in the room can change the bot's rules with `!ur`.
+If `allow_rules` is set to `all`, any user in the channel can change the bot's rules with `!ur`.
 
 If set to `admins` only admins can use the feature.
 
@@ -368,17 +368,13 @@ Doing it once is enough for the duration of that shell instance.
 
 ## Usage <a name="usage"></a>
 
-The bot should join the irc room(s) some seconds after starting the program.
+The bot should join the irc channel(s) some seconds after starting the program.
 
 ---
 
-Address the bot in the room like this:
+Address the bot in the channel like this:
 
-`mybot, some question`
-
-or
-
-`mybot: some question`
+`mybot, some question` or `mybot: some question`
 
 ---
 
@@ -544,7 +540,7 @@ For example:
 
 Don't mention a bot when using these, they're global commands.
 
-They work on all owned bots in the current room.
+They work on all owned bots in the current channel.
 
 ---
 
