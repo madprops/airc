@@ -364,8 +364,6 @@ The bot should join the irc room(s) some seconds after starting the program.
 
 Address the bot in the room like this:
 
-Format: `nickname[, or :] question`
-
 `mybot, some question`
 
 or
