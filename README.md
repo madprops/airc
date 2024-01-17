@@ -314,9 +314,9 @@ They can be added and removed with `!add_user` and `!remove_user`.
 
 ## Admins <a name="admins"></a>
 
-Admins can perform any bot action.
-
 This is a list of irc nicknames.
+
+Admins can perform any bot action.
 
 They are responsible for configuring the bot and assigning permissions.
 
