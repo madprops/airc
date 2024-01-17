@@ -627,7 +627,7 @@ There's an anti-spam system that automatically bans users from using the bot.
 
 This is to avoid abuse but also accidents that could lead to many requests to openai.
 
-By banning it means the nicknames get flagged not considered by the bot anymore.
+By banning it means the nicknames get flagged and not considered by the bot anymore.
 
 There are 2 settings that control this:
 
