@@ -637,9 +637,9 @@ The bot will use the message that triggered autorespond as the prompt.
 
 So it can be somewhat relevant to the current discussion, and can be funny.
 
-If set to 0 it will never autorespond.
+If set to `0` it will never autorespond.
 
-If you enable this, 1 might be a good value.
+If you enable this, `1` might be a good value.
 
 That's 1% chance to respond on messages, which is enough in heavy channels.
 
