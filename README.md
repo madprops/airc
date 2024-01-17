@@ -372,7 +372,7 @@ The bot should join the irc channel(s) some seconds after starting the program.
 
 ---
 
-Address the bot in the channel like this:
+Address the bot in the channel by mentioning it:
 
 `mybot, some question` or `mybot: some question`
 
