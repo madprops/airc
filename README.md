@@ -65,7 +65,7 @@ You can name it `botdude` for example, or just use a user that isn't root.
 
 1) Check that the bot has read/write permissions on the config files
 - You can do this by changing a config like the avatar with `mybot, !avatar 😎`
-- Then check to see if the avatar config was updated in `/configs/mybot.json`
+- Then check that the avatar config was updated in `/configs/mybot.json`
 
 ---
 
