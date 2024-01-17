@@ -512,9 +512,9 @@ If the channel is in the `channels` config it will be removed.
 
 ---
 
-`!ban [nickname]` : Manually ban a user.
+`!ban [nickname]` : Manually ban a nickname.
 
-`!unban [nickname]` : Manually unban a user.
+`!unban [nickname]` : Manually unban a nickname.
 
 See [Anti-Spam](#antispam)
 
