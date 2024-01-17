@@ -270,7 +270,7 @@ See [Autorespond](#autorespond)
 
 `context_char` : The character used to use context, like `^`.
 
-`mention_char` : The character used to mention users, like `@`.
+`mention_char` : The character used to mention nicknames, like `@`.
 
 ---
 
@@ -675,7 +675,7 @@ The spam level gets decreased by `1` every second or so.
 
 If the spam level reaches the `spam_limit`, the user is banned.
 
-Users get automatically unbanned after `spam_minutes` passed.
+Nicknames get automatically unbanned after `spam_minutes` passed.
 
 Admins can ban and unban nicknames manually with `!ban` and `!unban`.
 
