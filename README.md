@@ -1,6 +1,8 @@
 <img src="https://i.imgur.com/H9yo8Jt.jpg" width="420">
 
-This is a [Node.js](https://nodejs.org/) bot that allows users in [irc](https://en.wikipedia.org/wiki/Internet_Relay_Chat) channels to ask questions to [openai](https://openai.com/).
+This is a [Node.js](https://nodejs.org/) bot that allows users in
+[irc](https://en.wikipedia.org/wiki/Internet_Relay_Chat) channels
+to ask questions to [openai](https://openai.com/).
 
 It supports [rules](#rules), [commands](#commands),
 [permissions](#permissions), [context](#context),
