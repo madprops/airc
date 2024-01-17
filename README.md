@@ -625,7 +625,7 @@ Then use it like `pm2 start airc_config.js`.
 
 Autorespond is triggered by normal messages from users.
 
-It means the bot will take the message that triggered autorespond and respond by itself using the message as the prompt.
+It means the bot will use the message that triggered autorespond a prompt.
 
 If set to 0 it will never autorespond.
 
