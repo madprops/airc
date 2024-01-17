@@ -621,13 +621,7 @@ Some users find this to be problematic for their privacy, so it's disabled by de
 
 ---
 
-Related configs:
-
-`autorespond`
-
-`autorespond_cooldown`
-
-`autorespond_words`
+Related configs: `autorespond`, `autorespond_cooldown`, `autorespond_words`.
 
 ---
 
