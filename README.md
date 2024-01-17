@@ -294,9 +294,9 @@ These can be set to: `all`, `users`, or `admins`.
 
 `all` means anybody.
 
-`users` means users and up.
+`users` means users and admins.
 
-`admins` means admins only.
+`admins` means only admins.
 
 ---
 
