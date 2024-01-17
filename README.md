@@ -194,13 +194,11 @@ See [Admins](#admins)
 
 `allow_ask`: Who is allowed to ask questions to the ai.
 
-`all` | `users` | `admins`
-
----
-
 `allow_rules`: Who is allowed to modify the personality of the ai through rules.
 
-`all` | `users` | `admins`
+These can be `all` | `users` | `admins`
+
+See [Permissions](#permissions)
 
 ---
 
