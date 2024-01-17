@@ -188,6 +188,8 @@ What they can do can be determined through permissions.
 
 See [Users](#users)
 
+See [Permissions](#permissions)
+
 ---
 
 `admins`: Array of nicknames. They can run all the commands.
