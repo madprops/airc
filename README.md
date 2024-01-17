@@ -4,8 +4,7 @@ This is a nodejs bot that allows users in irc channels to ask questions to opena
 
 It supports [rules](#rules), [commands](#commands),
 [permissions](#permissions), [context](#context),
-[autorespond](#autorespond), [anti-spam](#antispam),
-and more.
+[autorespond](#autorespond), [anti-spam](#antispam)
 
 ---
 
