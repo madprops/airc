@@ -4,7 +4,8 @@ This is a nodejs bot that allows users in irc channels to ask questions to opena
 
 It supports [rules](#rules), [commands](#commands),
 [permissions](#permissions), [context](#context),
-[autorespond](#autorespond), and more.
+[autorespond](#autorespond), [anti-spam](#antispam),
+and more.
 
 ---
 
@@ -31,6 +32,7 @@ It requires a paid openai api key.
 1. [Users](#users)
 1. [Admins](#admins)
 1. [Autorespond](#autorespond)
+1. [Anti-Spam](#antispam)
 
 ---
 
@@ -207,11 +209,9 @@ See [Permissions](#permissions)
 
 `spam_limit`: Ban a user after reaching this spam level.
 
-Spam level is increased by 1 on each bot mention.
-
-Spam level gets decreased by 1 every second or so.
-
 `spam_minutes`: Ban a user for these minutes after it reaches the limit.
+
+See [Anti-Spam](#antispam)
 
 ---
 
@@ -381,13 +381,11 @@ If a message ends with `@somenickname`, the response will be directed at that ni
 
 ---
 
-If `autorespond` is between `1` and `100`, there's a chance the bot will talk by itself.
+See [Context](#context)
 
 See [Autorespond](#autorespond)
 
----
-
-There's an automatic anti-spam system that bans users who abuse the bot.
+See [Anti-Spam](#antispam)
 
 ---
 
@@ -623,3 +621,23 @@ That's 1% chance to respond on messages, which is enough in heavy channels.
 Some users find this to be problematic for their privacy, so it's disabled by default.
 
 Autorespond has a cooldown, to avoid frequent replies.
+
+## Anti-Spam <a name="antispam"></a>
+
+There's an anti-spam system that automatically bans users from using the bot.
+
+This is to avoid abuse but also accidents that could lead to many requests to openai.
+
+By banning it means the nicknames are added to a list and they're not considered by the bot anymore.
+
+There are 2 settings that control this:
+
+`spam_limit`: Ban a user after reaching this spam level.
+
+`spam_minutes`: Ban a user for these minutes after it reaches the limit.
+
+Spam level is increased by 1 on each bot mention.
+
+Spam level gets decreased by 1 every second or so.
+
+Users get automatically unbanned after `spam_minutes` pass.
