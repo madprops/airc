@@ -486,6 +486,8 @@ See [Rules](#rules)
 
 `!remove_user [nickname]` : Remove a nickname from the users list.
 
+See [Users](#users)
+
 See [Permissions](#permissions)
 
 ---
