@@ -238,11 +238,13 @@ It gives your bots some personality.
 
 ---
 
-`autorespond`: Probability % to talk by itself. From 0 to 100.
+`autorespond`: Probability percentage to respond by itself. From 0 to 100.
 
 If set to 0 it will never autorespond.
 
 Autorespond is triggered by normal messages from users.
+
+If you enable this, 1 might be a good value.
 
 ---
 
