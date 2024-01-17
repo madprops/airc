@@ -4,9 +4,9 @@ This is a [Node.js](https://nodejs.org/) bot that allows users in
 [irc](https://en.wikipedia.org/wiki/Internet_Relay_Chat) channels
 to ask questions to [openai](https://openai.com/).
 
-It supports [rules](#rules), [commands](#commands),
-[permissions](#permissions), [context](#context),
-[autorespond](#autorespond), [anti-spam](#antispam).
+It supports [configuration](#configuration), [commands](#commands), [permissions](#permissions),
+
+[rules](#rules), [context](#context), [autorespond](#autorespond), [anti-spam](#antispam).
 
 ---
 
