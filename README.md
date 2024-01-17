@@ -51,7 +51,7 @@ If you are running this on some sort of server:
 
 You might want to have a dedicated system user to handle the bots to avoid using root.
 
-You can name it `botdude` for example.
+You can name it `botdude` for example, or just use a user that isn't root.
 
 ---
 
