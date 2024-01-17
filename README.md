@@ -2,7 +2,7 @@
 
 This is a [Node.js](https://nodejs.org/) bot that allows users in
 [irc](https://en.wikipedia.org/wiki/Internet_Relay_Chat) channels
-to ask questions to [openai](https://openai.com/).
+to ask questions to [openai](https://openai.com/)
 
 It supports [rules](#rules), [commands](#commands),
 [permissions](#permissions), [context](#context),
