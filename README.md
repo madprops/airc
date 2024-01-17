@@ -591,6 +591,6 @@ Set the api key in `OPENAI_API_KEY`.
 
 Fill `names` with the names of your bots.
 
-Save it as `airc_config.js`.
+Save it as `airc_config.js` or any other name.
 
 Then use it like `pm2 start airc_config.js`.
