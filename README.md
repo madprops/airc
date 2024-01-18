@@ -36,6 +36,7 @@ It requires a paid openai api key.
 1. [Admins](#admins)
 1. [Autorespond](#autorespond)
 1. [Anti-Spam](#antispam)
+1. [Models](#models)
 
 ---
 
@@ -151,11 +152,7 @@ This is used when connecting to an irc server.
 
 `model` : Which openai model to use.
 
-Either `turbo_instruct`, `turbo`, or `davinci`.
-
-Edit: `davinci` is going to be deprecated early 2024 by openai.
-
-The default is now `turbo_instruct`.
+Either `turbo_instruct`, and `turbo`.
 
 ---
 
@@ -395,11 +392,23 @@ If a message ends with `@nickname`, the response will be directed at that nickna
 
 ---
 
+Ask it questions related to the conversation you're having, so you and others learn.
+
+Ask it specific facts, or to explain how something works.
+
+Keep in mind that it's knowledge data can be cut-off and it might not be aware of current events.
+
+If you give it a distinct personality it can respond in humorous ways.
+
+---
+
 See [Context](#context)
 
 See [Autorespond](#autorespond)
 
 See [Anti-Spam](#antispam)
+
+See [Models](#models)
 
 ---
 
@@ -687,3 +696,27 @@ Admins can ban and unban nicknames manually with `!ban` and `!unban`.
 Bot admins and users can also get banned.
 
 Restarting the bot unbans all nicknames.
+
+---
+
+## Models <a name="models"></a>
+
+Some openai models are more restrictive than others.
+
+Some will avoid responding to your prompt if they deem it innapropiate.
+
+While others are less likely to do that.
+
+airc only recognizes certain models, it doesn't have access to the full extent of them.
+
+As of now they are: `turbo_instruct` and `turbo` (3.5 models).
+
+airc has internal methods to interface with openai.
+
+The method it uses depends on the model.
+
+Some models get deprecated and are to be removed.
+
+Some might get added over time as they appear and become useful.
+
+The support of models demands updates to airc.

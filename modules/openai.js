@@ -1,9 +1,5 @@
 module.exports = (App) => {
   App.models = {
-    davinci: {
-      name: `text-davinci-003`,
-      method: 1,
-    },
     turbo_instruct: {
       name: `gpt-3.5-turbo-instruct`,
       method: 1,
