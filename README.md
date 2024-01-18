@@ -85,9 +85,9 @@ Simply create `json` files inside `/configs` that override the defaults.
 
 All the defaults are defined in [config.json](config.json). You shouldn't edit this file.
 
-Use [config.json](config.json) as reference only.
+Use [config.json](config.json) as a reference only.
 
-For example this is a bot: `configs/skeletor.json` :
+For example, this is a bot: `configs/skeletor.json` :
 
 ```json
 {
@@ -108,15 +108,15 @@ Remember to add yourself as an admin.
 
 Then start the bot with `node bot.js skeletor`.
 
-Of course you can name the files anything.
+Of course, you can name the files anything.
 
 Each `json` file inside `/configs` is a bot.
 
 Bots have to be started and stopped manually by you.
 
-Each bot is started individually with their own process.
+Each bot is started individually with its own process.
 
-When you modify configs through commands the files gets updated automatically.
+When you modify configs through commands the files get updated automatically.
 
 ---
 
@@ -152,13 +152,13 @@ This is used when connecting to an irc server.
 
 `model` : Which openai model to use.
 
-Either `turbo_instruct`, and `turbo`.
+Either `turbo_instruct` and `turbo`.
 
 ---
 
 `max_prompt` : Ignore prompts longer than this.
 
-Prompt is the text sent to openai to ask a question.
+The prompt is the text sent to openai to ask a question.
 
 Rules length or context length are not considered.
 
@@ -202,7 +202,7 @@ See [Permissions](#permissions)
 
 `admins` : Array of nicknames. They can run all the commands.
 
-They are able to add/remove users, modify permissions, and change other configs.
+They can add/remove users, modify permissions, and change other configs.
 
 See [Admins](#admins)
 
@@ -242,7 +242,7 @@ This appears at the start of messages and in between lines.
 
 It's recommended to make this an emoji character.
 
-It's recommended to give each bot their own unique avatar.
+It's recommended to give each bot a unique avatar.
 
 It gives your bots some personality.
 
@@ -312,7 +312,7 @@ Check current permissions with `!config` or directly: `!allow_rules`.
 
 Assign permissions in whatever way they make sense.
 
-Some bots are meant to be fixed, others might be more dynamic, others might belong to certain users.
+Some bots are meant to be fixed, others might be more dynamic, and others might belong to certain users.
 
 ---
 
@@ -346,7 +346,7 @@ This config can't be modified through commands.
 
 And it won't get resetted when using `!reset`.
 
-Make sure to add your own nickname to the list.
+Make sure to add your nickname to the list.
 
 ---
 
@@ -380,7 +380,7 @@ Ask a question to a bot in the channel by highlighting it:
 
 ---
 
-Nickname detection is case insensitive. `MyBot` and `mybot` work.
+Nickname detection is case-insensitive. `MyBot` and `mybot` work.
 
 ---
 
@@ -396,7 +396,7 @@ Ask it questions related to the conversation you're having, so you and others le
 
 Ask it specific facts, or to explain how something works.
 
-Keep in mind that it's knowledge data can be cut-off and it might not be aware of current events.
+Keep in mind that its knowledge data can be cut off and it might not be aware of current events.
 
 If you give it a distinct personality it can respond in humorous ways.
 
@@ -428,7 +428,7 @@ If a message starts with `^`, the bot will use the previous question-answer as c
 
 It only supports 1 level of context (the previous interaction).
 
-Using more levels would require increasing token count.
+Using more levels would require increasing the token count.
 
 Plus more context might involve irrelevant interactions.
 
@@ -649,13 +649,13 @@ Autorespond is triggered by normal messages from nicknames.
 
 The bot will use the message that triggered autorespond as the prompt.
 
-So it can be somewhat relevant to the current discussion, and can be funny.
+So it can be somewhat relevant to the current discussion and can be funny.
 
 If set to `0` it will never autorespond.
 
 If you enable this, `1` might be a good value.
 
-That's 1% chance to respond on messages, which is enough in heavy channels.
+That's a 1% chance to respond to messages, which is enough in heavy channels.
 
 `autorespond_words` defines the maximum number of words the responses should be, similar to `words`.
 
@@ -677,9 +677,9 @@ This is to avoid abuse but also accidents that could lead to many requests to op
 
 By banning it means that nicknames get flagged and ignored by the bot temporarily.
 
-There are 2 configs that control this, `spam_limit`, and `spam_minutes`.
+2 configs that control this, `spam_limit`, and `spam_minutes`.
 
-Nicknames gets assigned a `spam level` internally that starts at `0`.
+Nicknames get assigned a `spam level` internally that starts at `0`.
 
 The spam level reflects recent bot usage by a nickname.
 
@@ -689,7 +689,7 @@ The spam level gets decreased by `1` every second or so.
 
 If the spam level reaches the `spam_limit`, the nickname is banned.
 
-Nicknames get automatically unbanned after `spam_minutes` passed.
+Nicknames get automatically unbanned after `spam_minutes` passes.
 
 Admins can ban and unban nicknames manually with `!ban` and `!unban`.
 
@@ -703,13 +703,13 @@ Restarting the bot unbans all nicknames.
 
 Some openai models are more restrictive than others.
 
-Some will avoid responding to your prompt if they deem it innapropiate.
+Some will avoid responding to your prompt if they deem it inappropriate.
 
 While others are less likely to do that.
 
 airc only recognizes certain models, it doesn't have access to the full extent of them.
 
-As of now they are: `turbo_instruct` and `turbo` (3.5 models).
+As of now, they are: `turbo_instruct` and `turbo` (3.5 models).
 
 airc has internal methods to interface with openai.
 
@@ -721,6 +721,6 @@ Some might get added over time as they appear and become useful.
 
 The support of models demands updates to airc.
 
-Supported models should be focused on general responses and not code generation.
+Supported models should be focused on natural language responses and not code generation.
 
-airc is not really meant to be a programming assistant since web interfaces are a lot better for that.
+airc is not meant to be a programming assistant since web interfaces are a lot better for that.
