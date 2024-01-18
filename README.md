@@ -449,9 +449,11 @@ To have a vanilla openai bot again (no rules) use `!reset rules`.
 
 ## Commands <a name="commands"></a>
 
-Bots listen to commands from nicknames in the irc channel.
+Bots listen to commands from nicknames in the channel.
 
-The bot admins can use all the commands, while others might have access to commands like `!ur` if they have permission.
+The bot admins can use all the commands.
+
+Others might have access to commands like `!ur` if they have permission.
 
 To use commands you highlight the bot and use `!` or whatever is configured as the `command_char`:
 
