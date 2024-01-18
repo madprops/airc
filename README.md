@@ -369,7 +369,9 @@ Doing it once is enough for the duration of that shell instance.
 
 ## Usage <a name="usage"></a>
 
-The bot should join the irc channel(s) some seconds after starting the program.
+The bot should join the irc channel(s) automatically some seconds after starting the program.
+
+Depending on the irc network it might take a while.
 
 ---
 
