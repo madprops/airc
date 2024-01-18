@@ -720,3 +720,7 @@ Some models get deprecated and are to be removed.
 Some might get added over time as they appear and become useful.
 
 The support of models demands updates to airc.
+
+Models used should be focused on general responses as opposed to generating code.
+
+airc is not really meant to be a programming assistant since web interfaces are a lot better for that.
