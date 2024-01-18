@@ -369,9 +369,11 @@ Doing it once is enough for the duration of that shell instance.
 
 ## Usage <a name="usage"></a>
 
-The bot should join the irc channel(s) automatically some seconds after starting the program.
+The bot should join the irc channels automatically some seconds after starting the program.
 
 Depending on the irc network it might take a while.
+
+In Libera it might be something like 15 seconds or so.
 
 ---
 
