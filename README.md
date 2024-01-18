@@ -721,6 +721,6 @@ Some might get added over time as they appear and become useful.
 
 The support of models demands updates to airc.
 
-Models used should be focused on general responses as opposed to generating code.
+Supported models should be focused on general responses and not code generation.
 
 airc is not really meant to be a programming assistant since web interfaces are a lot better for that.
