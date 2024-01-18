@@ -64,7 +64,6 @@ You can name it `botdude` for example, or just use a user that isn't root.
 1. Create the first bot in `/configs` (read [Configuration](#configuration))
 1. Export the api key to the environment (read [Credentials](#credentials))
 1. Run the bot with `node bot.js mybot` and check that it can connect
-
 1. Check that the bot has read/write permissions on the config files
 - You can do this by changing a config like the avatar with `mybot, !avatar 😎`
 - Then check that the avatar config was updated in `/configs/mybot.json`
