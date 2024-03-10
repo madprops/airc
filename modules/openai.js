@@ -8,6 +8,10 @@ module.exports = (App) => {
       name: `gpt-3.5-turbo`,
       method: 2,
     },
+    gpt_4: {
+      name: `gpt-4`,
+      method: 2,
+    },
   }
 
   App.start_openai = () => {
