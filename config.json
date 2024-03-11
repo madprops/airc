@@ -5,7 +5,7 @@
   ],
   "port": 6667,
   "nickname": "airc-bot",
-  "model": "gpt_4",
+  "model": "turbo_instruct",
   "max_tokens": 200,
   "max_prompt": 350,
   "max_rules": 350,
