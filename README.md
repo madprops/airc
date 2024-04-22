@@ -695,10 +695,6 @@ airc only recognizes certain models, it doesn't have access to the full extent o
 
 As of now, they are: `turbo_instruct` and `turbo` (3.5 models).
 
-airc has internal methods to interface with openai.
-
-The method it uses depends on the model.
-
 Some models get deprecated and are to be removed.
 
 Some might get added over time as they appear and become useful.

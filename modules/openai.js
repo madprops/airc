@@ -1,20 +1,13 @@
 module.exports = (App) => {
   App.models = {
-    turbo_instruct: {
-      name: `gpt-3.5-turbo-instruct`,
-      method: 1,
-    },
     turbo: {
       name: `gpt-3.5-turbo`,
-      method: 2,
     },
     gpt_4: {
       name: `gpt-4`,
-      method: 2,
     },
     gpt_4_turbo: {
       name: `gpt-4-turbo-preview`,
-      method: 2,
     },
   }
 
@@ -31,37 +24,20 @@ module.exports = (App) => {
 
   App.ask_openai = async (prompt, callback) => {
     let model = App.models[App.config.model]
-    App.log(`Model: ${model.name} | Method: ${model.method}`)
+    App.log(`Model: ${model.name}`)
 
     try {
-      if (model.method === 1) {
-        let ans = await App.openai_client.chat.completions.create({
-          model: model.name,
-          prompt: prompt,
-          max_tokens: App.config.max_tokens,
-        })
+      let ans = await App.openai_client.chat.completions.create({
+        model: model.name,
+        messages: [{role: `user`, content: prompt}],
+        max_tokens: App.config.max_tokens,
+      })
 
-        if (ans.status === 200) {
-          let text = ans.data.choices[0].text.trim()
+      if (ans && ans.choices) {
+        let text = ans.choices[0].message.content.trim()
 
-          if (text) {
-            callback(text)
-          }
-        }
-      }
-      else if (model.method === 2) {
-        let ans = await App.openai_client.chat.completions.create({
-          model: model.name,
-          messages: [{role: `user`, content: prompt}],
-          max_tokens: App.config.max_tokens,
-        })
-
-        if (ans && ans.choices) {
-          let text = ans.choices[0].message.content.trim()
-
-          if (text) {
-            callback(text)
-          }
+        if (text) {
+          callback(text)
         }
       }
     }
