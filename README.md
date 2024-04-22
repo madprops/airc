@@ -172,9 +172,9 @@ If longer, the remainder is trimmed out.
 
 ---
 
-`max_context` : How long the context used with `^` can be.
+`max_context` : How long context messages can be.
 
-If longer, the remainder is trimmed out.
+The rest is trimmed out.
 
 ---
 
@@ -263,8 +263,6 @@ See [Autorespond](#autorespond)
 ---
 
 `command_char` : The character used to run commands, like `!`.
-
-`context_char` : The character used to use context, like `^`.
 
 `mention_char` : The character used to mention nicknames, like `@`.
 
@@ -409,20 +407,6 @@ See [Autorespond](#autorespond)
 See [Anti-Spam](#antispam)
 
 See [Models](#models)
-
----
-
-## Context <a name="context"></a>
-
-If a message starts with `^`, the bot will use the previous question-answer as context:
-
-**You**: &nbsp; Bot, What is 2 + 2 ?
-
-**Bot**: &nbsp; 🤖 2 + 2 = 4
-
-**You**: &nbsp; Bot, ^ that plus 1
-
-**Bot**: &nbsp; 🤖 That would be 5
 
 ---
 

@@ -21,7 +21,6 @@
   "spam_minutes": 30,
   "compact": true,
   "command_char": "!",
-  "context_char": "^",
   "mention_char": "@",
   "avatar": "👾",
   "show_avatar": true,

@@ -113,11 +113,6 @@ module.exports = (App) => {
     let mention
     let mention_char = App.escape_regex(App.config.mention_char)
     let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)
-    let use_context = args.prompt.startsWith(App.config.context_char)
-
-    if (use_context) {
-      args.prompt = args.prompt.replace(App.config.context_char, ``)
-    }
 
     args.prompt = args.prompt.replace(mention_regex, (match, group) => {
       mention = group
@@ -128,10 +123,10 @@ module.exports = (App) => {
 
     // Prompt plus optional context and rules
     let full_prompt = args.prompt
+    let res = App.context[args.channel]
 
-    if (use_context) {
+    if (res) {
       // Add previous response
-      let res = App.context[args.channel]
       let res_user = App.terminate(App.limit(res.user, App.config.max_context))
       let res_ai = App.terminate(App.limit(res.ai, App.config.max_context))
       full_prompt = `${res_user}\n${res_ai}\n${full_prompt}`.trim()

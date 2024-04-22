@@ -24,12 +24,9 @@ module.exports = (App) => {
       App.update_config(`model`, `reset`)
     }
 
-    let configuration = new App.i.openai.Configuration({
-      apiKey: process.env.OPENAI_API_KEY
+    App.openai_client = new App.i.openai({
+      apiKey: process.env[`OPENAI_API_KEY`],
     })
-
-    App.openai_client = new App.i.openai.OpenAIApi(configuration)
-    App.log(`Started openai`)
   }
 
   App.ask_openai = async (prompt, callback) => {
@@ -38,7 +35,7 @@ module.exports = (App) => {
 
     try {
       if (model.method === 1) {
-        let ans = await App.openai_client.createCompletion({
+        let ans = await App.openai_client.chat.completions.create({
           model: model.name,
           prompt: prompt,
           max_tokens: App.config.max_tokens,
@@ -53,14 +50,14 @@ module.exports = (App) => {
         }
       }
       else if (model.method === 2) {
-        let ans = await App.openai_client.createChatCompletion({
+        let ans = await App.openai_client.chat.completions.create({
           model: model.name,
           messages: [{role: `user`, content: prompt}],
           max_tokens: App.config.max_tokens,
         })
 
-        if (ans.status === 200) {
-          let text = ans.data.choices[0].message.content.trim()
+        if (ans && ans.choices) {
+          let text = ans.choices[0].message.content.trim()
 
           if (text) {
             callback(text)

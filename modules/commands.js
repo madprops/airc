@@ -117,7 +117,6 @@ module.exports = (App) => {
     `${App.p}spam_limit + [ number ]`,
     `${App.p}spam_minutes + [ number ]`,
     `${App.p}command_char + [ char ]`,
-    `${App.p}context_char + [ char ]`,
     `${App.p}mention_char + [ char ]`,
     `${App.p}config`,
     `${App.p}reset + [ config | all ]: Reset configs to default`,
@@ -357,13 +356,6 @@ module.exports = (App) => {
       on_arg: (data) => {
         App.update_config(`command_char`, data.arg)
         App.cmd_show(data.channel, `command_char`)
-      },
-    },
-    {
-      name: `context_char`,
-      on_arg: (data) => {
-        App.update_config(`context_char`, data.arg)
-        App.cmd_show(data.channel, `context_char`)
       },
     },
     {
