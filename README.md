@@ -396,6 +396,8 @@ Keep in mind that its knowledge data can be cut off and it might not be aware of
 
 If you give it a distinct personality it can respond in humorous ways.
 
+---
+
 There are symbols or `chars` you can use:
 
 ### clear_char
