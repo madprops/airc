@@ -88,7 +88,19 @@ module.exports = (App) => {
       }
 
       // Check if it's a command
-      if (prompt.startsWith(App.config.command_char)) {
+      let is_command = false
+
+      let chars = [
+        App.config.emphasize_char,
+        App.config.explain_char,
+        App.config.continue_char,
+      ]
+
+      if (prompt.startsWith(App.config.command_char) && (!chars.includes(prompt))) {
+        is_command = true
+      }
+
+      if (is_command) {
         let cmd = prompt.replace(App.config.command_char, ``)
         App.check_commands({from: args.from, channel: args.channel, cmd: cmd})
         return
@@ -113,6 +125,14 @@ module.exports = (App) => {
     let mention
     let mention_char = App.escape_regex(App.config.mention_char)
     let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)
+    let clear_on = args.prompt.startsWith(App.config.clear_char)
+    let emphasize_on = args.prompt === App.config.emphasize_char
+    let explain_on = args.prompt === App.config.explain_char
+    let continue_on = args.prompt === App.config.continue_char
+
+    if (clear_on) {
+      args.prompt = args.prompt.replace(App.config.clear_char, ``)
+    }
 
     args.prompt = args.prompt.replace(mention_regex, (match, group) => {
       mention = group
@@ -125,7 +145,17 @@ module.exports = (App) => {
     let full_prompt = args.prompt
     let res = App.context[args.channel]
 
-    if (res) {
+    if (emphasize_on) {
+      full_prompt = `Please emphasize the last point.`
+    }
+    else if (explain_on) {
+      full_prompt = `Please explain.`
+    }
+    else if (continue_on) {
+      full_prompt = `Please continue.`
+    }
+
+    if (res && !clear_on) {
       // Add previous response
       let res_user = App.terminate(App.limit(res.user, App.config.max_context))
       let res_ai = App.terminate(App.limit(res.ai, App.config.max_context))

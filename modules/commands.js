@@ -117,6 +117,10 @@ module.exports = (App) => {
     `${App.p}spam_limit + [ number ]`,
     `${App.p}spam_minutes + [ number ]`,
     `${App.p}command_char + [ char ]`,
+    `${App.p}clear_char + [ char ]`,
+    `${App.p}emphasize_char + [ char ]`,
+    `${App.p}explain_char + [ char ]`,
+    `${App.p}continue_char + [ char ]`,
     `${App.p}mention_char + [ char ]`,
     `${App.p}config`,
     `${App.p}reset + [ config | all ]: Reset configs to default`,
@@ -349,6 +353,34 @@ module.exports = (App) => {
           App.update_config(`compact`, App.bool(value))
           App.cmd_show(data.channel, `compact`)
         }
+      },
+    },
+    {
+      name: `clear_char`,
+      on_arg: (data) => {
+        App.update_config(`clear_char`, data.arg)
+        App.cmd_show(data.channel, `clear_char`)
+      },
+    },
+    {
+      name: `emphasize_char`,
+      on_arg: (data) => {
+        App.update_config(`emphasize_char`, data.arg)
+        App.cmd_show(data.channel, `emphasize_char`)
+      },
+    },
+    {
+      name: `explain_char`,
+      on_arg: (data) => {
+        App.update_config(`explain_char`, data.arg)
+        App.cmd_show(data.channel, `explain_char`)
+      },
+    },
+    {
+      name: `continue_char`,
+      on_arg: (data) => {
+        App.update_config(`continue_char`, data.arg)
+        App.cmd_show(data.channel, `continue_char`)
       },
     },
     {

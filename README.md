@@ -7,8 +7,7 @@ for [irc](https://en.wikipedia.org/wiki/Internet_Relay_Chat)
 that interfaces with [openai](https://openai.com/).
 
 It supports [rules](#rules), [commands](#commands),
-[permissions](#permissions), [context](#context),
-[autorespond](#autorespond), [anti-spam](#antispam).
+[permissions](#permissions), [autorespond](#autorespond), [anti-spam](#antispam).
 
 ---
 
@@ -29,7 +28,6 @@ It requires a paid openai api key.
 1. [Usage](#usage)
 1. [Commands](#commands)
 1. [Manage](#manage)
-1. [Context](#context)
 1. [Rules](#rules)
 1. [Permissions](#permissions)
 1. [Users](#users)
@@ -398,9 +396,41 @@ Keep in mind that its knowledge data can be cut off and it might not be aware of
 
 If you give it a distinct personality it can respond in humorous ways.
 
+There are symbols or `chars` you can use:
+
+### clear_char
+
+Default: `^`
+
+Don't use context for this prompt.
+
+This is when you want a clean response without context affecting it.
+
+### emphasize_char
+
+Default: `!`
+
+Alias to "Please emphasize the last point."
+
+### explain_char
+
+Default: `/`
+
+Alias to "Please explain."
+
+### continue_char
+
+Default: `>`
+
+Alias to "Please continue."
+
 ---
 
-See [Context](#context)
+For instance you can use them like `mybot, !`.
+
+Or `mybot, ^ what is 2 + 2`.
+
+---
 
 See [Autorespond](#autorespond)
 
