@@ -3,11 +3,8 @@ module.exports = (App) => {
     turbo: {
       name: `gpt-3.5-turbo`,
     },
-    gpt_4: {
-      name: `gpt-4`,
-    },
-    gpt_4_turbo: {
-      name: `gpt-4-turbo-preview`,
+    gpt_4o: {
+      name: `gpt-4o`,
     },
   }
 
