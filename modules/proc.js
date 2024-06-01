@@ -143,7 +143,31 @@ module.exports = (App) => {
 
     // Prompt plus optional context and rules
     let full_prompt = args.prompt
-    let res = App.context[args.channel]
+    let words = full_prompt.split(` `)
+    let first = ``
+
+    if (words.length > 0) {
+      first = words[0].toLowerCase()
+    }
+
+    let first_clean = first.replace(/[^a-zA-Z0-9-_|]/g, ``)
+    let now = Date.now()
+    let res = ``
+
+    if ((words.length > 1) && (first_clean in App.memory)) {
+      let date = App.memory[first_clean].date
+
+      if ((now - date) > App.memory_timeout) {
+        res = App.context[args.channel]
+      }
+      else {
+        res = App.memory[first_clean].message
+        full_prompt = words.slice(1).join(` `)
+      }
+    }
+    else {
+      res = App.context[args.channel]
+    }
 
     if (emphasize_on) {
       full_prompt = `Please emphasize the last point.`
@@ -204,7 +228,9 @@ module.exports = (App) => {
       }
 
       App.irc_respond(args.channel, full_response)
-      App.context[args.channel] = {user: args.prompt, ai: response}
+      last_message = {user: args.prompt, ai: response}
+      App.context[args.channel] = last_message
+      App.memory[args.from.toLowerCase()] = {message: last_message, date: Date.now()}
     })
   }
 

@@ -434,6 +434,24 @@ Or `mybot, ^ what is 2 + 2`.
 
 ---
 
+There is per-user memory that can be used by using a nickname as the first word.
+
+For instance:
+
+`Bob: ai, what is 2 + 2`
+
+....
+
+`Joe: ai, trees are real right?`
+
+...
+
+`Bob: ai, Bob that plus 10`
+
+(This would use the 2 + 2 thread)
+
+---
+
 See [Autorespond](#autorespond)
 
 See [Anti-Spam](#antispam)
