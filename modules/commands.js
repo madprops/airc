@@ -122,6 +122,7 @@ module.exports = (App) => {
     `${App.p}explain_char + [ char ]`,
     `${App.p}continue_char + [ char ]`,
     `${App.p}mention_char + [ char ]`,
+    `${App.p}prompt + [ name = prompt ]`,
     `${App.p}config`,
     `${App.p}reset + [ config | all ]: Reset configs to default`,
     `!report: (Global) Respond with some info`,
@@ -450,6 +451,51 @@ module.exports = (App) => {
         App.cmd_change_nickname(data)
       },
       no_batch: true
+    },
+    {
+      name: `prompt`,
+      on_arg: (data) => {
+        if (!data.arg) {
+          return
+        }
+
+        if (!data.arg.includes(`=`)) {
+          let prompt = App.config.prompts[data.arg.toLowerCase()]
+
+          if (!prompt) {
+            return
+          }
+
+          let msg = `${App.nick()}, ${App.config.clear_char} ${prompt}`
+          App.process_message({from: data.from, channel: data.channel, message: msg})
+          return
+        }
+
+        if (Object.keys(App.config.prompts).length >= 1000) {
+          return
+        }
+
+        if (data.arg.length > 240) {
+          return
+        }
+
+        let split = data.arg.split(`=`)
+
+        if (split.length < 2) {
+          return
+        }
+
+        let name = split[0].trim().toLowerCase()
+        let prompt = split.slice(1).join(`=`).trim()
+
+        if (!name || !prompt) {
+          return
+        }
+
+        App.config.prompts[name] = prompt
+        App.update_config(`prompts`, App.config.prompts)
+        App.irc_respond(data.channel, "Prompt saved.")
+      }
     },
     {
       name: `config`,

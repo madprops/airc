@@ -440,6 +440,16 @@ For instance:
 
 `Bob: ai, what is 2 + 2`
 
+---
+
+Prompts can be saved:
+
+`mybot, !prompt weather = What is the weather right now?`
+
+Then you can use it like :
+
+`mybot, !prompt weather`
+
 ....
 
 `Joe: ai, trees are real right?`
