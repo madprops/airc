@@ -450,11 +450,11 @@ Then you can use it like :
 
 `mybot, !prompt weather`
 
-....
+---
 
 `Joe: ai, trees are real right?`
 
-...
+---
 
 `Bob: ai, Bob that plus 10`
 
