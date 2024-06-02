@@ -495,7 +495,8 @@ module.exports = (App) => {
         App.config.prompts[name] = prompt
         App.update_config(`prompts`, App.config.prompts)
         App.irc_respond(data.channel, "Prompt saved.")
-      }
+      },
+      allow: `rules`,
     },
     {
       name: `config`,
