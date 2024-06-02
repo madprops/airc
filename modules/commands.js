@@ -501,7 +501,6 @@ module.exports = (App) => {
           return
         }
 
-
         if (split.length < 2) {
           return
         }
