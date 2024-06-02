@@ -312,6 +312,10 @@ Some bots are meant to be fixed, others might be more dynamic, and others might 
 
 ---
 
+`rules` also applies to users who can edit `prompts`.
+
+---
+
 ## Users <a name="users"></a>
 
 There is a `users` config that holds a list of irc nicknames.
