@@ -236,4 +236,8 @@ module.exports = (App) => {
   App.now = () => {
     return Date.now()
   }
+
+  App.clean_prompt = (text) => {
+    return text.replace(/[^a-zA-Z0-9]/g, ``).toLowerCase().trim()
+  }
 }

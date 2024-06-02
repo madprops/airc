@@ -473,10 +473,18 @@ module.exports = (App) => {
           return
         }
 
-        if (!data.arg.includes(`=`)) {
-          let prompt = App.config.prompts[data.arg.toLowerCase()]
+        let split = data.arg.split(`=`)
+
+        if (split.length === 1) {
+          let clean = App.clean_prompt(data.arg)
+          let prompt = App.config.prompts[clean]
 
           if (!prompt) {
+            return
+          }
+
+          if (data.arg.endsWith(`?`)) {
+            App.irc_respond(data.channel, `${clean} = ${prompt}`)
             return
           }
 
@@ -493,13 +501,12 @@ module.exports = (App) => {
           return
         }
 
-        let split = data.arg.split(`=`)
 
         if (split.length < 2) {
           return
         }
 
-        let name = split[0].trim().toLowerCase()
+        let name = App.clean_prompt(split[0])
         let prompt = split.slice(1).join(`=`).trim()
 
         if (!name || !prompt) {
