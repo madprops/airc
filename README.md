@@ -312,7 +312,7 @@ Some bots are meant to be fixed, others might be more dynamic, and others might 
 
 ---
 
-`rules` also applies to users who can edit `prompts`.
+`ask` also applies to users who can edit `prompts`.
 
 ---
 
