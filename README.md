@@ -310,9 +310,7 @@ Assign permissions in whatever way they make sense.
 
 Some bots are meant to be fixed, others might be more dynamic, and others might belong to certain users.
 
----
-
-`ask` also applies to users who can edit `prompts`.
+There is also the `prompts` rule that controls who gets to set the prompts.
 
 ---
 

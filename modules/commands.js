@@ -30,6 +30,7 @@ module.exports = (App) => {
       `words`,
       `allow_ask`,
       `allow_rules`,
+      `allow_prompts`,
       `users`,
       `admins`,
     ]) {
@@ -101,6 +102,7 @@ module.exports = (App) => {
     `${App.p}remove_user + [ nick ]`,
     `${App.p}allow_ask + [ all | users | admins ]`,
     `${App.p}allow_rules + [ all | users | admins ]`,
+    `${App.p}allow_prompts + [ all | users | admins ]`,
     `${App.p}model + [ ${App.join(App.cmd_models, `|`)} ]`,
     `${App.p}avatar + [ char ]`,
     `${App.p}show_avatar + [ true | false ]`,
@@ -259,6 +261,18 @@ module.exports = (App) => {
         if (value) {
           App.update_config(`allow_rules`, value)
           App.cmd_show(data.channel, `allow_rules`)
+        }
+      },
+    },
+    {
+      name: `allow_prompts`,
+      on_arg: (data) => {
+        let allowed = [`all`, `users`, `admins`]
+        let value = App.cmd_similar(data.arg, allowed)
+
+        if (value) {
+          App.update_config(`allow_prompts`, value)
+          App.cmd_show(data.channel, `allow_prompts`)
         }
       },
     },
@@ -494,9 +508,9 @@ module.exports = (App) => {
 
         App.config.prompts[name] = prompt
         App.update_config(`prompts`, App.config.prompts)
-        App.irc_respond(data.channel, "Prompt saved.")
+        App.irc_respond(data.channel, "Prompt Saved.")
       },
-      allow: `ask`,
+      allow: `prompts`,
     },
     {
       name: `config`,
@@ -543,6 +557,11 @@ module.exports = (App) => {
       }
       else if (c.allow === `rules`) {
         if (data.can_rules) {
+          allowed = true
+        }
+      }
+      else if (c.allow === `prompts`) {
+        if (data.can_prompts) {
           allowed = true
         }
       }
@@ -601,6 +620,7 @@ module.exports = (App) => {
     data.channel = args.channel
     data.cmd = args.cmd
     data.can_rules = App.is_allowed(`rules`, args.from)
+    data.can_prompts = App.is_allowed(`prompts`, args.from)
     data.is_admin = App.is_admin(args.from)
     data.batch = args.batch
 
