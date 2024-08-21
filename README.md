@@ -586,6 +586,16 @@ See [Anti-Spam](#antispam)
 
 ---
 
+These either enable or disable the ai responses for all users including admins.
+
+These can be used when you want to stop the service temporarily without having to turn off the bots.
+
+`!enable` : Enable responses from the bot.
+
+`!disable` : Disable responses from the bot.
+
+---
+
 `!config` : Prints a summary of various configs.
 
 This shows a quick overview of what the bot can do.
