@@ -106,6 +106,10 @@ module.exports = (App) => {
         return
       }
 
+      if (!App.enabled) {
+        return
+      }
+
       App.ask_ai({
         from: args.from,
         channel: args.channel,
@@ -257,5 +261,13 @@ module.exports = (App) => {
         max_words: App.config.autorespond_words,
       })
     }
+  }
+
+  App.enable_all = () => {
+    App.enabled = true
+  }
+
+  App.disable_all = () => {
+    App.enabled = false
   }
 }

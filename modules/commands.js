@@ -125,6 +125,8 @@ module.exports = (App) => {
     `${App.p}continue_char + [ char ]`,
     `${App.p}mention_char + [ char ]`,
     `${App.p}prompt + [ name = prompt ]`,
+    `${App.p}enable`,
+    `${App.p}disable`,
     `${App.p}config`,
     `${App.p}reset + [ config | all ]: Reset configs to default`,
     `!report: (Global) Respond with some info`,
@@ -205,7 +207,7 @@ module.exports = (App) => {
     {
       name: `ur`,
       on_arg: (data) => {
-        data.arg = `Respond as ${data.arg}`
+        data.arg = `Respond as if you were ${data.arg}`
         App.cmd_change_rules(data)
       },
       allow: `rules`,
@@ -368,6 +370,28 @@ module.exports = (App) => {
           App.update_config(`compact`, App.bool(value))
           App.cmd_show(data.channel, `compact`)
         }
+      },
+    },
+    {
+      name: `enable`,
+      on_exact: (data) => {
+        if (App.enabled) {
+          return
+        }
+
+        App.enable_all()
+        App.irc_respond(data.channel, `I can respond now.`)
+      },
+    },
+    {
+      name: `disable`,
+      on_exact: (data) => {
+        if (!App.enabled) {
+          return
+        }
+
+        App.disable_all()
+        App.irc_respond(data.channel, `I won't respond anymore.`)
       },
     },
     {

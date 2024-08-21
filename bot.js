@@ -30,6 +30,7 @@ App.context = {}
 App.max_username_length = 25
 App.last_autorespond = 0
 App.config_keep = [`server`, `channels`, `port`, `nickname`, `admins`]
+App.enabled = true
 
 App.memory = {}
 App.memory_timeout = 1000 * 60 * 60 * 24 * 1 // 1 Day
