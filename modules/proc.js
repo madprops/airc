@@ -130,6 +130,7 @@ module.exports = (App) => {
     let emphasize_on = args.prompt === App.config.emphasize_char
     let explain_on = args.prompt === App.config.explain_char
     let continue_on = args.prompt === App.config.continue_char
+    let no_context = false
 
     if (clear_on) {
       args.prompt = args.prompt.replace(App.config.clear_char, ``)
@@ -158,6 +159,10 @@ module.exports = (App) => {
 
       if (!args.talk_to) {
         args.talk_to = args.from
+      }
+
+      if (App.talk_to_count === 1) {
+        no_context = true
       }
     }
 
@@ -202,7 +207,7 @@ module.exports = (App) => {
       full_prompt = `Please continue.`
     }
 
-    if (res && !clear_on) {
+    if (res && !clear_on && !no_context) {
       // Add previous response
       let res_user = App.terminate(App.limit(res.user, App.config.max_context))
       let res_ai = App.terminate(App.limit(res.ai, App.config.max_context))
@@ -251,10 +256,6 @@ module.exports = (App) => {
       }
       else if (mention) {
         full_response = `${mention}: ${full_response}`
-
-        if (!args.mode) {
-
-        }
       }
 
       if (args.mode) {
