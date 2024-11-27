@@ -148,8 +148,10 @@ module.exports = (App) => {
       return ``
     })
 
+    let now = Date.now()
+
     if (args.mention) {
-      if ((Date.now() - App.talk_date) >= (1000 * 10)) {
+      if ((now - App.talk_date) >= App.talk_date_max) {
         App.talk_count = 0
         App.talked = false
       }
@@ -167,7 +169,7 @@ module.exports = (App) => {
       }
 
       App.talked = true
-      App.talk_date = Date.now()
+      App.talk_date = now
     }
     else {
       App.talk_count = 0
@@ -187,7 +189,6 @@ module.exports = (App) => {
     }
 
     let first_clean = first.replace(/[^a-zA-Z0-9-_|]/g, ``)
-    let now = Date.now()
     let res = ``
 
     if ((words.length > 1) && (first_clean in App.memory)) {
