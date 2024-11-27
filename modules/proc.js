@@ -57,10 +57,18 @@ module.exports = (App) => {
     let re = new RegExp(/^(?<nickname>\w+)[,:](?<text>.*)$/, ``)
     args.message = args.message.replace(/^[^\w]+/, ``)
     let match = args.message.match(re)
+    let talk_to
 
     if (!match) {
-      App.autorespond(args.channel, args.message)
-      return
+      let re = new RegExp(/^(?<text>.*)\s+@(?<nickname>\w+)$/, ``)
+      match = args.message.match(re)
+
+      if (!match) {
+        App.autorespond(args.channel, args.message)
+        return
+      }
+
+      talk_to = args.from
     }
 
     let nick = match.groups.nickname.trim()
@@ -110,6 +118,7 @@ module.exports = (App) => {
         from: args.from,
         channel: args.channel,
         prompt: prompt,
+        talk_to,
       })
     }
   }
@@ -121,12 +130,10 @@ module.exports = (App) => {
     }
 
     App.def_args(def_args, args)
-
     let mention
-    let talk_count
     let mention_char = App.escape_regex(App.config.mention_char)
     let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)
-    let mode_regex = new RegExp(`\\[.*\\]$`)
+    let talk_regex = new RegExp(`@(\\w+)$`)
     let clear_on = args.prompt.startsWith(App.config.clear_char)
     let emphasize_on = args.prompt === App.config.emphasize_char
     let explain_on = args.prompt === App.config.explain_char
@@ -142,25 +149,18 @@ module.exports = (App) => {
       return ``
     })
 
-    args.prompt = args.prompt.replace(mode_regex, (match, group) => {
-      if (!args.mode) {
-        args.mode = match.slice(1, -1).trim()
-      }
-
+    args.prompt = args.prompt.replace(talk_regex, (match, group) => {
+      args.talk_to = match
       return ``
     })
 
-    if (args.mode === `re`) {
+    if (args.talk_to) {
       App.talk_count += 1
 
       if (App.talk_count > App.config.talk_limit) {
         App.talk_count = 0
         App.talked = false
         return
-      }
-
-      if (!args.talk_to) {
-        args.talk_to = args.from
       }
 
       if (!App.talked) {
@@ -259,15 +259,12 @@ module.exports = (App) => {
         full_response = App.join(response.split(`\n`).map(x => x.trim()))
       }
 
-      if (args.talk_to) {
-        full_response = `${args.talk_to}: ${full_response}`
-      }
-      else if (mention) {
+      if (mention) {
         full_response = `${mention}: ${full_response}`
       }
 
-      if (args.mode) {
-        full_response = `${full_response} [${args.mode}]`
+      if (args.talk_to) {
+        full_response = `${full_response} @${args.talk_to}`
       }
 
       App.irc_respond(args.channel, full_response)
@@ -310,8 +307,12 @@ module.exports = (App) => {
     App.enabled = false
   }
 
-  App.talk_to = (channel, who) => {
+  App.talk_to = (channel, who, from) => {
     if (!who) {
+      return
+    }
+
+    if (who.includes(` `)) {
       return
     }
 
@@ -329,12 +330,11 @@ module.exports = (App) => {
     let prompt = prompts[n]
 
     App.ask_ai({
+      from,
       prompt,
-      from: `$talk_to`,
       channel: channel,
       max_words: App.config.autorespond_words,
       talk_to: who,
-      mode: `re`,
     })
   }
 }

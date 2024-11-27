@@ -558,7 +558,7 @@ module.exports = (App) => {
     {
       name: `talkto`,
       on_arg: (data) => {
-        App.talk_to(data.channel, data.arg)
+        App.talk_to(data.channel, data.arg, data.from)
       },
       allow: `all`,
     },
