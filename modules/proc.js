@@ -123,6 +123,7 @@ module.exports = (App) => {
     App.def_args(def_args, args)
 
     let mention
+    let talk_count
     let mention_char = App.escape_regex(App.config.mention_char)
     let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)
     let mode_regex = new RegExp(`\\[.*\\]$`)
@@ -150,10 +151,11 @@ module.exports = (App) => {
     })
 
     if (args.mode === `re`) {
-      App.talk_to_count += 1
+      App.talk_count += 1
 
-      if (App.talk_to_count > App.config.talk_limit) {
-        App.talk_to_count = 0
+      if (App.talk_count > App.config.talk_limit) {
+        App.talk_count = 0
+        App.talked = false
         return
       }
 
@@ -161,9 +163,15 @@ module.exports = (App) => {
         args.talk_to = args.from
       }
 
-      if (App.talk_to_count === 1) {
+      if (!App.talked) {
         no_context = true
       }
+
+      App.talked = true
+    }
+    else {
+      App.talk_count = 0
+      App.talked = false
     }
 
     args.prompt = args.prompt.trim()
@@ -306,6 +314,9 @@ module.exports = (App) => {
     if (!who) {
       return
     }
+
+    App.talk_count = 0
+    App.talked = false
 
     App.ask_ai({
       from: `$talk_to`,
