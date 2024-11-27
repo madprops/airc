@@ -130,10 +130,8 @@ module.exports = (App) => {
     }
 
     App.def_args(def_args, args)
-    let mention
     let mention_char = App.escape_regex(App.config.mention_char)
     let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)
-    let talk_regex = new RegExp(`@(\\w+)$`)
     let clear_on = args.prompt.startsWith(App.config.clear_char)
     let emphasize_on = args.prompt === App.config.emphasize_char
     let explain_on = args.prompt === App.config.explain_char
@@ -145,16 +143,11 @@ module.exports = (App) => {
     }
 
     args.prompt = args.prompt.replace(mention_regex, (match, group) => {
-      mention = group
+      args.mention = group
       return ``
     })
 
-    args.prompt = args.prompt.replace(talk_regex, (match, group) => {
-      args.talk_to = match
-      return ``
-    })
-
-    if (args.talk_to) {
+    if (args.mention) {
       App.talk_count += 1
 
       if (App.talk_count > App.config.talk_limit) {
@@ -259,12 +252,8 @@ module.exports = (App) => {
         full_response = App.join(response.split(`\n`).map(x => x.trim()))
       }
 
-      if (mention) {
-        full_response = `${mention}: ${full_response}`
-      }
-
-      if (args.talk_to) {
-        full_response = `${full_response} @${args.talk_to}`
+      if (args.mention) {
+        full_response = `${full_response} @${args.mention}`
       }
 
       App.irc_respond(args.channel, full_response)
@@ -334,7 +323,7 @@ module.exports = (App) => {
       prompt,
       channel: channel,
       max_words: App.config.autorespond_words,
-      talk_to: who,
+      mention: who,
     })
   }
 }
