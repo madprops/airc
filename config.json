@@ -33,5 +33,6 @@
   "autorespond_cooldown": 60,
   "autorespond_words": 12,
   "words": 50,
-  "prompts": {}
+  "prompts": {},
+  "talk_limit": 1
 }

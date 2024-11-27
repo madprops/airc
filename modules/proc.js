@@ -54,16 +54,12 @@ module.exports = (App) => {
   App.check_nick_mention = (args = {}) => {
     let def_args = {}
     App.def_args(def_args, args)
-
     let re = new RegExp(/^(?<nickname>\w+)[,:](?<text>.*)$/, ``)
+    args.message = args.message.replace(/^[^\w]+/, ``)
     let match = args.message.match(re)
 
     if (!match) {
-      // Must start with a letter
-      if (args.message.match(/^[a-zA-Z]/) ) {
-        App.autorespond(args.channel, args.message)
-      }
-
+      App.autorespond(args.channel, args.message)
       return
     }
 
@@ -129,6 +125,7 @@ module.exports = (App) => {
     let mention
     let mention_char = App.escape_regex(App.config.mention_char)
     let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)
+    let mode_regex = new RegExp(`\\[.*\\]$`)
     let clear_on = args.prompt.startsWith(App.config.clear_char)
     let emphasize_on = args.prompt === App.config.emphasize_char
     let explain_on = args.prompt === App.config.explain_char
@@ -143,6 +140,28 @@ module.exports = (App) => {
       return ``
     })
 
+    args.prompt = args.prompt.replace(mode_regex, (match, group) => {
+      if (!args.mode) {
+        args.mode = match.slice(1, -1).trim()
+      }
+
+      return ``
+    })
+
+    if (args.mode === `re`) {
+      App.talk_to_count += 1
+
+      if (App.talk_to_count > App.config.talk_limit) {
+        App.talk_to_count = 0
+        return
+      }
+
+      if (!args.talk_to) {
+        args.talk_to = args.from
+      }
+    }
+
+    args.prompt = args.prompt.trim()
     args.prompt = App.terminate(App.limit(args.prompt, App.config.max_prompt))
 
     // Prompt plus optional context and rules
@@ -227,8 +246,19 @@ module.exports = (App) => {
         full_response = App.join(response.split(`\n`).map(x => x.trim()))
       }
 
-      if (mention) {
+      if (args.talk_to) {
+        full_response = `${args.talk_to}: ${full_response}`
+      }
+      else if (mention) {
         full_response = `${mention}: ${full_response}`
+
+        if (!args.mode) {
+
+        }
+      }
+
+      if (args.mode) {
+        full_response = `${full_response} [${args.mode}]`
       }
 
       App.irc_respond(args.channel, full_response)
@@ -269,5 +299,20 @@ module.exports = (App) => {
 
   App.disable_all = () => {
     App.enabled = false
+  }
+
+  App.talk_to = (channel, who) => {
+    if (!who) {
+      return
+    }
+
+    App.ask_ai({
+      from: `$talk_to`,
+      channel: channel,
+      prompt: `Make a random comment about any subject you like`,
+      max_words: App.config.autorespond_words,
+      talk_to: who,
+      mode: `re`,
+    })
   }
 }

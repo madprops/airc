@@ -33,6 +33,7 @@ It requires a paid openai api key.
 1. [Users](#users)
 1. [Admins](#admins)
 1. [Autorespond](#autorespond)
+1. [Talk](#talk)
 1. [Anti-Spam](#antispam)
 1. [Models](#models)
 
@@ -722,6 +723,20 @@ Some find autorespond to be problematic for their privacy, so it's disabled by d
 ---
 
 Related configs: `autorespond`, `autorespond_cooldown`, `autorespond_words`.
+
+---
+
+## Talk <a name="talk"></a>
+
+There is a special mode to make bots talk between each other.
+
+You can do for instance `Bob, !talkto Ray`
+
+And they will have an exchange.
+
+The length of the conversation is defined by the `talk_limit` config.
+
+The initial message is a random thought.
 
 ---
 

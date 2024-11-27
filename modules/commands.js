@@ -112,6 +112,7 @@ module.exports = (App) => {
     `${App.p}max_context [ number ]`,
     `${App.p}max_rules [ number ]`,
     `${App.p}max_tokens [ number ]`,
+    `${App.p}talk_limit [ number ]`,
     `${App.p}join + [ channel ]`,
     `${App.p}leave + [ channel? ]`,
     `${App.p}ban + [ nick ]`,
@@ -156,14 +157,14 @@ module.exports = (App) => {
   App.cmd_num = (args = {}) => {
     let def_args = {
       min: 1,
+      max: 10 * 1000,
     }
 
     App.def_args(def_args, args)
-
     let n = parseInt(args.data.arg)
 
     if (!isNaN(n)) {
-      if (n >= args.min && n <= (10 * 1000)) {
+      if (n >= args.min && n <= args.max) {
         App.update_config(args.key, n)
         App.cmd_show(args.data.channel, args.key)
       }
@@ -311,6 +312,12 @@ module.exports = (App) => {
       name: `max_tokens`,
       on_arg: (data) => {
         App.cmd_num({key: `max_tokens`, data: data})
+      },
+    },
+    {
+      name: `talk_limit`,
+      on_arg: (data) => {
+        App.cmd_num({key: `talk_limit`, data: data, max: 100})
       },
     },
     {
@@ -546,6 +553,12 @@ module.exports = (App) => {
       name: `config`,
       on_exact: (data) => {
         App.cmd_show_config(data.channel)
+      },
+    },
+    {
+      name: `talkto`,
+      on_arg: (data) => {
+        App.talk_to(data.channel, data.arg)
       },
     },
     {
