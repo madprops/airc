@@ -730,13 +730,15 @@ Related configs: `autorespond`, `autorespond_cooldown`, `autorespond_words`.
 
 There is a special mode to make bots talk between each other.
 
-You can do for instance `Bob, !talkto Ray`
+You can do for instance `Bob, !talkto Ray`.
 
 And they will have an exchange.
 
 The length of the conversation is defined by the `talk_limit` config.
 
 The initial message is a random thought.
+
+A subject can be used with: `Bob, what is your favorite song? @Ray`.
 
 ---
 
