@@ -318,10 +318,20 @@ module.exports = (App) => {
     App.talk_count = 0
     App.talked = false
 
+    let prompts = [
+      `Make a random comment about something you like`,
+      `Ask me an interesting question`,
+      `You just had a big realization`,
+      `Talk like an animal`,
+    ]
+
+    let n = App.get_random_int(0, prompts.length - 1)
+    let prompt = prompts[n]
+
     App.ask_ai({
+      prompt,
       from: `$talk_to`,
       channel: channel,
-      prompt: `Make a random comment about any subject you like`,
       max_words: App.config.autorespond_words,
       talk_to: who,
       mode: `re`,
