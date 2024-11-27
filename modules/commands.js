@@ -560,6 +560,7 @@ module.exports = (App) => {
       on_arg: (data) => {
         App.talk_to(data.channel, data.arg)
       },
+      allow: `all`,
     },
     {
       name: `reset`,
@@ -657,7 +658,6 @@ module.exports = (App) => {
     }
 
     App.def_args(def_args, args)
-
     let data = {}
     data.from = args.from
     data.channel = args.channel
