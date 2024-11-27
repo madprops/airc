@@ -33,6 +33,7 @@ App.config_keep = [`server`, `channels`, `port`, `nickname`, `admins`]
 App.enabled = true
 App.talk_count = 0
 App.talked = false
+App.talk_date = 0
 
 App.memory = {}
 App.memory_timeout = 1000 * 60 * 60 * 24 * 1 // 1 Day

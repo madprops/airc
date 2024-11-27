@@ -57,10 +57,11 @@ module.exports = (App) => {
     let re = new RegExp(/^(?<nickname>\w+)[,:](?<text>.*)$/, ``)
     args.message = args.message.replace(/^[^\w]+/, ``)
     let match = args.message.match(re)
-    let talk_to
+    let mention
 
     if (!match) {
-      let re = new RegExp(/^(?<text>.*)\s+@(?<nickname>\w+)$/, ``)
+      let mention_char = App.escape_regex(App.config.mention_char)
+      let re = new RegExp(`^(?<text>.*)\\s+${mention_char}(?<nickname>\\w+)$`, ``)
       match = args.message.match(re)
 
       if (!match) {
@@ -68,7 +69,7 @@ module.exports = (App) => {
         return
       }
 
-      talk_to = args.from
+      mention = args.from
     }
 
     let nick = match.groups.nickname.trim()
@@ -118,7 +119,7 @@ module.exports = (App) => {
         from: args.from,
         channel: args.channel,
         prompt: prompt,
-        talk_to,
+        mention,
       })
     }
   }
@@ -148,6 +149,11 @@ module.exports = (App) => {
     })
 
     if (args.mention) {
+      if ((Date.now() - App.talk_date) >= (1000 * 10)) {
+        App.talk_count = 0
+        App.talked = false
+      }
+
       App.talk_count += 1
 
       if (App.talk_count > App.config.talk_limit) {
@@ -161,6 +167,7 @@ module.exports = (App) => {
       }
 
       App.talked = true
+      App.talk_date = Date.now()
     }
     else {
       App.talk_count = 0
