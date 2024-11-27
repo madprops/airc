@@ -72,6 +72,12 @@ module.exports = (App) => {
       mention = args.from
     }
 
+    if (mention) {
+      if (mention.toLowerCase() === App.nick().toLowerCase()) {
+        return
+      }
+    }
+
     let nick = match.groups.nickname.trim()
     let prompt = match.groups.text.trim()
     let mentioned = false
@@ -131,6 +137,12 @@ module.exports = (App) => {
     }
 
     App.def_args(def_args, args)
+    App.ask_charge += 1
+
+    if (App.ask_charge > App.max_ask_charge) {
+      return
+    }
+
     let mention_char = App.escape_regex(App.config.mention_char)
     let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)
     let clear_on = args.prompt.startsWith(App.config.clear_char)

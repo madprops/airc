@@ -2,6 +2,7 @@ module.exports = (App) => {
   App.start_antispam = () => {
     App.antispam_users = {}
     App.antispam_timeout()
+    App.ask_charge_timeout()
     App.log(`Started anti-spam`)
   }
 
@@ -113,5 +114,21 @@ module.exports = (App) => {
     }
 
     return 0
+  }
+
+  App.ask_charge_timeout = () => {
+    setTimeout(() => {
+      App.ask_charge_timeout_action()
+    }, 2000)
+  }
+
+  App.ask_charge_timeout_action = () => {
+    App.ask_charge -= 1
+
+    if (App.ask_charge < 0) {
+      App.ask_charge = 0
+    }
+
+    App.ask_charge_timeout()
   }
 }

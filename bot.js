@@ -35,6 +35,8 @@ App.talk_count = 0
 App.talked = false
 App.talk_date = 0
 App.talk_date_max = 1000 * 10
+App.ask_charge = 0
+App.max_ask_charge = 10
 
 App.memory = {}
 App.memory_timeout = 1000 * 60 * 60 * 24 * 1 // 1 Day
