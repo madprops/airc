@@ -317,7 +317,7 @@ module.exports = (App) => {
     {
       name: `talk_limit`,
       on_arg: (data) => {
-        App.cmd_num({key: `talk_limit`, data: data, max: 100})
+        App.cmd_num({key: `talk_limit`, data: data, max: 10})
       },
     },
     {
