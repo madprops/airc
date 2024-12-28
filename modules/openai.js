@@ -6,6 +6,9 @@ module.exports = (App) => {
     gpt_4o: {
       name: `gpt-4o`,
     },
+    gpt_4o_mini: {
+      name: `gpt-4o-mini`,
+    },
   }
 
   App.start_openai = () => {
