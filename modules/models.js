@@ -51,7 +51,7 @@ module.exports = (App) => {
     console.log(`Google started`)
   }
 
-  App.ask_openai = async (prompt, callback) => {
+  App.ask_model = async (prompt, channel, callback) => {
     let model = App.models[App.config.model]
     App.log(`Model: ${model.name}`)
 
@@ -60,6 +60,7 @@ module.exports = (App) => {
 
       if (App.is_gpt()) {
         if (!App.openai_started) {
+          App.irc_respond(channel, `OpenAI API Key is missing.`)
           return
         }
 
@@ -67,6 +68,7 @@ module.exports = (App) => {
       }
       else if (App.is_gemini()) {
         if (!App.google_started) {
+          App.irc_respond(channel, `Google API Key is missing.`)
           return
         }
 

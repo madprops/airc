@@ -263,7 +263,7 @@ module.exports = (App) => {
 
     App.log(`${args.from} => ${args.channel}: ${full_prompt}`)
 
-    App.ask_openai(full_prompt, (response) => {
+    App.ask_model(full_prompt, args.channel, (response) => {
       response = App.clean(response)
       response = App.unquote(response)
       let full_response = response
