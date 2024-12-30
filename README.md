@@ -4,7 +4,7 @@
 
 This is a [Node.js](https://nodejs.org/) bot
 for [irc](https://en.wikipedia.org/wiki/Internet_Relay_Chat)
-that interfaces with [openai](https://openai.com/).
+that interfaces with `OpenAI` or `Google`.
 
 It supports [rules](#rules), [commands](#commands),
 [permissions](#permissions), [autorespond](#autorespond), [anti-spam](#antispam).
@@ -17,7 +17,7 @@ It works as an assistant for general knowledge questions, or just for fun.
 
 It's easy to create multiple bots with different personalities.
 
-It requires a paid openai api key.
+It requires a `OpenAI` api key, and/or a `Google` api key.
 
 ---
 
@@ -152,6 +152,10 @@ This is used when connecting to an irc server.
 `model` : Which openai model to use.
 
 Either `turbo_instruct` and `turbo`.
+
+---
+
+`models` : List all available models.
 
 ---
 
@@ -360,6 +364,14 @@ You must do this before running the bot:
 Using your secret api key, which is not meant to be shared.
 
 Doing it once is enough for the duration of that shell instance.
+
+---
+
+Using `Google Gemini` is now also supported.
+
+You can set the key with:
+
+`export GOOGLE_API_KEY=mySecretKey`
 
 ---
 
