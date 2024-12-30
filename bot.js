@@ -37,6 +37,8 @@ App.talk_date = 0
 App.talk_date_max = 1000 * 10
 App.ask_charge = 0
 App.max_ask_charge = 10
+App.openai_started = false
+App.google_started = false
 
 App.memory = {}
 App.memory_timeout = 1000 * 60 * 60 * 24 * 1 // 1 Day
@@ -47,13 +49,15 @@ App.prepare_config()
 
 // Load js modules
 require(`./modules/irc.js`)(App)
-require(`./modules/openai.js`)(App)
+require(`./modules/models.js`)(App)
 require(`./modules/proc.js`)(App)
 require(`./modules/commands.js`)(App)
 require(`./modules/spam.js`)(App)
 
 App.start_antispam()
 App.start_openai()
+App.start_google()
+App.check_model()
 App.start_irc()
 
 App.date_started = App.now()

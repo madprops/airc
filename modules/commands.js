@@ -27,6 +27,7 @@ module.exports = (App) => {
       `rules`,
       `autorespond`,
       `model`,
+      `models`,
       `words`,
       `allow_ask`,
       `allow_rules`,
@@ -74,14 +75,7 @@ module.exports = (App) => {
     let first = full_cmd.split(` `)[0]
     let name_re = App.escape_regex(cmd_name)
     let match_regex = new RegExp(`^${name_re}(\\s|$)`)
-
     ok = match_regex.test(full_cmd)
-
-    if (!ok) {
-      if (App.similarity(cmd_name, first) >= 0.8) {
-        ok = true
-      }
-    }
 
     if (ok) {
       let first_re = App.escape_regex(first)
@@ -126,6 +120,7 @@ module.exports = (App) => {
     `${App.p}continue_char + [ char ]`,
     `${App.p}mention_char + [ char ]`,
     `${App.p}prompt + [ name = prompt ]`,
+    `${App.p}models`,
     `${App.p}enable`,
     `${App.p}disable`,
     `${App.p}config`,
@@ -288,6 +283,15 @@ module.exports = (App) => {
           App.update_config(`model`, value)
           App.cmd_show(data.channel, `model`)
         }
+      },
+    },
+    {
+      name: `models`,
+      on_exact: (data) => {
+        let models = App.cmd_models.join(` | `)
+        let key = App.irc_bold(`Models`)
+        let text = `${key}: ${models}`
+        App.irc_respond(data.channel, text)
       },
     },
     {

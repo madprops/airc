@@ -1,7 +1,7 @@
 {
   "name": "airc",
   "dependencies": {
-    "openai": "~4.38.2",
+    "openai": "~4.77.0",
     "matrix-org-irc": "~3.0.0"
   }
 }
