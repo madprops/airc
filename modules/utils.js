@@ -171,7 +171,7 @@ module.exports = (App) => {
 
     let longer_length = longer.length
 
-    if (longer_length == 0) {
+    if (longer_length === 0) {
       return 1.0
     }
 
@@ -189,13 +189,13 @@ module.exports = (App) => {
       let last_value = i
 
       for (let j = 0; j <= string_2.length; j++) {
-        if (i == 0) {
+        if (i === 0) {
           costs[j] = j
         }
         else if (j > 0) {
           let new_value = costs[j - 1]
 
-          if (string_1.charAt(i - 1) != string_2.charAt(j - 1)) {
+          if (string_1.charAt(i - 1) !== string_2.charAt(j - 1)) {
             new_value = Math.min(Math.min(new_value, last_value),
               costs[j]) + 1
           }
