@@ -34,5 +34,6 @@
   "autorespond_words": 12,
   "words": 50,
   "prompts": {},
-  "talk_limit": 1
+  "talk_limit": 1,
+  "context": 2
 }

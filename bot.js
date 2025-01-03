@@ -41,9 +41,6 @@ App.openai_started = false
 App.google_started = false
 App.debug = false
 
-App.memory = {}
-App.memory_timeout = 1000 * 60 * 60 * 24 * 1 // 1 Day
-
 // Need to prepare config first
 require(`./modules/config.js`)(App)
 App.prepare_config()

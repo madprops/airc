@@ -190,34 +190,13 @@ module.exports = (App) => {
       App.talked = false
     }
 
-    args.prompt = args.prompt.trim()
-    args.prompt = App.terminate(App.limit(args.prompt, App.config.max_prompt))
-
     // Prompt plus optional context and rules
-    let full_prompt = args.prompt
+    let full_prompt = App.limit(args.prompt, App.config.max_prompt)
     let words = full_prompt.split(` `)
     let first = ``
 
     if (words.length > 0) {
       first = words[0].toLowerCase()
-    }
-
-    let first_clean = first.replace(/[^a-zA-Z0-9-_|]/g, ``)
-    let res = ``
-
-    if ((words.length > 1) && (first_clean in App.memory)) {
-      let date = App.memory[first_clean].date
-
-      if ((now - date) > App.memory_timeout) {
-        res = App.context[args.channel]
-      }
-      else {
-        res = App.memory[first_clean].message
-        full_prompt = words.slice(1).join(` `)
-      }
-    }
-    else {
-      res = App.context[args.channel]
     }
 
     if (emphasize_on) {
@@ -260,15 +239,14 @@ module.exports = (App) => {
       messages.unshift({role: `system`, content: system.join(` `)})
     }
 
-    if (res && !clear_on && !no_context) {
-      // Add previous response
-      let res_user = App.terminate(App.limit(res.user, App.config.max_context))
-      let res_ai = App.terminate(App.limit(res.ai, App.config.max_context))
-
-      messages = [
-        {role: `user`, content: res_user},
-        {role: `assistant`, content: res_ai},
-      ]
+    if (!clear_on && !no_context && App.context[args.channel]) {
+      for (let res of App.context[args.channel]) {
+        messages.push({role: `user`, content: res.user})
+        messages.push({role: `assistant`, content: res.ai})
+      }
+    }
+    else {
+      App.context[args.channel] = []
     }
 
     messages.push({role: `user`, content: full_prompt})
@@ -292,9 +270,18 @@ module.exports = (App) => {
       }
 
       App.irc_respond(args.channel, full_response)
-      last_message = {user: args.prompt, ai: response}
-      App.context[args.channel] = last_message
-      App.memory[args.from.toLowerCase()] = {message: last_message, date: Date.now()}
+
+      let context_user = App.limit(full_prompt, App.config.max_context)
+      let context_ai = App.limit(response, App.config.max_context)
+      let context = {user: context_user, ai: context_ai}
+
+      if (App.context[args.channel] === undefined) {
+        App.context[args.channel] = []
+      }
+
+      App.context[args.channel].push(context)
+      let sliced = App.context[args.channel].slice(-App.config.context)
+      App.context[args.channel] = sliced
     })
   }
 
