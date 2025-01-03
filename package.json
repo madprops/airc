@@ -1,7 +1,13 @@
 {
   "name": "airc",
+  "scripts": {
+		"lint":	"eslint --cache -c eslint.config.mjs",
+		"fix": "eslint --fix -c eslint.config.mjs"
+	},
   "dependencies": {
     "openai": "~4.77.0",
-    "matrix-org-irc": "~3.0.0"
+    "matrix-org-irc": "~3.0.0",
+    "eslint": "~9.17.0",
+		"globals": "~15.9.0"
   }
 }

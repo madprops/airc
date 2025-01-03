@@ -83,7 +83,7 @@ module.exports = (App) => {
       arg = full_cmd.replace(re, ``).trim()
     }
 
-    return {ok: ok, arg: arg}
+    return {ok, arg}
   }
 
   App.cmd_models = Object.keys(App.models)
@@ -299,31 +299,31 @@ module.exports = (App) => {
     {
       name: `max_prompt`,
       on_arg: (data) => {
-        App.cmd_num({key: `max_prompt`, data: data})
+        App.cmd_num({key: `max_prompt`, data})
       },
     },
     {
       name: `max_context`,
       on_arg: (data) => {
-        App.cmd_num({key: `max_context`, data: data})
+        App.cmd_num({key: `max_context`, data})
       },
     },
     {
       name: `max_rules`,
       on_arg: (data) => {
-        App.cmd_num({key: `max_rules`, data: data})
+        App.cmd_num({key: `max_rules`, data})
       },
     },
     {
       name: `max_tokens`,
       on_arg: (data) => {
-        App.cmd_num({key: `max_tokens`, data: data})
+        App.cmd_num({key: `max_tokens`, data})
       },
     },
     {
       name: `talk_limit`,
       on_arg: (data) => {
-        App.cmd_num({key: `talk_limit`, data: data, max: 10})
+        App.cmd_num({key: `talk_limit`, data, max: 10})
       },
     },
     {
@@ -364,19 +364,19 @@ module.exports = (App) => {
     {
       name: `context`,
       on_arg: (data) => {
-        App.cmd_num({key: `context`, data: data, min: 0, max: 10})
+        App.cmd_num({key: `context`, data, min: 0, max: 10})
       },
     },
     {
       name: `spam_limit`,
       on_arg: (data) => {
-        App.cmd_num({key: `spam_limit`, data: data})
+        App.cmd_num({key: `spam_limit`, data})
       },
     },
     {
       name: `spam_minutes`,
       on_arg: (data) => {
-        App.cmd_num({key: `spam_minutes`, data: data})
+        App.cmd_num({key: `spam_minutes`, data})
       },
     },
     {
@@ -487,19 +487,19 @@ module.exports = (App) => {
     {
       name: `autorespond_cooldown`,
       on_arg: (data) => {
-        App.cmd_num({key: `autorespond_cooldown`, data: data, min: 0})
+        App.cmd_num({key: `autorespond_cooldown`, data, min: 0})
       },
     },
     {
       name: `autorespond_words`,
       on_arg: (data) => {
-        App.cmd_num({key: `autorespond_words`, data: data, min: 0})
+        App.cmd_num({key: `autorespond_words`, data, min: 0})
       },
     },
     {
       name: `words`,
       on_arg: (data) => {
-        App.cmd_num({key: `words`, data: data, min: 0})
+        App.cmd_num({key: `words`, data, min: 0})
       },
     },
     {
@@ -507,7 +507,7 @@ module.exports = (App) => {
       on_arg: (data) => {
         App.cmd_change_nickname(data)
       },
-      no_batch: true
+      no_batch: true,
     },
     {
       name: `prompt`,
@@ -661,18 +661,16 @@ module.exports = (App) => {
         }
       }
       // Exact match
-      else {
-        if (c.on_exact) {
-          if (allowed) {
-            c.on_exact(data)
-          }
-          else {
-            App.cmd_denied(data)
-          }
+      else if (c.on_exact) {
+        if (allowed) {
+          c.on_exact(data)
         }
         else {
-          return false
+          App.cmd_denied(data)
         }
+      }
+      else {
+        return false
       }
 
       return true

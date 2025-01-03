@@ -5,7 +5,7 @@ require(`./modules/utils.js`)(App)
 
 if (process.argv.length < 3) {
   App.log(`Provide the name of the config to use.`)
-  return
+  process.exit(1)
 }
 
 // The id/name of the bot instance

@@ -49,13 +49,11 @@ module.exports = (App) => {
           App.antispam_unban(nickname)
         }
       }
+      else if (user.level > 0) {
+        user.level -= 1
+      }
       else {
-        if (user.level > 0) {
-          user.level -= 1
-        }
-        else {
-          App.delete_antispam_user(nickname)
-        }
+        App.delete_antispam_user(nickname)
       }
     }
 

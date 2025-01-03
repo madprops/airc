@@ -35,7 +35,7 @@ module.exports = (App) => {
           App.check_commands({
             from: args.from,
             channel: args.channel,
-            cmd: cmd,
+            cmd,
             batch: true,
           })
         }
@@ -107,13 +107,13 @@ module.exports = (App) => {
         App.config.continue_char,
       ]
 
-      if (prompt.startsWith(App.config.command_char) && (!chars.includes(prompt))) {
+      if (prompt.startsWith(App.config.command_char) && !chars.includes(prompt)) {
         is_command = true
       }
 
       if (is_command) {
         let cmd = prompt.replace(App.config.command_char, ``)
-        App.check_commands({from: args.from, channel: args.channel, cmd: cmd})
+        App.check_commands({from: args.from, channel: args.channel, cmd})
         return
       }
 
@@ -124,7 +124,7 @@ module.exports = (App) => {
       App.ask_ai({
         from: args.from,
         channel: args.channel,
-        prompt: prompt,
+        prompt,
         mention,
       })
     }
@@ -303,7 +303,7 @@ module.exports = (App) => {
 
       App.ask_ai({
         from: `$autorespond`,
-        channel: channel,
+        channel,
         prompt: text,
         max_words: App.config.autorespond_words,
       })
@@ -343,7 +343,7 @@ module.exports = (App) => {
     App.ask_ai({
       from,
       prompt,
-      channel: channel,
+      channel,
       max_words: App.config.autorespond_words,
       mention: who,
     })

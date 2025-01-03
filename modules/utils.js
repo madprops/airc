@@ -151,9 +151,8 @@ module.exports = (App) => {
     if (num === 1) {
       return `${num.toLocaleString()} ${singular}`
     }
-    else {
-      return `${num.toLocaleString()} ${plural}`
-    }
+
+    return `${num.toLocaleString()} ${plural}`
   }
 
   App.bool = (string) => {
@@ -193,18 +192,16 @@ module.exports = (App) => {
         if (i == 0) {
           costs[j] = j
         }
-        else {
-          if (j > 0) {
-            let new_value = costs[j - 1]
+        else if (j > 0) {
+          let new_value = costs[j - 1]
 
-            if (string_1.charAt(i - 1) != string_2.charAt(j - 1)) {
-              new_value = Math.min(Math.min(new_value, last_value),
-                costs[j]) + 1
-            }
-
-            costs[j - 1] = last_value
-            last_value = new_value
+          if (string_1.charAt(i - 1) != string_2.charAt(j - 1)) {
+            new_value = Math.min(Math.min(new_value, last_value),
+              costs[j]) + 1
           }
+
+          costs[j - 1] = last_value
+          last_value = new_value
         }
       }
 
@@ -216,6 +213,7 @@ module.exports = (App) => {
     return costs[string_2.length]
   }
 
+  /* eslint-disable no-console */
   App.log = (message, mode = `normal`) => {
     if (mode === `error`) {
       console.error(message)

@@ -17,11 +17,11 @@ module.exports = (App) => {
     },
     gemini_flash_8b: {
       name: `gemini-1.5-flash-8b`,
-    }
+    },
   }
 
   App.start_openai = () => {
-    let key = process.env[`OPENAI_API_KEY`]
+    let key = process.env.OPENAI_API_KEY
 
     if (!key) {
       return
@@ -32,23 +32,23 @@ module.exports = (App) => {
     })
 
     App.openai_started = true
-    console.log(`OpenAI started`)
+    App.log(`OpenAI started`)
   }
 
   App.start_google = () => {
-    let key = process.env[`GOOGLE_API_KEY`]
+    let key = process.env.GOOGLE_API_KEY
 
     if (!key) {
       return
     }
 
     App.google_client = new App.i.openai({
-      apiKey: process.env[`GOOGLE_API_KEY`],
+      apiKey: process.env.GOOGLE_API_KEY,
       baseURL: `https://generativelanguage.googleapis.com/v1beta/openai/`,
     })
 
     App.google_started = true
-    console.log(`Google started`)
+    App.log(`Google started`)
   }
 
   App.ask_model = async (messages, channel, callback) => {
