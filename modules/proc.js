@@ -234,17 +234,6 @@ module.exports = (App) => {
       return
     }
 
-    if (res && !clear_on && !no_context) {
-      // Add previous response
-      let res_user = App.terminate(App.limit(res.user, App.config.max_context))
-      let res_ai = App.terminate(App.limit(res.ai, App.config.max_context))
-
-      messages = [
-        {role: `user`, content: res_user},
-        {role: `assistant`, content: res_ai},
-      ]
-    }
-
     // Add some personality
     let rules = App.config.rules
 
@@ -271,8 +260,26 @@ module.exports = (App) => {
       messages.unshift({role: `system`, content: system.join(` `)})
     }
 
+    if (res && !clear_on && !no_context) {
+      // Add previous response
+      let res_user = App.terminate(App.limit(res.user, App.config.max_context))
+      let res_ai = App.terminate(App.limit(res.ai, App.config.max_context))
+
+      messages = [
+        {role: `user`, content: res_user},
+        {role: `assistant`, content: res_ai},
+      ]
+    }
+
     messages.push({role: `user`, content: full_prompt})
-    App.log(`${args.from} => ${args.channel}: ${full_prompt}`)
+
+    // Print the messages
+    let debug = false
+
+    if (debug) {
+      let messages_text = JSON.stringify(messages)
+      App.log(`${args.from} => ${args.channel}: ${messages_text}`)
+    }
 
     App.ask_model(messages, args.channel, (response) => {
       response = App.clean(response)
