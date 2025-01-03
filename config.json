@@ -6,7 +6,7 @@
   "port": 6667,
   "nickname": "airc-bot",
   "model": "turbo",
-  "max_tokens": 200,
+  "max_tokens": 350,
   "max_prompt": 350,
   "max_rules": 350,
   "max_context": 350,
