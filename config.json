@@ -6,7 +6,8 @@
   "port": 6667,
   "nickname": "airc-bot",
   "model": "turbo",
-  "max_tokens": 350,
+  "context": 2,
+  "max_tokens": 500,
   "max_prompt": 350,
   "max_rules": 350,
   "max_context": 350,
@@ -34,6 +35,5 @@
   "autorespond_words": 12,
   "words": 50,
   "prompts": {},
-  "talk_limit": 1,
-  "context": 2
+  "talk_limit": 1
 }
