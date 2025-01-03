@@ -635,6 +635,16 @@ They work on all owned bots in the current channel.
 
 ---
 
+`!clear` : Clear the channel's context.
+
+---
+
+`!debug` : Enable or disable debug mode.
+
+This makes requests print some information in the console.
+
+---
+
 Changes to any config through commands are saved automatically in `/configs/mybot.json`.
 
 [config.json](config.json) is left intact and used for default values.

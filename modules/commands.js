@@ -122,6 +122,7 @@ module.exports = (App) => {
     `${App.p}mention_char + [ char ]`,
     `${App.p}prompt + [ name = prompt ]`,
     `${App.p}debug + [ true | false ]`,
+    `${App.p}clear`,
     `${App.p}models`,
     `${App.p}enable`,
     `${App.p}disable`,
@@ -411,6 +412,13 @@ module.exports = (App) => {
 
         App.disable_all()
         App.irc_respond(data.channel, `I won't respond anymore.`)
+      },
+    },
+    {
+      name: `clear`,
+      on_exact: (data) => {
+        App.clear_context(data.channel)
+        App.irc_respond(data.channel, `Context cleared.`)
       },
     },
     {

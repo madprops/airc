@@ -348,4 +348,8 @@ module.exports = (App) => {
       mention: who,
     })
   }
+
+  App.clear_context = (channel) => {
+    App.context[channel] = []
+  }
 }
