@@ -39,6 +39,7 @@ App.ask_charge = 0
 App.max_ask_charge = 10
 App.openai_started = false
 App.google_started = false
+App.debug = false
 
 App.memory = {}
 App.memory_timeout = 1000 * 60 * 60 * 24 * 1 // 1 Day

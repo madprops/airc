@@ -120,6 +120,7 @@ module.exports = (App) => {
     `${App.p}continue_char + [ char ]`,
     `${App.p}mention_char + [ char ]`,
     `${App.p}prompt + [ name = prompt ]`,
+    `${App.p}debug + [ true | false ]`,
     `${App.p}models`,
     `${App.p}enable`,
     `${App.p}disable`,
@@ -557,6 +558,21 @@ module.exports = (App) => {
       name: `config`,
       on_exact: (data) => {
         App.cmd_show_config(data.channel)
+      },
+    },
+    {
+      name: `debug`,
+      on_arg: (data) => {
+        let allowed = [`true`, `false`]
+        let value = App.cmd_similar(data.arg, allowed)
+
+        if (value) {
+          App.debug = App.bool(value)
+          App.irc_respond(data.channel, `Debug: ${App.debug}`)
+        }
+      },
+      on_exact: (data) => {
+        App.irc_respond(data.channel, `Debug: ${App.debug}`)
       },
     },
     {

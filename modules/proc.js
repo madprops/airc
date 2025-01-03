@@ -273,10 +273,7 @@ module.exports = (App) => {
 
     messages.push({role: `user`, content: full_prompt})
 
-    // Print the messages
-    let debug = false
-
-    if (debug) {
+    if (App.debug) {
       let messages_text = JSON.stringify(messages)
       App.log(`${args.from} => ${args.channel}: ${messages_text}`)
     }

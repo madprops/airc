@@ -53,9 +53,8 @@ module.exports = (App) => {
 
   App.ask_model = async (messages, channel, callback) => {
     let model = App.models[App.config.model]
-    let debug = false
 
-    if (debug) {
+    if (App.debug) {
       App.log(`Model: ${model.name}`)
     }
 
