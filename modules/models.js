@@ -51,7 +51,7 @@ module.exports = (App) => {
     console.log(`Google started`)
   }
 
-  App.ask_model = async (prompt, channel, callback) => {
+  App.ask_model = async (messages, channel, callback) => {
     let model = App.models[App.config.model]
     App.log(`Model: ${model.name}`)
 
@@ -80,8 +80,8 @@ module.exports = (App) => {
 
       let ans = await client.chat.completions.create({
         model: model.name,
-        messages: [{role: `user`, content: prompt}],
         max_tokens: App.config.max_tokens,
+        messages,
       })
 
       if (ans && ans.choices) {

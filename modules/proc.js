@@ -143,6 +143,8 @@ module.exports = (App) => {
       return
     }
 
+    let messages = []
+    let system = []
     let mention_char = App.escape_regex(App.config.mention_char)
     let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)
     let clear_on = args.prompt.startsWith(App.config.clear_char)
@@ -228,15 +230,27 @@ module.exports = (App) => {
       full_prompt = `Please continue.`
     }
 
+    if (!full_prompt) {
+      return
+    }
+
     if (res && !clear_on && !no_context) {
       // Add previous response
       let res_user = App.terminate(App.limit(res.user, App.config.max_context))
       let res_ai = App.terminate(App.limit(res.ai, App.config.max_context))
-      full_prompt = `${res_user}\n${res_ai}\n${full_prompt}`.trim()
+
+      messages = [
+        {role: `user`, content: res_user},
+        {role: `assistant`, content: res_ai},
+      ]
     }
 
-    if (!full_prompt) {
-      return
+    // Add some personality
+    let rules = App.config.rules
+
+    if (rules) {
+      rules = App.terminate(App.limit(rules, App.config.max_rules))
+      system.push(rules)
     }
 
     // Limit the words
@@ -250,20 +264,17 @@ module.exports = (App) => {
         ws = `${args.max_words} words or less`
       }
 
-      full_prompt = `Respond in ${ws}.\n${full_prompt}`
+      system.push(`Respond in ${ws}.`)
     }
 
-    // Add some personality
-    let rules = App.config.rules
-
-    if (rules) {
-      rules = App.terminate(App.limit(rules, App.config.max_rules))
-      full_prompt = `${rules}\n${full_prompt}`
+    if (system.length) {
+      messages.unshift({role: `system`, content: system.join(` `)})
     }
 
+    messages.push({role: `user`, content: full_prompt})
     App.log(`${args.from} => ${args.channel}: ${full_prompt}`)
 
-    App.ask_model(full_prompt, args.channel, (response) => {
+    App.ask_model(messages, args.channel, (response) => {
       response = App.clean(response)
       response = App.unquote(response)
       let full_response = response
