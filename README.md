@@ -159,6 +159,12 @@ Either `turbo_instruct` and `turbo`.
 
 ---
 
+`context`: Max number of context levels to remember.
+
+Each item is a prompt and its response.
+
+---
+
 `max_prompt` : Ignore prompts longer than this.
 
 The prompt is the text sent to openai to ask a question.
@@ -482,16 +488,6 @@ See [Autorespond](#autorespond)
 See [Anti-Spam](#antispam)
 
 See [Models](#models)
-
----
-
-It only supports 1 level of context (the previous interaction).
-
-Using more levels would require increasing the token count.
-
-Plus more context might involve irrelevant interactions.
-
-We found that 1 level of context works pretty well.
 
 ---
 
