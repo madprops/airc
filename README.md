@@ -47,7 +47,7 @@ You need to have [Node.js](https://nodejs.org/) installed.
 You need to have [Git](https://docs.github.com/en/get-started/using-git/about-git) installed.
 
 You will also need an [OpenAI](https://openai.com/) api key,
-or a [Google](https://openai.com/) api key.
+or a [Google](https://aistudio.google.com/apikey) api key.
 
 ---
 
