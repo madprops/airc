@@ -150,12 +150,11 @@ This is used when connecting to an irc server.
 
 ---
 
-`model` : Which openai model to use.
+`model` : Which ChatGPT or Gemini model to use.
 
-Give the exact model name like `gemini-1.5-pro`, or `gpt-3.5-turbo`.
+Give the exact model name, like `gpt-3.5-turbo`, or `gemini-1.5-pro`.
 
 ---
-
 
 `context`: Max number of context levels to remember.
 
