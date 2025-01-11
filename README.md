@@ -37,7 +37,6 @@ Some ideas provided by `spynxic`.
 1. [Autorespond](#autorespond)
 1. [Talk](#talk)
 1. [Anti-Spam](#antispam)
-1. [Models](#models)
 
 ---
 
@@ -153,13 +152,10 @@ This is used when connecting to an irc server.
 
 `model` : Which openai model to use.
 
-Either `turbo_instruct` and `turbo`.
+Give the exact model name like `gemini-1.5-pro`, or `gpt-3.5-turbo`.
 
 ---
 
-`models` : List all available models.
-
----
 
 `context`: Max number of context levels to remember.
 
@@ -489,8 +485,6 @@ See [Autorespond](#autorespond)
 
 See [Anti-Spam](#antispam)
 
-See [Models](#models)
-
 ---
 
 ## Rules <a name="rules"></a>
@@ -789,27 +783,3 @@ Admins can ban and unban nicknames manually with `!ban` and `!unban`.
 Bot admins and users can also get banned.
 
 Restarting the bot unbans all nicknames.
-
----
-
-## Models <a name="models"></a>
-
-Some openai models are more restrictive than others.
-
-Some will avoid responding to your prompt if they deem it inappropriate.
-
-While others are less likely to do that.
-
-airc only recognizes certain models, it doesn't have access to the full extent of them.
-
-As of now, they are: `turbo_instruct` and `turbo` (3.5 models).
-
-Some models get deprecated and are to be removed.
-
-Some might get added over time as they appear and become useful.
-
-The support of models demands updates to airc.
-
-Supported models should be focused on natural language responses and not code generation.
-
-airc is not meant to be a programming assistant since web interfaces are a lot better for that.

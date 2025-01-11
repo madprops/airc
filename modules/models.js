@@ -1,25 +1,4 @@
 module.exports = (App) => {
-  App.models = {
-    turbo: {
-      name: `gpt-3.5-turbo`,
-    },
-    gpt_4o: {
-      name: `gpt-4o`,
-    },
-    gpt_4o_mini: {
-      name: `gpt-4o-mini`,
-    },
-    gemini_pro: {
-      name: `gemini-1.5-pro`,
-    },
-    gemini_flash: {
-      name: `gemini-1.5-flash`,
-    },
-    gemini_flash_8b: {
-      name: `gemini-1.5-flash-8b`,
-    },
-  }
-
   App.start_openai = () => {
     let key = process.env.OPENAI_API_KEY
 
@@ -52,10 +31,10 @@ module.exports = (App) => {
   }
 
   App.ask_model = async (messages, channel, callback) => {
-    let model = App.models[App.config.model]
+    let model = App.config.model
 
     if (App.debug) {
-      App.log(`Model: ${model.name}`)
+      App.log(`Model: ${model}`)
     }
 
     try {
@@ -82,7 +61,7 @@ module.exports = (App) => {
       }
 
       let ans = await client.chat.completions.create({
-        model: model.name,
+        model,
         max_tokens: App.config.max_tokens,
         messages,
       })
@@ -100,19 +79,13 @@ module.exports = (App) => {
     }
   }
 
-  App.check_model = () => {
-    if (!App.models[App.config.model]) {
-      App.update_config(`model`, `reset`)
-    }
-  }
-
   App.is_gpt = () => {
-    let model = App.models[App.config.model]
-    return model.name.startsWith(`gpt-`)
+    let model = App.config.model
+    return model.startsWith(`gpt-`)
   }
 
   App.is_gemini = () => {
-    let model = App.models[App.config.model]
-    return model.name.startsWith(`gemini-`)
+    let model = App.config.model
+    return model.startsWith(`gemini-`)
   }
 }

@@ -86,7 +86,6 @@ module.exports = (App) => {
     return {ok, arg}
   }
 
-  App.cmd_models = Object.keys(App.models)
   App.p = App.config.command_char
 
   App.cmd_help_items = [
@@ -97,7 +96,7 @@ module.exports = (App) => {
     `${App.p}allow_ask + [ all | users | admins ]`,
     `${App.p}allow_rules + [ all | users | admins ]`,
     `${App.p}allow_prompts + [ all | users | admins ]`,
-    `${App.p}model + [ ${App.join(App.cmd_models, `|`)} ]`,
+    `${App.p}model + [ ChatGPT or Gemini model ]`,
     `${App.p}avatar + [ char ]`,
     `${App.p}show_avatar + [ true | false ]`,
     `${App.p}autorespond + [ 0 - 100 ]`,
@@ -280,12 +279,8 @@ module.exports = (App) => {
     {
       name: `model`,
       on_arg: (data) => {
-        let value = App.cmd_similar(data.arg, App.cmd_models)
-
-        if (value) {
-          App.update_config(`model`, value)
-          App.cmd_show(data.channel, `model`)
-        }
+        App.update_config(`model`, data.arg)
+        App.cmd_show(data.channel, `model`)
       },
     },
     {
