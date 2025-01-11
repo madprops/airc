@@ -110,7 +110,7 @@ module.exports = (App) => {
     `${App.p}leave + [ channel? ]`,
     `${App.p}ban + [ nick ]`,
     `${App.p}unban + [ nick ]`,
-    `${App.p}history + [ number ]`,
+    `${App.p}context + [ number ]`,
     `${App.p}spam_limit + [ number ]`,
     `${App.p}spam_minutes + [ number ]`,
     `${App.p}command_char + [ char ]`,
@@ -360,6 +360,7 @@ module.exports = (App) => {
     {
       name: `context`,
       on_arg: (data) => {
+        App.clear_context(data.channel)
         App.cmd_num({key: `context`, data, min: 0, max: 10})
       },
     },

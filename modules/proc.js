@@ -239,8 +239,10 @@ module.exports = (App) => {
       messages.unshift({role: `system`, content: system.join(` `)})
     }
 
-    if (!clear_on && !no_context && App.context[args.channel]) {
-      for (let res of App.context[args.channel]) {
+    let context_items = App.context[args.channel]
+
+    if (!clear_on && !no_context && context_items && context_items.length) {
+      for (let res of context_items) {
         messages.push({role: `user`, content: res.user})
         messages.push({role: `assistant`, content: res.ai})
       }
@@ -271,17 +273,19 @@ module.exports = (App) => {
 
       App.irc_respond(args.channel, full_response)
 
-      let context_user = App.limit(full_prompt, App.config.max_context)
-      let context_ai = App.limit(response, App.config.max_context)
-      let context = {user: context_user, ai: context_ai}
+      if (App.config.context > 0) {
+        let context_user = App.limit(full_prompt, App.config.max_context)
+        let context_ai = App.limit(response, App.config.max_context)
+        let context = {user: context_user, ai: context_ai}
 
-      if (App.context[args.channel] === undefined) {
-        App.context[args.channel] = []
+        if (App.context[args.channel] === undefined) {
+          App.context[args.channel] = []
+        }
+
+        App.context[args.channel].push(context)
+        let sliced = App.context[args.channel].slice(-App.config.context)
+        App.context[args.channel] = sliced
       }
-
-      App.context[args.channel].push(context)
-      let sliced = App.context[args.channel].slice(-App.config.context)
-      App.context[args.channel] = sliced
     })
   }
 
