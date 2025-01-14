@@ -358,6 +358,8 @@ module.exports = (App) => {
       return
     }
 
+    prompt = App.limit(prompt, App.config.max_prompt)
+
     App.make_image(prompt, (url) => {
       if (App.imgur_enabled()) {
         App.upload_to_imgur(url, (url2) => {
