@@ -108,7 +108,7 @@ module.exports = (App) => {
     }
 
     try {
-      let client = App.get_client()
+      let client = App.openai_client
 
       if (!client) {
         return
