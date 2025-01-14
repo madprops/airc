@@ -245,11 +245,11 @@ module.exports = (App) => {
     try {
       let ans = await App.i.axios.post(`https://api.imgur.com/3/image`, {
         image: url,
-        type: `url`
+        type: `url`,
       }, {
         headers: {
-          Authorization: `Client-ID ${id}`
-        }
+          Authorization: `Client-ID ${id}`,
+        },
       })
 
       if (ans.data.success) {

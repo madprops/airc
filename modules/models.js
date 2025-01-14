@@ -40,7 +40,7 @@ module.exports = (App) => {
     return model.startsWith(`gemini-`)
   }
 
-  App.get_client = () => {
+  App.get_client = (channel) => {
     if (App.is_gpt()) {
       if (!App.openai_started) {
         App.irc_respond(channel, `OpenAI API Key is missing.`)
@@ -57,9 +57,6 @@ module.exports = (App) => {
 
       return App.google_client
     }
-    else {
-      return
-    }
   }
 
   App.ask_model = async (messages, channel, callback) => {
@@ -70,7 +67,7 @@ module.exports = (App) => {
     }
 
     try {
-      let client = App.get_client()
+      let client = App.get_client(channel)
 
       if (!client) {
         return
