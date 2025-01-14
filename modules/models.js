@@ -111,7 +111,7 @@ module.exports = (App) => {
         return
       }
 
-      const ans = await client.images.generate({
+      let ans = await client.images.generate({
         n: 1,
         model,
         size,
