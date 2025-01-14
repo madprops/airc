@@ -118,7 +118,7 @@ module.exports = (App) => {
         prompt,
       })
 
-      if (ans) {
+      if (ans && ans.data) {
         callback(ans.data[0].url)
       }
     }
