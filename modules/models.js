@@ -30,33 +30,49 @@ module.exports = (App) => {
     App.log(`Google started`)
   }
 
+  App.is_gpt = () => {
+    let model = App.config.model
+    return model.startsWith(`gpt-`)
+  }
+
+  App.is_gemini = () => {
+    let model = App.config.model
+    return model.startsWith(`gemini-`)
+  }
+
+  App.get_client = () => {
+    if (App.is_gpt()) {
+      if (!App.openai_started) {
+        App.irc_respond(channel, `OpenAI API Key is missing.`)
+        return
+      }
+
+      return App.openai_client
+    }
+    else if (App.is_gemini()) {
+      if (!App.google_started) {
+        App.irc_respond(channel, `Google API Key is missing.`)
+        return
+      }
+
+      return App.google_client
+    }
+    else {
+      return
+    }
+  }
+
   App.ask_model = async (messages, channel, callback) => {
     let model = App.config.model
 
     if (App.debug) {
-      App.log(`Model: ${model}`)
+      App.log(`Text Gen: ${model}`)
     }
 
     try {
-      let client
+      let client = App.get_client()
 
-      if (App.is_gpt()) {
-        if (!App.openai_started) {
-          App.irc_respond(channel, `OpenAI API Key is missing.`)
-          return
-        }
-
-        client = App.openai_client
-      }
-      else if (App.is_gemini()) {
-        if (!App.google_started) {
-          App.irc_respond(channel, `Google API Key is missing.`)
-          return
-        }
-
-        client = App.google_client
-      }
-      else {
+      if (!client) {
         return
       }
 
@@ -79,13 +95,39 @@ module.exports = (App) => {
     }
   }
 
-  App.is_gpt = () => {
-    let model = App.config.model
-    return model.startsWith(`gpt-`)
-  }
+  App.make_image = async (prompt, callback) => {
+    if (!App.openai_started) {
+      return
+    }
 
-  App.is_gemini = () => {
-    let model = App.config.model
-    return model.startsWith(`gemini-`)
+    let model = `dall-e-3`
+    let size = `1024x1024`
+
+    if (App.debug) {
+      App.log(`Image Gen: ${model}`)
+    }
+
+    try {
+      let client = App.get_client()
+
+      if (!client) {
+        return
+      }
+
+      const ans = await client.images.generate({
+        n: 1,
+        model,
+        size,
+        prompt,
+      })
+
+      if (ans) {
+        callback(ans.data[0].url)
+      }
+    }
+    catch (err) {
+      App.log(err, `error`)
+      return
+    }
   }
 }

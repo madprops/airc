@@ -19,6 +19,7 @@
   "allow_ask": "all",
   "allow_rules": "all",
   "allow_prompts": "all",
+  "allow_image": "users",
   "spam_limit": 3,
   "spam_minutes": 30,
   "compact": true,

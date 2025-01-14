@@ -32,6 +32,7 @@ module.exports = (App) => {
       `allow_ask`,
       `allow_rules`,
       `allow_prompts`,
+      `allow_image`,
       `users`,
       `admins`,
     ]) {
@@ -96,6 +97,7 @@ module.exports = (App) => {
     `${App.p}allow_ask + [ all | users | admins ]`,
     `${App.p}allow_rules + [ all | users | admins ]`,
     `${App.p}allow_prompts + [ all | users | admins ]`,
+    `${App.p}allow_image + [ all | users | admins ]`,
     `${App.p}model + [ ChatGPT or Gemini model ]`,
     `${App.p}avatar + [ char ]`,
     `${App.p}show_avatar + [ true | false ]`,
@@ -121,6 +123,7 @@ module.exports = (App) => {
     `${App.p}mention_char + [ char ]`,
     `${App.p}prompt + [ name = prompt ]`,
     `${App.p}debug + [ true | false ]`,
+    `${App.p}image + [ description ]`,
     `${App.p}clear`,
     `${App.p}models`,
     `${App.p}enable`,
@@ -188,6 +191,8 @@ module.exports = (App) => {
     return ans
   }
 
+  App.allowed_modes = [`all`, `users`, `admins`]
+
   App.commands = [
     {
       name: `help`,
@@ -243,8 +248,7 @@ module.exports = (App) => {
     {
       name: `allow_ask`,
       on_arg: (data) => {
-        let allowed = [`all`, `users`, `admins`]
-        let value = App.cmd_similar(data.arg, allowed)
+        let value = App.cmd_similar(data.arg, App.allowed_modes)
 
         if (value) {
           App.update_config(`allow_ask`, value)
@@ -255,8 +259,7 @@ module.exports = (App) => {
     {
       name: `allow_rules`,
       on_arg: (data) => {
-        let allowed = [`all`, `users`, `admins`]
-        let value = App.cmd_similar(data.arg, allowed)
+        let value = App.cmd_similar(data.arg, App.allowed_modes)
 
         if (value) {
           App.update_config(`allow_rules`, value)
@@ -267,12 +270,22 @@ module.exports = (App) => {
     {
       name: `allow_prompts`,
       on_arg: (data) => {
-        let allowed = [`all`, `users`, `admins`]
-        let value = App.cmd_similar(data.arg, allowed)
+        let value = App.cmd_similar(data.arg, App.allowed_modes)
 
         if (value) {
           App.update_config(`allow_prompts`, value)
           App.cmd_show(data.channel, `allow_prompts`)
+        }
+      },
+    },
+    {
+      name: `allow_image`,
+      on_arg: (data) => {
+        let value = App.cmd_similar(data.arg, App.allowed_modes)
+
+        if (value) {
+          App.update_config(`allow_image`, value)
+          App.cmd_show(data.channel, `allow_image`)
         }
       },
     },
@@ -564,6 +577,12 @@ module.exports = (App) => {
         App.irc_respond(data.channel, `Prompt Saved.`)
       },
       allow: `prompts`,
+    },
+    {
+      name: `image`,
+      on_arg: (data) => {
+        App.generate_image(data.channel, data.from, data.arg)
+      },
     },
     {
       name: `config`,

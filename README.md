@@ -37,6 +37,7 @@ Some ideas provided by `spynxic`.
 1. [Autorespond](#autorespond)
 1. [Talk](#talk)
 1. [Anti-Spam](#antispam)
+1. [Image](#image)
 
 ---
 
@@ -783,3 +784,25 @@ Admins can ban and unban nicknames manually with `!ban` and `!unban`.
 Bot admins and users can also get banned.
 
 Restarting the bot unbans all nicknames.
+
+---
+
+## Image Generation <a name="image"></a>
+
+It's possible to generate images using `dalle-3`.
+
+An `openai key` is required.
+
+Then you can use the `!image` command.
+
+For example: `!image grasshopper`.
+
+If the `IMGUR_CLIENT_ID` environment variable exists, it will upload the image to `Imgur`.
+
+An `Imgur` URL is much shorter.
+
+Else, it will print the original URL.
+
+There's a `allow_image` permission specifically for the `!image` command.
+
+By default only `users` can use it.

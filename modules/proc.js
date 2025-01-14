@@ -192,12 +192,6 @@ module.exports = (App) => {
 
     // Prompt plus optional context and rules
     let full_prompt = App.limit(args.prompt, App.config.max_prompt)
-    let words = full_prompt.split(` `)
-    let first = ``
-
-    if (words.length > 0) {
-      first = words[0].toLowerCase()
-    }
 
     if (emphasize_on) {
       full_prompt = `Please emphasize the last point.`
@@ -355,5 +349,24 @@ module.exports = (App) => {
 
   App.clear_context = (channel) => {
     App.context[channel] = []
+  }
+
+  App.generate_image = (channel, from, prompt) => {
+    let can_image = App.is_allowed(`image`, from)
+
+    if (!can_image) {
+      return
+    }
+
+    App.make_image(prompt, (url) => {
+      if (App.imgur_enabled()) {
+        App.upload_to_imgur(url, (url2) => {
+          App.irc_respond(channel, url2)
+        })
+      }
+      else {
+        App.irc_respond(channel, url)
+      }
+    })
   }
 }
