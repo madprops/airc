@@ -60,6 +60,10 @@ module.exports = (App) => {
   }
 
   App.ask_model = async (messages, channel, callback) => {
+    if (App.working) {
+      return
+    }
+
     let model = App.config.model
 
     if (App.debug) {
@@ -72,6 +76,8 @@ module.exports = (App) => {
       if (!client) {
         return
       }
+
+      App.working = true
 
       let ans = await client.chat.completions.create({
         model,
@@ -86,13 +92,20 @@ module.exports = (App) => {
           callback(text)
         }
       }
+
+      App.working = false
     }
     catch (err) {
       App.log(err, `error`)
+      App.working = false
     }
   }
 
   App.make_image = async (prompt, callback) => {
+    if (App.working) {
+      return
+    }
+
     if (!App.openai_started) {
       return
     }
@@ -111,6 +124,8 @@ module.exports = (App) => {
         return
       }
 
+      App.working = true
+
       let ans = await client.images.generate({
         n: 1,
         model,
@@ -121,10 +136,12 @@ module.exports = (App) => {
       if (ans && ans.data) {
         callback(ans.data[0].url)
       }
+
+      App.working = false
     }
     catch (err) {
       App.log(err, `error`)
-      return
+      App.working = false
     }
   }
 }
