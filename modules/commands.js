@@ -101,6 +101,7 @@ module.exports = (App) => {
     `${App.p}model + [ ChatGPT or Gemini model ]`,
     `${App.p}avatar + [ char ]`,
     `${App.p}show_avatar + [ true | false ]`,
+    `${App.p}multiprocess + [ true | false ]`,
     `${App.p}autorespond + [ 0 - 100 ]`,
     `${App.p}compact + [ true | false ]`,
     `${App.p}max_prompt [ number ]`,
@@ -486,6 +487,15 @@ module.exports = (App) => {
         let value = App.cmd_similar(data.arg, allowed)
         App.update_config(`show_avatar`, App.bool(value))
         App.cmd_show(data.channel, `show_avatar`)
+      },
+    },
+    {
+      name: `multiprocess`,
+      on_arg: (data) => {
+        let allowed = [`true`, `false`]
+        let value = App.cmd_similar(data.arg, allowed)
+        App.update_config(`multiprocess`, App.bool(value))
+        App.cmd_show(data.channel, `multiprocess`)
       },
     },
     {

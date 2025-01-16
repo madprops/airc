@@ -34,6 +34,7 @@ Some ideas provided by `spynxic`.
 1. [Permissions](#permissions)
 1. [Users](#users)
 1. [Admins](#admins)
+1. [MultiProcess](#multiprocess)
 1. [Autorespond](#autorespond)
 1. [Talk](#talk)
 1. [Anti-Spam](#antispam)
@@ -710,6 +711,16 @@ module.exports = {
 Save it as `airc_config.js` or any other name.
 
 Then use it like `pm2 start airc_config.js`.
+
+---
+
+## MultiProcess <a name="multiprocess"></a>
+
+By default if the AI is busy it will ignore more requests.
+
+To make it do multiple requests in parallel you can enable `multiprocess`.
+
+For example `!multiprocess true`. Or set the config file.
 
 ---
 

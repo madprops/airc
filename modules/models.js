@@ -60,7 +60,7 @@ module.exports = (App) => {
   }
 
   App.ask_model = async (messages, channel, callback) => {
-    if (App.working) {
+    if (App.check_working()) {
       return
     }
 
@@ -102,7 +102,7 @@ module.exports = (App) => {
   }
 
   App.make_image = async (prompt, callback) => {
-    if (App.working) {
+    if (App.check_working()) {
       return
     }
 
@@ -143,5 +143,9 @@ module.exports = (App) => {
       App.log(err, `error`)
       App.working = false
     }
+  }
+
+  App.check_working = () => {
+    return App.working && !App.config.multiprocess
   }
 }
