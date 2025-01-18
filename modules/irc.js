@@ -122,7 +122,7 @@ module.exports = (App) => {
 
       function char_regex(char) {
         let c = App.escape_regex(char)
-        let regex = new RegExp(`${c}([^${c}]+)${c}`, `g`)
+        let regex = new RegExp(`(?:(?<=\\s|^|\\(|\\[|\\/)${c}([a-zA-Z- ]+)${c}(?=\\s|$|\\.|,|;|!|\\?|:|\\/|\\)|\\]|…))`)
         return new RegExp(regex, `g`)
       }
 
