@@ -34,8 +34,9 @@ Some ideas provided by `spynxic`.
 1. [Permissions](#permissions)
 1. [Users](#users)
 1. [Admins](#admins)
-1. [MultiProcess](#multiprocess)
 1. [Autorespond](#autorespond)
+1. [MultiProcess](#multiprocess)
+1. [Markdown](#markdown)
 1. [Talk](#talk)
 1. [Anti-Spam](#antispam)
 1. [Image](#image)
@@ -729,6 +730,24 @@ By default if the AI is busy it will ignore more requests.
 To make it do multiple requests in parallel you can enable `multiprocess`.
 
 For example `!multiprocess true`. Or set the config file.
+
+---
+
+## Markdown <a name="markdown"></a>
+
+There is translation of some markdown syntax to effects like bold or color.
+
+These include backticks, asterisks, and underscores.
+
+For example `*this thing*` will turn bold, using irc escape codes.
+
+Or \`this thing` will turn green.
+
+Or `_this thing_` will turn bold too.
+
+There is only one color used, and it can be configured.
+
+Basically backticks turn things into color, the rest make it bold.
 
 ---
 

@@ -136,10 +136,10 @@ module.exports = (App) => {
       }
 
       action(char_regex(`\``), color_func)
-      action(char_regex(`**`), color_func)
+      action(char_regex(`**`), App.irc_bold)
       action(char_regex(`*`), App.irc_bold)
-      action(char_regex(`__`), color_func)
-      action(char_regex(`_`), color_func)
+      action(char_regex(`__`), App.irc_bold)
+      action(char_regex(`_`), App.irc_bold)
 
       return text
     }
