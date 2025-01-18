@@ -45,6 +45,10 @@ module.exports = (App) => {
         message = App.add_avatar(message)
       }
 
+      if (App.config.markdown) {
+        message = App.format_irc(message)
+      }
+
       App.irc_client.say(channel, message)
     }
 
@@ -58,6 +62,30 @@ module.exports = (App) => {
 
     App.irc_bold = (text) => {
       return `\x02${text}\x0F`
+    }
+
+    App.irc_green = (text) => {
+      return `\x0303${text}\x0F`
+    }
+
+    App.format_irc = (text) => {
+      let regex = /`([^`]+)`/g
+      let match = regex.exec(text)
+
+      while (match) {
+        text = text.replace(match[0], App.irc_green(match[1]))
+        match = regex.exec(text)
+      }
+
+      regex = /\*\*([^\*]+)\*\*/g
+      match = regex.exec(text)
+
+      while (match) {
+        text = text.replace(match[0], App.irc_bold(match[1]))
+        match = regex.exec(text)
+      }
+
+      return text
     }
 
     App.filter_channels = (ch) => {

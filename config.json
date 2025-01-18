@@ -37,5 +37,6 @@
   "words": 50,
   "prompts": {},
   "talk_limit": 1,
-  "multiprocess": false
+  "multiprocess": false,
+  "markdown": true
 }

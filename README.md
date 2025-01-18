@@ -285,6 +285,14 @@ If set to `0` it won't use a limit.
 
 ---
 
+`markdown` : Apply some effects to irc text.
+
+For example words or phrases between backticks (`) get colored green.
+
+And words or phrases between two asterisks (**) get bold.
+
+---
+
 ## Permissions <a name="permissions"></a>
 
 Access to ai and rules can be defined.
