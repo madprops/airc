@@ -68,6 +68,10 @@ module.exports = (App) => {
       return `\x0303${text}\x0F`
     }
 
+    App.irc_blue = (text) => {
+      return `\x0312${text}\x0F`
+    }
+
     App.format_irc = (text) => {
       let regex = /`([^`]+)`/g
       let match = regex.exec(text)
@@ -82,6 +86,14 @@ module.exports = (App) => {
 
       while (match) {
         text = text.replace(match[0], App.irc_bold(match[1]))
+        match = regex.exec(text)
+      }
+
+      regex = /\*([^\*]+)\*/g
+      match = regex.exec(text)
+
+      while (match) {
+        text = text.replace(match[0], App.irc_blue(match[1]))
         match = regex.exec(text)
       }
 
