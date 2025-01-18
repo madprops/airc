@@ -38,5 +38,6 @@
   "prompts": {},
   "talk_limit": 1,
   "multiprocess": false,
-  "markdown": true
+  "markdown": true,
+  "markdown_color": "green"
 }

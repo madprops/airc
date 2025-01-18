@@ -64,38 +64,82 @@ module.exports = (App) => {
       return `\x02${text}\x0F`
     }
 
-    App.irc_green = (text) => {
+    App.irc_color_red = (text) => {
+      return `\x0304${text}\x0F`
+    }
+
+    App.irc_color_green = (text) => {
       return `\x0303${text}\x0F`
     }
 
-    App.irc_blue = (text) => {
+    App.irc_color_blue = (text) => {
       return `\x0312${text}\x0F`
     }
 
+    App.irc_color_cyan = (text) => {
+      return `\x0311${text}\x0F`
+    }
+
+    App.irc_color_pink = (text) => {
+      return `\x0313${text}\x0F`
+    }
+
+    App.irc_color_yellow = (text) => {
+      return `\x0308${text}\x0F`
+    }
+
+    App.irc_color_orange = (text) => {
+      return `\x0307${text}\x0F`
+    }
+
+    App.irc_color_purple = (text) => {
+      return `\x0306${text}\x0F`
+    }
+
+    App.irc_color_black = (text) => {
+      return `\x0301${text}\x0F`
+    }
+
+    App.irc_color_white = (text) => {
+      return `\x0300${text}\x0F`
+    }
+
+    App.irc_color_brown = (text) => {
+      return `\x0305${text}\x0F`
+    }
+
+    App.irc_color_grey = (text) => {
+      return `\x03014${text}\x0F`
+    }
+
+    App.irc_color_silver = (text) => {
+      return `\x03015${text}\x0F`
+    }
+
     App.format_irc = (text) => {
-      let regex = /`([^`]+)`/g
-      let match = regex.exec(text)
+      let color = App.config.markdown_color
+      let color_func = App[`irc_color_${color}`]
 
-      while (match) {
-        text = text.replace(match[0], App.irc_green(match[1]))
-        match = regex.exec(text)
+      function char_regex(char) {
+        let c = App.escape_regex(char)
+        let regex = new RegExp(`(?:(?<=\\s|^|\\(|\\[|\\/)${c}(\\b[\\w|\\s]+\\b)${c}(?=\\s|$|\\.|,|;|!|\\?|:|\\/|\\)|\\]|…))`)
+        return new RegExp(regex, `g`)
       }
 
-      regex = /\*\*([^\*]+)\*\*/g
-      match = regex.exec(text)
+      function action(regex, func) {
+        let match = regex.exec(text)
 
-      while (match) {
-        text = text.replace(match[0], App.irc_bold(match[1]))
-        match = regex.exec(text)
+        while (match) {
+          text = text.replace(match[0], func(match[1]))
+          match = regex.exec(text)
+        }
       }
 
-      regex = /\*([^\*]+)\*/g
-      match = regex.exec(text)
-
-      while (match) {
-        text = text.replace(match[0], App.irc_blue(match[1]))
-        match = regex.exec(text)
-      }
+      action(char_regex("`"), color_func)
+      action(char_regex(`**`), color_func)
+      action(char_regex(`*`), App.irc_bold)
+      action(char_regex(`__`), color_func)
+      action(char_regex(`_`), color_func)
 
       return text
     }

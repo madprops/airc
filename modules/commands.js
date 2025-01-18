@@ -125,6 +125,7 @@ module.exports = (App) => {
     `${App.p}prompt + [ name = prompt ]`,
     `${App.p}debug + [ true | false ]`,
     `${App.p}image + [ description ]`,
+    `${App.p}say + [ thing to say exactly ]`,
     `${App.p}clear`,
     `${App.p}models`,
     `${App.p}enable`,
@@ -222,6 +223,12 @@ module.exports = (App) => {
         App.cmd_change_rules(data)
       },
       allow: `rules`,
+    },
+    {
+      name: `say`,
+      on_arg: (data) => {
+        App.irc_respond(data.channel, data.arg)
+      },
     },
     {
       name: `add_user`,
