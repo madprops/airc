@@ -294,6 +294,14 @@ And words or phrases between two asterisks (**) get bold.
 
 ---
 
+`color_backticks` : Color used for backticks markdown.
+
+---
+
+`color_quotes` : Color used for quotes markdown.
+
+---
+
 ## Permissions <a name="permissions"></a>
 
 Access to ai and rules can be defined.
@@ -737,7 +745,7 @@ For example `!multiprocess true`. Or set the config file.
 
 There is translation of some markdown syntax to effects like bold or color.
 
-These include backticks, asterisks, and underscores.
+These include backticks, asterisks, underscores and quotes.
 
 For example `*this thing*` will turn bold, using irc escape codes.
 
@@ -745,9 +753,9 @@ Or \`this thing` will turn green.
 
 Or `_this thing_` will turn bold too.
 
-There is only one color used, and it can be configured.
+Quotes change the color but they also include the full text (includes the quotes).
 
-Basically backticks turn things into color, the rest make it bold.
+The color of backticks and quotes can be configured through `color_backticks` and `color_quotes` configs.
 
 ---
 

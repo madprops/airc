@@ -39,5 +39,6 @@
   "talk_limit": 1,
   "multiprocess": false,
   "markdown": true,
-  "markdown_color": "green"
+  "color_backticks": "green",
+  "color_quotes": "cyan"
 }

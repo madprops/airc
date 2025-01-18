@@ -117,29 +117,42 @@ module.exports = (App) => {
     }
 
     App.format_irc = (text) => {
-      let color = App.config.markdown_color
-      let color_func = App[`irc_color_${color}`]
-
       function char_regex(char) {
         let c = App.escape_regex(char)
         let regex = new RegExp(`(?:(?<=\\s|^|\\(|\\[|\\/)${c}([a-zA-Z- ]+)${c}(?=\\s|$|\\.|,|;|!|\\?|:|\\/|\\)|\\]|…))`)
         return new RegExp(regex, `g`)
       }
 
-      function action(regex, func) {
+      function action(regex, mode, full = false) {
+        let func
+
+        if (mode === `bold`) {
+          func = App.irc_bold
+        }
+        else {
+          func = App[`irc_color_${mode}`]
+        }
+
         let match = regex.exec(text)
 
         while (match) {
-          text = text.replace(match[0], func(match[1]))
+          if (full) {
+            text = text.replace(match[0], func(match[0]))
+          }
+          else {
+            text = text.replace(match[0], func(match[1]))
+          }
+
           match = regex.exec(text)
         }
       }
 
-      action(char_regex(`\``), color_func)
-      action(char_regex(`**`), App.irc_bold)
-      action(char_regex(`*`), App.irc_bold)
-      action(char_regex(`__`), App.irc_bold)
-      action(char_regex(`_`), App.irc_bold)
+      action(char_regex(`\``), App.config.color_backticks)
+      action(char_regex(`"`), App.config.color_quotes, true)
+      action(char_regex(`**`), `bold`)
+      action(char_regex(`*`), `bold`)
+      action(char_regex(`__`), `bold`)
+      action(char_regex(`_`), `bold`)
 
       return text
     }
