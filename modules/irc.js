@@ -122,7 +122,7 @@ module.exports = (App) => {
 
       function char_regex(char) {
         let c = App.escape_regex(char)
-        let regex = new RegExp(`(?:(?<=\\s|^|\\(|\\[|\\/)${c}(\\b[\\w|\\s]+\\b)${c}(?=\\s|$|\\.|,|;|!|\\?|:|\\/|\\)|\\]|…))`)
+        let regex = new RegExp(`${c}([^${c}]+)${c}`, `g`)
         return new RegExp(regex, `g`)
       }
 
@@ -135,7 +135,7 @@ module.exports = (App) => {
         }
       }
 
-      action(char_regex("`"), color_func)
+      action(char_regex(`\``), color_func)
       action(char_regex(`**`), color_func)
       action(char_regex(`*`), App.irc_bold)
       action(char_regex(`__`), color_func)

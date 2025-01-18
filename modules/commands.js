@@ -229,6 +229,7 @@ module.exports = (App) => {
       on_arg: (data) => {
         App.irc_respond(data.channel, data.arg)
       },
+      allow: `prompts`,
     },
     {
       name: `add_user`,
