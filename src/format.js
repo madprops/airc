@@ -1,14 +1,14 @@
 module.exports = (App) => {
-  App.char_regex_1 = (char) => {
+  App.char_regex_1 = (char, num = 1) => {
     let c = App.escape_regex(char)
-    let exp = `${c}(\\S.*?\\S)${c}`
+    let exp = `${c}{${num}}(\\S.*?\\S)${c}{${num}}`
     let regex = new RegExp(exp)
     return new RegExp(regex, `g`)
   }
 
-  App.char_regex_2 = (char) => {
+  App.char_regex_2 = (char, num = 1) => {
     let c = App.escape_regex(char)
-    let exp = `(?<!\\w)${c}(?!\\s)(.+?)(?<!\\s)${c}(?!\\w)`
+    let exp = `(?<!\\w)${c}{${num}}(?!\\s)(.+?)(?<!\\s)${c}{${num}}(?!\\w)`
     let regex = new RegExp(exp)
     return new RegExp(regex, `g`)
   }
@@ -38,10 +38,12 @@ module.exports = (App) => {
 
     action(App.char_regex_1(`\``), App.config.color_backticks)
     action(App.char_regex_1(`"`), App.config.color_quotes, true)
-    action(App.char_regex_1(`**`), `bold`)
+
+    action(App.char_regex_1(`*`, 2), `bold`)
     action(App.char_regex_1(`*`), `bold`)
-    action(App.char_regex_2(`__`), `bold`)
-    action(App.char_regex_2(`_`), `bold`)
+
+    action(App.char_regex_1(`_`, 2), `bold`)
+    action(App.char_regex_1(`_`), `bold`)
 
     return text
   }
