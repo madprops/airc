@@ -1,19 +1,19 @@
 module.exports = (App) => {
+  App.char_regex_1 = (char) => {
+    let c = App.escape_regex(char)
+    let exp = `${c}(.+?)${c}`
+    let regex = new RegExp(exp)
+    return new RegExp(regex, `g`)
+  }
+
+  App.char_regex_2 = (char) => {
+    let c = App.escape_regex(char)
+    let exp = `(?<!\\w)${c}(?!\\s)(.+?)(?<!\\s)${c}(?!\\w)`
+    let regex = new RegExp(exp)
+    return new RegExp(regex, `g`)
+  }
+
   App.format_irc = (text) => {
-    function char_regex_1(char) {
-      let c = App.escape_regex(char)
-      let exp = `${c}(.+?)${c}`
-      let regex = new RegExp(exp)
-      return new RegExp(regex, `g`)
-    }
-
-    function char_regex_2(char) {
-      let c = App.escape_regex(char)
-      let exp = `(?<!\\w)${c}(?!\\s)(.+?)(?<!\\s)${c}(?!\\w)`
-      let regex = new RegExp(exp)
-      return new RegExp(regex, `g`)
-    }
-
     function action(regex, mode, full = false) {
       let func
 
@@ -36,12 +36,12 @@ module.exports = (App) => {
       }
     }
 
-    action(char_regex_1(`\``), App.config.color_backticks)
-    action(char_regex_1(`"`), App.config.color_quotes, true)
-    action(char_regex_1(`**`), `bold`)
-    action(char_regex_1(`*`), `bold`)
-    action(char_regex_2(`__`), `bold`)
-    action(char_regex_2(`_`), `bold`)
+    action(App.char_regex_1(`\``), App.config.color_backticks)
+    action(App.char_regex_1(`"`), App.config.color_quotes, true)
+    action(App.char_regex_1(`**`), `bold`)
+    action(App.char_regex_1(`*`), `bold`)
+    action(App.char_regex_2(`__`), `bold`)
+    action(App.char_regex_2(`_`), `bold`)
 
     return text
   }
