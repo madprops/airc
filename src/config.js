@@ -1,5 +1,5 @@
 module.exports = (App) => {
-  App.prepare_config = () => {
+  App.setup_config = () => {
     if (!App.i.fs.existsSync(App.get_user_config_path())) {
       App.log(`No config file found.`, `error`)
       process.exit()

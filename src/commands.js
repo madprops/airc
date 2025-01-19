@@ -3,6 +3,60 @@
 // Checks return true to avoid asking when cmds were meant
 
 module.exports = (App) => {
+  App.setup_commands = () => {
+    App.p = App.config.command_char
+
+    App.cmd_help_items = [
+      `${App.p}ur + [ personality ]`,
+      `${App.p}rules: [ rules ]`,
+      `${App.p}add_user + [ nick ]`,
+      `${App.p}remove_user + [ nick ]`,
+      `${App.p}allow_ask + [ all | users | admins ]`,
+      `${App.p}allow_rules + [ all | users | admins ]`,
+      `${App.p}allow_prompts + [ all | users | admins ]`,
+      `${App.p}allow_image + [ all | users | admins ]`,
+      `${App.p}model + [ ChatGPT or Gemini model ]`,
+      `${App.p}avatar + [ char ]`,
+      `${App.p}show_avatar + [ true | false ]`,
+      `${App.p}multiprocess + [ true | false ]`,
+      `${App.p}autorespond + [ 0 - 100 ]`,
+      `${App.p}compact + [ true | false ]`,
+      `${App.p}max_prompt [ number ]`,
+      `${App.p}max_context [ number ]`,
+      `${App.p}max_rules [ number ]`,
+      `${App.p}max_tokens [ number ]`,
+      `${App.p}talk_limit [ number ]`,
+      `${App.p}join + [ channel ]`,
+      `${App.p}leave + [ channel? ]`,
+      `${App.p}ban + [ nick ]`,
+      `${App.p}unban + [ nick ]`,
+      `${App.p}context + [ number ]`,
+      `${App.p}spam_limit + [ number ]`,
+      `${App.p}spam_minutes + [ number ]`,
+      `${App.p}command_char + [ char ]`,
+      `${App.p}clear_char + [ char ]`,
+      `${App.p}emphasize_char + [ char ]`,
+      `${App.p}explain_char + [ char ]`,
+      `${App.p}continue_char + [ char ]`,
+      `${App.p}mention_char + [ char ]`,
+      `${App.p}prompt + [ name = prompt ]`,
+      `${App.p}debug + [ true | false ]`,
+      `${App.p}image + [ description ]`,
+      `${App.p}say + [ thing to say exactly ]`,
+      `${App.p}clear`,
+      `${App.p}models`,
+      `${App.p}enable`,
+      `${App.p}disable`,
+      `${App.p}config`,
+      `${App.p}reset + [ config | all ]: Reset configs to default`,
+      `!report: (Global) Respond with some info`,
+      `!config: (Global) Show some of the config`,
+      `Start with ^: Use previous response as context`,
+      `End with @nick: Make the bot mention that nick`,
+      `Repo: https://github.com/madprops/airc`,
+    ]
+  }
+
   App.cmd_change_nickname = (data) => {
     let nick = data.arg
 
@@ -86,58 +140,6 @@ module.exports = (App) => {
 
     return {ok, arg}
   }
-
-  App.p = App.config.command_char
-
-  App.cmd_help_items = [
-    `${App.p}ur + [ personality ]`,
-    `${App.p}rules: [ rules ]`,
-    `${App.p}add_user + [ nick ]`,
-    `${App.p}remove_user + [ nick ]`,
-    `${App.p}allow_ask + [ all | users | admins ]`,
-    `${App.p}allow_rules + [ all | users | admins ]`,
-    `${App.p}allow_prompts + [ all | users | admins ]`,
-    `${App.p}allow_image + [ all | users | admins ]`,
-    `${App.p}model + [ ChatGPT or Gemini model ]`,
-    `${App.p}avatar + [ char ]`,
-    `${App.p}show_avatar + [ true | false ]`,
-    `${App.p}multiprocess + [ true | false ]`,
-    `${App.p}autorespond + [ 0 - 100 ]`,
-    `${App.p}compact + [ true | false ]`,
-    `${App.p}max_prompt [ number ]`,
-    `${App.p}max_context [ number ]`,
-    `${App.p}max_rules [ number ]`,
-    `${App.p}max_tokens [ number ]`,
-    `${App.p}talk_limit [ number ]`,
-    `${App.p}join + [ channel ]`,
-    `${App.p}leave + [ channel? ]`,
-    `${App.p}ban + [ nick ]`,
-    `${App.p}unban + [ nick ]`,
-    `${App.p}context + [ number ]`,
-    `${App.p}spam_limit + [ number ]`,
-    `${App.p}spam_minutes + [ number ]`,
-    `${App.p}command_char + [ char ]`,
-    `${App.p}clear_char + [ char ]`,
-    `${App.p}emphasize_char + [ char ]`,
-    `${App.p}explain_char + [ char ]`,
-    `${App.p}continue_char + [ char ]`,
-    `${App.p}mention_char + [ char ]`,
-    `${App.p}prompt + [ name = prompt ]`,
-    `${App.p}debug + [ true | false ]`,
-    `${App.p}image + [ description ]`,
-    `${App.p}say + [ thing to say exactly ]`,
-    `${App.p}clear`,
-    `${App.p}models`,
-    `${App.p}enable`,
-    `${App.p}disable`,
-    `${App.p}config`,
-    `${App.p}reset + [ config | all ]: Reset configs to default`,
-    `!report: (Global) Respond with some info`,
-    `!config: (Global) Show some of the config`,
-    `Start with ^: Use previous response as context`,
-    `End with @nick: Make the bot mention that nick`,
-    `Repo: https://github.com/madprops/airc`,
-  ]
 
   App.cmd_help = (data) => {
     let help = [...App.cmd_help_items]

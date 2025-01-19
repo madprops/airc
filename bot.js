@@ -1,17 +1,14 @@
 const App = {}
 
-// Start useful functions first
-require(`./modules/utils.js`)(App)
-
 if (process.argv.length < 3) {
-  App.log(`Provide the name of the config to use.`)
+  // eslint-disable-next-line no-console
+  console.log(`Provide the name of the config to use.`)
   process.exit(1)
 }
 
 // The id/name of the bot instance
 // This indicates what config file to use
 App.name = process.argv[2]
-App.log(`Starting: ${App.name}`)
 
 // Imports go here
 App.i = {}
@@ -43,17 +40,30 @@ App.google_started = false
 App.working = false
 App.debug = false
 
-// Need to prepare config first
-require(`./modules/config.js`)(App)
-App.prepare_config()
+// Load all JS source files
 
-// Load js modules
-require(`./modules/irc.js`)(App)
-require(`./modules/models.js`)(App)
-require(`./modules/proc.js`)(App)
-require(`./modules/commands.js`)(App)
-require(`./modules/spam.js`)(App)
+let srcpath = App.i.path.join(__dirname, `src`)
+let src_files
 
+try {
+  src_files = App.i.fs.readdirSync(srcpath)
+}
+catch (err) {
+  process.exit(1)
+}
+
+let js_files = src_files.filter(f => f.endsWith(`.js`))
+
+for (let file of js_files) {
+  let path = App.i.path.join(srcpath, file)
+  require(path)(App)
+}
+
+// ---------
+
+App.log(`Starting: ${App.name}`)
+App.setup_config()
+App.setup_commands()
 App.start_antispam()
 App.start_openai()
 App.start_google()
