@@ -24,17 +24,15 @@ module.exports = (App) => {
         func = App[`irc_color_${mode}`]
       }
 
-      let match = regex.exec(text)
+      let matches = [...text.matchAll(regex)]
 
-      while (match) {
+      for (let match of matches) {
         if (full) {
           text = text.replace(match[0], func(match[0]))
         }
         else {
           text = text.replace(match[0], func(match[1]))
         }
-
-        match = regex.exec(text)
       }
     }
 
