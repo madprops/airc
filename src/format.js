@@ -1,7 +1,7 @@
 module.exports = (App) => {
   App.char_regex_1 = (char) => {
     let c = App.escape_regex(char)
-    let exp = `${c}(.+?)${c}`
+    let exp = `${c}(\\S.*?\\S)${c}`
     let regex = new RegExp(exp)
     return new RegExp(regex, `g`)
   }
@@ -28,14 +28,10 @@ module.exports = (App) => {
 
       for (let match of matches) {
         if (full) {
-          if (match[0].trim()) {
-            text = text.replace(match[0], func(match[0]))
-          }
+          text = text.replace(match[0], func(match[0]))
         }
         else {
-          if (match[1].trim()) {
-            text = text.replace(match[0], func(match[1]))
-          }
+          text = text.replace(match[0], func(match[1]))
         }
       }
     }
