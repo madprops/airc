@@ -42,8 +42,8 @@ module.exports = (App) => {
     action(App.char_regex_1(`*`, 2), `bold`)
     action(App.char_regex_1(`*`), `bold`)
 
-    action(App.char_regex_1(`_`, 2), `bold`)
-    action(App.char_regex_1(`_`), `bold`)
+    action(App.char_regex_2(`_`, 2), `bold`)
+    action(App.char_regex_2(`_`), `bold`)
 
     return text
   }
