@@ -497,6 +497,13 @@ module.exports = (App) => {
       },
     },
     {
+      name: `join_char`,
+      on_arg: (data) => {
+        App.update_config(`join_char`, data.arg)
+        App.cmd_show(data.channel, `join_char`)
+      },
+    },
+    {
       name: `avatar`,
       on_arg: (data) => {
         App.update_config(`avatar`, data.arg)

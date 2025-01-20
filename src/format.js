@@ -120,8 +120,9 @@ module.exports = (App) => {
     return `\x03015${text}\x0F`
   }
 
-  App.join = (list, char) => {
-    return list.join(` ${char || App.config.avatar} `)
+  App.join = (list, char = ``) => {
+    char = char || App.config.join_char || App.config.avatar
+    return list.join(` ${char} `)
   }
 
   App.remove_lists = (text) => {

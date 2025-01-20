@@ -30,6 +30,7 @@
   "explain_char": "/",
   "continue_char": ">",
   "mention_char": "@",
+  "join_char": "",
   "avatar": "👾",
   "show_avatar": true,
   "autorespond": 0,

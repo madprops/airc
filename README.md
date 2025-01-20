@@ -277,6 +277,10 @@ See [Autorespond](#autorespond)
 
 `mention_char` : The character used to mention nicknames, like `@`.
 
+`join_char` : The character used to join lines. Empty by default.
+
+If empty it will use the avatar.
+
 ---
 
 `words` : The max amount of words bot responses should aim for.
