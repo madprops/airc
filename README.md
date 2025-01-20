@@ -764,7 +764,7 @@ The color of backticks and quotes can be configured through `color_backticks` an
 
 By default it will clean lists that use `*` or `-` notation.
 
-For example `* thing 1\n* thing 2` will become: `thing 1\nthing2`
+For example `* thing 1\n* thing 2` will become: `thing 1\nthing 2`
 
 To disable this, set `lists` to `true`.
 
