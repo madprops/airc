@@ -135,18 +135,6 @@ module.exports = (App) => {
     return used
   }
 
-  App.join = (list, char) => {
-    return list.join(` ${char || App.config.avatar} `)
-  }
-
-  App.add_avatar = (text) => {
-    return `${App.config.avatar} ${text}`
-  }
-
-  App.unquote = (text) => {
-    return text.replace(/^"(.*)"$/, `$1`)
-  }
-
   App.plural = (num, singular, plural) => {
     if (num === 1) {
       return `${num.toLocaleString()} ${singular}`

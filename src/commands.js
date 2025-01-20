@@ -21,6 +21,7 @@ module.exports = (App) => {
       `${App.p}multiprocess + [ true | false ]`,
       `${App.p}autorespond + [ 0 - 100 ]`,
       `${App.p}compact + [ true | false ]`,
+      `${App.p}lists [ true | false ]`,
       `${App.p}max_prompt [ number ]`,
       `${App.p}max_context [ number ]`,
       `${App.p}max_rules [ number ]`,
@@ -409,6 +410,18 @@ module.exports = (App) => {
         if (value) {
           App.update_config(`compact`, App.bool(value))
           App.cmd_show(data.channel, `compact`)
+        }
+      },
+    },
+    {
+      name: `lists`,
+      on_arg: (data) => {
+        let allowed = [`true`, `false`]
+        let value = App.cmd_similar(data.arg, allowed)
+
+        if (value) {
+          App.update_config(`lists`, App.bool(value))
+          App.cmd_show(data.channel, `lists`)
         }
       },
     },

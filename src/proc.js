@@ -255,10 +255,15 @@ module.exports = (App) => {
     App.ask_model(messages, args.channel, (response) => {
       response = App.clean(response)
       response = App.unquote(response)
+
       let full_response = response
 
+      if (!App.config.lists) {
+        full_response = App.remove_lists(full_response)
+      }
+
       if (App.config.compact) {
-        full_response = App.join(response.split(`\n`).map(x => x.trim()))
+        full_response = App.join(full_response.split(`\n`).map(x => x.trim()))
       }
 
       if (args.mention) {

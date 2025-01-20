@@ -37,6 +37,7 @@ Some ideas provided by `spynxic`.
 1. [Autorespond](#autorespond)
 1. [MultiProcess](#multiprocess)
 1. [Markdown](#markdown)
+1. [Lists](#lists)
 1. [Talk](#talk)
 1. [Anti-Spam](#antispam)
 1. [Image](#image)
@@ -756,6 +757,16 @@ Or `_this thing_` will turn bold too.
 Quotes change the color but they also include the full text (includes the quotes).
 
 The color of backticks and quotes can be configured through `color_backticks` and `color_quotes` configs.
+
+---
+
+## Lists <a name="lists"></a>
+
+By default it will clean lists that use `*` or `-` notation.
+
+For example `* thing 1\n* thing 2` will become: `thing 1\nthing2`
+
+To disable this, set `lists` to `true`.
 
 ---
 

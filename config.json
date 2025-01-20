@@ -23,6 +23,7 @@
   "spam_limit": 3,
   "spam_minutes": 30,
   "compact": true,
+  "lists": false,
   "command_char": "!",
   "clear_char": "^",
   "emphasize_char": "!",

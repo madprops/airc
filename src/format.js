@@ -13,6 +13,13 @@ module.exports = (App) => {
     return new RegExp(regex, `g`)
   }
 
+  App.list_regex = (char) => {
+    let c = App.escape_regex(char)
+    let exp = `^(\\s*${c}\\s+)[^\\s]+`
+    let regex = new RegExp(exp)
+    return new RegExp(regex, `g`)
+  }
+
   App.format_irc = (text) => {
     function action(regex, mode, full = false) {
       let func
@@ -102,5 +109,39 @@ module.exports = (App) => {
 
   App.irc_color_silver = (text) => {
     return `\x03015${text}\x0F`
+  }
+
+  App.join = (list, char) => {
+    return list.join(` ${char || App.config.avatar} `)
+  }
+
+  App.remove_lists = (text) => {
+    let lines = text.split(`\n`)
+    let new_lines = []
+
+    function action(line, char) {
+      let regex = App.list_regex(char)
+
+      return line.replace(regex, (match, g1) => {
+        return match.replace(g1, ``)
+      })
+    }
+
+    for (let line of lines) {
+      let new_line = line
+      new_line = action(new_line, `*`)
+      new_line = action(new_line, `-`)
+      new_lines.push(new_line)
+    }
+
+    return new_lines.join(`\n`)
+  }
+
+  App.add_avatar = (text) => {
+    return `${App.config.avatar} ${text}`
+  }
+
+  App.unquote = (text) => {
+    return text.replace(/^"(.*)"$/, `$1`)
   }
 }
