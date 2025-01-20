@@ -1,14 +1,14 @@
 module.exports = (App) => {
-  App.char_regex_1 = (char, num = 1) => {
+  App.char_regex_1 = (char, n = 1) => {
     let c = App.escape_regex(char)
-    let exp = `${c}{${num}}(\\S.*?\\S)${c}{${num}}`
+    let exp = `${c}{${n}}(\\S.*?\\S)${c}{${n}}`
     let regex = new RegExp(exp)
     return new RegExp(regex, `g`)
   }
 
-  App.char_regex_2 = (char, num = 1) => {
+  App.char_regex_2 = (char, n = 1) => {
     let c = App.escape_regex(char)
-    let exp = `\\b${c}{${num}}([^${c}]+)${c}{${num}}\\b`
+    let exp = `\\b${c}{${n}}([^${c}]+)${c}{${n}}\\b`
     let regex = new RegExp(exp)
     return new RegExp(regex, `g`)
   }
