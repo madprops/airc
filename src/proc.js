@@ -98,7 +98,6 @@ module.exports = (App) => {
         return
       }
 
-      // Check if it's a command
       let is_command = false
 
       let chars = [
@@ -107,6 +106,7 @@ module.exports = (App) => {
         App.config.continue_char,
       ]
 
+      // Check if it's a command
       if (prompt.startsWith(App.config.command_char) && !chars.includes(prompt)) {
         is_command = true
       }
