@@ -145,6 +145,8 @@ module.exports = (App) => {
 
     let messages = []
     let system = []
+    let clear_char = App.escape_regex(App.config.clear_char)
+    let clear_regex = new RegExp(`^${clear_char}\\s*`)
     let mention_char = App.escape_regex(App.config.mention_char)
     let mention_regex = new RegExp(`${mention_char}\\s*(\\w+)$`)
     let clear_on = args.prompt.startsWith(App.config.clear_char)
@@ -154,7 +156,7 @@ module.exports = (App) => {
     let no_context = false
 
     if (clear_on) {
-      args.prompt = args.prompt.replace(App.config.clear_char, ``).trim()
+      args.prompt = args.prompt.replace(clear_regex, ``)
     }
 
     args.prompt = args.prompt.replace(mention_regex, (match, group) => {
