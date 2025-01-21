@@ -459,7 +459,7 @@ Alias to "Please emphasize the last point."
 
 ### explain_char
 
-Default: `/`
+Default: `?`
 
 Alias to "Please explain."
 

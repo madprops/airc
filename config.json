@@ -27,7 +27,7 @@
   "command_char": "!",
   "clear_char": "^",
   "emphasize_char": "!",
-  "explain_char": "/",
+  "explain_char": "?",
   "continue_char": ">",
   "mention_char": "@",
   "join_char": "",
