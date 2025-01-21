@@ -19,7 +19,7 @@ It's easy to create multiple bots with different personalities.
 
 It requires a `OpenAI` api key, and/or a `Google` api key.
 
-Some ideas provided by `spynxic`.
+Some good ideas provided by `spynxic`.
 
 ---
 
