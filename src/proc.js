@@ -154,7 +154,7 @@ module.exports = (App) => {
     let no_context = false
 
     if (clear_on) {
-      args.prompt = args.prompt.replace(App.config.clear_char, ``)
+      args.prompt = args.prompt.replace(App.config.clear_char, ``).trim()
     }
 
     args.prompt = args.prompt.replace(mention_regex, (match, group) => {
