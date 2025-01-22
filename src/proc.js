@@ -121,7 +121,7 @@ module.exports = (App) => {
         return
       }
 
-      App.ask_ai({
+      App.prompt({
         from: args.from,
         channel: args.channel,
         prompt,
@@ -130,8 +130,8 @@ module.exports = (App) => {
     }
   }
 
-  // Prepare prompt and ask openai
-  App.ask_ai = (args = {}) => {
+  // Prepare prompt and ask the AI
+  App.prompt = (args = {}) => {
     let def_args = {
       max_words: App.config.words,
     }
@@ -212,6 +212,14 @@ module.exports = (App) => {
     // Add some personality
     let rules = App.config.rules
 
+    if (App.config.reveal_name_user) {
+      system.push(`My name is ${args.from}.`)
+    }
+
+    if (App.config.reveal_name_ai) {
+      system.push(`Your name is ${App.config.nickname}.`)
+    }
+
     if (rules) {
       rules = App.terminate(App.limit(rules, App.config.max_rules))
       system.push(rules)
@@ -254,7 +262,7 @@ module.exports = (App) => {
       App.log(`${args.from} => ${args.channel}: ${messages_text}`)
     }
 
-    App.ask_model(messages, args.channel, (response) => {
+    App.ask_ai(messages, args.channel, (response) => {
       response = App.clean(response)
       response = App.unquote(response)
 

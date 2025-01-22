@@ -301,9 +301,15 @@ And words or phrases between two asterisks (**) get bold.
 
 `color_backticks` : Color used for backticks markdown.
 
+`color_quotes` : Color used for quotes markdown.
+
 ---
 
-`color_quotes` : Color used for quotes markdown.
+`reveal_name_user` : Tell the AI what the user's nickname is in the system prompt.
+
+The user is the one doing that particular prompt.
+
+`reveal_name_ai` : Tell the AI what its own irc nickname is in the system prompt.
 
 ---
 

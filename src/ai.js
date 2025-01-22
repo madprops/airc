@@ -59,7 +59,7 @@ module.exports = (App) => {
     }
   }
 
-  App.ask_model = async (messages, channel, callback) => {
+  App.ask_ai = async (messages, channel, callback) => {
     if (App.check_working()) {
       return
     }

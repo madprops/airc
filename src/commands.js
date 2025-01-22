@@ -176,6 +176,13 @@ module.exports = (App) => {
     }
   }
 
+  App.cmd_bool = (data, key) => {
+    let allowed = [`true`, `false`]
+    let value = App.cmd_similar(data.arg, allowed)
+    App.update_config(key, App.bool(value))
+    App.cmd_show(data.channel, key)
+  }
+
   App.cmd_done = (data) => {
     App.irc_respond(data.channel, `Done.`)
   }
@@ -404,25 +411,13 @@ module.exports = (App) => {
     {
       name: `compact`,
       on_arg: (data) => {
-        let allowed = [`true`, `false`]
-        let value = App.cmd_similar(data.arg, allowed)
-
-        if (value) {
-          App.update_config(`compact`, App.bool(value))
-          App.cmd_show(data.channel, `compact`)
-        }
+        App.cmd_bool(data, `compact`)
       },
     },
     {
       name: `lists`,
       on_arg: (data) => {
-        let allowed = [`true`, `false`]
-        let value = App.cmd_similar(data.arg, allowed)
-
-        if (value) {
-          App.update_config(`lists`, App.bool(value))
-          App.cmd_show(data.channel, `lists`)
-        }
+        App.cmd_bool(data, `lists`)
       },
     },
     {
@@ -513,19 +508,25 @@ module.exports = (App) => {
     {
       name: `show_avatar`,
       on_arg: (data) => {
-        let allowed = [`true`, `false`]
-        let value = App.cmd_similar(data.arg, allowed)
-        App.update_config(`show_avatar`, App.bool(value))
-        App.cmd_show(data.channel, `show_avatar`)
+        App.cmd_bool(data, `show_avatar`)
+      },
+    },
+    {
+      name: `reveal_name_ai`,
+      on_arg: (data) => {
+        App.cmd_bool(data, `reveal_name_ai`)
+      },
+    },
+    {
+      name: `reveal_name_user`,
+      on_arg: (data) => {
+        App.cmd_bool(data, `reveal_name_user`)
       },
     },
     {
       name: `multiprocess`,
       on_arg: (data) => {
-        let allowed = [`true`, `false`]
-        let value = App.cmd_similar(data.arg, allowed)
-        App.update_config(`multiprocess`, App.bool(value))
-        App.cmd_show(data.channel, `multiprocess`)
+        App.cmd_bool(data, `multiprocess`)
       },
     },
     {
@@ -633,13 +634,7 @@ module.exports = (App) => {
     {
       name: `debug`,
       on_arg: (data) => {
-        let allowed = [`true`, `false`]
-        let value = App.cmd_similar(data.arg, allowed)
-
-        if (value) {
-          App.debug = App.bool(value)
-          App.irc_respond(data.channel, `Debug: ${App.debug}`)
-        }
+        App.cmd_bool(data, `debug`)
       },
       on_exact: (data) => {
         App.irc_respond(data.channel, `Debug: ${App.debug}`)

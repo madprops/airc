@@ -42,5 +42,7 @@
   "multiprocess": false,
   "markdown": true,
   "color_backticks": "green",
-  "color_quotes": "cyan"
+  "color_quotes": "cyan",
+  "reveal_name_ai": true,
+  "reveal_name_user": true
 }
