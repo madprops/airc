@@ -211,8 +211,7 @@ module.exports = (App) => {
       return
     }
 
-    // Add some personality
-    let rules = App.config.rules
+    // System Prompt
 
     if (reveal_user) {
       system.push(`My name is ${args.from}.`)
@@ -226,6 +225,9 @@ module.exports = (App) => {
       system.push(`No need to introduce yourself.`)
       system.push(`No need to greet me, just answer.`)
     }
+
+    // Add some personality
+    let rules = App.config.rules
 
     if (rules) {
       rules = App.terminate(App.limit(rules, App.config.max_rules))
