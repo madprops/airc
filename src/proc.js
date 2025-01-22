@@ -214,6 +214,8 @@ module.exports = (App) => {
 
     if (App.config.reveal_name_user) {
       system.push(`My name is ${args.from}.`)
+      system.push(`No need to introduce yourself.`)
+      system.push(`No need to greet me, just answer.`)
     }
 
     if (App.config.reveal_name_ai) {
