@@ -53,7 +53,7 @@ module.exports = (App) => {
         result = `${n} minutes ago`
       }
     }
-    else if (diff >= App.HOUR && diff < App.DAY) {
+    else if ((diff >= App.HOUR) && (diff < App.DAY)) {
       let n = Math.floor(diff / 60 / 60 / 1000)
 
       if (n === 1) {
@@ -63,7 +63,7 @@ module.exports = (App) => {
         result = `${n} hours ago`
       }
     }
-    else if (diff >= App.DAY && diff < App.YEAR) {
+    else if ((diff >= App.DAY) && (diff < App.YEAR)) {
       let n = Math.floor(diff / 24 / 60 / 60 / 1000)
 
       if (n === 1) {

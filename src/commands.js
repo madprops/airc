@@ -61,7 +61,7 @@ module.exports = (App) => {
   App.cmd_change_nickname = (data) => {
     let nick = data.arg
 
-    if (nick && nick.length > 0 && nick.length <= App.max_username_length) {
+    if (nick && (nick.length > 0) && (nick.length <= App.max_username_length)) {
       App.update_config(`nickname`, nick)
       App.cmd_show(data.channel, `nickname`)
       App.change_nickname(nick)
@@ -169,7 +169,7 @@ module.exports = (App) => {
     let n = parseInt(args.data.arg)
 
     if (!isNaN(n)) {
-      if (n >= args.min && n <= args.max) {
+      if ((n >= args.min) && (n <= args.max)) {
         App.update_config(args.key, n)
         App.cmd_show(args.data.channel, args.key)
       }
@@ -187,7 +187,7 @@ module.exports = (App) => {
     for (let item of items) {
       let n = App.similarity(arg, item)
 
-      if (n >= 0.6 && n > max) {
+      if ((n >= 0.6) && (n > max)) {
         max = n
         ans = item
       }
@@ -534,7 +534,7 @@ module.exports = (App) => {
         let n = parseInt(data.arg)
 
         if (!isNaN(n)) {
-          if (n >= 0 && n <= 100) {
+          if ((n >= 0) && (n <= 100)) {
             App.update_config(`autorespond`, n)
             App.cmd_show(data.channel, `autorespond`)
           }
