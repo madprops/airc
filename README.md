@@ -305,11 +305,11 @@ And words or phrases between two asterisks (**) get bold.
 
 ---
 
-`reveal_name_user` : Tell the AI what the user's nickname is in the system prompt.
+`reveal_user` : Tell the AI what the user's nickname is in the system prompt.
 
 The user is the one doing that particular prompt.
 
-`reveal_name_ai` : Tell the AI what its own irc nickname is in the system prompt.
+`reveal_ai` : Tell the AI what its own irc nickname is in the system prompt.
 
 ---
 

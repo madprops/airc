@@ -153,6 +153,8 @@ module.exports = (App) => {
     let emphasize_on = args.prompt === App.config.emphasize_char
     let explain_on = args.prompt === App.config.explain_char
     let continue_on = args.prompt === App.config.continue_char
+    let reveal_ai = App.config.reveal_ai
+    let reveal_user = App.config.reveal_user
     let no_context = false
 
     if (clear_on) {
@@ -212,15 +214,15 @@ module.exports = (App) => {
     // Add some personality
     let rules = App.config.rules
 
-    if (App.config.reveal_name_user) {
+    if (reveal_user) {
       system.push(`My name is ${args.from}.`)
     }
 
-    if (App.config.reveal_name_ai) {
+    if (reveal_ai) {
       system.push(`Your name is ${App.config.nickname}.`)
     }
 
-    if (App.config.reveal_name_user || App.config.reveal_name_ai) {
+    if (reveal_user || reveal_ai) {
       system.push(`No need to introduce yourself.`)
       system.push(`No need to greet me, just answer.`)
     }

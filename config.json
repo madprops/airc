@@ -43,6 +43,6 @@
   "markdown": true,
   "color_backticks": "green",
   "color_quotes": "cyan",
-  "reveal_name_ai": true,
-  "reveal_name_user": true
+  "reveal_ai": true,
+  "reveal_user": true
 }

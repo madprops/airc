@@ -512,15 +512,15 @@ module.exports = (App) => {
       },
     },
     {
-      name: `reveal_name_ai`,
+      name: `reveal_ai`,
       on_arg: (data) => {
-        App.cmd_bool(data, `reveal_name_ai`)
+        App.cmd_bool(data, `reveal_ai`)
       },
     },
     {
-      name: `reveal_name_user`,
+      name: `reveal_user`,
       on_arg: (data) => {
-        App.cmd_bool(data, `reveal_name_user`)
+        App.cmd_bool(data, `reveal_user`)
       },
     },
     {
