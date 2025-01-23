@@ -5,8 +5,8 @@
 		"fix": "eslint --fix -c eslint.config.mjs"
 	},
   "dependencies": {
-    "openai": "~4.77.0",
-    "matrix-org-irc": "~3.0.0",
+    "openai": "~4.80.0",
+    "matrix-org-irc": "git+https://github.com/matrix-org/node-irc",
     "eslint": "~9.17.0",
 		"globals": "~15.9.0",
     "axios": "~1.7.9"

@@ -66,7 +66,8 @@ You can name it `botdude` for example, or just use a user that isn't root.
 1. Go to the parent directory where you want the airc directory to be created
 1. Clone the repo: `git clone --depth 1 https://github.com/madprops/airc`
 1. Get inside the new directory: `cd airc`
-1. Install the node dependencies: `npm install`
+1. Install `yarn` if you don't have it: `npm install -g yarn`
+1. Install the node dependencies: `yarn install`
 1. Create the first bot in `/configs` (read [Configuration](#configuration))
 1. Export the api key to the environment (read [Credentials](#credentials))
 1. Run the bot with `node bot.js mybot` and check that it can connect

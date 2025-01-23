@@ -3,6 +3,7 @@ module.exports = (App) => {
     App.irc_client = new App.i.irc.Client(App.config.server, App.config.nickname, {
       channels: App.config.channels,
       port: App.config.port,
+      retryCount: 10,
     })
 
     App.irc_client.addListener(`message`, (from, channel, message) => {
