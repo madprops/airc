@@ -47,7 +47,7 @@ module.exports = (App) => {
       level = 1
     }
     else if (diff < App.HOUR) {
-      let n = Math.floor(diff / 60 / 1000)
+      let n = parseInt(diff / App.MINUTE)
 
       if (n === 1) {
         result = `${n} minute ago`
@@ -59,7 +59,7 @@ module.exports = (App) => {
       level = 2
     }
     else if ((diff >= App.HOUR) && (diff < App.DAY)) {
-      let n = Math.floor(diff / 60 / 60 / 1000)
+      let n = parseInt(diff / App.HOUR)
 
       if (n === 1) {
         result = `${n} hour ago`
@@ -71,7 +71,7 @@ module.exports = (App) => {
       level = 3
     }
     else if ((diff >= App.DAY) && (diff < App.MONTH)) {
-      let n = Math.floor(diff / 24 / 60 / 60 / 1000)
+      let n = parseInt(diff / App.DAY)
 
       if (n === 1) {
         result = `${n} day ago`
@@ -83,7 +83,7 @@ module.exports = (App) => {
       level = 4
     }
     else if ((diff >= App.MONTH) && (diff < App.YEAR)) {
-      let n = Math.floor(diff / 30 / 24 / 60 / 60 / 1000)
+      let n = parseInt(diff / App.MONTH)
 
       if (n === 1) {
         result = `${n} month ago`
@@ -95,7 +95,7 @@ module.exports = (App) => {
       level = 5
     }
     else if (diff >= App.YEAR) {
-      let n = Math.floor(diff / 365 / 24 / 60 / 60 / 1000)
+      let n = parseInt(diff / App.YEAR)
 
       if (n === 1) {
         result = `${n} year ago`

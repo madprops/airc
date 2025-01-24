@@ -167,7 +167,7 @@ module.exports = (App) => {
       return ``
     })
 
-    let now = Date.now()
+    let now = App.now()
 
     if (args.mention) {
       if ((now - App.talk_date) >= App.talk_date_max) {
@@ -310,7 +310,7 @@ module.exports = (App) => {
       if (App.config.context > 0) {
         let context_user = App.limit(prompt, App.config.max_context)
         let context_ai = App.limit(response, App.config.max_context)
-        let context = {user: context_user, ai: context_ai, date: Date.now()}
+        let context = {user: context_user, ai: context_ai, date: App.now()}
 
         if (App.context[args.channel] === undefined) {
           App.context[args.channel] = []
