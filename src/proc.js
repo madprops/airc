@@ -198,9 +198,10 @@ module.exports = (App) => {
     let full_prompt = ``
 
     if (reveal_user) {
-      full_prompt += `My name is ${args.from}. But no need to greet me. Please answer the following:`
+      full_prompt += `My name is ${args.from}. But no need to greet me.`
     }
 
+    full_prompt = `${full_prompt} Please answer the following:`.trim()
     let prompt_text = App.limit(args.prompt, App.config.max_prompt)
     full_prompt = `${full_prompt} ${prompt_text}`.trim()
 
