@@ -222,8 +222,7 @@ module.exports = (App) => {
     }
 
     if (reveal_user || reveal_ai) {
-      system.push(`No need to introduce yourself.`)
-      system.push(`No need to greet me, just answer.`)
+      system.push(`No need to greet me or introduce yourself.`)
     }
 
     // Add some personality
