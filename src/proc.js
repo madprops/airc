@@ -286,7 +286,7 @@ module.exports = (App) => {
     messages.push({role: `user`, content: prompt})
 
     if (args.test) {
-      App.irc_respond(args.channel, `Prompt: ${prompt}`)
+      App.irc_respond(args.channel, prompt)
       return
     }
 
