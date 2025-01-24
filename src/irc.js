@@ -42,6 +42,8 @@ module.exports = (App) => {
     })
 
     App.irc_respond = (channel, message) => {
+      message = message.slice(0, App.config.max_message_length).trim()
+
       if (App.config.show_avatar) {
         message = App.add_avatar(message)
       }

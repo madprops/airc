@@ -44,5 +44,7 @@
   "color_backticks": "green",
   "color_quotes": "cyan",
   "reveal_ai": true,
-  "reveal_user": true
+  "reveal_user": true,
+  "sysprompt": "We are well acquainted. We are in discussion.",
+  "max_message_length": 2000
 }

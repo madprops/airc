@@ -221,7 +221,9 @@ module.exports = (App) => {
       system.push(`Your name is ${App.config.nickname}.`)
     }
 
-    system.push(`We are well acquainted. We are in discussion.`)
+    if (App.config.sysprompt) {
+      system.push(App.config.sysprompt)
+    }
 
     // Add some personality
     let rules = App.config.rules

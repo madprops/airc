@@ -43,6 +43,7 @@ module.exports = (App) => {
       `${App.p}prompt + [ name = prompt ]`,
       `${App.p}debug + [ true | false ]`,
       `${App.p}image + [ description ]`,
+      `${App.p}sysprompt + [ Some base instructions ]`,
       `${App.p}say + [ thing to say exactly ]`,
       `${App.p}clear`,
       `${App.p}models`,
@@ -154,9 +155,7 @@ module.exports = (App) => {
   }
 
   App.cmd_change_rules = (data) => {
-    data.arg = App.limit(data.arg, App.config.max_rules)
-    App.update_config(`rules`, data.arg)
-    App.cmd_show(data.channel, `rules`)
+    App.cmd_string(data, `rules`, App.config.max_rules)
   }
 
   App.cmd_num = (args = {}) => {
@@ -180,6 +179,12 @@ module.exports = (App) => {
     let allowed = [`true`, `false`]
     let value = App.cmd_similar(data.arg, allowed)
     App.update_config(key, App.bool(value))
+    App.cmd_show(data.channel, key)
+  }
+
+  App.cmd_string = (data, key, max_length = 2000) => {
+    let value = App.limit(data.arg, max_length)
+    App.update_config(key, value)
     App.cmd_show(data.channel, key)
   }
 
@@ -311,8 +316,7 @@ module.exports = (App) => {
     {
       name: `model`,
       on_arg: (data) => {
-        App.update_config(`model`, data.arg)
-        App.cmd_show(data.channel, `model`)
+        App.cmd_string(data, `model`)
       },
     },
     {
@@ -452,57 +456,55 @@ module.exports = (App) => {
     {
       name: `clear_char`,
       on_arg: (data) => {
-        App.update_config(`clear_char`, data.arg)
-        App.cmd_show(data.channel, `clear_char`)
+        App.cmd_string(data, `clear_char`)
       },
     },
     {
       name: `emphasize_char`,
       on_arg: (data) => {
-        App.update_config(`emphasize_char`, data.arg)
-        App.cmd_show(data.channel, `emphasize_char`)
+        App.cmd_string(data, `emphasize_char`)
       },
     },
     {
       name: `explain_char`,
       on_arg: (data) => {
-        App.update_config(`explain_char`, data.arg)
-        App.cmd_show(data.channel, `explain_char`)
+        App.cmd_string(data, `explain_char`)
       },
     },
     {
       name: `continue_char`,
       on_arg: (data) => {
-        App.update_config(`continue_char`, data.arg)
-        App.cmd_show(data.channel, `continue_char`)
+        App.cmd_string(data, `continue_char`)
       },
     },
     {
       name: `command_char`,
       on_arg: (data) => {
-        App.update_config(`command_char`, data.arg)
-        App.cmd_show(data.channel, `command_char`)
+        App.cmd_string(data, `command_char`)
       },
     },
     {
       name: `mention_char`,
       on_arg: (data) => {
-        App.update_config(`mention_char`, data.arg)
-        App.cmd_show(data.channel, `mention_char`)
+        App.cmd_string(data, `mention_char`)
       },
     },
     {
       name: `join_char`,
       on_arg: (data) => {
-        App.update_config(`join_char`, data.arg)
-        App.cmd_show(data.channel, `join_char`)
+        App.cmd_string(data, `join_char`)
+      },
+    },
+    {
+      name: `sysprompt`,
+      on_arg: (data) => {
+        App.cmd_string(data, `sysprompt`)
       },
     },
     {
       name: `avatar`,
       on_arg: (data) => {
-        App.update_config(`avatar`, data.arg)
-        App.cmd_show(data.channel, `avatar`)
+        App.cmd_string(data, `avatar`)
       },
     },
     {
