@@ -328,7 +328,7 @@ So the AI can have an idea of the passage of time.
 
 The minimum is 1 minute, it won't use seconds.
 
-It goes up to `days`,
+It goes up to `minutes`, `hours`, `days`, `months`, and `years`.
 
 ---
 
