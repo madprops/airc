@@ -205,7 +205,7 @@ module.exports = (App) => {
     if (App.config.timeago) {
       if (context_items && context_items.length) {
         let last = context_items.at(-1)
-        let [timeago, level] = App.timeago(last.date, `minutes`)
+        let [timeago, level] = App.timeago(last.date)
 
         if (level >= 2) {
           prompt_add(`(Last response was ${timeago})`)
