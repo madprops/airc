@@ -195,7 +195,14 @@ module.exports = (App) => {
     }
 
     // Prompt plus optional context and rules
-    let full_prompt = App.limit(args.prompt, App.config.max_prompt)
+    let full_prompt = ``
+
+    if (reveal_user) {
+      full_prompt += `My name is ${args.from}.`
+    }
+
+    let prompt_text = App.limit(args.prompt, App.config.max_prompt)
+    full_prompt = `${full_prompt} ${prompt_text}`.trim()
 
     if (emphasize_on) {
       full_prompt = `Please emphasize the last point.`
@@ -213,10 +220,6 @@ module.exports = (App) => {
 
     // System Prompt
 
-    if (reveal_user) {
-      system.push(`My name is ${args.from}.`)
-    }
-
     if (reveal_ai) {
       system.push(`Your name is ${App.config.nickname}.`)
     }
@@ -225,7 +228,6 @@ module.exports = (App) => {
       system.push(App.config.sysprompt)
     }
 
-    // Add some personality
     let rules = App.config.rules
 
     if (rules) {
@@ -263,6 +265,7 @@ module.exports = (App) => {
       App.clear_context(args.channel)
     }
 
+    console.log(full_prompt)
     messages.push({role: `user`, content: full_prompt})
 
     if (App.debug) {
