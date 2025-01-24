@@ -153,8 +153,15 @@ module.exports = (App) => {
     return `${num.toLocaleString()} ${plural}`
   }
 
-  App.bool = (string) => {
-    return string.toLowerCase() === `true`
+  App.bool = (value) => {
+    let v = value.toLowerCase()
+
+    if ((v === `true`) || (v === `yes`) || (v === `1`) || (v === `on`)) {
+      return true
+    }
+    else if ((v === `false`) || (v === `no`) || (v === `0`) || (v === `off`)) {
+      return false
+    }
   }
 
   // Find the similarity between two strings

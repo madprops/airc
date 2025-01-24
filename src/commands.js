@@ -177,9 +177,13 @@ module.exports = (App) => {
   }
 
   App.cmd_bool = (data, key) => {
-    let allowed = [`true`, `false`]
-    let value = App.cmd_similar(data.arg, allowed)
-    App.update_config(key, App.bool(value))
+    let value = App.bool(data.arg)
+
+    if (value === undefined) {
+      return
+    }
+
+    App.update_config(key, value)
     App.cmd_show(data.channel, key)
   }
 
