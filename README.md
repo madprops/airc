@@ -328,6 +328,8 @@ So the AI can have an idea of the passage of time.
 
 The minimum is 1 minute, it won't use seconds.
 
+It goes up to `days`,
+
 ---
 
 ## Permissions <a name="permissions"></a>

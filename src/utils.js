@@ -31,9 +31,10 @@ module.exports = (App) => {
   }
 
   App.MINUTE = 60000
-  App.HOUR = 3600000
-  App.DAY = 86400000
-  App.YEAR = 31536000000
+  App.HOUR = App.MINUTE * 60
+  App.DAY = App.HOUR * 24
+  App.MONTH = App.DAY * 30
+  App.YEAR = App.DAY * 365
 
   // Return a timeago string
   App.timeago = (date) => {
@@ -69,7 +70,7 @@ module.exports = (App) => {
 
       level = 3
     }
-    else if ((diff >= App.DAY) && (diff < App.YEAR)) {
+    else if ((diff >= App.DAY) && (diff < App.MONTH)) {
       let n = Math.floor(diff / 24 / 60 / 60 / 1000)
 
       if (n === 1) {
@@ -81,6 +82,18 @@ module.exports = (App) => {
 
       level = 4
     }
+    else if ((diff >= App.MONTH) && (diff < App.YEAR)) {
+      let n = Math.floor(diff / 30 / 24 / 60 / 60 / 1000)
+
+      if (n === 1) {
+        result = `${n} month ago`
+      }
+      else {
+        result = `${n} months ago`
+      }
+
+      level = 5
+    }
     else if (diff >= App.YEAR) {
       let n = Math.floor(diff / 365 / 24 / 60 / 60 / 1000)
 
@@ -91,7 +104,7 @@ module.exports = (App) => {
         result = `${n} years ago`
       }
 
-      level = 5
+      level = 6
     }
 
     return [result, level]
