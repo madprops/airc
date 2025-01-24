@@ -221,9 +221,7 @@ module.exports = (App) => {
       system.push(`Your name is ${App.config.nickname}.`)
     }
 
-    if (reveal_user || reveal_ai) {
-      system.push(`No need to greet me or introduce yourself.`)
-    }
+    system.push(`We are well acquainted. We are in discussion.`)
 
     // Add some personality
     let rules = App.config.rules
