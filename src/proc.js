@@ -265,7 +265,6 @@ module.exports = (App) => {
       App.clear_context(args.channel)
     }
 
-    console.log(full_prompt)
     messages.push({role: `user`, content: full_prompt})
 
     if (App.debug) {
