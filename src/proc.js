@@ -197,22 +197,26 @@ module.exports = (App) => {
     // Prompt plus optional context and rules
     let full_prompt = ``
 
-    if (reveal_user) {
-      full_prompt += `My name is ${args.from}.`
+    function prompt_add(text) {
+      full_prompt = `${full_prompt} ${text}`.trim()
     }
 
-    full_prompt = `${full_prompt} Please answer the following:`.trim()
-    let prompt_text = App.limit(args.prompt, App.config.max_prompt)
-    full_prompt = `${full_prompt} ${prompt_text}`.trim()
+    if (reveal_user) {
+      prompt_add(`My name is ${args.from}.`)
+    }
 
     if (emphasize_on) {
-      full_prompt = `Please emphasize the last point.`
+      prompt_add(`Please emphasize the last point.`)
     }
     else if (explain_on) {
-      full_prompt = `Please explain.`
+      prompt_add(`Please explain.`)
     }
     else if (continue_on) {
-      full_prompt = `Please continue.`
+      prompt_add(`Please continue.`)
+    }
+    else {
+      prompt_add(`Please answer the following:`)
+      prompt_add(App.limit(args.prompt, App.config.max_prompt))
     }
 
     if (!full_prompt) {
