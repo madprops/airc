@@ -46,5 +46,6 @@
   "reveal_ai": true,
   "reveal_user": true,
   "sysprompt": "We are well acquainted. We are in discussion.",
-  "max_message_length": 2000
+  "max_message_length": 2000,
+  "timeago": true
 }

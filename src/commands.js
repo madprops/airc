@@ -21,6 +21,7 @@ module.exports = (App) => {
       `${App.p}multiprocess + [ true | false ]`,
       `${App.p}autorespond + [ 0 - 100 ]`,
       `${App.p}compact + [ true | false ]`,
+      `${App.p}timeago + [ true | false ]`,
       `${App.p}lists [ true | false ]`,
       `${App.p}max_prompt [ number ]`,
       `${App.p}max_context [ number ]`,
@@ -70,7 +71,7 @@ module.exports = (App) => {
   }
 
   App.cmd_report_self = (channel) => {
-    let timeago = App.timeago(App.date_started)
+    let [timeago, level] = App.timeago(App.date_started)
     let memory = App.get_memory_used()
     App.irc_respond(channel, `Launched ${timeago} | Memory: ${memory} MB`)
     return
@@ -416,6 +417,12 @@ module.exports = (App) => {
       name: `compact`,
       on_arg: (data) => {
         App.cmd_bool(data, `compact`)
+      },
+    },
+    {
+      name: `timeago`,
+      on_arg: (data) => {
+        App.cmd_bool(data, `timeago`)
       },
     },
     {

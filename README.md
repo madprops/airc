@@ -314,6 +314,22 @@ The user is the one doing that particular prompt.
 
 ---
 
+`max_messages_length` : Safe limit to avoid printing ridiculous irc messages.
+
+---
+
+`timeago` : If enabled, it will inject relative timeago messages to the prompt.
+
+For instance, if the previous message was 8 minutes ago, it will inject:
+
+`(Last response was 8 minutes ago)`
+
+So the AI can have an idea of the passage of time.
+
+The minimum is 1 minute, it won't use seconds.
+
+---
+
 ## Permissions <a name="permissions"></a>
 
 Access to ai and rules can be defined.

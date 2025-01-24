@@ -155,6 +155,7 @@ module.exports = (App) => {
     let continue_on = args.prompt === App.config.continue_char
     let reveal_ai = App.config.reveal_ai
     let reveal_user = App.config.reveal_user
+    let context_items = App.context[args.channel]
     let no_context = false
 
     if (clear_on) {
@@ -195,10 +196,21 @@ module.exports = (App) => {
     }
 
     // Prompt plus optional context and rules
-    let full_prompt = ``
+    let prompt = ``
 
     function prompt_add(text) {
-      full_prompt = `${full_prompt} ${text}`.trim()
+      prompt = `${prompt} ${text}`.trim()
+    }
+
+    if (App.config.timeago) {
+      if (context_items && context_items.length) {
+        let last = context_items.at(-1)
+        let [timeago, level] = App.timeago(last.date, `minutes`)
+
+        if (level >= 2) {
+          prompt_add(`(Last response was ${timeago})`)
+        }
+      }
     }
 
     if (reveal_user) {
@@ -219,7 +231,7 @@ module.exports = (App) => {
       prompt_add(App.limit(args.prompt, App.config.max_prompt))
     }
 
-    if (!full_prompt) {
+    if (!prompt) {
       return
     }
 
@@ -258,8 +270,6 @@ module.exports = (App) => {
       messages.unshift({role: `system`, content: system.join(` `)})
     }
 
-    let context_items = App.context[args.channel]
-
     if (!clear_on && !no_context && context_items && context_items.length) {
       for (let res of context_items) {
         messages.push({role: `user`, content: res.user})
@@ -270,7 +280,7 @@ module.exports = (App) => {
       App.clear_context(args.channel)
     }
 
-    messages.push({role: `user`, content: full_prompt})
+    messages.push({role: `user`, content: prompt})
 
     if (App.debug) {
       let messages_text = JSON.stringify(messages)
@@ -298,9 +308,9 @@ module.exports = (App) => {
       App.irc_respond(args.channel, full_response)
 
       if (App.config.context > 0) {
-        let context_user = App.limit(full_prompt, App.config.max_context)
+        let context_user = App.limit(prompt, App.config.max_context)
         let context_ai = App.limit(response, App.config.max_context)
-        let context = {user: context_user, ai: context_ai}
+        let context = {user: context_user, ai: context_ai, date: Date.now()}
 
         if (App.context[args.channel] === undefined) {
           App.context[args.channel] = []

@@ -37,11 +37,13 @@ module.exports = (App) => {
 
   // Return a timeago string
   App.timeago = (date) => {
+    let level = 0
     let diff = App.now() - date
     let result
 
     if (diff < App.MINUTE) {
       result = `just now`
+      level = 1
     }
     else if (diff < App.HOUR) {
       let n = Math.floor(diff / 60 / 1000)
@@ -52,6 +54,8 @@ module.exports = (App) => {
       else {
         result = `${n} minutes ago`
       }
+
+      level = 2
     }
     else if ((diff >= App.HOUR) && (diff < App.DAY)) {
       let n = Math.floor(diff / 60 / 60 / 1000)
@@ -62,6 +66,8 @@ module.exports = (App) => {
       else {
         result = `${n} hours ago`
       }
+
+      level = 3
     }
     else if ((diff >= App.DAY) && (diff < App.YEAR)) {
       let n = Math.floor(diff / 24 / 60 / 60 / 1000)
@@ -72,6 +78,8 @@ module.exports = (App) => {
       else {
         result = `${n} days ago`
       }
+
+      level = 4
     }
     else if (diff >= App.YEAR) {
       let n = Math.floor(diff / 365 / 24 / 60 / 60 / 1000)
@@ -82,9 +90,11 @@ module.exports = (App) => {
       else {
         result = `${n} years ago`
       }
+
+      level = 5
     }
 
-    return result
+    return [result, level]
   }
 
   App.escape_regex = (text) => {
