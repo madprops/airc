@@ -133,6 +133,7 @@ module.exports = (App) => {
   // Prepare prompt and ask the AI
   App.prompt = (args = {}) => {
     let def_args = {
+      test: false,
       max_words: App.config.words,
     }
 
@@ -277,10 +278,17 @@ module.exports = (App) => {
       }
     }
     else {
-      App.clear_context(args.channel)
+      if (!args.test) {
+        App.clear_context(args.channel)
+      }
     }
 
     messages.push({role: `user`, content: prompt})
+
+    if (args.test) {
+      App.irc_respond(args.channel, `Prompt: ${prompt}`)
+      return
+    }
 
     if (App.debug) {
       let messages_text = JSON.stringify(messages)
@@ -409,6 +417,21 @@ module.exports = (App) => {
       else {
         App.irc_respond(channel, url)
       }
+    })
+  }
+
+  App.test_prompt = (data) => {
+    let prompt = App.clean(data.arg)
+
+    if (!prompt) {
+      return
+    }
+
+    App.prompt({
+      test: true,
+      from: data.from,
+      channel: data.channel,
+      prompt,
     })
   }
 }

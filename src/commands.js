@@ -46,6 +46,7 @@ module.exports = (App) => {
       `${App.p}image + [ description ]`,
       `${App.p}sysprompt + [ Some base instructions ]`,
       `${App.p}say + [ thing to say exactly ]`,
+      `${App.p}test + [ test prompt ]`,
       `${App.p}clear`,
       `${App.p}models`,
       `${App.p}enable`,
@@ -248,6 +249,13 @@ module.exports = (App) => {
       name: `say`,
       on_arg: (data) => {
         App.irc_respond(data.channel, data.arg)
+      },
+      allow: `prompts`,
+    },
+    {
+      name: `test`,
+      on_arg: (data) => {
+        App.test_prompt(data)
       },
       allow: `prompts`,
     },
@@ -658,7 +666,7 @@ module.exports = (App) => {
       on_arg: (data) => {
         App.talk_to(data.channel, data.arg, data.from)
       },
-      allow: `all`,
+      allow: `prompts`,
     },
     {
       name: `reset`,
