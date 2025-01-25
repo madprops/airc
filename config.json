@@ -4,6 +4,7 @@
     "#airc-test"
   ],
   "port": 6667,
+  "username": "airc",
   "nickname": "airc-bot",
   "model": "gpt-3.5-turbo",
   "context": 3,

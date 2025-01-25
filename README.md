@@ -138,6 +138,14 @@ And make sure it's not registered by another person: `/msg nickserv info nicknam
 
 ---
 
+`username` : The internal username of the bot.
+
+This is usually displayed in join and quit events.
+
+This is not the nickname.
+
+---
+
 `server` : irc server to connect to.
 
 For example `irc.libera.chat`.
