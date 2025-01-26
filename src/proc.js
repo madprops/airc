@@ -214,10 +214,6 @@ module.exports = (App) => {
       }
     }
 
-    if (reveal_user) {
-      prompt_add(`My name is ${args.from}. But no need to greet me.`)
-    }
-
     if (emphasize_on) {
       prompt_add(`Please emphasize the last point.`)
     }
@@ -228,8 +224,11 @@ module.exports = (App) => {
       prompt_add(`Please continue.`)
     }
     else {
-      prompt_add(`Please answer the following:`)
       prompt_add(App.limit(args.prompt, App.config.max_prompt))
+    }
+
+    if (reveal_user) {
+      prompt_add(`(You can refer to me as ${args.from} if you need to)`)
     }
 
     if (!prompt) {
