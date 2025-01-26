@@ -215,7 +215,7 @@ module.exports = (App) => {
     }
 
     if (reveal_user) {
-      prompt_add(`My name is ${args.from}.`)
+      prompt_add(`My name is ${args.from}. But no need to greet me.`)
     }
 
     if (emphasize_on) {
