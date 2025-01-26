@@ -276,10 +276,8 @@ module.exports = (App) => {
         messages.push({role: `assistant`, content: res.ai})
       }
     }
-    else {
-      if (!args.test) {
-        App.clear_context(args.channel)
-      }
+    else if (!args.test) {
+      App.clear_context(args.channel)
     }
 
     messages.push({role: `user`, content: prompt})
