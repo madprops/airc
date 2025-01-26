@@ -4,19 +4,19 @@ module.exports = (App) => {
   }
 
   App.regex_t = (c, n) => {
-    return `[^\\s\\${n}${c}]`
+    return `[^\\s${c}]`
   }
 
   App.regex_t2 = (c, n) => {
-    return `[^\\${n}{c}]`
+    return `[^${c}]`
   }
 
   App.char_regex_1 = (char, n = 1) => {
     let c = App.escape_regex(char)
     let u = App.regex_u(c, n)
     let t = App.regex_t(c, n)
-    let regex = `${u}(${t}[^\{n}{c}]*${t}|${t})${u}`
-    rf"{u}({t}[^\{n}{c}]*{t}|{t}){u}"
+    let t2 = App.regex_t2(c, n)
+    let regex = `${u}(${t}${t2}*${t}|${t})${u}`
     return new RegExp(regex, `g`)
   }
 
@@ -24,7 +24,7 @@ module.exports = (App) => {
     let c = App.escape_regex(char)
     let u = App.regex_u(c, n)
     let t = App.regex_t(c, n)
-    let regex = `(?:^|\\s)${u}(${t}[^${u}]*${t}|${t})${u}(?:$|\\s)`
+    let regex = `^(?:^|\\s)${u}(${t}.*?${t})${u}(?:$|\\s)`
     return new RegExp(regex, `g`)
   }
 
