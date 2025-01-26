@@ -24,7 +24,7 @@ module.exports = (App) => {
     let c = App.escape_regex(char)
     let u = App.regex_u(c, n)
     let t = App.regex_t(c, n)
-    let regex = `^(?:^|\\s)${u}(${t}.*?${t})${u}(?:$|\\s)`
+    let regex = `^(?:^|\\s)${u}(${t}.*?${t}|${t})${u}(?:$|\\s)`
     return new RegExp(regex, `g`)
   }
 
