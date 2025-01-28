@@ -4,11 +4,13 @@ module.exports = (App) => {
   }
 
   App.regex_t = (c, n) => {
-    return `[^\\s${c}]`
+    let u = App.regex_u(c, n)
+    return `(?:(?!${u}|\\s).)`
   }
 
   App.regex_t2 = (c, n) => {
-    return `[^${c}]`
+    let u = App.regex_u(c, n)
+    return `(?:(?!${u}).)`
   }
 
   App.char_regex_1 = (char, n = 1) => {
@@ -24,7 +26,7 @@ module.exports = (App) => {
     let c = App.escape_regex(char)
     let u = App.regex_u(c, n)
     let t = App.regex_t(c, n)
-    let regex = `^(?:^|\\s)${u}(${t}.*?${t}|${t})${u}(?:$|\\s)`
+    let regex = `(?:^|\\s)${u}(${t}.*?${t}|${t})${u}(?:$|\\s)`
     return new RegExp(regex, `g`)
   }
 
@@ -56,6 +58,10 @@ module.exports = (App) => {
       let matches = [...text.matchAll(regex)]
 
       for (let match of matches) {
+        if (App.inside_irc_tags(text, match.index, match[1].length)) {
+          continue
+        }
+
         if (full) {
           text = text.replace(match[0], func(match[0]))
         }
@@ -166,5 +172,30 @@ module.exports = (App) => {
 
   App.unquote = (text) => {
     return text.replace(/^"(.*)"$/, `$1`)
+  }
+
+  App.inside_irc_tags = (text, index, length) => {
+    let chars = text.split(``)
+    let inside = -1
+    let end = index + length
+
+    if (text.substring(index, end).includes(`\x0F`)) {
+      return true
+    }
+
+    for (let [i, c] of chars.entries()) {
+      if ([`\x02`, `\x03`].includes(c)) {
+        inside = i
+      }
+      else if (c === `\x0F`) {
+        if ((index >= inside) && (end <= i)) {
+          return true
+        }
+
+        inside = -1
+      }
+    }
+
+    return false
   }
 }
