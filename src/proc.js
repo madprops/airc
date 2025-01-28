@@ -441,7 +441,7 @@ module.exports = (App) => {
   }
 
   App.invert_context = (channel, from) => {
-    if (!App.context[channel].length) {
+    if (!App.context[channel] || !App.context[channel].length) {
       return
     }
 
@@ -460,5 +460,19 @@ module.exports = (App) => {
       channel,
       prompt: last.user,
     })
+  }
+
+  App.raw_response = (channel) => {
+    if (!App.context[channel] || !App.context[channel].length) {
+      return
+    }
+
+    let last = App.context[channel].at(-1)
+
+    if (!last) {
+      return
+    }
+
+    App.irc_respond(channel, last.ai, false)
   }
 }

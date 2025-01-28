@@ -698,6 +698,14 @@ This can be used to make the ai answer itself.
 
 ---
 
+`!raw` : Show the last response without the markdown formatting.
+
+---
+
+`!test` : Show what the prompt would be.
+
+---
+
 `!debug` : Enable or disable debug mode.
 
 This makes requests print some information in the console.

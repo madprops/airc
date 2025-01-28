@@ -42,10 +42,10 @@ module.exports = (App) => {
       }
     })
 
-    App.irc_respond = (channel, message) => {
+    App.irc_respond = (channel, message, format = true) => {
       message = message.slice(0, App.config.max_message_length).trim()
 
-      if (App.config.markdown) {
+      if (App.config.markdown && format) {
         message = App.format_irc(message)
       }
 

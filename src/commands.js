@@ -474,6 +474,13 @@ module.exports = (App) => {
       allow: `prompts`,
     },
     {
+      name: `raw`,
+      on_exact: (data) => {
+        App.raw_response(data.channel)
+      },
+      allow: `prompts`,
+    },
+    {
       name: `clear`,
       on_exact: (data) => {
         App.clear_context(data.channel)
