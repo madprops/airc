@@ -227,10 +227,6 @@ module.exports = (App) => {
       prompt_add(App.limit(args.prompt, App.config.max_prompt))
     }
 
-    if (reveal_user) {
-      prompt_add(`(You can refer to me as ${args.from} if you need to)`)
-    }
-
     if (!prompt) {
       return
     }
@@ -271,13 +267,25 @@ module.exports = (App) => {
     }
 
     if (!clear_on && !no_context && context_items && context_items.length) {
-      for (let res of context_items) {
-        messages.push({role: `user`, content: res.user})
-        messages.push({role: `assistant`, content: res.ai})
+      for (let c of context_items) {
+        let u_content = c.user
+
+        if (reveal_user) {
+          u_content = `${c.from} said: ${u_content}`
+        }
+
+        messages.push({role: `user`, content: u_content})
+        messages.push({role: `assistant`, content: c.ai})
       }
     }
     else if (!args.test) {
       App.clear_context(args.channel)
+    }
+
+    let core_prompt = prompt
+
+    if (reveal_user) {
+      prompt_add(`(You can refer to me as ${args.from} if you need to)`)
     }
 
     messages.push({role: `user`, content: prompt})
@@ -313,9 +321,9 @@ module.exports = (App) => {
       App.irc_respond(args.channel, full_response)
 
       if (App.config.context > 0) {
-        let context_user = App.limit(prompt, App.config.max_context)
+        let context_user = App.limit(core_prompt, App.config.max_context)
         let context_ai = App.limit(response, App.config.max_context)
-        let context = {user: context_user, ai: context_ai, date: App.now()}
+        let context = {user: context_user, ai: context_ai, date: App.now(), from: args.from}
 
         if (App.context[args.channel] === undefined) {
           App.context[args.channel] = []
@@ -429,6 +437,28 @@ module.exports = (App) => {
       from: data.from,
       channel: data.channel,
       prompt,
+    })
+  }
+
+  App.invert_context = (channel, from) => {
+    if (!App.context[channel].length) {
+      return
+    }
+
+    for (let c of App.context[channel]) {
+      let user = c.user
+      let ai = c.ai
+      c.user = ai
+      c.ai = user
+    }
+
+    let last = App.context[channel].at(-1)
+    App.context[channel].pop()
+
+    App.prompt({
+      from,
+      channel,
+      prompt: last.user,
     })
   }
 }

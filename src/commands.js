@@ -48,6 +48,7 @@ module.exports = (App) => {
       `${App.p}say + [ thing to say exactly ]`,
       `${App.p}test + [ test prompt ]`,
       `${App.p}clear`,
+      `${App.p}invert`,
       `${App.p}models`,
       `${App.p}enable`,
       `${App.p}disable`,
@@ -466,11 +467,19 @@ module.exports = (App) => {
       },
     },
     {
+      name: `invert`,
+      on_exact: (data) => {
+        App.invert_context(data.channel, data.from)
+      },
+      allow: `prompts`,
+    },
+    {
       name: `clear`,
       on_exact: (data) => {
         App.clear_context(data.channel)
         App.irc_respond(data.channel, `Context cleared.`)
       },
+      allow: `prompts`,
     },
     {
       name: `clear_char`,

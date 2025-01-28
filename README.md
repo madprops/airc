@@ -690,6 +690,14 @@ They work on all owned bots in the current channel.
 
 ---
 
+`!invert` : Change the context contents from user to ai and vice versa.
+
+Then redo the last prompt as if the user asked what the ai said.
+
+This can be used to make the ai answer itself.
+
+---
+
 `!debug` : Enable or disable debug mode.
 
 This makes requests print some information in the console.
