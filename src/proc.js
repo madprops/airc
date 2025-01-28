@@ -199,19 +199,12 @@ module.exports = (App) => {
     // Prompt plus optional context and rules
     let prompt = ``
 
-    function prompt_add(text) {
-      prompt = `${prompt} ${text}`.trim()
+    function prompt_prepend(text) {
+      prompt = `${text} ${prompt}`.trim()
     }
 
-    if (App.config.timeago) {
-      if (context_items && context_items.length) {
-        let last = context_items.at(-1)
-        let [timeago, level] = App.timeago(last.date)
-
-        if (level >= 2) {
-          prompt_add(`(Last response was ${timeago})`)
-        }
-      }
+    function prompt_add(text) {
+      prompt = `${prompt} ${text}`.trim()
     }
 
     if (emphasize_on) {
@@ -283,6 +276,17 @@ module.exports = (App) => {
     }
 
     let core_prompt = prompt
+
+    if (App.config.timeago) {
+      if (context_items && context_items.length) {
+        let last = context_items.at(-1)
+        let [timeago, level] = App.timeago(last.date)
+
+        if (level >= 2) {
+          prompt_prepend(`(Last response was ${timeago})`)
+        }
+      }
+    }
 
     if (reveal_user) {
       prompt_add(`(You can refer to me as ${args.from} if you need to)`)
