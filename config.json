@@ -37,7 +37,7 @@
   "autorespond": 0,
   "autorespond_cooldown": 60,
   "autorespond_words": 12,
-  "words": 50,
+  "words": 30,
   "prompts": {},
   "talk_limit": 1,
   "multiprocess": false,

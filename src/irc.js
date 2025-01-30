@@ -13,6 +13,14 @@ module.exports = (App) => {
         return
       }
 
+      // Ignore ridiculous messages
+      // Though likely not necessary because irc messages get split
+      // But still better to be safe
+      // Quick messages should still be rate limited
+      if (message.length > 2000) {
+        return
+      }
+
       try {
         App.process_message({from, channel, message})
       }
@@ -22,7 +30,7 @@ module.exports = (App) => {
     })
 
     App.irc_client.addListener(`selfMessage`, (channel, message) => {
-      // Messages from the bot itself
+      // Messages from the bot itself (ignore)
     })
 
     // Without this it might crash sometimes

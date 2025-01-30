@@ -46,19 +46,23 @@ module.exports = (App) => {
 
   App.format_irc = (text) => {
     function action(regex, mode, full = false) {
-      let func
+      function func(s) {
+        let tag
 
-      if (mode === `bold`) {
-        func = App.irc_bold
-      }
-      else {
-        func = App[`irc_color_${mode}`]
+        if (mode === `bold`) {
+          tag = App.irc_bold()
+        }
+        else {
+          tag = App[`irc_color_${mode}`]()
+        }
+
+        return `${tag}${s}${tag}`
       }
 
       let matches = [...text.matchAll(regex)]
 
       for (let match of matches) {
-        if (App.inside_irc_tags(text, match.index, match[1].length)) {
+        if (App.check_outer_tag(text, match.index, match[1].length, mode)) {
           continue
         }
 
@@ -83,60 +87,52 @@ module.exports = (App) => {
     return text
   }
 
-  App.irc_bold = (text) => {
-    return `\x02${text}\x0F`
+  App.irc_bold = () => {
+    return `\x02`
   }
 
-  App.irc_color_red = (text) => {
-    return `\x0304${text}\x0F`
+  App.irc_color_red = () => {
+    return `\x0304`
   }
 
-  App.irc_color_green = (text) => {
-    return `\x0303${text}\x0F`
+  App.irc_color_green = () => {
+    return `\x0303`
   }
 
-  App.irc_color_blue = (text) => {
-    return `\x0312${text}\x0F`
+  App.irc_color_blue = () => {
+    return `\x0312`
   }
 
-  App.irc_color_cyan = (text) => {
-    return `\x0311${text}\x0F`
+  App.irc_color_cyan = () => {
+    return `\x0311`
   }
 
-  App.irc_color_pink = (text) => {
-    return `\x0313${text}\x0F`
+  App.irc_color_pink = () => {
+    return `\x0313`
   }
 
-  App.irc_color_yellow = (text) => {
-    return `\x0308${text}\x0F`
+  App.irc_color_yellow = () => {
+    return `\x0308`
   }
 
-  App.irc_color_orange = (text) => {
-    return `\x0307${text}\x0F`
+  App.irc_color_orange = () => {
+    return `\x0307`
   }
 
-  App.irc_color_purple = (text) => {
-    return `\x0306${text}\x0F`
+  App.irc_color_purple = () => {
+    return `\x0306`
   }
 
-  App.irc_color_black = (text) => {
-    return `\x0301${text}\x0F`
+  App.irc_color_black = () => {
+    return `\x0301`
   }
 
-  App.irc_color_white = (text) => {
-    return `\x0300${text}\x0F`
+  App.irc_color_white = () => {
+    return `\x0300`
   }
 
-  App.irc_color_brown = (text) => {
-    return `\x0305${text}\x0F`
-  }
-
-  App.irc_color_grey = (text) => {
-    return `\x03014${text}\x0F`
-  }
-
-  App.irc_color_silver = (text) => {
-    return `\x03015${text}\x0F`
+  App.irc_color_brown = () => {
+    return `\x0305`
   }
 
   App.join = (list, char = ``) => {
@@ -174,25 +170,27 @@ module.exports = (App) => {
     return text.replace(/^"(.*)"$/, `$1`)
   }
 
-  App.inside_irc_tags = (text, index, length) => {
-    let chars = text.split(``)
-    let inside = -1
-    let end = index + length
+  App.check_outer_tag = (text, index, length, mode) => {
+    let regex
 
-    if (text.substring(index, end).includes(`\x0F`)) {
-      return true
+    if (mode === `bold`) {
+      let c = String.fromCharCode(2)
+      regex = new RegExp(c + `.*?` + c, `g`)
+    }
+    else {
+      let d = `\\d{1,2}`
+      let c = String.fromCharCode(3)
+      regex = new RegExp(c + `${d}.*?` + c + d, `g`)
     }
 
-    for (let [i, c] of chars.entries()) {
-      if ([`\x02`, `\x03`].includes(c)) {
-        inside = i
-      }
-      else if (c === `\x0F`) {
-        if ((index >= inside) && (end <= i)) {
-          return true
-        }
+    let matches = [...text.matchAll(regex)]
 
-        inside = -1
+    for (let match of matches) {
+      let index_start = match.index
+      let index_end = match.index + match[0].length - 1
+
+      if ((index_start <= index) && (index_end >= (index + length - 1))) {
+        return true
       }
     }
 
