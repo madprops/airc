@@ -69,10 +69,6 @@ module.exports = (App) => {
           m = match[1]
         }
 
-        // if (App.check_outer_code(text, match.index, m.length, mode)) {
-        //   continue
-        // }
-
         text = text.replace(match[0], func(m))
       }
     }
