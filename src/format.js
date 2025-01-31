@@ -33,8 +33,8 @@ module.exports = (App) => {
   App.char_regex_3 = (char, n = 1) => {
     let c = App.escape_regex(char)
     let u = App.regex_u(c, n)
-    let t = `[^${u}]`
-    let regex = `${u}(${t}+)${u}`
+    let t2 = App.regex_t2(c, n)
+    let regex = `${u}(${t2}+)${u}`
     return new RegExp(regex, `g`)
   }
 
@@ -47,31 +47,35 @@ module.exports = (App) => {
   App.format_irc = (text) => {
     function action(regex, mode, full = false) {
       function func(s) {
-        let tag
+        let code
 
         if (mode === `bold`) {
-          tag = App.irc_bold()
+          code = App.irc_bold()
         }
         else {
-          tag = App[`irc_color_${mode}`]()
+          code = App[`irc_color_${mode}`]()
         }
 
-        return `${tag}${s}${tag}`
+        return `${code}${s}${code}`
       }
 
       let matches = [...text.matchAll(regex)]
 
       for (let match of matches) {
-        if (App.check_outer_tag(text, match.index, match[1].length, mode)) {
+        let m
+
+        if (full) {
+          m = match[0]
+        }
+        else {
+          m = match[1]
+        }
+
+        if (App.check_outer_code(text, match.index, m.length, mode)) {
           continue
         }
 
-        if (full) {
-          text = text.replace(match[0], func(match[0]))
-        }
-        else {
-          text = text.replace(match[0], func(match[1]))
-        }
+        text = text.replace(match[0], func(m))
       }
     }
 
@@ -170,19 +174,17 @@ module.exports = (App) => {
     return text.replace(/^"(.*)"$/, `$1`)
   }
 
-  App.check_outer_tag = (text, index, length, mode) => {
-    let regex
+  App.check_outer_code = (text, index, length, mode) => {
+    let s
 
     if (mode === `bold`) {
-      let c = String.fromCharCode(2)
-      regex = new RegExp(c + `.*?` + c, `g`)
+      s = `\\x02`
     }
     else {
-      let d = `\\d{1,2}`
-      let c = String.fromCharCode(3)
-      regex = new RegExp(c + `${d}.*?` + c + d, `g`)
+      s = `\\x03\\d{1,2}`
     }
 
+    let regex = new RegExp(`${s}(?:(?!${s}).)${s}`, `g`)
     let matches = [...text.matchAll(regex)]
 
     for (let match of matches) {
