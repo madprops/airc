@@ -47,14 +47,18 @@ module.exports = (App) => {
   App.format_irc = (text) => {
     function action(regex, mode, full = false) {
       function func(s) {
+        let code, reset
+
         if (mode === `bold`) {
-          s = App.i.irc_fmt.bold(s)
+          code = App.irc_bold()
+          reset = code
         }
         else {
-          s = App.i.irc_fmt[mode](s)
+          code = App[`irc_color_${mode}`]()
+          reset = App.irc_reset_color()
         }
 
-        return s
+        return `${code}${s}${reset}`
       }
 
       let matches = [...text.matchAll(regex)]
@@ -67,6 +71,12 @@ module.exports = (App) => {
         }
         else {
           m = match[1]
+        }
+
+        if (mode !== `bold`) {
+          if (App.check_outer_color(text, match.index, m.length, mode)) {
+            continue
+          }
         }
 
         text = text.replace(match[0], func(m))
@@ -83,6 +93,58 @@ module.exports = (App) => {
     action(App.char_regex_2(`_`), `bold`)
 
     return text
+  }
+
+  App.irc_bold = () => {
+    return `\x02`
+  }
+
+  App.irc_reset_color = () => {
+    return `\x03`
+  }
+
+  App.irc_color_red = () => {
+    return `\x0304`
+  }
+
+  App.irc_color_green = () => {
+    return `\x0303`
+  }
+
+  App.irc_color_blue = () => {
+    return `\x0312`
+  }
+
+  App.irc_color_cyan = () => {
+    return `\x0311`
+  }
+
+  App.irc_color_pink = () => {
+    return `\x0313`
+  }
+
+  App.irc_color_yellow = () => {
+    return `\x0308`
+  }
+
+  App.irc_color_orange = () => {
+    return `\x0307`
+  }
+
+  App.irc_color_purple = () => {
+    return `\x0306`
+  }
+
+  App.irc_color_black = () => {
+    return `\x0301`
+  }
+
+  App.irc_color_white = () => {
+    return `\x0300`
+  }
+
+  App.irc_color_brown = () => {
+    return `\x0305`
   }
 
   App.join = (list, char = ``) => {
@@ -118,5 +180,22 @@ module.exports = (App) => {
 
   App.unquote = (text) => {
     return text.replace(/^"(.*)"$/, `$1`)
+  }
+
+  App.check_outer_color = (text, index, length, mode) => {
+    let str = `\\x03\\d{1,2}.*\\x03`
+    let regex = new RegExp(str, `g`)
+    let matches = [...text.matchAll(regex)]
+
+    for (let match of matches) {
+      let index_start = match.index
+      let index_end = match.index + match[0].length - 1
+
+      if ((index_start <= index) && (index_end >= (index + length - 1))) {
+        return true
+      }
+    }
+
+    return false
   }
 }

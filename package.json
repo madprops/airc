@@ -9,7 +9,6 @@
     "matrix-org-irc": "git+https://github.com/matrix-org/node-irc",
     "eslint": "~9.17.0",
 		"globals": "~15.9.0",
-    "axios": "~1.7.9",
-    "irc-colors": "1.5.0"
+    "axios": "~1.7.9"
   }
 }

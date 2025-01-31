@@ -17,7 +17,6 @@ App.i.fs = require(`fs`)
 App.i.path = require(`path`)
 App.i.process = require(`process`)
 App.i.axios = require(`axios`)
-App.i.irc_fmt = require(`irc-colors`)
 
 // A fork of node-irc that fixes a bunch of stuff
 App.i.irc = require(`matrix-org-irc`)
