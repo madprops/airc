@@ -74,7 +74,6 @@ App.openai_started = false
 App.google_started = false
 App.working = false
 App.debug = false
-App.think_delay = 1000
 
 // Load all JS source files
 

@@ -51,5 +51,6 @@
   "max_message_length": 2000,
   "timeago": true,
   "upload_max": 500,
-  "upload_password": "airc123"
+  "upload_password": "airc123",
+  "talk_delay": 1000
 }

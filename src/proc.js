@@ -320,11 +320,12 @@ export default (App) => {
     }
 
     args.core_prompt = core_prompt
+    let td = App.config.talk_delay
 
-    if (thinking && (App.talk_count > 1)) {
+    if (App.talked && (App.talk_count > 1) && (td > 0)) {
       setTimeout(() => {
         App.do_prompt(messages, args)
-      }, App.think_delay)
+      }, td)
 
       return
     }

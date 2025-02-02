@@ -48,6 +48,7 @@ export default (App) => {
       `${App.p}say + [ thing to say exactly ]`,
       `${App.p}test + [ test prompt ]`,
       `${App.p}talkto + [ target ]`,
+      `${App.p}talk_delay + [ ms ]`,
       `${App.p}think`,
       `${App.p}clear`,
       `${App.p}invert`,
@@ -427,6 +428,12 @@ export default (App) => {
       name: `spam_minutes`,
       on_arg: (data) => {
         App.cmd_num({key: `spam_minutes`, data})
+      },
+    },
+    {
+      name: `talk_delay`,
+      on_arg: (data) => {
+        App.cmd_num({key: `talk_delay`, data, min: 0, max: App.DAY})
       },
     },
     {
