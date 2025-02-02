@@ -58,10 +58,14 @@ export default (App) => {
     args.message = args.message.replace(/^[^\w]+/, ``)
     let mention_char = App.escape_regex(App.config.mention_char)
 
+    let mention
     let re = new RegExp(`^(?<text>.*)\\s+${mention_char}(?<nickname>\\w+)$`, ``)
     let match = args.message.match(re)
 
-    if (!match) {
+    if (match) {
+      mention = args.from
+    }
+    else {
       re = new RegExp(/^(?<nickname>\w+)[,:](?<text>.*)$/, ``)
       match = args.message.match(re)
     }
@@ -71,14 +75,14 @@ export default (App) => {
       return
     }
 
-    let mention = match.groups.nickname.trim()
+    let nick = match.groups.nickname.trim()
     let prompt = match.groups.text.trim()
 
-    if (!mention || !prompt) {
+    if (!nick || !prompt) {
       return
     }
 
-    if (mention.toLowerCase() !== App.nick().toLowerCase()) {
+    if (nick.toLowerCase() !== App.nick().toLowerCase()) {
       return
     }
 
