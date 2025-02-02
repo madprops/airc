@@ -321,7 +321,7 @@ export default (App) => {
 
     args.core_prompt = core_prompt
 
-    if (thinking) {
+    if (thinking && (App.talk_count > 1)) {
       setTimeout(() => {
         App.do_prompt(messages, args)
       }, App.think_delay)
