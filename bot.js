@@ -19,7 +19,7 @@ import * as i_axios from 'axios'
 import * as i_irc from 'matrix-org-irc'
 import { fileURLToPath } from 'url'
 import OpenAI from 'openai'
-import {getLlama} from "node-llama-cpp"
+import {getLlama, LlamaChatSession} from "node-llama-cpp"
 
 App.i.fs = i_fs
 App.i.path = i_path
@@ -28,6 +28,7 @@ App.i.axios = i_axios
 App.i.irc = i_irc
 App.i.openai = OpenAI
 App.i.get_llama = getLlama
+App.i.LlamaChatSession = LlamaChatSession
 
 // Create __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url)

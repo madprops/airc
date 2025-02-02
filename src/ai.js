@@ -58,17 +58,37 @@ export default (App) => {
       return [App.google_client, gemini]
     }
     else {
-      if (!App.llama) {
-        App.llama = await App.i.get_llama()
+      if (App.llama && (App.loaded_model === App.config.model)) {
+        return [App.llama, `local`]
       }
 
-      let model = await App.llama.loadModel({
+      App.llama = await App.i.get_llama()
+
+      App.llama_model = await App.llama.loadModel({
         modelPath: App.config.model,
       })
 
+      App.loaded_model = App.config.model
       App.log(`Llama model loaded: ${App.config.model}`)
-      return [model, `local`]
+      return [App.llama_model, `local`]
     }
+  }
+
+  App.set_session_history = (channel) => {
+    let items = App.context[channel]
+
+    if (!items || !items.length) {
+      return
+    }
+
+    let history = []
+
+    for (let item of items) {
+      history.push({type: `user`, text: item.user})
+      history.push({type: `model`, response: [item.ai]})
+    }
+
+    App.llama_session.setChatHistory(history)
   }
 
   App.ask_ai = async (messages, channel, callback) => {
@@ -91,28 +111,36 @@ export default (App) => {
 
       App.working = true
 
-      let ans
+      let text
 
       if (type === `local`) {
-        ans = await client.createCompletion({
-          prompt: messages,
-          maxTokens: App.config.max_tokens,
+        let context = await App.llama_model.createContext()
+        let seq = context.getSequence()
+        let sysprompt = App.get_sysprompt(messages)
+
+        App.llama_session = new App.i.LlamaChatSession({
+          contextSequence: seq,
+          systemPrompt: sysprompt,
         })
+
+        App.set_session_history(channel)
+        let prompt = messages.at(-1).content
+        text = await App.llama_session.prompt(prompt)
       }
       else {
-        ans = await client.chat.completions.create({
+        let ans = await client.chat.completions.create({
           model,
           max_completion_tokens: App.config.max_tokens,
           messages,
         })
+
+        if (ans && ans.choices) {
+          text = ans.choices[0].message.content.trim()
+        }
       }
 
-      if (ans && ans.choices) {
-        let text = ans.choices[0].message.content.trim()
-
-        if (text) {
-          callback(text)
-        }
+      if (text) {
+        callback(text)
       }
 
       App.working = false
@@ -169,5 +197,15 @@ export default (App) => {
 
   App.check_working = () => {
     return App.working && !App.config.multiprocess
+  }
+
+  App.get_sysprompt = (messages) => {
+    for (let item of messages) {
+      if (item.role === `system`) {
+        return item.content
+      }
+    }
+
+    return ``
   }
 }
