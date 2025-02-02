@@ -50,5 +50,6 @@
   "sysprompt": "We are well acquainted. We are in discussion.",
   "max_message_length": 2000,
   "timeago": true,
-  "upload_max": 500
+  "upload_max": 500,
+  "upload_password": "airc123"
 }

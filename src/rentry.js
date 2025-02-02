@@ -1,5 +1,5 @@
 export default (App) => {
-  App.Rentry  = class {
+  App.Rentry = class {
     constructor(text, password, channel, after_upload) {
       this.text = text
       this.password = password
@@ -17,13 +17,13 @@ export default (App) => {
         "Referer": this.site,
       }
 
-      this.post().catch(console.error)
+      this.post().catch(App.log)
     }
 
     get_cookie(name) {
-        return this.cookies[name] || ``
+      return this.cookies[name] || ``
     }
-ke
+
     get_token() {
       return this.get_cookie(`csrftoken`)
     }
@@ -51,9 +51,12 @@ ke
 
       let token = this.get_token()
       let params = new FormData()
+
       params.append(`csrfmiddlewaretoken`, token)
       params.append(`text`, this.text.length > 0 ? this.text : `.`)
       params.append(`edit_code`, this.password)
+
+      this.headers.Cookie = `csrftoken=${token}`
 
       try {
         let response = await this.session.post(`${this.site}/api/new`, params, {
@@ -62,17 +65,15 @@ ke
           allowRedirects: false,
         })
 
-        if (response.status !== 302) {
+        if (response.status !== 200) {
           return
         }
 
-        let location = response.headers.get(`Location`)
-        let url = new URL(location, this.site).pathname.split(`/`).pop()
-        let full_url = `${this.site}/${url}`
-        this.after_upload(full_url, this.password, this.channel)
+        let url = response.data.url
+        this.after_upload(url, this.password, this.channel)
       }
-      catch (error) {
-        console.error(`Upload failed:`, error)
+      catch (err) {
+        App.log(`Upload failed:`, err)
       }
     }
   }

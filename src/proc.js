@@ -319,12 +319,12 @@ export default (App) => {
         full_response = `${full_response} ${App.config.mention_char}${args.mention}`
       }
 
-      // if (full_response.length > App.config.upload_max) {
-      //   App.upload_text(args.channel, full_response)
-      // }
-      // else {
+      if (full_response.length > App.config.upload_max) {
+        App.upload_text(args.channel, full_response)
+      }
+      else {
         App.irc_respond(args.channel, full_response)
-      // }
+      }
 
       if (App.config.context > 0) {
         let context_user = App.limit(core_prompt, App.config.max_context)
@@ -483,10 +483,9 @@ export default (App) => {
   }
 
   App.upload_text = (channel, text) => {
-    let password = `123`
+    let password = App.config.upload_password
 
     new App.Rentry(text, password, channel, (txt, pw, ch) => {
-      console.log(txt, ch)
       App.irc_respond(ch, txt)
     })
   }
