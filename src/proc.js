@@ -55,77 +55,69 @@ export default (App) => {
     let def_args = {}
     App.def_args(def_args, args)
 
-    let match, mention
     args.message = args.message.replace(/^[^\w]+/, ``)
     let mention_char = App.escape_regex(App.config.mention_char)
+
     let re = new RegExp(`^(?<text>.*)\\s+${mention_char}(?<nickname>\\w+)$`, ``)
-    match = args.message.match(re)
-    mention = args.from
+    let match = args.message.match(re)
 
-    if (mention) {
-      if (mention.toLowerCase() === App.nick().toLowerCase()) {
-        return
-      }
+    if (!match) {
+      re = new RegExp(/^(?<nickname>\w+)[,:](?<text>.*)$/, ``)
+      match = args.message.match(re)
     }
-
-    re = new RegExp(/^(?<nickname>\w+)[,:](?<text>.*)$/, ``)
-    match = args.message.match(re)
 
     if (!match) {
       App.autorespond(args.channel, args.message)
       return
     }
 
-    let nick = match.groups.nickname.trim()
+    let mention = match.groups.nickname.trim()
     let prompt = match.groups.text.trim()
-    let mentioned = false
 
-    if (!prompt) {
+    if (!mention || !prompt) {
       return
     }
 
-    if (nick) {
-      mentioned = nick.toLowerCase() === App.nick().toLowerCase()
+    if (mention.toLowerCase() !== App.nick().toLowerCase()) {
+      return
     }
 
-    if (mentioned) {
-      // Add one spam point
-      if (App.add_spam(args.from)) {
-        let mins = App.plural(App.config.spam_minutes, `minute`, `minutes`)
-        App.irc_respond(args.channel, `${args.from} was banned for ${mins}.`)
-        return
-      }
-
-      let is_command = false
-
-      let chars = [
-        App.config.emphasize_char,
-        App.config.explain_char,
-        App.config.continue_char,
-      ]
-
-      // Check if it's a command
-      if (prompt.startsWith(App.config.command_char) && !chars.includes(prompt)) {
-        is_command = true
-      }
-
-      if (is_command) {
-        let cmd = prompt.replace(App.config.command_char, ``)
-        App.check_commands({from: args.from, channel: args.channel, cmd})
-        return
-      }
-
-      if (!App.enabled) {
-        return
-      }
-
-      App.prompt({
-        from: args.from,
-        channel: args.channel,
-        prompt,
-        mention,
-      })
+    // Add one spam point
+    if (App.add_spam(args.from)) {
+      let mins = App.plural(App.config.spam_minutes, `minute`, `minutes`)
+      App.irc_respond(args.channel, `${args.from} was banned for ${mins}.`)
+      return
     }
+
+    let is_command = false
+
+    let chars = [
+      App.config.emphasize_char,
+      App.config.explain_char,
+      App.config.continue_char,
+    ]
+
+    // Check if it's a command
+    if (prompt.startsWith(App.config.command_char) && !chars.includes(prompt)) {
+      is_command = true
+    }
+
+    if (is_command) {
+      let cmd = prompt.replace(App.config.command_char, ``)
+      App.check_commands({from: args.from, channel: args.channel, cmd})
+      return
+    }
+
+    if (!App.enabled) {
+      return
+    }
+
+    App.prompt({
+      from: args.from,
+      channel: args.channel,
+      prompt,
+      mention,
+    })
   }
 
   // Prepare prompt and ask the AI
