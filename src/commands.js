@@ -686,7 +686,7 @@ export default (App) => {
     },
     {
       name: `talkto`,
-      on_exact: (data) => {
+      on_arg: (data) => {
         App.talk_to(data.channel, data.arg, data.from)
       },
       allow: `prompts`,
