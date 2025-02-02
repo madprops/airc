@@ -23,7 +23,7 @@ export default (App) => {
     get_cookie(name) {
         return this.cookies[name] || ``
     }
-
+ke
     get_token() {
       return this.get_cookie(`csrftoken`)
     }
