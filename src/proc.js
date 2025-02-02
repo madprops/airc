@@ -54,28 +54,26 @@ export default (App) => {
   App.check_nick_mention = (args = {}) => {
     let def_args = {}
     App.def_args(def_args, args)
-    let re = new RegExp(/^(?<nickname>\w+)[,:](?<text>.*)$/, ``)
+
+    let match, mention
     args.message = args.message.replace(/^[^\w]+/, ``)
-    let match = args.message.match(re)
-    let mention
-
-    if (!match) {
-      let mention_char = App.escape_regex(App.config.mention_char)
-      let re = new RegExp(`^(?<text>.*)\\s+${mention_char}(?<nickname>\\w+)$`, ``)
-      match = args.message.match(re)
-
-      if (!match) {
-        App.autorespond(args.channel, args.message)
-        return
-      }
-
-      mention = args.from
-    }
+    let mention_char = App.escape_regex(App.config.mention_char)
+    let re = new RegExp(`^(?<text>.*)\\s+${mention_char}(?<nickname>\\w+)$`, ``)
+    match = args.message.match(re)
+    mention = args.from
 
     if (mention) {
       if (mention.toLowerCase() === App.nick().toLowerCase()) {
         return
       }
+    }
+
+    re = new RegExp(/^(?<nickname>\w+)[,:](?<text>.*)$/, ``)
+    match = args.message.match(re)
+
+    if (!match) {
+      App.autorespond(args.channel, args.message)
+      return
     }
 
     let nick = match.groups.nickname.trim()
@@ -322,7 +320,7 @@ export default (App) => {
       }
 
       if (args.mention) {
-        full_response = `${full_response} @${args.mention}`
+        full_response = `${full_response} ${App.config.mention_char}${args.mention}`
       }
 
       // if (full_response.length > App.config.upload_max) {
