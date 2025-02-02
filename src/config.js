@@ -1,4 +1,6 @@
-module.exports = (App) => {
+import { fileURLToPath } from 'url'
+
+export default (App) => {
   App.setup_config = () => {
     if (!App.i.fs.existsSync(App.get_user_config_path())) {
       App.log(`No config file found.`, `error`)
@@ -46,13 +48,13 @@ module.exports = (App) => {
 
   // Get the correct config path
   App.get_config_path = () => {
-    let p = App.i.path.dirname(__filename)
+    let p = App.i.path.dirname(fileURLToPath(import.meta.url))
     return App.i.path.join(p, `../config.json`)
   }
 
   // Get the correct user config path
   App.get_user_config_path = () => {
-    let p = App.i.path.dirname(__filename)
+    let p = App.i.path.dirname(fileURLToPath(import.meta.url))
     return App.i.path.join(p, `../configs/${App.name}.json`)
   }
 

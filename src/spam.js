@@ -1,4 +1,4 @@
-module.exports = (App) => {
+export default (App) => {
   App.start_antispam = () => {
     App.antispam_users = {}
     App.antispam_timeout()

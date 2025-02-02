@@ -1,4 +1,4 @@
-module.exports = (App) => {
+export default (App) => {
   App.start_irc = () => {
     App.irc_client = new App.i.irc.Client(App.config.server, App.config.nickname, {
       userName: App.config.username,

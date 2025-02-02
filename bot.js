@@ -7,22 +7,31 @@ if (process.argv.length < 3) {
 }
 
 // The id/name of the bot instance
-// This indicates what config file to use
 App.name = process.argv[2]
 
 // Imports go here
 App.i = {}
 
-App.i.fs = require(`fs`)
-App.i.path = require(`path`)
-App.i.process = require(`process`)
-App.i.axios = require(`axios`)
+import * as i_fs from 'fs'
+import * as i_path from 'path'
+import * as i_process from 'process'
+import * as i_axios from 'axios'
+import * as i_irc from 'matrix-org-irc'
+import { fileURLToPath } from 'url'
+import OpenAI from 'openai'
+import {getLlama} from "node-llama-cpp"
 
-// A fork of node-irc that fixes a bunch of stuff
-App.i.irc = require(`matrix-org-irc`)
+App.i.fs = i_fs
+App.i.path = i_path
+App.i.process = i_process
+App.i.axios = i_axios
+App.i.irc = i_irc
+App.i.openai = OpenAI
+App.i.get_llama = getLlama
 
-// Official openai library
-App.i.openai = require(`openai`)
+// Create __dirname equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = i_path.dirname(__filename)
 
 App.context = {}
 App.max_username_length = 25
@@ -54,9 +63,11 @@ catch (err) {
 
 let js_files = src_files.filter(f => f.endsWith(`.js`))
 
+// Use dynamic imports for loading source files
 for (let file of js_files) {
   let path = App.i.path.join(srcpath, file)
-  require(path)(App)
+  const module = await import(path)
+  module.default(App)
 }
 
 // ---------

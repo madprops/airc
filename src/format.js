@@ -1,4 +1,4 @@
-module.exports = (App) => {
+export default (App) => {
   App.regex_u = (c, n) => {
     return `${c}{${n}}`
   }
@@ -95,7 +95,11 @@ module.exports = (App) => {
     return text
   }
 
-  App.irc_bold = () => {
+  App.irc_bold = (text = ``) => {
+    if (text) {
+      return `\x02${text}\x02`
+    }
+
     return `\x02`
   }
 

@@ -2,7 +2,7 @@
 // If it returns true it stops the prompt to trigger a question
 // Checks return true to avoid asking when cmds were meant
 
-module.exports = (App) => {
+export default (App) => {
   App.setup_commands = () => {
     App.p = App.config.command_char
 

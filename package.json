@@ -1,5 +1,6 @@
 {
   "name": "airc",
+  "type": "module",
   "scripts": {
 		"lint":	"eslint --cache -c eslint.config.mjs",
 		"fix": "eslint --fix -c eslint.config.mjs"
@@ -9,6 +10,7 @@
     "matrix-org-irc": "git+https://github.com/matrix-org/node-irc",
     "eslint": "~9.17.0",
 		"globals": "~15.9.0",
-    "axios": "~1.7.9"
+    "axios": "~1.7.9",
+    "node-llama-cpp": "~3.5.0"
   }
 }

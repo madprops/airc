@@ -1,4 +1,4 @@
-module.exports = (App) => {
+export default (App) => {
   App.start_openai = () => {
     let key = process.env.OPENAI_API_KEY
 
@@ -40,22 +40,34 @@ module.exports = (App) => {
     return model.startsWith(`gemini-`)
   }
 
-  App.get_client = (channel) => {
+  App.get_client = async (channel) => {
     if (App.is_gpt()) {
       if (!App.openai_started) {
         App.irc_respond(channel, `OpenAI API Key is missing.`)
-        return
+        return [undefined, `none`]
       }
 
-      return App.openai_client
+      return [App.openai_client, `gpt`]
     }
     else if (App.is_gemini()) {
       if (!App.google_started) {
         App.irc_respond(channel, `Google API Key is missing.`)
-        return
+        return [undefined, `none`]
       }
 
-      return App.google_client
+      return [App.google_client, gemini]
+    }
+    else {
+      if (!App.llama) {
+        App.llama = await App.i.get_llama()
+      }
+
+      let model = await App.llama.loadModel({
+        modelPath: App.config.model,
+      })
+
+      App.log(`Llama model loaded: ${App.config.model}`)
+      return [model, `local`]
     }
   }
 
@@ -71,7 +83,7 @@ module.exports = (App) => {
     }
 
     try {
-      let client = App.get_client(channel)
+      let [client, type] = await App.get_client(channel)
 
       if (!client) {
         return
@@ -79,11 +91,21 @@ module.exports = (App) => {
 
       App.working = true
 
-      let ans = await client.chat.completions.create({
-        model,
-        max_completion_tokens: App.config.max_tokens,
-        messages,
-      })
+      let ans
+
+      if (type === `local`) {
+        ans = await client.createCompletion({
+          prompt: messages,
+          maxTokens: App.config.max_tokens,
+        })
+      }
+      else {
+        ans = await client.chat.completions.create({
+          model,
+          max_completion_tokens: App.config.max_tokens,
+          messages,
+        })
+      }
 
       if (ans && ans.choices) {
         let text = ans.choices[0].message.content.trim()

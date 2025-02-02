@@ -1,7 +1,7 @@
 // These are functions that process a received message
 // Input from irc is checked and maybe sent to openai
 
-module.exports = (App) => {
+export default (App) => {
   App.process_message = (args = {}) => {
     let def_args = {}
     App.def_args(def_args, args)
