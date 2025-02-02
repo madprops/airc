@@ -39,7 +39,8 @@ let imports = async () => {
     let mod = await import(`node-llama-cpp`)
     App.i.get_llama = mod.getLlama
     App.i.LlamaChatSession = mod.LlamaChatSession
-  } catch (error) {
+  }
+  catch (error) {
     // Not installed
   }
 }

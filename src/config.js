@@ -1,4 +1,4 @@
-import { fileURLToPath } from 'url'
+import {fileURLToPath} from 'url'
 
 export default (App) => {
   App.setup_config = () => {

@@ -55,23 +55,22 @@ export default (App) => {
         return [undefined, `none`]
       }
 
-      return [App.google_client, gemini]
+      return [App.google_client, `gemini`]
     }
-    else {
-      if (App.llama && (App.loaded_model === App.config.model)) {
-        return [App.llama, `local`]
-      }
 
-      App.llama = await App.i.get_llama()
-
-      App.llama_model = await App.llama.loadModel({
-        modelPath: App.config.model,
-      })
-
-      App.loaded_model = App.config.model
-      App.log(`Llama model loaded: ${App.config.model}`)
-      return [App.llama_model, `local`]
+    if (App.llama && (App.loaded_model === App.config.model)) {
+      return [App.llama, `local`]
     }
+
+    App.llama = await App.i.get_llama()
+
+    App.llama_model = await App.llama.loadModel({
+      modelPath: App.config.model,
+    })
+
+    App.loaded_model = App.config.model
+    App.log(`Llama model loaded: ${App.config.model}`)
+    return [App.llama_model, `local`]
   }
 
   App.set_session_history = (channel) => {
