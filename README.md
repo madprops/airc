@@ -769,7 +769,7 @@ for (const name of BOTS) {
 }
 
 module.exports = {
-  apps: apps,
+  apps,
 }
 ```
 
