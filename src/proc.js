@@ -364,7 +364,7 @@ export default (App) => {
     if (rand <= App.config.autorespond) {
       App.last_autorespond = App.now()
 
-      App.ask_ai({
+      App.prompt({
         from: `$autorespond`,
         channel,
         prompt: text,
@@ -403,7 +403,7 @@ export default (App) => {
     let n = App.get_random_int(0, prompts.length - 1)
     let prompt = prompts[n]
 
-    App.ask_ai({
+    App.prompt({
       from,
       prompt,
       channel,
