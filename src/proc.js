@@ -148,7 +148,7 @@ export default (App) => {
     let emphasize_on = args.prompt === App.config.emphasize_char
     let explain_on = args.prompt === App.config.explain_char
     let continue_on = args.prompt === App.config.continue_char
-    let answer_on = args.from === App.config.answer_char
+    let answer_on = args.prompt === App.config.answer_char
     let reveal_ai = App.config.reveal_ai
     let reveal_user = App.config.reveal_user
     let context_items = App.context[args.channel]
