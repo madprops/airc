@@ -46,7 +46,7 @@ let imports = async () => {
     App.i.get_llama = mod.getLlama
     App.i.LlamaChatSession = mod.LlamaChatSession
   }
-  catch (error) {
+  catch (err) {
     // eslint-disable-next-line no-console
     console.log(err)
   }
