@@ -32,7 +32,7 @@ export default (App) => {
     App.irc_client.addListener(`selfMessage`, (channel, message) => {
       let nick = App.nick()
 
-      if (message.endsWith(nick)) {
+      if (message.endsWith(`${App.config.mention_char}${nick}`)) {
         try {
           App.process_message({from: nick, channel, message})
         }
