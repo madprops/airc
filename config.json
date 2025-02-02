@@ -40,7 +40,7 @@
   "autorespond_words": 12,
   "words": 30,
   "prompts": {},
-  "talk_limit": 1,
+  "talk_limit": 2,
   "multiprocess": false,
   "markdown": true,
   "color_backticks": "green",
