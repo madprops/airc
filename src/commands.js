@@ -331,6 +331,7 @@ export default (App) => {
       name: `model`,
       on_arg: (data) => {
         App.cmd_string(data, `model`)
+        App.reset_model()
       },
     },
     {
@@ -675,6 +676,12 @@ export default (App) => {
       },
       on_exact: (data) => {
         App.irc_respond(data.channel, `Debug: ${App.debug}`)
+      },
+    },
+    {
+      name: `upload_test`,
+      on_exact: (data) => {
+        App.upload_text(data.channel, `This is a test`)
       },
     },
     {

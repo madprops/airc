@@ -214,4 +214,9 @@ export default (App) => {
 
     return ``
   }
+
+  App.reset_model = () => {
+    App.llama = undefined
+    App.loaded_model = ``
+  }
 }

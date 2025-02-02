@@ -31,6 +31,7 @@
   "explain_char": "?",
   "continue_char": ">",
   "mention_char": "@",
+  "answer_char": "@",
   "join_char": "",
   "avatar": "👾",
   "show_avatar": true,
@@ -48,5 +49,6 @@
   "reveal_user": true,
   "sysprompt": "We are well acquainted. We are in discussion.",
   "max_message_length": 2000,
-  "timeago": true
+  "timeago": true,
+  "upload_max": 500
 }

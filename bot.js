@@ -32,6 +32,12 @@ let imports = async () => {
   mod = await import(`matrix-org-irc`)
   App.i.irc = mod.default
 
+  mod = await import(`cookie`)
+  App.i.cookie = mod.default
+
+  mod = await import(`http`)
+  App.i.http = mod.default
+
   mod = await import(`openai`)
   App.i.openai = mod.OpenAI
 
@@ -41,15 +47,16 @@ let imports = async () => {
     App.i.LlamaChatSession = mod.LlamaChatSession
   }
   catch (error) {
-    // Not installed
+    // eslint-disable-next-line no-console
+    console.log(err)
   }
 }
 
 await imports()
 
 // Create __dirname equivalent for ES modules
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = App.i.path.dirname(__filename)
+let __filename = fileURLToPath(import.meta.url)
+let __dirname = App.i.path.dirname(__filename)
 
 App.context = {}
 App.max_username_length = 25
@@ -84,7 +91,7 @@ let js_files = src_files.filter(f => f.endsWith(`.js`))
 // Use dynamic imports for loading source files
 for (let file of js_files) {
   let path = App.i.path.join(srcpath, file)
-  const module = await import(path)
+  let module = await import(path)
   module.default(App)
 }
 

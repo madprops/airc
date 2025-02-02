@@ -154,6 +154,7 @@ export default (App) => {
     let emphasize_on = args.prompt === App.config.emphasize_char
     let explain_on = args.prompt === App.config.explain_char
     let continue_on = args.prompt === App.config.continue_char
+    let answer_on = args.from === App.config.answer_char
     let reveal_ai = App.config.reveal_ai
     let reveal_user = App.config.reveal_user
     let context_items = App.context[args.channel]
@@ -215,6 +216,9 @@ export default (App) => {
     }
     else if (continue_on) {
       prompt_add(`Please continue.`)
+    }
+    else if (answer_on) {
+      prompt_add(`Please answer the question yourself.`)
     }
     else {
       prompt_add(App.limit(args.prompt, App.config.max_prompt))
@@ -307,7 +311,6 @@ export default (App) => {
     App.ask_ai(messages, args.channel, (response) => {
       response = App.clean(response)
       response = App.unquote(response)
-
       let full_response = response
 
       if (!App.config.lists) {
@@ -322,7 +325,12 @@ export default (App) => {
         full_response = `${full_response} @${args.mention}`
       }
 
-      App.irc_respond(args.channel, full_response)
+      if (full_response.length > App.config.upload_max) {
+        App.upload_text(args.channel, full_response)
+      }
+      else {
+        App.irc_respond(args.channel, full_response)
+      }
 
       if (App.config.context > 0) {
         let context_user = App.limit(core_prompt, App.config.max_context)
@@ -478,5 +486,14 @@ export default (App) => {
     }
 
     App.irc_respond(channel, last.ai, false)
+  }
+
+  App.upload_text = (channel, text) => {
+    let password = `123`
+
+    new App.Rentry(text, password, channel, (txt, pw, ch) => {
+      console.log(txt, ch)
+      App.irc_respond(ch, txt)
+    })
   }
 }
