@@ -62,6 +62,11 @@ export default (App) => {
       return [App.llama, `local`]
     }
 
+    if (!App.i.get_llama) {
+      App.irc_respond(channel, `Llama is not supported. Install the optional dependencies.`)
+      return [undefined, `none`]
+    }
+
     App.llama = await App.i.get_llama()
 
     App.llama_model = await App.llama.loadModel({
