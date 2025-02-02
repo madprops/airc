@@ -12,27 +12,43 @@ App.name = process.argv[2]
 // Imports go here
 App.i = {}
 
-import * as i_fs from 'fs'
-import * as i_path from 'path'
-import * as i_process from 'process'
-import * as i_axios from 'axios'
-import * as i_irc from 'matrix-org-irc'
-import { fileURLToPath } from 'url'
-import OpenAI from 'openai'
-import {getLlama, LlamaChatSession} from "node-llama-cpp"
+import {fileURLToPath} from 'url'
 
-App.i.fs = i_fs
-App.i.path = i_path
-App.i.process = i_process
-App.i.axios = i_axios
-App.i.irc = i_irc
-App.i.openai = OpenAI
-App.i.get_llama = getLlama
-App.i.LlamaChatSession = LlamaChatSession
+let imports = async () => {
+  let mod
+
+  mod = await import(`fs`)
+  App.i.fs = mod.default
+
+  mod = await import(`path`)
+  App.i.path = mod.default
+
+  mod = await import(`process`)
+  App.i.process = mod.default
+
+  mod = await import(`axios`)
+  App.i.axios = mod.default
+
+  mod = await import(`matrix-org-irc`)
+  App.i.irc = mod.default
+
+  mod = await import(`openai`)
+  App.i.openai = mod.OpenAI
+
+  try {
+    let mod = await import(`node-llama-cpp`)
+    App.i.get_llama = mod.getLlama
+    App.i.LlamaChatSession = mod.LlamaChatSession
+  } catch (error) {
+    // Not installed
+  }
+}
+
+await imports()
 
 // Create __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url)
-const __dirname = i_path.dirname(__filename)
+const __dirname = App.i.path.dirname(__filename)
 
 App.context = {}
 App.max_username_length = 25
