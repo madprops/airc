@@ -129,7 +129,9 @@ export default (App) => {
 
         App.set_session_history(channel)
         let prompt = messages.at(-1).content
-        text = await App.llama_session.prompt(prompt)
+        text = await App.llama_session.prompt(prompt, {
+          maxTokens: App.config.max_tokens,
+        })
       }
       else {
         let ans = await client.chat.completions.create({

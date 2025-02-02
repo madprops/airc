@@ -21,6 +21,8 @@ It requires a `OpenAI` api key, and/or a `Google` api key.
 
 Some good ideas provided by `spynxic`.
 
+It now supports local models through `node-llama-cpp`.
+
 ---
 
 ## Index
@@ -74,6 +76,10 @@ You can name it `botdude` for example, or just use a user that isn't root.
 1. Check that the bot has read/write permissions on the config files
 - You can do this by changing a config like the avatar with `mybot, !avatar 😎`
 - Then check that the avatar config was updated in `/configs/mybot.json`
+
+If you don't want to install `node-llama-cpp` try `yarn install --ignore-optional`.
+
+The installation is quicker and easier but local models can't be used.
 
 ---
 
