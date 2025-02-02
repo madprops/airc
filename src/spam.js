@@ -63,8 +63,13 @@ export default (App) => {
   App.add_spam = (nickname, amount = 1) => {
     let user = App.get_antispam_user(nickname, true)
     user.level += amount
+    let limit = App.config.spam_limit
 
-    if (user.level >= App.config.spam_limit) {
+    if (App.nick() === nickname) {
+      limit = limit * 2
+    }
+
+    if (user.level >= limit) {
       App.antispam_ban(nickname)
       return true
     }

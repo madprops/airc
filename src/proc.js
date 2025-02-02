@@ -82,8 +82,12 @@ export default (App) => {
       return
     }
 
-    if (nick.toLowerCase() !== App.nick().toLowerCase()) {
-      return
+    let lower = nick.toLowerCase()
+
+    if (lower !== App.nick().toLowerCase()) {
+      if (lower !== App.config.nickname.toLowerCase()) {
+        return
+      }
     }
 
     // Add one spam point
@@ -164,6 +168,7 @@ export default (App) => {
     })
 
     let now = App.now()
+    let thinking = false
 
     if (args.mention) {
       if ((now - App.talk_date) >= App.talk_date_max) {
@@ -172,8 +177,14 @@ export default (App) => {
       }
 
       App.talk_count += 1
+      let limit = App.config.talk_limit
 
-      if (App.talk_count > App.config.talk_limit) {
+      if (App.talk_nick === App.config.nickname) {
+        limit = limit * 2
+        thinking = true
+      }
+
+      if (App.talk_count > limit) {
         App.talk_count = 0
         App.talked = false
         return
@@ -183,12 +194,18 @@ export default (App) => {
         no_context = true
       }
 
+      if (!App.config.talk_limit || (App.config.talk_limit <= 0)) {
+        return
+      }
+
       App.talked = true
       App.talk_date = now
+      App.talk_nick = args.mention
     }
     else {
       App.talk_count = 0
       App.talked = false
+      App.talk_nick = ``
     }
 
     // Prompt plus optional context and rules
@@ -302,6 +319,20 @@ export default (App) => {
       App.log(`${args.from} => ${args.channel}: ${messages_text}`)
     }
 
+    args.core_prompt = core_prompt
+
+    if (thinking) {
+      setTimeout(() => {
+        App.do_prompt(messages, args)
+      }, App.think_delay)
+
+      return
+    }
+
+    App.do_prompt(messages, args)
+  }
+
+  App.do_prompt = (messages, args) => {
     App.ask_ai(messages, args.channel, (response) => {
       response = App.clean(response)
       response = App.unquote(response)
@@ -327,7 +358,7 @@ export default (App) => {
       }
 
       if (App.config.context > 0) {
-        let context_user = App.limit(core_prompt, App.config.max_context)
+        let context_user = App.limit(args.core_prompt, App.config.max_context)
         let context_ai = App.limit(response, App.config.max_context)
         let context = {user: context_user, ai: context_ai, date: App.now(), from: args.from}
 
@@ -373,6 +404,10 @@ export default (App) => {
 
   App.disable_all = () => {
     App.enabled = false
+  }
+
+  App.think = (channel, who, from) => {
+    App.talk_to(channel, App.config.nickname, from)
   }
 
   App.talk_to = (channel, who, from) => {

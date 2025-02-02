@@ -47,6 +47,8 @@ export default (App) => {
       `${App.p}sysprompt + [ Some base instructions ]`,
       `${App.p}say + [ thing to say exactly ]`,
       `${App.p}test + [ test prompt ]`,
+      `${App.p}talkto + [ target ]`,
+      `${App.p}think`,
       `${App.p}clear`,
       `${App.p}invert`,
       `${App.p}models`,
@@ -688,6 +690,13 @@ export default (App) => {
       name: `talkto`,
       on_arg: (data) => {
         App.talk_to(data.channel, data.arg, data.from)
+      },
+      allow: `prompts`,
+    },
+    {
+      name: `think`,
+      on_exact: (data) => {
+        App.think(data.channel, data.arg, data.from)
       },
       allow: `prompts`,
     },

@@ -30,7 +30,16 @@ export default (App) => {
     })
 
     App.irc_client.addListener(`selfMessage`, (channel, message) => {
-      // Messages from the bot itself (ignore)
+      let nick = App.nick()
+
+      if (message.endsWith(nick)) {
+        try {
+          App.process_message({from: nick, channel, message})
+        }
+        catch (err) {
+          App.log(err, `error`)
+        }
+      }
     })
 
     // Without this it might crash sometimes

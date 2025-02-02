@@ -65,6 +65,7 @@ App.config_keep = [`server`, `channels`, `port`, `nickname`, `admins`]
 App.enabled = true
 App.talk_count = 0
 App.talked = false
+App.talk_nick = ``
 App.talk_date = 0
 App.talk_date_max = 1000 * 10
 App.ask_charge = 0
@@ -73,6 +74,7 @@ App.openai_started = false
 App.google_started = false
 App.working = false
 App.debug = false
+App.think_delay = 1000
 
 // Load all JS source files
 
