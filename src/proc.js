@@ -23,7 +23,7 @@ export default (App) => {
     let low = args.message.toLowerCase()
 
     // Ignore messages with urls
-    if (low.includes(`http://`) || low.includes(`https://`) || low.includes(`www.`)) {
+    if (App.is_url(low)) {
       return
     }
 
