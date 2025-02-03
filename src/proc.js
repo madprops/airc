@@ -55,10 +55,8 @@ export default (App) => {
     let def_args = {}
     App.def_args(def_args, args)
 
-    args.message = args.message.replace(/^[^\w]+/, ``)
-    let mention_char = App.escape_regex(App.config.mention_char)
-
     let mention
+    let mention_char = App.escape_regex(App.config.mention_char)
     let re = new RegExp(`^(?<text>.*)\\s+${mention_char}(?<nickname>\\w+)$`, ``)
     let match = args.message.match(re)
 
