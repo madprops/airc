@@ -585,10 +585,13 @@ export default (App) => {
       App.talk_count = count
     }
 
-    let limit = App.config.talk_limit
+    let limit
 
     if (App.talk_nick === App.nick()) {
-      limit = limit * 2
+      limit = App.config.think_limit
+    }
+    else {
+      limit = App.config.talk_limit
     }
 
     if (count > limit) {

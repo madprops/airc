@@ -41,6 +41,7 @@
   "words": 30,
   "prompts": {},
   "talk_limit": 2,
+  "think_limit": 4,
   "multiprocess": false,
   "markdown": true,
   "color_backticks": "green",
