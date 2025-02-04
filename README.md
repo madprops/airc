@@ -41,6 +41,7 @@ It now supports local models through `node-llama-cpp`.
 1. [Markdown](#markdown)
 1. [Lists](#lists)
 1. [Talk](#talk)
+1. [Think](#think)
 1. [Anti-Spam](#antispam)
 1. [Image](#image)
 
