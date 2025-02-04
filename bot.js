@@ -74,6 +74,9 @@ App.openai_started = false
 App.google_started = false
 App.working = false
 App.debug = false
+App.marker_1 = `\u200B`
+App.marker_2 = `\u200C`
+App.talk_signature = App.marker_1 + App.marker_2
 
 // Load all JS source files
 
@@ -100,6 +103,7 @@ for (let file of js_files) {
 
 App.log(`Starting: ${App.name}`)
 App.setup_config()
+App.setup_regex()
 App.setup_commands()
 App.start_antispam()
 App.start_openai()

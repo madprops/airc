@@ -2,12 +2,27 @@
 // Input from irc is checked and maybe sent to openai
 
 export default (App) => {
+  App.setup_regex = () => {
+    let c = App.escape_regex(App.config.mention_char)
+    let m1 = App.escape_regex(App.marker_1)
+    let m2 = App.escape_regex(App.marker_2)
+    let s = `^(?:(?<avatar>[^,:\\s]+)\\s)?(?<nickname>\\w+)[,:]\\s*(?<text>.*)(\\s+${c}(?<mention>\\w+))?[${m1}${m2}]*$`
+    App.message_regex = new RegExp(s, ``)
+  }
+
   App.process_message = (args = {}) => {
     let def_args = {}
     App.def_args(def_args, args)
 
     // Ignore if the user is banned
     if (App.check_ban(args.from)) {
+      return
+    }
+
+    // Add one spam point
+    if (App.add_spam(args.from)) {
+      let mins = App.plural(App.config.spam_minutes, `minute`, `minutes`)
+      App.irc_respond(args.channel, `${args.from} was banned for ${mins}.`)
       return
     }
 
@@ -54,27 +69,25 @@ export default (App) => {
   App.check_nick_mention = (args = {}) => {
     let def_args = {}
     App.def_args(def_args, args)
-
-    let mention
-    let mention_char = App.escape_regex(App.config.mention_char)
-    let re = new RegExp(`^(?<text>.*)\\s+${mention_char}(?<nickname>\\w+)$`, ``)
-    let match = args.message.match(re)
-
-    if (match) {
-      mention = args.from
-    }
-    else {
-      re = new RegExp(/^(?<nickname>\w+)[,:](?<text>.*)$/, ``)
-      match = args.message.match(re)
-    }
+    let match = args.message.match(App.message_regex)
 
     if (!match) {
       App.autorespond(args.channel, args.message)
       return
     }
 
-    let nick = match.groups.nickname.trim()
-    let prompt = match.groups.text.trim()
+    let nick = match.groups?.nickname?.trim()
+    let prompt = match.groups?.text?.trim()
+    let mention = match.groups?.mention?.trim()
+    console.log(nick, prompt, mention)
+
+    if (!nick) {
+      if (!mention) {
+        return
+      }
+
+      nick = args.from
+    }
 
     if (!nick || !prompt) {
       return
@@ -88,10 +101,17 @@ export default (App) => {
       }
     }
 
-    // Add one spam point
-    if (App.add_spam(args.from)) {
-      let mins = App.plural(App.config.spam_minutes, `minute`, `minutes`)
-      App.irc_respond(args.channel, `${args.from} was banned for ${mins}.`)
+    if (args.message.endsWith(App.talk_signature)) {
+      prompt = App.remove_talk_signature(prompt)
+
+      App.prompt({
+        prompt,
+        channel: args.channel,
+        from: args.from,
+        mention: args.from,
+        sign_talk: true,
+      })
+
       return
     }
 
@@ -166,25 +186,9 @@ export default (App) => {
     })
 
     let now = App.now()
-    let thinking = false
 
     if (args.mention) {
-      if ((now - App.talk_date) >= App.talk_date_max) {
-        App.talk_count = 0
-        App.talked = false
-      }
-
-      App.talk_count += 1
-      let limit = App.config.talk_limit
-
-      if (App.talk_nick === App.config.nickname) {
-        limit = limit * 2
-        thinking = true
-      }
-
-      if (App.talk_count > limit) {
-        App.talk_count = 0
-        App.talked = false
+      if (!App.check_talk()) {
         return
       }
 
@@ -192,18 +196,12 @@ export default (App) => {
         no_context = true
       }
 
-      if (!App.config.talk_limit || (App.config.talk_limit <= 0)) {
-        return
-      }
-
       App.talked = true
       App.talk_date = now
       App.talk_nick = args.mention
     }
     else {
-      App.talk_count = 0
-      App.talked = false
-      App.talk_nick = ``
+      App.reset_talk()
     }
 
     // Prompt plus optional context and rules
@@ -346,7 +344,11 @@ export default (App) => {
       }
 
       if (args.mention) {
-        full_response = `${full_response} ${App.config.mention_char}${args.mention}`
+        full_response = `${args.mention}, ${full_response}`
+      }
+
+      if (args.sign_talk) {
+        full_response = App.sign_talk(full_response)
       }
 
       if (full_response.length > App.config.upload_max) {
@@ -406,7 +408,8 @@ export default (App) => {
   }
 
   App.think = (channel, who, from) => {
-    App.talk_to(channel, App.config.nickname, from)
+    let nick = App.nick()
+    App.talk_to(channel, nick, nick)
   }
 
   App.talk_to = (channel, who, from) => {
@@ -418,8 +421,7 @@ export default (App) => {
       return
     }
 
-    App.talk_count = 0
-    App.talked = false
+    App.reset_talk()
 
     let prompts = [
       `Make a random comment about something you like`,
@@ -437,6 +439,7 @@ export default (App) => {
       channel,
       max_words: App.config.autorespond_words,
       mention: who,
+      sign_talk: true,
     })
   }
 
@@ -522,5 +525,46 @@ export default (App) => {
     new App.Rentry(text, password, channel, (txt, pw, ch) => {
       App.irc_respond(ch, txt)
     })
+  }
+
+  App.check_talk = (just_check = false) => {
+    if ((App.now() - App.talk_date) >= App.talk_date_max) {
+      if (!just_check) {
+        App.reset_talk()
+      }
+    }
+
+    let count = App.talk_count + 1
+
+    if (!just_check) {
+      App.talk_count = count
+    }
+
+    let limit = App.config.talk_limit
+
+    if (App.talk_nick === App.config.nickname) {
+      limit = limit * 2
+    }
+
+    if (count > limit) {
+      App.reset_talk()
+      return false
+    }
+
+    return true
+  }
+
+  App.reset_talk = () => {
+    App.talk_count = 0
+    App.talked = false
+    App.talk_nick = ``
+  }
+
+  App.sign_talk = (text) => {
+    return `${text}${App.talk_signature}`
+  }
+
+  App.remove_talk_signature = (text) => {
+    return text.slice(0, -App.talk_signature.length).trim()
   }
 }

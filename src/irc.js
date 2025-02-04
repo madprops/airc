@@ -8,6 +8,14 @@ export default (App) => {
     })
 
     App.irc_client.addListener(`message`, (from, channel, message) => {
+      App.on_irc_message(from, channel, message)
+    })
+
+    App.irc_client.addListener(`selfMessage`, (channel, message) => {
+      App.on_irc_message(App.nick(), channel, message)
+    })
+
+    App.on_irc_message = (from, channel, message) => {
       // Ignore private messages
       if (!channel.startsWith(`#`)) {
         return
@@ -27,20 +35,7 @@ export default (App) => {
       catch (err) {
         App.log(err, `error`)
       }
-    })
-
-    App.irc_client.addListener(`selfMessage`, (channel, message) => {
-      let nick = App.nick()
-
-      if (message.endsWith(`${App.config.mention_char}${nick}`)) {
-        try {
-          App.process_message({from: nick, channel, message})
-        }
-        catch (err) {
-          App.log(err, `error`)
-        }
-      }
-    })
+    }
 
     // Without this it might crash sometimes
     App.irc_client.addListener(`error`, (err) => {

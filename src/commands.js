@@ -532,6 +532,7 @@ export default (App) => {
       name: `mention_char`,
       on_arg: (data) => {
         App.cmd_string(data, `mention_char`)
+        App.setup_regex()
       },
     },
     {
