@@ -79,7 +79,6 @@ export default (App) => {
     let nick = match.groups?.nickname?.trim()
     let prompt = match.groups?.text?.trim()
     let mention = match.groups?.mention?.trim()
-    console.log(nick, prompt, mention)
 
     if (!nick) {
       if (!mention) {
