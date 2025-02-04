@@ -218,7 +218,13 @@ export default (App) => {
 
       App.talked = true
       App.talk_date = now
-      App.talk_nick = args.mention
+
+      if (args.sign_talk) {
+        App.talk_nick = args.mention
+      }
+      else if (args.sign_think) {
+        App.talk_nick = args.from
+      }
     }
     else {
       App.reset_talk()
@@ -581,7 +587,7 @@ export default (App) => {
 
     let limit = App.config.talk_limit
 
-    if (App.talk_nick === App.config.nickname) {
+    if (App.talk_nick === App.nick()) {
       limit = limit * 2
     }
 
@@ -604,9 +610,8 @@ export default (App) => {
   App.sign_talk = (text) => {
     return `${text}${App.talk_signature}`
   }
+
   App.remove_talk_signature = (text) => {
-
-
     return text.slice(0, -App.talk_signature.length).trim()
   }
 
