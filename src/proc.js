@@ -109,6 +109,7 @@ export default (App) => {
         from: args.from,
         mention: args.from,
         sign_talk: true,
+        ongoing: true,
       })
 
       return
@@ -150,6 +151,8 @@ export default (App) => {
     let def_args = {
       test: false,
       max_words: App.config.words,
+      sign_talk: false,
+      ongoing: false,
     }
 
     App.def_args(def_args, args)
@@ -298,7 +301,10 @@ export default (App) => {
       }
     }
 
-    if (reveal_user) {
+    if (args.ongoing) {
+      prompt_add(`We are in an ongoing conversation, don't greet me. Don't mention my name.`)
+    }
+    else if (reveal_user) {
       prompt_add(`(You can refer to me as ${args.from} if you need to)`)
     }
 
@@ -430,8 +436,7 @@ export default (App) => {
     ]
 
     let n = App.get_random_int(0, prompts.length - 1)
-    let pre = `We are in an ongoing conversation, don't greet me. Don't mention my name.`
-    let prompt = `${pre} ${prompts[n]}`
+    let prompt = prompts[n]
 
     App.prompt({
       prompt,
@@ -440,6 +445,7 @@ export default (App) => {
       from: who,
       mention: who,
       sign_talk: true,
+      ongoing: true,
     })
   }
 
