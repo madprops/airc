@@ -58,6 +58,10 @@ export default (App) => {
       return [App.google_client, `gemini`]
     }
 
+    if (!App.is_path(App.config.model)) {
+      return [undefined, `none`]
+    }
+
     if (App.llama && (App.loaded_model === App.config.model)) {
       return [App.llama, `local`]
     }

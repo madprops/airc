@@ -289,4 +289,8 @@ export default (App) => {
   App.is_url = (text) => {
     return [`https://`, `http://`, `www.`].some(x => text.startsWith(x))
   }
+
+  App.is_path = (text) => {
+    return text.startsWith(`/`)
+  }
 }
