@@ -74,9 +74,10 @@ App.openai_started = false
 App.google_started = false
 App.working = false
 App.debug = false
-App.marker_1 = `\u200B`
-App.marker_2 = `\u200C`
+App.marker_1 = `\u2060`
+App.marker_2 = `\u200D`
 App.talk_signature = App.marker_1 + App.marker_2
+App.think_signature = App.marker_1 + App.marker_1
 
 // Load all JS source files
 

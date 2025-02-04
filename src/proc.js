@@ -6,7 +6,7 @@ export default (App) => {
     let c = App.escape_regex(App.config.mention_char)
     let m1 = App.escape_regex(App.marker_1)
     let m2 = App.escape_regex(App.marker_2)
-    let s = `^(?:(?<avatar>[^,:\\s]+)\\s)?(?<nickname>\\w+)[,:]\\s*(?<text>.*)(\\s+${c}(?<mention>\\w+))?[${m1}${m2}]*$`
+    let s = `^(?:(?<avatar>[^,:\\s]+)\\s)?(?:(?<nickname>\\w+)[,:]\\s*)?(?<text>.*)(\\s+${c}(?<mention>\\w+))?[${m1}${m2}]*$`
     App.message_regex = new RegExp(s, ``)
   }
 
@@ -66,6 +66,8 @@ export default (App) => {
     })
   }
 
+  // NICK MENTION
+
   App.check_nick_mention = (args = {}) => {
     let def_args = {}
     App.def_args(def_args, args)
@@ -79,6 +81,20 @@ export default (App) => {
     let nick = match.groups?.nickname?.trim()
     let prompt = match.groups?.text?.trim()
     let mention = match.groups?.mention?.trim()
+
+    if (App.is_think_signed(args.message)) {
+      if (args.from === App.nick()) {
+        App.prompt({
+          prompt,
+          channel: args.channel,
+          from: args.from,
+          sign_think: true,
+          ongoing: true,
+        })
+      }
+
+      return
+    }
 
     if (!nick) {
       if (!mention) {
@@ -100,9 +116,7 @@ export default (App) => {
       }
     }
 
-    if (args.message.endsWith(App.talk_signature)) {
-      prompt = App.remove_talk_signature(prompt)
-
+    if (App.is_talk_signed(args.message)) {
       App.prompt({
         prompt,
         channel: args.channel,
@@ -152,6 +166,7 @@ export default (App) => {
       test: false,
       max_words: App.config.words,
       sign_talk: false,
+      sign_think: false,
       ongoing: false,
     }
 
@@ -178,6 +193,9 @@ export default (App) => {
     let context_items = App.context[args.channel]
     let no_context = false
 
+    args.prompt = App.remove_talk_signature(args.prompt)
+    args.prompt = App.remove_think_signature(args.prompt)
+
     if (clear_on) {
       args.prompt = args.prompt.replace(clear_regex, ``)
     }
@@ -189,7 +207,7 @@ export default (App) => {
 
     let now = App.now()
 
-    if (args.mention) {
+    if (args.sign_talk || args.sign_think) {
       if (!App.check_talk()) {
         return
       }
@@ -355,6 +373,9 @@ export default (App) => {
       if (args.sign_talk) {
         full_response = App.sign_talk(full_response)
       }
+      else if (args.sign_think) {
+        full_response = App.sign_think(full_response)
+      }
 
       if (full_response.length > App.config.upload_max) {
         App.upload_text(args.channel, full_response)
@@ -432,19 +453,31 @@ export default (App) => {
       `Make a random comment about something you like`,
       `Ask me an interesting question`,
       `You just had a big realization`,
-      `Talk like an animal`,
     ]
 
     let n = App.get_random_int(0, prompts.length - 1)
     let prompt = prompts[n]
+    let sign_talk, sign_think, mention
+
+    if (who === from) {
+      sign_think = true
+      sign_talk = false
+      mention = ``
+    }
+    else {
+      sign_think = false
+      sign_talk = true
+      mention = who
+    }
 
     App.prompt({
       prompt,
       channel,
       max_words: App.config.autorespond_words,
       from: who,
-      mention: who,
-      sign_talk: true,
+      mention,
+      sign_talk,
+      sign_think,
       ongoing: true,
     })
   }
@@ -566,11 +599,32 @@ export default (App) => {
     App.talk_nick = ``
   }
 
+  //
+
   App.sign_talk = (text) => {
     return `${text}${App.talk_signature}`
   }
-
   App.remove_talk_signature = (text) => {
+
+
     return text.slice(0, -App.talk_signature.length).trim()
+  }
+
+  App.is_talk_signed = (text) => {
+    return text.endsWith(App.talk_signature)
+  }
+
+  //
+
+  App.sign_think = (text) => {
+    return `${text}${App.think_signature}`
+  }
+
+  App.remove_think_signature = (text) => {
+    return text.slice(0, -App.think_signature.length).trim()
+  }
+
+  App.is_think_signed = (text) => {
+    return text.endsWith(App.think_signature)
   }
 }
