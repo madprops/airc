@@ -430,13 +430,14 @@ export default (App) => {
     ]
 
     let n = App.get_random_int(0, prompts.length - 1)
-    let prompt = prompts[n]
+    let pre = `We are in an ongoing conversation, don't greet me. Don't mention my name.`
+    let prompt = `${pre} ${prompts[n]}`
 
     App.prompt({
-      from,
       prompt,
       channel,
       max_words: App.config.autorespond_words,
+      from: who,
       mention: who,
       sign_talk: true,
     })
