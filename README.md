@@ -508,6 +508,12 @@ Default: `>`
 
 Alias to "Please continue."
 
+### answer_char
+
+Default: `@`
+
+Alias to "Please answer your own question."
+
 ---
 
 For instance you can use them like `mybot, !`.
@@ -870,6 +876,18 @@ The length of the conversation is defined by the `talk_limit` config.
 The initial message is a random thought.
 
 A subject can be used with: `Bob, what is your favorite song? @Ray`.
+
+---
+
+## Think <a name="think"></a>
+
+Similar to Talk but the bot talks to itself.
+
+The way the messages are formatted is different.
+
+The bot doesn't mention itself.
+
+But it knows it's thinking because of invisible markers at the end of the message.
 
 ---
 
