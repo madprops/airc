@@ -193,10 +193,8 @@ export default (App) => {
     let context_items = App.context[args.channel]
     let no_context = false
 
-    console.log(args.prompt.length)
     args.prompt = App.remove_talk_signature(args.prompt)
     args.prompt = App.remove_think_signature(args.prompt)
-    console.log(args.prompt.length)
 
     if (clear_on) {
       args.prompt = args.prompt.replace(clear_regex, ``)
