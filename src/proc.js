@@ -170,6 +170,7 @@ export default (App) => {
       ongoing: false,
     }
 
+
     App.def_args(def_args, args)
     App.ask_charge += 1
 
@@ -193,8 +194,10 @@ export default (App) => {
     let context_items = App.context[args.channel]
     let no_context = false
 
+    console.log(args.prompt.length)
     args.prompt = App.remove_talk_signature(args.prompt)
     args.prompt = App.remove_think_signature(args.prompt)
+    console.log(args.prompt.length)
 
     if (clear_on) {
       args.prompt = args.prompt.replace(clear_regex, ``)
@@ -615,7 +618,8 @@ export default (App) => {
   }
 
   App.remove_talk_signature = (text) => {
-    return text.slice(0, -App.talk_signature.length).trim()
+    let s = `${App.escape_regex(App.talk_signature)}$`
+    return text.replace(new RegExp(s), ``).trim()
   }
 
   App.is_talk_signed = (text) => {
@@ -629,7 +633,8 @@ export default (App) => {
   }
 
   App.remove_think_signature = (text) => {
-    return text.slice(0, -App.think_signature.length).trim()
+    let s = `${App.escape_regex(App.think_signature)}$`
+    return text.replace(new RegExp(s), ``).trim()
   }
 
   App.is_think_signed = (text) => {
