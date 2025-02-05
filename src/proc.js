@@ -19,13 +19,6 @@ export default (App) => {
       return
     }
 
-    // Add one spam point
-    if (App.add_spam(args.from)) {
-      let mins = App.plural(App.config.spam_minutes, `minute`, `minutes`)
-      App.irc_respond(args.channel, `${args.from} was banned for ${mins}.`)
-      return
-    }
-
     let can_ask = App.is_allowed(`ask`, args.from)
     let can_rules = App.is_allowed(`rules`, args.from)
 
@@ -170,8 +163,14 @@ export default (App) => {
       ongoing: false,
     }
 
-
     App.def_args(def_args, args)
+
+    if (App.add_spam(args.from)) {
+      let mins = App.plural(App.config.spam_minutes, `minute`, `minutes`)
+      App.irc_respond(args.channel, `${args.from} was banned for ${mins}.`)
+      return
+    }
+
     App.ask_charge += 1
 
     if (App.ask_charge > App.max_ask_charge) {

@@ -802,6 +802,13 @@ export default (App) => {
     }
 
     App.def_args(def_args, args)
+
+    if (App.add_spam(args.from)) {
+      let mins = App.plural(App.config.spam_minutes, `minute`, `minutes`)
+      App.irc_respond(args.channel, `${args.from} was banned for ${mins}.`)
+      return
+    }
+
     let data = {}
     data.from = args.from
     data.channel = args.channel
