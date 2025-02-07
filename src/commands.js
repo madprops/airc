@@ -28,6 +28,7 @@ export default (App) => {
       `${App.p}max_rules [ number ]`,
       `${App.p}max_tokens [ number ]`,
       `${App.p}talk_limit [ number ]`,
+      `${App.p}think_limit [ number ]`,
       `${App.p}join + [ channel ]`,
       `${App.p}leave + [ channel? ]`,
       `${App.p}ban + [ nick ]`,
@@ -374,6 +375,12 @@ export default (App) => {
       name: `talk_limit`,
       on_arg: (data) => {
         App.cmd_num({key: `talk_limit`, data, max: 10})
+      },
+    },
+    {
+      name: `think_limit`,
+      on_arg: (data) => {
+        App.cmd_num({key: `think_limit`, data, max: 10})
       },
     },
     {
