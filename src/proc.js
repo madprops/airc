@@ -75,8 +75,12 @@ export default (App) => {
     let prompt = match.groups?.text?.trim()
     let mention = match.groups?.mention?.trim()
 
-    if (App.is_think_signed(args.message)) {
-      if (args.from === App.nick()) {
+    if (args.from === App.nick()) {
+      if (App.is_think_signed(args.message) || (nick === App.nick())) {
+        if (App.talk_count === 0) {
+          App.talk_count = 1
+        }
+
         App.prompt({
           prompt,
           channel: args.channel,
@@ -84,9 +88,9 @@ export default (App) => {
           sign_think: true,
           ongoing: true,
         })
-      }
 
-      return
+        return
+      }
     }
 
     if (!nick) {
