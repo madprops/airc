@@ -384,6 +384,12 @@ export default (App) => {
       },
     },
     {
+      name: `upload_max`,
+      on_arg: (data) => {
+        App.cmd_num({key: `upload_max`, data, min: 1, max: 5000})
+      },
+    },
+    {
       name: `report`,
       on_exact: (data) => {
         App.cmd_report_self(data.channel)
@@ -711,6 +717,9 @@ export default (App) => {
     {
       name: `think`,
       on_exact: (data) => {
+        App.think(data.channel, data.arg, data.from)
+      },
+      on_arg: (data) => {
         App.think(data.channel, data.arg, data.from)
       },
       allow: `prompts`,
