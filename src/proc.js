@@ -443,12 +443,12 @@ export default (App) => {
     App.enabled = false
   }
 
-  App.think = (channel, who, from) => {
+  App.think = (channel, prompt, from) => {
     let nick = App.nick()
-    App.talk_to(channel, nick, nick)
+    App.talk_to(channel, nick, nick, prompt)
   }
 
-  App.talk_to = (channel, who, from) => {
+  App.talk_to = (channel, who, from, prompt = ``) => {
     if (!who) {
       return
     }
@@ -466,7 +466,11 @@ export default (App) => {
     ]
 
     let n = App.get_random_int(0, prompts.length - 1)
-    let prompt = prompts[n]
+
+    if (!prompt) {
+      prompt = prompts[n]
+    }
+
     let sign_talk, sign_think, mention
 
     if (who === from) {
