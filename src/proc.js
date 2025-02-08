@@ -387,6 +387,12 @@ export default (App) => {
         full_response = App.sign_think(full_response)
       }
 
+      let no_upload
+
+      if (args.sign_talk || args.sign_think) {
+        no_upload = true
+      }
+
       if (full_response.length > App.config.upload_max) {
         App.upload_text(args.channel, full_response)
       }
@@ -575,7 +581,10 @@ export default (App) => {
   App.upload_text = (channel, text) => {
     let password = App.config.upload_password
 
-    new App.Rentry(text, password, channel, (txt, pw, ch) => {
+    // Upload then show the first 100 chars and the link
+    new App.Rentry(text, password, channel, (url, pw, ch) => {
+      let txt = text.substring(0, 100)
+      txt += `... ${url}`
       App.irc_respond(ch, txt)
     })
   }
