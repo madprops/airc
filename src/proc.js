@@ -52,16 +52,16 @@ export default (App) => {
       }
     }
 
-    App.check_nick_mention({
+    App.check_prompt({
       from: args.from,
       channel: args.channel,
       message: args.message,
     })
   }
 
-  // NICK MENTION
+  // Check Prompt
 
-  App.check_nick_mention = (args = {}) => {
+  App.check_prompt = (args = {}) => {
     let def_args = {}
     App.def_args(def_args, args)
     let match = args.message.match(App.message_regex)
@@ -79,6 +79,16 @@ export default (App) => {
       if (App.is_think_signed(args.message) || (nick === App.nick())) {
         if (App.talk_count === 0) {
           App.talk_count = 1
+        }
+
+        let ctx = App.context[args.channel]
+
+        if (ctx) {
+          let last = ctx.at(-1)
+
+          if (last) {
+            prompt = last.ai
+          }
         }
 
         App.prompt({
@@ -383,7 +393,18 @@ export default (App) => {
         full_response = `${args.mention}, ${full_response}`
       }
 
-      if (full_response.length > App.config.upload_max) {
+      if (args.sign_think && (full_response.length >= App.config.long_message)) {
+        let s = `[Long Message]`
+        App.long_message_count += 1
+
+        if (App.long_message_count > 1) {
+          s += ` x${App.long_message_count}`
+        }
+
+        s = App.add_signature(args, s)
+        App.irc_respond(args.channel, s)
+      }
+      else if (full_response.length > App.config.upload_max) {
         App.upload_text(args, full_response)
       }
       else {
@@ -604,7 +625,7 @@ export default (App) => {
     })
   }
 
-  App.check_talk = (just_check = false, mode = "idk") => {
+  App.check_talk = (just_check = false, mode = `idk`) => {
     if ((App.now() - App.talk_date) >= App.talk_date_max) {
       if (!just_check) {
         App.reset_talk(mode)
@@ -634,7 +655,7 @@ export default (App) => {
     return true
   }
 
-  App.reset_talk = (mode = "idk") => {
+  App.reset_talk = (mode = `idk`) => {
     if (mode === `think`) {
       App.think_done()
     }
@@ -645,6 +666,7 @@ export default (App) => {
     App.talk_nick = ``
     App.think_messages = []
     App.talk_channel = ``
+    App.long_message_count = 0
   }
 
   //
@@ -693,10 +715,10 @@ export default (App) => {
       return
     }
 
-    let text = ""
+    let text = ``
 
     for (let m of App.think_messages) {
-      text += m.ai + "\n\n"
+      text += m.ai + `\n\n`
     }
 
     text = text.trim()

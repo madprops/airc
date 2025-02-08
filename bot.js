@@ -80,6 +80,7 @@ App.marker_2 = `\u200D`
 App.talk_signature = App.marker_1 + App.marker_2
 App.think_signature = App.marker_1 + App.marker_1
 App.think_messages = []
+App.long_message_count = 0
 
 // Load all JS source files
 

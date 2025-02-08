@@ -386,6 +386,12 @@ export default (App) => {
       },
     },
     {
+      name: `long_message`,
+      on_arg: (data) => {
+        App.cmd_num({key: `long_message`, data, min: 1, max: 5000})
+      },
+    },
+    {
       name: `upload_max`,
       on_arg: (data) => {
         App.cmd_num({key: `upload_max`, data, min: 1, max: 5000})
