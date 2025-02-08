@@ -221,9 +221,7 @@ export default (App) => {
     let now = App.now()
 
     if (args.talk || args.think) {
-      let mode = args.talk ? `talk` : `think`
-
-      if (!App.check_talk(false, mode)) {
+      if (!App.check_talk(false)) {
         return
       }
 
@@ -509,6 +507,7 @@ export default (App) => {
       prompt = prompts[n]
     }
 
+    App.talk_prompt = prompt.trim()
     let talk, think, mention
 
     if (who === from) {
@@ -628,10 +627,11 @@ export default (App) => {
     })
   }
 
-  App.check_talk = (just_check = false, mode = `idk`) => {
-    if ((App.now() - App.talk_date) >= App.talk_date_max) {
+  App.check_talk = (just_check = false) => {
+    if ((App.talk_date > 0) && ((App.now() - App.talk_date) >= App.talk_date_max)) {
       if (!just_check) {
-        App.reset_talk(mode)
+        App.reset_talk()
+        return false
       }
     }
 
@@ -651,15 +651,18 @@ export default (App) => {
     }
 
     if (count > limit) {
-      App.reset_talk(mode)
+      if (!just_check) {
+        App.reset_talk()
+      }
+
       return false
     }
 
     return true
   }
 
-  App.reset_talk = (mode = `idk`) => {
-    if (mode === `think`) {
+  App.reset_talk = () => {
+    if (App.thinking) {
       App.think_done()
     }
 
@@ -671,6 +674,7 @@ export default (App) => {
     App.talk_channel = ``
     App.long_message_count = 0
     App.thinking = false
+    App.talk_prompt = ``
   }
 
   //
@@ -709,7 +713,10 @@ export default (App) => {
       lines.push(m.ai)
     }
 
-    let text = lines.join(`\n\n---\n\n`)
+    let nick = `${App.config.avatar} ${App.talk_nick}`.trim()
+    let text = `${nick} is going to think: ${App.talk_prompt}\n\n---\n\n`
+    text += lines.join(`\n\n---\n\n`)
+
     App.upload_text_2(App.talk_channel, `Full Think:`, text)
   }
 }
