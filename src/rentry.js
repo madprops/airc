@@ -73,7 +73,7 @@ export default (App) => {
         this.after_upload(url, this.password, this.channel)
       }
       catch (err) {
-        App.log(`Upload failed:`, err)
+        App.log(err, `error`)
       }
     }
   }

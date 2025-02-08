@@ -68,6 +68,7 @@ App.talked = false
 App.talk_nick = ``
 App.talk_date = 0
 App.talk_date_max = 1000 * 10
+App.talk_channel = ``
 App.ask_charge = 0
 App.max_ask_charge = 10
 App.openai_started = false
@@ -78,6 +79,7 @@ App.marker_1 = `\u2060`
 App.marker_2 = `\u200D`
 App.talk_signature = App.marker_1 + App.marker_2
 App.think_signature = App.marker_1 + App.marker_1
+App.think_messages = []
 
 // Load all JS source files
 

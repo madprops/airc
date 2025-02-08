@@ -293,4 +293,12 @@ export default (App) => {
   App.is_path = (text) => {
     return text.startsWith(`/`)
   }
+
+  App.rentry_upload = (channel, text, callback) => {
+    let password = App.config.upload_password
+
+    new App.Rentry(text, password, channel, (url, pw, ch) => {
+      callback(url, pw, ch)
+    })
+  }
 }

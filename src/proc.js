@@ -212,7 +212,9 @@ export default (App) => {
     let now = App.now()
 
     if (args.sign_talk || args.sign_think) {
-      if (!App.check_talk()) {
+      let mode = args.sign_talk ? `talk` : `think`
+
+      if (!App.check_talk(false, mode)) {
         return
       }
 
@@ -222,6 +224,7 @@ export default (App) => {
 
       App.talked = true
       App.talk_date = now
+      App.talk_channel = args.channel
 
       if (args.sign_talk) {
         App.talk_nick = args.mention
@@ -393,8 +396,25 @@ export default (App) => {
         let context_ai = App.limit(response, App.config.max_context)
         let context = {user: context_user, ai: context_ai, date: App.now(), from: args.from}
 
+        if (args.sign_think) {
+          App.think_messages.push(context)
+        }
+
         if (App.context[args.channel] === undefined) {
           App.context[args.channel] = []
+        }
+
+        if (context_ai.length >= App.config.long_message) {
+          let new_items = []
+
+          for (let m of App.context[args.channel]) {
+            if ((m.user.length < App.config.long_message) &&
+            (m.ai.length < App.config.long_message)) {
+              new_items.push(m)
+            }
+          }
+
+          App.context[args.channel] = new_items
         }
 
         App.context[args.channel].push(context)
@@ -567,11 +587,9 @@ export default (App) => {
   }
 
   App.upload_text = (args, text) => {
-    let password = App.config.upload_password
-
     // Upload then show the first 100 chars and the link
     // Make sure to add the signatures at the end
-    new App.Rentry(text, password, args.channel, (url, pw, ch) => {
+    App.rentry_upload(args.channel, text, (url, pw, ch) => {
       let txt = text.substring(0, 100).trim()
       txt += `... ${url}`
       txt = App.add_signature(args, txt)
@@ -579,10 +597,17 @@ export default (App) => {
     })
   }
 
-  App.check_talk = (just_check = false) => {
+  App.upload_text_2 = (channel, message, text) => {
+    App.rentry_upload(channel, text, (url, pw, ch) => {
+      let txt = `${message} ${url}`
+      App.irc_respond(ch, txt)
+    })
+  }
+
+  App.check_talk = (just_check = false, mode = "idk") => {
     if ((App.now() - App.talk_date) >= App.talk_date_max) {
       if (!just_check) {
-        App.reset_talk()
+        App.reset_talk(mode)
       }
     }
 
@@ -602,18 +627,24 @@ export default (App) => {
     }
 
     if (count > limit) {
-      App.reset_talk()
+      App.reset_talk(mode)
       return false
     }
 
     return true
   }
 
-  App.reset_talk = () => {
+  App.reset_talk = (mode = "idk") => {
+    if (mode === `think`) {
+      App.think_done()
+    }
+
     App.talk_date = 0
     App.talk_count = 0
     App.talked = false
     App.talk_nick = ``
+    App.think_messages = []
+    App.talk_channel = ``
   }
 
   //
@@ -655,5 +686,25 @@ export default (App) => {
     }
 
     return text
+  }
+
+  App.think_done = () => {
+    if (!App.think_messages.length) {
+      return
+    }
+
+    let text = ""
+
+    for (let m of App.think_messages) {
+      text += m.ai + "\n\n"
+    }
+
+    text = text.trim()
+
+    if (!text) {
+      return
+    }
+
+    App.upload_text_2(App.talk_channel, `Full Think:`, text)
   }
 }

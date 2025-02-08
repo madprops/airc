@@ -50,6 +50,8 @@ export default (App) => {
       `${App.p}test + [ test prompt ]`,
       `${App.p}talkto + [ target ]`,
       `${App.p}talk_delay + [ ms ]`,
+      `${App.p}upload_max + [ number ]`,
+      `${App.p}long_message + [ number ]`,
       `${App.p}think`,
       `${App.p}clear`,
       `${App.p}invert`,
