@@ -715,7 +715,7 @@ export default (App) => {
     }
 
     let nick = `${App.config.avatar} ${App.talk_nick}`.trim()
-    let text = `${nick} is going to think: ${App.talk_prompt}\n\n---\n\n`
+    let text = `${nick}: ${App.talk_prompt}\n\n---\n\n`
     text += lines.join(`\n\n---\n\n`)
 
     App.upload_text_2(App.talk_channel, `Full Think:`, text)
