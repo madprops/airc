@@ -493,6 +493,7 @@ export default (App) => {
       return
     }
 
+    App.clear_context(channel)
     App.reset_talk()
 
     let prompts = [
