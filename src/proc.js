@@ -611,6 +611,7 @@ export default (App) => {
   }
 
   App.reset_talk = () => {
+    App.talk_date = 0
     App.talk_count = 0
     App.talked = false
     App.talk_nick = ``
