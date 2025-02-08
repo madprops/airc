@@ -699,22 +699,17 @@ export default (App) => {
   }
 
   App.think_done = () => {
-    if (!App.think_messages.length) {
+    if (App.think_messages.length < 4) {
       return
     }
 
-    let text = ``
+    let lines = []
 
     for (let m of App.think_messages) {
-      text += m.ai + `\n\n`
+      lines.push(m.ai)
     }
 
-    text = text.trim()
-
-    if (!text) {
-      return
-    }
-
+    let text = lines.join(`\n\n---\n\n`)
     App.upload_text_2(App.talk_channel, `Full Think:`, text)
   }
 }
