@@ -76,7 +76,7 @@ export default (App) => {
     let mention = match.groups?.mention?.trim()
 
     if (args.from === App.nick()) {
-      if (App.is_think_signed(args.message) || (nick === App.nick())) {
+      if (App.thinking || (nick === App.nick())) {
         if (App.talk_count === 0) {
           App.talk_count = 1
         }
@@ -95,7 +95,7 @@ export default (App) => {
           prompt,
           channel: args.channel,
           from: args.from,
-          sign_think: true,
+          think: true,
           ongoing: true,
         })
 
@@ -129,7 +129,7 @@ export default (App) => {
         channel: args.channel,
         from: args.from,
         mention: args.from,
-        sign_talk: true,
+        talk: true,
         ongoing: true,
       })
 
@@ -172,8 +172,8 @@ export default (App) => {
     let def_args = {
       test: false,
       max_words: App.config.words,
-      sign_talk: false,
-      sign_think: false,
+      talk: false,
+      think: false,
       ongoing: false,
     }
 
@@ -208,7 +208,6 @@ export default (App) => {
     let no_context = false
 
     args.prompt = App.remove_talk_signature(args.prompt)
-    args.prompt = App.remove_think_signature(args.prompt)
 
     if (clear_on) {
       args.prompt = args.prompt.replace(clear_regex, ``)
@@ -221,11 +220,15 @@ export default (App) => {
 
     let now = App.now()
 
-    if (args.sign_talk || args.sign_think) {
-      let mode = args.sign_talk ? `talk` : `think`
+    if (args.talk || args.think) {
+      let mode = args.talk ? `talk` : `think`
 
       if (!App.check_talk(false, mode)) {
         return
+      }
+
+      if (args.think) {
+        App.thinking = true
       }
 
       if (!App.talked) {
@@ -236,10 +239,10 @@ export default (App) => {
       App.talk_date = now
       App.talk_channel = args.channel
 
-      if (args.sign_talk) {
+      if (args.talk) {
         App.talk_nick = args.mention
       }
-      else if (args.sign_think) {
+      else if (args.think) {
         App.talk_nick = args.from
       }
     }
@@ -393,7 +396,7 @@ export default (App) => {
         full_response = `${args.mention}, ${full_response}`
       }
 
-      if (args.sign_think && (full_response.length >= App.config.long_message)) {
+      if (args.think && (full_response.length >= App.config.long_message)) {
         let s = `[Long Message]`
         App.long_message_count += 1
 
@@ -417,7 +420,7 @@ export default (App) => {
         let context_ai = App.limit(response, App.config.max_context)
         let context = {user: context_user, ai: context_ai, date: App.now(), from: args.from}
 
-        if (args.sign_think) {
+        if (args.think) {
           App.think_messages.push(context)
         }
 
@@ -506,16 +509,16 @@ export default (App) => {
       prompt = prompts[n]
     }
 
-    let sign_talk, sign_think, mention
+    let talk, think, mention
 
     if (who === from) {
-      sign_think = true
-      sign_talk = false
+      think = true
+      talk = false
       mention = ``
     }
     else {
-      sign_think = false
-      sign_talk = true
+      think = false
+      talk = true
       mention = who
     }
 
@@ -525,8 +528,8 @@ export default (App) => {
       max_words: App.config.autorespond_words,
       from: who,
       mention,
-      sign_talk,
-      sign_think,
+      talk,
+      think,
       ongoing: true,
     })
   }
@@ -667,6 +670,7 @@ export default (App) => {
     App.think_messages = []
     App.talk_channel = ``
     App.long_message_count = 0
+    App.thinking = false
   }
 
   //
@@ -686,25 +690,9 @@ export default (App) => {
 
   //
 
-  App.sign_think = (text) => {
-    return `${text}${App.think_signature}`
-  }
-
-  App.remove_think_signature = (text) => {
-    let s = `${App.escape_regex(App.think_signature)}$`
-    return text.replace(new RegExp(s), ``).trim()
-  }
-
-  App.is_think_signed = (text) => {
-    return text.endsWith(App.think_signature)
-  }
-
   App.add_signature = (args, text) => {
-    if (args.sign_talk) {
+    if (args.talk) {
       text = App.sign_talk(text)
-    }
-    else if (args.sign_think) {
-      text = App.sign_think(text)
     }
 
     return text
