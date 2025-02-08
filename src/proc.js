@@ -572,7 +572,7 @@ export default (App) => {
     // Upload then show the first 100 chars and the link
     // Make sure to add the signatures at the end
     new App.Rentry(text, password, args.channel, (url, pw, ch) => {
-      let txt = text.substring(0, 100)
+      let txt = text.substring(0, 100).trim()
       txt += `... ${url}`
       txt = App.add_signature(args, txt)
       App.irc_respond(ch, txt)
