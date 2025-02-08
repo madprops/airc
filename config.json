@@ -53,5 +53,5 @@
   "timeago": true,
   "upload_max": 500,
   "upload_password": "airc123",
-  "talk_delay": 1000
+  "talk_delay": 500
 }

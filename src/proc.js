@@ -380,23 +380,11 @@ export default (App) => {
         full_response = `${args.mention}, ${full_response}`
       }
 
-      if (args.sign_talk) {
-        full_response = App.sign_talk(full_response)
-      }
-      else if (args.sign_think) {
-        full_response = App.sign_think(full_response)
-      }
-
-      let no_upload
-
-      if (args.sign_talk || args.sign_think) {
-        no_upload = true
-      }
-
       if (full_response.length > App.config.upload_max) {
-        App.upload_text(args.channel, full_response)
+        App.upload_text(args, full_response)
       }
       else {
+        full_response = App.add_signature(args, full_response)
         App.irc_respond(args.channel, full_response)
       }
 
@@ -578,13 +566,15 @@ export default (App) => {
     App.irc_respond(channel, last.ai, false)
   }
 
-  App.upload_text = (channel, text) => {
+  App.upload_text = (args, text) => {
     let password = App.config.upload_password
 
     // Upload then show the first 100 chars and the link
-    new App.Rentry(text, password, channel, (url, pw, ch) => {
+    // Make sure to add the signatures at the end
+    new App.Rentry(text, password, args.channel, (url, pw, ch) => {
       let txt = text.substring(0, 100)
       txt += `... ${url}`
+      txt = App.add_signature(args, txt)
       App.irc_respond(ch, txt)
     })
   }
@@ -654,5 +644,16 @@ export default (App) => {
 
   App.is_think_signed = (text) => {
     return text.endsWith(App.think_signature)
+  }
+
+  App.add_signature = (args, text) => {
+    if (args.sign_talk) {
+      text = App.sign_talk(text)
+    }
+    else if (args.sign_think) {
+      text = App.sign_think(text)
+    }
+
+    return text
   }
 }
