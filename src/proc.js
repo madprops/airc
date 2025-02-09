@@ -175,6 +175,7 @@ export default (App) => {
       talk: false,
       think: false,
       ongoing: false,
+      no_names:  false,
     }
 
     App.def_args(def_args, args)
@@ -237,6 +238,11 @@ export default (App) => {
     }
 
     args.prompt = App.remove_talk_signature(args.prompt)
+
+    if (args.no_names) {
+      reveal_ai = false
+      reveal_user = false
+    }
 
     if (clear_on) {
       args.prompt = args.prompt.replace(clear_regex, ``)
@@ -741,6 +747,7 @@ export default (App) => {
     prompt += `\n\n---\n\n${p}:\n\n${App.talk_prompt}`
     args.prompt = prompt
     args.max_words = App.config.think_summary_words
+    args.no_names = true
     App.clear_context(args.channel)
   }
 
