@@ -412,14 +412,14 @@ export default (App) => {
         App.irc_respond(args.channel, full_response)
       }
 
+      if (args.think) {
+        App.think_messages.push(response)
+      }
+
       if (App.config.context > 0) {
         let context_user = App.limit(args.core_prompt, App.config.max_context)
         let context_ai = App.limit(response, App.config.max_context)
         let context = {user: context_user, ai: context_ai, date: App.now(), from: args.from}
-
-        if (args.think) {
-          App.think_messages.push(context)
-        }
 
         if (App.context[args.channel] === undefined) {
           App.context[args.channel] = []
@@ -717,8 +717,8 @@ export default (App) => {
 
     let lines = []
 
-    for (let m of App.think_messages) {
-      lines.push(m.ai)
+    for (let res of App.think_messages) {
+      lines.push(res)
     }
 
     let nick = `${App.config.avatar} ${App.talk_nick}`.trim()
@@ -731,8 +731,8 @@ export default (App) => {
   App.think_summary = (args) => {
     let lines = []
 
-    for (let m of App.think_messages) {
-      lines.push(m.ai)
+    for (let res of App.think_messages) {
+      lines.push(res)
     }
 
     let ctx = lines.join(`\n\n`).trim()

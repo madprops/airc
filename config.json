@@ -11,7 +11,7 @@
   "max_tokens": 2000,
   "max_prompt": 350,
   "max_rules": 350,
-  "max_context": 350,
+  "max_context": 500,
   "rules": "",
   "admins": [
     "madprops"
