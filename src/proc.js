@@ -736,8 +736,8 @@ export default (App) => {
     }
 
     let ctx = lines.join(`\n\n`).trim()
-    let prompt = `Consider each of these thoughts:\n\n${ctx}`
-    prompt += `\n\n---\n\nNow answer these questions in full:\n\n${App.talk_prompt}`
+    let prompt = `Consider the following text as reference or inspiration:\n\n${ctx}`
+    prompt += `\n\n---\n\nNow expound on this:\n\n${App.talk_prompt}`
     args.prompt = prompt
     args.max_words = App.config.think_summary_words
     App.clear_context(args.channel)
