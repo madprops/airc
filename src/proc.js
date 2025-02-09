@@ -213,6 +213,8 @@ export default (App) => {
         return
       }
 
+      console.log(args.prompt)
+
       if (args.think) {
         App.thinking = true
       }
@@ -736,7 +738,7 @@ export default (App) => {
     }
 
     let ctx = lines.join(`\n\n`)
-    let prompt = `Answer this: \`${App.talk_prompt}\`\nUsing the following as supplementary information:\n${ctx}`
+    let prompt = `Answer this: \`${App.talk_prompt}\`\n\nUsing the following as supplementary information:\n\n${ctx}`
     args.prompt = prompt
   }
 
