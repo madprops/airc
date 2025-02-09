@@ -213,8 +213,6 @@ export default (App) => {
         return
       }
 
-      console.log(args.prompt)
-
       if (args.think) {
         App.thinking = true
       }
