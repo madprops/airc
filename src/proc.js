@@ -735,8 +735,9 @@ export default (App) => {
       lines.push(m.ai)
     }
 
-    let ctx = lines.join(`\n\n`)
-    let prompt = `Answer this: \`${App.talk_prompt}\`\n\nUsing the following as supplementary information:\n\n${ctx}`
+    let ctx = lines.join(`\n\n`).trim()
+    let prompt = `Consider each of these thoughts:\n\n${ctx}`
+    prompt += `\n\n---\n\nNow answer these questions in full:\n\n${App.talk_prompt}`
     args.prompt = prompt
     args.max_words = App.config.think_summary_words
   }
