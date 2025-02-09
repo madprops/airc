@@ -757,6 +757,7 @@ export default (App) => {
     args.max_words = App.config.think_summary_words
     args.no_names = true
     args.sysprompt = App.config.think_summary_0 || `[empty]`
+    args.ongoing = false
     App.clear_context(args.channel)
   }
 
