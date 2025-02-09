@@ -740,6 +740,7 @@ export default (App) => {
     prompt += `\n\n---\n\nNow answer these questions in full:\n\n${App.talk_prompt}`
     args.prompt = prompt
     args.max_words = App.config.think_summary_words
+    App.clear_context(args.channel)
   }
 
   App.think_summary_enabled = () => {
