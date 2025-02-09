@@ -621,13 +621,19 @@ export default (App) => {
     {
       name: `autorespond_words`,
       on_arg: (data) => {
-        App.cmd_num({key: `autorespond_words`, data, min: 0})
+        App.cmd_num({key: `autorespond_words`, data, min: 0, max: 50000})
       },
     },
     {
       name: `words`,
       on_arg: (data) => {
-        App.cmd_num({key: `words`, data, min: 0})
+        App.cmd_num({key: `words`, data, min: 0, max: 50000})
+      },
+    },
+    {
+      name: `think_summary_words`,
+      on_arg: (data) => {
+        App.cmd_num({key: `think_summary_words`, data, min: 0, max: 50000})
       },
     },
     {

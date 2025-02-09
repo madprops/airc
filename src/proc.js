@@ -740,6 +740,7 @@ export default (App) => {
     let ctx = lines.join(`\n\n`)
     let prompt = `Answer this: \`${App.talk_prompt}\`\n\nUsing the following as supplementary information:\n\n${ctx}`
     args.prompt = prompt
+    args.max_words = App.config.think_summary_words
   }
 
   App.think_summary_enabled = () => {
