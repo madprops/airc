@@ -53,6 +53,8 @@ export default (App) => {
       `${App.p}talk_delay + [ ms ]`,
       `${App.p}upload_max + [ number ]`,
       `${App.p}long_message + [ number ]`,
+      `${App.p}think_summary_1 + [ text ]`,
+      `${App.p}think_summary_2 + [ text ]`,
       `${App.p}think`,
       `${App.p}clear`,
       `${App.p}invert`,
@@ -250,6 +252,20 @@ export default (App) => {
       name: `rules`,
       on_arg: (data) => {
         App.cmd_change_rules(data)
+      },
+      allow: `rules`,
+    },
+    {
+      name: `think_summary_1`,
+      on_arg: (data) => {
+        App.cmd_string(data, `think_summary_1`)
+      },
+      allow: `rules`,
+    },
+    {
+      name: `think_summary_2`,
+      on_arg: (data) => {
+        App.cmd_string(data, `think_summary_2`)
       },
       allow: `rules`,
     },
