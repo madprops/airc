@@ -54,5 +54,6 @@
   "upload_max": 500,
   "upload_password": "airc123",
   "talk_delay": 500,
-  "long_message": 500
+  "long_message": 500,
+  "think_summary": true
 }

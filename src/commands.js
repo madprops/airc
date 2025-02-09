@@ -44,6 +44,7 @@ export default (App) => {
       `${App.p}mention_char + [ char ]`,
       `${App.p}prompt + [ name = prompt ]`,
       `${App.p}debug + [ true | false ]`,
+      `${App.p}think_summary + [ true | false ]`,
       `${App.p}image + [ description ]`,
       `${App.p}sysprompt + [ Some base instructions ]`,
       `${App.p}say + [ thing to say exactly ]`,
@@ -695,9 +696,24 @@ export default (App) => {
       },
     },
     {
+      name: `testme`,
+      on_exact: (data) => {
+        App.testme()
+      },
+    },
+    {
       name: `config`,
       on_exact: (data) => {
         App.cmd_show_config(data.channel)
+      },
+    },
+    {
+      name: `think_summary`,
+      on_arg: (data) => {
+        App.cmd_bool(data, `think_summary`)
+      },
+      on_exact: (data) => {
+        App.irc_respond(data.channel, `Debug: ${App.debug}`)
       },
     },
     {

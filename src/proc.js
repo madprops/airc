@@ -206,22 +206,10 @@ export default (App) => {
     let reveal_user = App.config.reveal_user
     let context_items = App.context[args.channel]
     let no_context = false
-
-    args.prompt = App.remove_talk_signature(args.prompt)
-
-    if (clear_on) {
-      args.prompt = args.prompt.replace(clear_regex, ``)
-    }
-
-    args.prompt = args.prompt.replace(mention_regex, (match, group) => {
-      args.mention = group
-      return ``
-    })
-
     let now = App.now()
 
     if (args.talk || args.think) {
-      if (!App.check_talk(false)) {
+      if (!App.check_talk(false, args)) {
         return
       }
 
@@ -247,6 +235,17 @@ export default (App) => {
     else {
       App.reset_talk()
     }
+
+    args.prompt = App.remove_talk_signature(args.prompt)
+
+    if (clear_on) {
+      args.prompt = args.prompt.replace(clear_regex, ``)
+    }
+
+    args.prompt = args.prompt.replace(mention_regex, (match, group) => {
+      args.mention = group
+      return ``
+    })
 
     // Prompt plus optional context and rules
     let prompt = ``
@@ -628,7 +627,7 @@ export default (App) => {
     })
   }
 
-  App.check_talk = (just_check = false) => {
+  App.check_talk = (just_check = false, args = {}) => {
     if ((App.talk_date > 0) && ((App.now() - App.talk_date) >= App.talk_date_max)) {
       if (!just_check) {
         App.reset_talk()
@@ -652,6 +651,14 @@ export default (App) => {
     }
 
     if (count > limit) {
+      if ((count === (limit + 1)) && App.think_summary_enabled()) {
+        if (!just_check) {
+          App.think_summary(args)
+        }
+
+        return true
+      }
+
       if (!just_check) {
         App.reset_talk()
       }
@@ -719,5 +726,26 @@ export default (App) => {
     text += lines.join(`\n\n---\n\n`)
 
     App.upload_text_2(App.talk_channel, `Full Think:`, text)
+  }
+
+  App.think_summary = (args) => {
+    let lines = []
+
+    for (let m of App.think_messages) {
+      lines.push(m.ai)
+    }
+
+    let ctx = lines.join(`\n\n`)
+    let prompt = `Answer this: \`${App.talk_prompt}\`\nUsing the following as supplementary information:\n${ctx}`
+    args.prompt = prompt
+  }
+
+  App.think_summary_enabled = () => {
+    return App.thinking && App.config.think_summary && (App.config.think_limit >= 4)
+  }
+
+  // Make this run whatever
+  App.testme = () => {
+    //
   }
 }
