@@ -176,6 +176,7 @@ export default (App) => {
       think: false,
       ongoing: false,
       no_names:  false,
+      sysprompt: ``,
     }
 
     App.def_args(def_args, args)
@@ -315,8 +316,17 @@ export default (App) => {
       system.push(`Respond in ${ws}.`)
     }
 
+    let sysprompt
+
+    if (args.sysprompt.trim()) {
+      sysprompt = args.sysprompt.trim()
+    }
+    else {
+      sysprompt = system.join(` `)
+    }
+
     if (system.length) {
-      messages.unshift({role: `system`, content: system.join(` `)})
+      messages.unshift({role: `system`, content: sysprompt})
     }
 
     if (!clear_on && !no_context && context_items && context_items.length) {
@@ -747,6 +757,7 @@ export default (App) => {
     args.prompt = prompt
     args.max_words = App.config.think_summary_words
     args.no_names = true
+    args.sysprompt = App.config.think_summary_0
     App.clear_context(args.channel)
   }
 

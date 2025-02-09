@@ -256,6 +256,13 @@ export default (App) => {
       allow: `rules`,
     },
     {
+      name: `think_summary_0`,
+      on_arg: (data) => {
+        App.cmd_string(data, `think_summary_0`)
+      },
+      allow: `rules`,
+    },
+    {
       name: `think_summary_1`,
       on_arg: (data) => {
         App.cmd_string(data, `think_summary_1`)
