@@ -176,7 +176,6 @@ export default (App) => {
       think: false,
       ongoing: false,
       no_names:  false,
-      sysprompt: ``,
     }
 
     App.def_args(def_args, args)
@@ -302,6 +301,15 @@ export default (App) => {
       system.push(rules)
     }
 
+    let sysprompt
+
+    if (args.sysprompt !== undefined) {
+      sysprompt = args.sysprompt.trim()
+    }
+    else {
+      sysprompt = system.join(`\n`)
+    }
+
     // Limit the words
     if (args.max_words > 0) {
       let ws
@@ -313,16 +321,7 @@ export default (App) => {
         ws = `${args.max_words} words or less`
       }
 
-      system.push(`Respond in ${ws}.`)
-    }
-
-    let sysprompt
-
-    if (args.sysprompt.trim()) {
-      sysprompt = args.sysprompt.trim()
-    }
-    else {
-      sysprompt = system.join(` `)
+      sysprompt += `\nRespond in ${ws}.`
     }
 
     if (system.length) {
@@ -757,7 +756,7 @@ export default (App) => {
     args.prompt = prompt
     args.max_words = App.config.think_summary_words
     args.no_names = true
-    args.sysprompt = App.config.think_summary_0
+    args.sysprompt = App.config.think_summary_0 || `[empty]`
     App.clear_context(args.channel)
   }
 
