@@ -712,9 +712,6 @@ export default (App) => {
       on_arg: (data) => {
         App.cmd_bool(data, `think_summary`)
       },
-      on_exact: (data) => {
-        App.irc_respond(data.channel, `Debug: ${App.debug}`)
-      },
     },
     {
       name: `debug`,
