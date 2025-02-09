@@ -737,7 +737,7 @@ export default (App) => {
 
     let ctx = lines.join(`\n\n`).trim()
     let prompt = `Consider the following text as reference or inspiration:\n\n${ctx}`
-    let p = `Now expound on that to produce a useful summary. Only provide answers and resolve all questions`
+    let p = `Now expound on that to produce a useful summary. Resolve all questions in a finalized authoritative way`
     prompt += `\n\n---\n\n${p}:\n\n${App.talk_prompt}`
     args.prompt = prompt
     args.max_words = App.config.think_summary_words
