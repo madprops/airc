@@ -890,6 +890,10 @@ The bot doesn't mention itself.
 
 But it knows it's thinking because of invisible markers at the end of the message.
 
+Lots of work has been done on the think command lately.
+
+It can now upload the full thought process to rentry, including a general summary of the thoughts.
+
 ---
 
 ## Anti-Spam <a name="antispam"></a>
