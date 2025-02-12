@@ -83,6 +83,12 @@ App.think_messages = []
 App.long_message_count = 0
 App.thinking = false
 
+App.prompt_ideas = [
+  `Make a random comment about something you like`,
+  `Ask me an interesting question`,
+  `You just had a big realization`,
+]
+
 // Load all JS source files
 
 let srcpath = App.i.path.join(__dirname, `src`)

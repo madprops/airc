@@ -507,21 +507,20 @@ export default (App) => {
       return
     }
 
-    App.clear_context(channel)
     App.reset_talk()
 
-    let prompts = [
-      `Make a random comment about something you like`,
-      `Ask me an interesting question`,
-      `You just had a big realization`,
-    ]
-
-    let n = App.get_random_int(0, prompts.length - 1)
-
     if (!prompt) {
-      prompt = prompts[n]
+      if (App.context[channel] && App.context[channel].length) {
+        prompt = App.context[channel].at(-1).ai
+      }
     }
 
+    if (!prompt) {
+      let n = App.get_random_int(0, App.prompt_ideas.length - 1)
+      prompt = App.prompt_ideas[n]
+    }
+
+    App.clear_context(channel)
     App.talk_prompt = prompt.trim()
     let talk, think, mention
 
