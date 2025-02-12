@@ -592,6 +592,7 @@ export default (App) => {
       on_exact: (data) => {
         App.respond(data.channel)
       },
+      allow: `prompts`,
     },
     {
       name: `sysprompt`,
