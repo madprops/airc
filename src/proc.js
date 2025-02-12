@@ -187,8 +187,18 @@ export default (App) => {
         }
       }
       else if (args.think) {
-        if (App.config.think_prompt) {
-          args.sysprompt = App.config.think_prompt
+        if (App.config.think_prompt_1) {
+          if (App.config.think_prompt_2) {
+            if (App.talk_count % 2 === 0) {
+              args.sysprompt = App.config.think_prompt_2
+            }
+            else {
+              args.sysprompt = App.config.think_prompt_1
+            }
+          }
+          else {
+            args.sysprompt = App.config.think_prompt_1
+          }
         }
       }
     }
