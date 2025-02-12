@@ -9,6 +9,11 @@ export default (App) => {
 
     App.irc_client.addListener(`message`, (from, channel, message) => {
       App.on_irc_message(from, channel, message)
+
+      App.last_irc_message = {
+        from,
+        message,
+      }
     })
 
     App.irc_client.addListener(`selfMessage`, (channel, message) => {

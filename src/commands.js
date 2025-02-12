@@ -55,6 +55,7 @@ export default (App) => {
       `${App.p}long_message + [ number ]`,
       `${App.p}think_summary_1 + [ text ]`,
       `${App.p}think_summary_2 + [ text ]`,
+      `${App.p}reply`,
       `${App.p}think`,
       `${App.p}clear`,
       `${App.p}invert`,
@@ -584,6 +585,12 @@ export default (App) => {
       name: `join_char`,
       on_arg: (data) => {
         App.cmd_string(data, `join_char`)
+      },
+    },
+    {
+      name: `respond`,
+      on_exact: (data) => {
+        App.respond(data.channel)
       },
     },
     {

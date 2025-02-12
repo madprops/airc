@@ -768,4 +768,18 @@ export default (App) => {
   App.testme = () => {
     //
   }
+
+  App.respond = (channel) => {
+    let m = App.last_irc_message
+
+    if (!m.message) {
+      return
+    }
+
+    App.prompt({
+      from: m.from,
+      prompt: m.message,
+      channel,
+    })
+  }
 }

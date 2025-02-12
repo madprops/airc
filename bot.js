@@ -82,6 +82,7 @@ App.talk_signature = App.marker_1 + App.marker_2
 App.think_messages = []
 App.long_message_count = 0
 App.thinking = false
+App.last_irc_message = {}
 
 App.prompt_ideas = [
   `Make a random comment about something you like`,
