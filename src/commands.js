@@ -55,6 +55,8 @@ export default (App) => {
       `${App.p}long_message + [ number ]`,
       `${App.p}think_summary_1 + [ text ]`,
       `${App.p}think_summary_2 + [ text ]`,
+      `${App.p}talk_prompt + [ text ]`,
+      `${App.p}think_prompt + [ text ]`,
       `${App.p}reply`,
       `${App.p}think`,
       `${App.p}clear`,
@@ -274,6 +276,20 @@ export default (App) => {
       name: `think_summary_2`,
       on_arg: (data) => {
         App.cmd_string(data, `think_summary_2`)
+      },
+      allow: `rules`,
+    },
+    {
+      name: `talk_prompt`,
+      on_arg: (data) => {
+        App.cmd_string(data, `talk_prompt`)
+      },
+      allow: `rules`,
+    },
+    {
+      name: `think_prompt`,
+      on_arg: (data) => {
+        App.cmd_string(data, `think_prompt`)
       },
       allow: `rules`,
     },

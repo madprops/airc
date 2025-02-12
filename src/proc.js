@@ -180,6 +180,19 @@ export default (App) => {
 
     App.def_args(def_args, args)
 
+    if (args.sysprompt === undefined) {
+      if (args.talk) {
+        if (App.config.talk_prompt) {
+          args.sysprompt = App.config.talk_prompt
+        }
+      }
+      else if (args.think) {
+        if (App.config.think_prompt) {
+          args.sysprompt = App.config.think_prompt
+        }
+      }
+    }
+
     if (App.add_spam(args.from)) {
       let mins = App.plural(App.config.spam_minutes, `minute`, `minutes`)
       App.irc_respond(args.channel, `${args.from} was banned for ${mins}.`)
