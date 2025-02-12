@@ -748,6 +748,8 @@ export default (App) => {
       lines.push(res)
     }
 
+    lines.push(`Model: ${App.config.model}`)
+
     let nick = `${App.config.avatar} ${App.talk_nick}`.trim()
     let text = `${nick}: ${App.talk_prompt}\n\n---\n\n`
     text += lines.join(`\n\n---\n\n`)
