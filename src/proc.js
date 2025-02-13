@@ -176,6 +176,7 @@ export default (App) => {
       think: false,
       ongoing: false,
       no_names:  false,
+      context_items: [],
     }
 
     App.def_args(def_args, args)
@@ -228,7 +229,7 @@ export default (App) => {
     let answer_on = args.prompt === App.config.answer_char
     let reveal_ai = App.config.reveal_ai
     let reveal_user = App.config.reveal_user
-    let context_items = App.context[args.channel]
+    args.context_items = App.context[args.channel]
     let no_context = false
     let now = App.now()
 
@@ -351,8 +352,8 @@ export default (App) => {
       messages.unshift({role: `system`, content: sysprompt})
     }
 
-    if (!clear_on && !no_context && context_items && context_items.length) {
-      for (let c of context_items) {
+    if (!clear_on && !no_context && args.context_items && args.context_items.length) {
+      for (let c of args.context_items) {
         let u_content = c.user
 
         if (reveal_user) {
@@ -370,8 +371,8 @@ export default (App) => {
     let core_prompt = prompt
 
     if (App.config.timeago) {
-      if (context_items && context_items.length) {
-        let last = context_items.at(-1)
+      if (args.context_items && args.context_items.length) {
+        let last = args.context_items.at(-1)
         let [timeago, level] = App.timeago(last.date)
 
         if (level >= 2) {
@@ -782,7 +783,7 @@ export default (App) => {
     args.no_names = true
     args.sysprompt = App.config.think_summary_0 || `[empty]`
     args.ongoing = false
-    App.clear_context(args.channel)
+    args.context_items = []
   }
 
   App.think_summary_enabled = () => {
