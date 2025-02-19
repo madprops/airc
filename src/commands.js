@@ -58,6 +58,8 @@ export default (App) => {
       `${App.p}talk_prompt + [ text ]`,
       `${App.p}think_prompt_1 + [ text ]`,
       `${App.p}think_prompt_2 + [ text ]`,
+      `${App.p}save + [ name ]`,
+      `${App.p}load + [ name ]`,
       `${App.p}reply`,
       `${App.p}think`,
       `${App.p}clear`,
@@ -559,6 +561,18 @@ export default (App) => {
         App.raw_response(data.channel)
       },
       allow: `prompts`,
+    },
+    {
+      name: `save`,
+      on_arg: (data) => {
+        App.save_config(data.arg, data.channel)
+      },
+    },
+    {
+      name: `load`,
+      on_arg: (data) => {
+        App.load_config(data.arg, data.channel)
+      },
     },
     {
       name: `clear`,

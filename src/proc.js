@@ -808,4 +808,51 @@ export default (App) => {
       channel,
     })
   }
+
+  App.save_config = (name, channel) => {
+    let saved = App.i.path.join(App.dirname, `saved`)
+
+    if (!App.i.fs.existsSync(saved)) {
+      App.i.fs.mkdirSync(saved)
+    }
+
+    let file_path = App.i.path.join(saved, `${name}.json`)
+    let copy = JSON.parse(JSON.stringify(App.config))
+
+    let priv = [
+      `server`,
+      `channels`,
+      `port`,
+      `username`,
+      `nickname`,
+      `admins`,
+      `users`,
+    ]
+
+    for (let p of priv) {
+      delete copy[p]
+    }
+
+    let json = JSON.stringify(copy, null, 2)
+    App.i.fs.writeFileSync(file_path, json)
+    App.irc_respond(channel, `Config saved.`)
+  }
+
+  App.load_config = (name, channel) => {
+    let saved = App.i.path.join(App.dirname, `saved`)
+    let file_path = App.i.path.join(saved, `${name}.json`)
+
+    if (!App.i.fs.existsSync(file_path)) {
+      return
+    }
+
+    let json = App.i.fs.readFileSync(file_path, `utf8`)
+    let data = JSON.parse(json)
+
+    for (let k in data) {
+      App.config[k] = data[k]
+    }
+
+    App.irc_respond(channel, `Config loaded.`)
+  }
 }

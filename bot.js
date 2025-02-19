@@ -56,7 +56,7 @@ await imports()
 
 // Create __dirname equivalent for ES modules
 let __filename = fileURLToPath(import.meta.url)
-let __dirname = App.i.path.dirname(__filename)
+App.dirname = App.i.path.dirname(__filename)
 
 App.context = {}
 App.max_username_length = 25
@@ -92,7 +92,7 @@ App.prompt_ideas = [
 
 // Load all JS source files
 
-let srcpath = App.i.path.join(__dirname, `src`)
+let srcpath = App.i.path.join(App.dirname, `src`)
 let src_files
 
 try {
