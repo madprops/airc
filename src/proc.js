@@ -174,7 +174,7 @@ export default (App) => {
       max_words: App.config.words,
       talk: false,
       think: false,
-      ongoing: false,
+      ongoing: true,
       no_names:  false,
       context_items: [],
     }
