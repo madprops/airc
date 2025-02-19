@@ -387,6 +387,16 @@ There is also the `prompts` rule that controls who gets to set the prompts.
 
 ---
 
+Configs can be saved and loaded using `!save name` and `!load name` commands.
+
+This allows to save different configurations and change between them quickly.
+
+It saves everything except sensitive properties.
+
+They are saved in the `saved` directory.
+
+---
+
 ## Users <a name="users"></a>
 
 There is a `users` config that holds a list of irc nicknames.
