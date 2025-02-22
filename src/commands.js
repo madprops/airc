@@ -308,6 +308,7 @@ export default (App) => {
       name: `think_mode`,
       on_arg: (data) => {
         if (![`all`, `process`, `summary`].includes(data.arg)) {
+          App.irc_respond(data.channel, `It must be 'all', 'process' or 'summary'.`)
           return
         }
 
