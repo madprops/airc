@@ -62,5 +62,6 @@
   "think_prompt_2": "",
   "think_summary_0": "",
   "think_summary_1": "Consider the following text as reference or inspiration",
-  "think_summary_2": "Now give a full overview about what was said and provide possible insights"
+  "think_summary_2": "Now give a full overview about what was said and provide possible insights",
+  "think_mode": "all"
 }

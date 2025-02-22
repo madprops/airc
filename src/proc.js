@@ -87,8 +87,12 @@ export default (App) => {
           let last = ctx.at(-1)
 
           if (last) {
-            prompt = last.ai
+            prompt = App.think_messages.at(-1)
           }
+        }
+
+        if (!prompt) {
+          return
         }
 
         App.prompt({
@@ -441,14 +445,25 @@ export default (App) => {
         }
 
         s = App.add_signature(args, s)
-        App.irc_respond(args.channel, s)
+
+        if ([`all`, `process`].includes(App.config.think_mode)) {
+          App.irc_respond(args.channel, s)
+        }
       }
       else if (full_response.length > App.config.upload_max) {
         App.upload_text(args, full_response)
       }
       else {
         full_response = App.add_signature(args, full_response)
-        App.irc_respond(args.channel, full_response)
+        let ok = true
+
+        if (args.think) {
+          ok = [`all`, `process`].includes(App.config.think_mode)
+        }
+
+        if (ok) {
+          App.irc_respond(args.channel, full_response)
+        }
       }
 
       if (args.think) {
@@ -480,6 +495,20 @@ export default (App) => {
         App.context[args.channel].push(context)
         let sliced = App.context[args.channel].slice(-App.config.context)
         App.context[args.channel] = sliced
+      }
+
+      if ([`summary`].includes(App.config.think_mode)) {
+        let prompt = App.think_messages.at(-1)
+
+        if (prompt) {
+          App.prompt({
+            prompt,
+            channel: args.channel,
+            from: args.from,
+            think: true,
+            ongoing: true,
+          })
+        }
       }
     })
   }
@@ -787,7 +816,8 @@ export default (App) => {
   }
 
   App.think_summary_enabled = () => {
-    return App.thinking && App.config.think_summary && (App.config.think_limit >= 4)
+    let mode = [`all`, `summary`].includes(App.config.think_mode)
+    return App.thinking && App.config.think_summary && (App.config.think_limit >= 4) && mode
   }
 
   // Make this run whatever

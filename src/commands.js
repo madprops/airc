@@ -58,6 +58,7 @@ export default (App) => {
       `${App.p}talk_prompt + [ text ]`,
       `${App.p}think_prompt_1 + [ text ]`,
       `${App.p}think_prompt_2 + [ text ]`,
+      `${App.p}think_mode + [ all | process | summary ]`,
       `${App.p}save + [ name ]`,
       `${App.p}load + [ name ]`,
       `${App.p}reply`,
@@ -300,6 +301,17 @@ export default (App) => {
       name: `think_prompt_2`,
       on_arg: (data) => {
         App.cmd_string(data, `think_prompt_2`)
+      },
+      allow: `rules`,
+    },
+    {
+      name: `think_mode`,
+      on_arg: (data) => {
+        if (![`all`, `process`, `summary`].includes(data.arg)) {
+          return
+        }
+
+        App.cmd_string(data, `think_mode`)
       },
       allow: `rules`,
     },
