@@ -175,6 +175,7 @@ export default (App) => {
 
   App.cmd_change_rules = (data) => {
     App.cmd_string(data, `rules`, App.config.max_rules)
+    App.clear_context(data.channel)
   }
 
   App.cmd_num = (args = {}) => {
