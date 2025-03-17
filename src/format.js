@@ -63,23 +63,18 @@ export default (App) => {
 
       let matches = [...text.matchAll(regex)]
 
+      // Sort matches by position in descending order (end to beginning)
+      matches.sort((a, b) => b.index - a.index)
+
       for (let match of matches) {
-        let m
+        let m = full ? match[0] : match[1]
+        let index = match.index
+        let length = match[0].length
 
-        if (full) {
-          m = match[0]
-        }
-        else {
-          m = match[1]
-        }
-
-        if (mode !== `bold`) {
-          if (App.check_outer_color(text, match.index, m.length, mode)) {
-            continue
-          }
-        }
-
-        text = text.replace(match[0], func(m))
+        // Replace exactly at the match position using substring
+        text = text.substring(0, index) +
+               func(m) +
+               text.substring(index + length)
       }
     }
 
@@ -184,22 +179,5 @@ export default (App) => {
 
   App.unquote = (text) => {
     return text.replace(/^"(.*)"$/, `$1`)
-  }
-
-  App.check_outer_color = (text, index, length, mode) => {
-    let str = `\\x03\\d{1,2}.*\\x03`
-    let regex = new RegExp(str, `g`)
-    let matches = [...text.matchAll(regex)]
-
-    for (let match of matches) {
-      let index_start = match.index
-      let index_end = match.index + match[0].length - 1
-
-      if ((index_start <= index) && (index_end >= (index + length - 1))) {
-        return true
-      }
-    }
-
-    return false
   }
 }
