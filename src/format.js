@@ -69,6 +69,13 @@ export default (App) => {
       for (let match of matches) {
         let m = full ? match[0] : match[1]
         let index = match.index
+
+        if (mode !== `bold`) {
+          if (App.check_outer_color(text, index, m.length)) {
+            continue
+          }
+        }
+
         let length = match[0].length
 
         // Replace exactly at the match position using substring
@@ -179,5 +186,22 @@ export default (App) => {
 
   App.unquote = (text) => {
     return text.replace(/^"(.*)"$/, `$1`)
+  }
+
+  App.check_outer_color = (text, index, length) => {
+    let str = `\\x03\\d{1,2}.*\\x03`
+    let regex = new RegExp(str, `g`)
+    let matches = [...text.matchAll(regex)]
+
+    for (let match of matches) {
+      let index_start = match.index
+      let index_end = match.index + match[0].length - 1
+
+      if ((index_start <= index) && (index_end >= (index + length - 1))) {
+        return true
+      }
+    }
+
+    return false
   }
 }
