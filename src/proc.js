@@ -885,4 +885,23 @@ export default (App) => {
 
     App.irc_respond(channel, `Config loaded.`)
   }
+
+  App.program_prompt = (channel, arg) => {
+    let messages = []
+
+    let sysprompt = `You are a bot on irc and will be given an instruction to reconfigure yourself.`
+    messages.unshift({role: `system`, content: sysprompt})
+
+    let mx = App.config.max_rules
+    let u_content = `Write a new personality rule for yourself inspired on the following instruction: \`${arg}\` - This is a personality rule for AI responses on an irc bot. Keep it below ${mx} chars. Make the referring to yourself as other like "You are a famous sushi chef who likes old cartoons"`
+    messages.push({role: `user`, content: u_content})
+
+    App.ask_ai(messages, channel, (response) => {
+      if (response) {
+        let value = App.limit(response, mx)
+        App.update_config(`rules`, value)
+        App.cmd_show(channel, `rules`)
+      }
+    })
+  }
 }

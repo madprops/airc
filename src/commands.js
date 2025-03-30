@@ -683,6 +683,13 @@ export default (App) => {
       },
     },
     {
+      name: `program`,
+      on_arg: (data) => {
+        App.program_prompt(data.channel, data.arg)
+      },
+      allow: `rules`,
+    },
+    {
       name: `autorespond`,
       on_arg: (data) => {
         let n = parseInt(data.arg)
