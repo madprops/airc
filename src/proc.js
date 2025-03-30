@@ -893,7 +893,7 @@ export default (App) => {
     messages.unshift({role: `system`, content: sysprompt})
 
     let mx = App.config.max_rules
-    let u_content = `Write a new personality rule for yourself inspired on the following instruction: \`${arg}\` - This is a personality rule for AI responses on an irc bot. Keep it below ${mx} chars. Make the referring to yourself as other like "You are a famous sushi chef who likes old cartoons"`
+    let u_content = `Generate a single personality rule, under ${mx} characters, suitable for an IRC bot. Base the rule on the following instruction: "${arg}".  The rule should refer to the AI in the second person (e.g., "You are a...", "You enjoy..."). Do not include any introductory or concluding phrases. Only output the personality rule itself.`
     messages.push({role: `user`, content: u_content})
 
     App.ask_ai(messages, channel, (response) => {
