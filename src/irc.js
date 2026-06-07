@@ -4,6 +4,7 @@ export default (App) => {
       userName: App.config.username,
       channels: App.config.channels,
       port: App.config.port,
+      secure: App.config.ssl,
       retryCount: 10,
     })
 
