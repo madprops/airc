@@ -30,6 +30,22 @@ export default (App) => {
     App.log(`Google started`)
   }
 
+  App.start_openrouter = () => {
+    let key = process.env.OPENROUTER_API_KEY
+
+    if (!key) {
+      return
+    }
+
+    App.openrouter_client = new App.i.openai({
+      apiKey: key,
+      baseURL: `https://openrouter.ai/api/v1`,
+    })
+
+    App.openrouter_started = true
+    App.log(`OpenRouter started`)
+  }
+
   App.is_gpt = () => {
     let model = App.config.model
     return model.startsWith(`gpt-`)
@@ -40,8 +56,21 @@ export default (App) => {
     return model.startsWith(`gemini-`)
   }
 
+  App.is_openrouter = () => {
+    let model = App.config.model
+    return model.startsWith(`openrouter:`) || ((model.indexOf(`/`) > 0) && !App.is_path(model))
+  }
+
   App.get_client = async (channel) => {
-    if (App.is_gpt()) {
+    if (App.is_openrouter()) {
+      if (!App.openrouter_started) {
+        App.irc_respond(channel, `OpenRouter API Key is missing.`)
+        return [undefined, `none`]
+      }
+
+      return [App.openrouter_client, `openrouter`]
+    }
+    else if (App.is_gpt()) {
       if (!App.openai_started) {
         App.irc_respond(channel, `OpenAI API Key is missing.`)
         return [undefined, `none`]
@@ -139,8 +168,14 @@ export default (App) => {
         })
       }
       else {
+        let req_model = model
+
+        if ((type === `openrouter`) && req_model.startsWith(`openrouter:`)) {
+          req_model = req_model.substring(11)
+        }
+
         let ans = await client.chat.completions.create({
-          model,
+          model: req_model,
           max_completion_tokens: App.config.max_tokens,
           messages,
         })
